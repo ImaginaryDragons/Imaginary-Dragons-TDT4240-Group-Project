@@ -2,11 +2,10 @@ package com.dragons.game.view.screens;
 
 import com.badlogic.gdx.Screen;
 
-public class LobbyScreen implements Screen {
+public class LobbyScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-
     }
 
     @Override
