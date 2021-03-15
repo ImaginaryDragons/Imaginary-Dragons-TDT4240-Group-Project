@@ -31,7 +31,7 @@ public class GameRenderer {
 
         // 1. Draw a black background
 
-        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClearColor(0.5f,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // TODO: 2. Render the elements in the game world

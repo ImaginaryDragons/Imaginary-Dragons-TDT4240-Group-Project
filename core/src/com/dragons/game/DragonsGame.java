@@ -4,18 +4,22 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragons.game.view.screens.GameScreen;
 
 public class DragonsGame extends Game {
-	
+
 	@Override
 	public void create () {
 		Gdx.app.log("DragonsGame", "created");
 		setScreen(new GameScreen());
 	}
 
-	/*
+
+	/* NOTE: This function actually becomes superficious. We are not rendering here anymore!
+	* Might just end up removing it, but it might serve a purpose. The purpose being rendering
+	* something if there are no set screens. Seems unlikely though. */
 	@Override
 	public void render () {
 		Gdx.app.log("DragonsGame", "rendering");
@@ -26,7 +30,7 @@ public class DragonsGame extends Game {
 		//batch.end();
 	}
 
-	 */
+
 	
 	@Override
 	public void dispose () {
