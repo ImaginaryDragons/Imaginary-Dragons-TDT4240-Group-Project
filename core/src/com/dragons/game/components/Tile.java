@@ -4,9 +4,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.dragons.game.utilities.Constants;
 
-public class TileComponent {
+public enum Tile {
+    FLOOR, // represents the floor on which the character can move and drop bombs
+    INDESTRUCTABLEBLOCK, // represents the blocks that cannot be destroyed or walked over
+    DESTRUCTABLEBLOCK  // represents the blocks that can be destroyed by bombs and potentially drop powerups
+    }
 
-    private float row, col; // maze indexes
+
+    /*private float row, col; // maze indexes
 
     private int type; // block type
 
@@ -15,6 +20,8 @@ public class TileComponent {
     private Body body; // The body block (SOLID or Destructible)
 
     private boolean explosion; // if not null, the cell contains an explosion
+
+    private Gameworld gameworld; // need this reference in order to create bodies
 
     private PowerUpComponent power_up; // if not null, the cell constains a power up
 
@@ -31,8 +38,4 @@ public class TileComponent {
             body = gameWorld.createWallBody(v.x, v.y, width, height);
         }else
             body = null;
-    }
-
-
-
-}
+    }*/
