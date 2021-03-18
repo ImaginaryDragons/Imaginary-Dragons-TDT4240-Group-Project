@@ -7,8 +7,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.view.GameRenderer;
 
 public class GameScreen extends ScreenAdapter {
-    World gameWorld;
-    GameRenderer gameRenderer;
+    private World gameWorld;
+    private GameRenderer gameRenderer;
 
     // TODO: Integrating the gameWorld onto the firebase server
     /*Right now the gameWorld is statically defined within our gamescreen. However, we need
