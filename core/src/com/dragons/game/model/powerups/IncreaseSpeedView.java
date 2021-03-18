@@ -1,4 +1,4 @@
-package com.dragons.game.powerups;
+package com.dragons.game.model.powerups;
 
 import java.awt.event.ActionListener;
 

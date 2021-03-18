@@ -1,9 +1,6 @@
-package com.dragons.game.powerups;
-
-import java.util.ArrayList;
+package com.dragons.game.model.powerups;
 
 import javax.sound.midi.MetaEventListener;
-import javax.sound.midi.MetaMessage;
 
 
 public abstract class Powerups implements PowerupsInterface, MetaEventListener {

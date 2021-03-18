@@ -1,4 +1,4 @@
-package com.dragons.game.model.powerups;
+package com.dragons.game.model.bomb;
 
 import com.badlogic.gdx.math.Vector2;
 import java.util.Timer;
