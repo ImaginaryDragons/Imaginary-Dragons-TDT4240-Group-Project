@@ -10,7 +10,7 @@ public class TileComponent {
 
     private int type; // block type
 
-    private BombComponent bomb; // if not null this cell contains a bomb
+    private BombModel bomb; // if not null this cell contains a bomb
 
     private Body body; // The body block (SOLID or Destructible)
 
