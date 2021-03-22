@@ -4,7 +4,11 @@ import com.badlogic.gdx.assets.AssetManager;
 
 public class Assets {
 
-    /** Stores the filepaths to all the textures we want to use**/
+    /**DEPRECATED CLASS - IGNORE!!
+     *
+     *  Stores the filepaths to all the textures we want to use
+     *     https://www.codinginsights.blog/libgdx-assetmanager/
+     *     **/
 
     /******************CHARACTERS*******************/
 
@@ -57,6 +61,7 @@ public class Assets {
     public static final String BOMB_CAP_POWERUP = "";
     public static final String SPEED_POWERUP = "";
 
+    // TODO: Add other assets you want to use!
 
     private Assets(){}
 }

@@ -5,7 +5,10 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class AssetDescriptors {
 
-    /** Stores what type of asset a specified filepath is **/
+    /**DEPRECATED CLASS - IGNORE!!
+     *
+     * Stores what type of asset a specified filepath is
+     * https://www.codinginsights.blog/libgdx-assetmanager/ **/
 
     /******************CHARACTERS*******************/
 
@@ -55,6 +58,8 @@ public class AssetDescriptors {
     public static final AssetDescriptor<Texture> RangePowerUp = new AssetDescriptor<Texture>(Assets.RANGE_POWERUP, Texture.class);
     public static final AssetDescriptor<Texture> BombCapPowerUp = new AssetDescriptor<Texture>(Assets.BOMB_CAP_POWERUP, Texture.class);
     public static final AssetDescriptor<Texture> SpeedPowerUp = new AssetDescriptor<Texture>(Assets.SPEED_POWERUP, Texture.class);
+
+    // TODO: Add other sprites you want to use!
 
     private AssetDescriptors(){}
 
