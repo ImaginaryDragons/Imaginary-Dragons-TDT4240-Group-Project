@@ -1,14 +1,17 @@
 package com.dragons.game.model.blockFactory.blocks;
 
+import com.dragons.game.view.modelViews.IModelObserver;
+
 public class DestructibleBlock extends Block{
 
-    public DestructibleBlock() {
+    public DestructibleBlock(IModelObserver observer) {
+        super(observer);
         // texture = new Texture(source)
     }
 
 
     @Override
-    void whenHitByBomb() {
+    public void handleHitByBomb() {
         // TODO: Implement method
     }
 }
