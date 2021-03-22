@@ -7,10 +7,13 @@ import com.dragons.game.model.PowerUpsFactory.PowerUps.PowerUp;
 
 public class PowerUpFactory {
 
-
-
+    /**
+     * Returns a powerup object
+     * @param type PowerUp enum
+     * @return PowerUp if the type is correct
+     * @throws IllegalArgumentException if
+     */
     public static PowerUp createPowerUp(PowerUpType type){
-
         switch (type){
             case BOMBCAPACITY:
                 return new BombCapacity();
@@ -19,7 +22,7 @@ public class PowerUpFactory {
             case INCREASESPEED:
                 return new IncreaseSpeed();
             default:
-                return null;
+                throw new IllegalArgumentException();
         }
 
     }
