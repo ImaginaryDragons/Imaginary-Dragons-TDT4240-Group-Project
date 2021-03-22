@@ -1,4 +1,4 @@
-package com.dragons.game.model.powerups;
+package com.dragons.game.Controller.PowerUps;
 
 public interface ControllerInterface {
     void increaseSpeed();
