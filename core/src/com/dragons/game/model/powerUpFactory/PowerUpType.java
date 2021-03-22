@@ -1,5 +1,7 @@
 package com.dragons.game.model.powerUpFactory;
 
-public enum PowerUpType {
+import com.dragons.game.utilities.IModelType;
+
+public enum PowerUpType implements IModelType {
     INCREASESPEED, BOMBCAPACITY, INCREASERANGE
 }

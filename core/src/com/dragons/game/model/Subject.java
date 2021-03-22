@@ -24,7 +24,8 @@ public abstract class Subject implements ISubject{
     @Override
     public void removeObserver(IModelObserver observer) {
         int observerIndex = observers.indexOf(observer);
-        // if observer is in observers
+
+        // Only remove if in observers
         if (observerIndex >= 0) observers.remove(observer);
     }
 

@@ -1,5 +1,7 @@
 package com.dragons.game.model.blockFactory;
 
-public enum BlockType {
+import com.dragons.game.utilities.IModelType;
+
+public enum BlockType implements IModelType {
     DESTRUCTIBLE, WALL
 }

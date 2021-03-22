@@ -1,5 +1,6 @@
 package com.dragons.game.model.powerUpFactory;
 
+import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.powerUpFactory.PowerUps.BombCapacity;
 import com.dragons.game.model.powerUpFactory.PowerUps.IncreaseRange;
 import com.dragons.game.model.powerUpFactory.PowerUps.IncreaseSpeed;
@@ -13,20 +14,22 @@ import com.dragons.game.view.modelViews.IModelObserver;
 
 public class PowerUpFactory {
 
+
     /**
      * Returns a powerup object
      * @param type PowerUp enum
      * @return PowerUp if the type is correct
      * @throws IllegalArgumentException if
      */
-    public static PowerUp createPowerUp(PowerUpType type, IModelObserver observer){
+    public static PowerUp createPowerUp(PowerUpType type, IModelObserver observer, World world){
         switch (type){
             case BOMBCAPACITY:
-                return new BombCapacity(observer);
+                // TODO: ADD TILE AS ARGUMENT IN ALL POWERUPS
+                return new BombCapacity(observer, world, type);
             case INCREASERANGE:
-                return new IncreaseRange(observer);
+                return new IncreaseRange(observer, world, type);
             case INCREASESPEED:
-                return new IncreaseSpeed(observer);
+                return new IncreaseSpeed(observer, world, type);
             default:
                 throw new IllegalArgumentException();
         }

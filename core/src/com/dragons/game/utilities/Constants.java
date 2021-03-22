@@ -1,8 +1,8 @@
 package com.dragons.game.utilities;
 
-public class Constants {
+public final class Constants {
 
-    public static final int PPM = 223;
+    public static final float PPM = 32f;
 
 
 
