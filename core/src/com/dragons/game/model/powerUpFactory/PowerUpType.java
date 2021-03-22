@@ -1,4 +1,4 @@
-package com.dragons.game.model.PowerUpsFactory;
+package com.dragons.game.model.powerUpFactory;
 
 public enum PowerUpType {
     INCREASESPEED, BOMBCAPACITY, INCREASERANGE
