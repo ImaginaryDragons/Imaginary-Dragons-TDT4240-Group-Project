@@ -20,6 +20,11 @@ public class GameScreen extends ScreenAdapter {
     public GameScreen() {
         //super();
         Gdx.app.log("GameScreen", "Attached");
+
+        //float screenWidth = Gdx.graphics.getWidth();
+        //float screenHeight = Gdx.graphics.getHeight();
+        //float gameWidth = 136;
+
         // initialize gameWorld. Set Gravity 0 and not simulating inactive objects true
         gameWorld = new World(new Vector2(0,0), true);
         gameRenderer = new GameRenderer(gameWorld); // Initialize world renderer
@@ -27,8 +32,9 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        //super.render(delta);
+        Gdx.app.log("GameScreen", "Rendering");
         // TODO: gameWorld.step();
+
         // Explanation gameWorld step: http://www.iforce2d.net/b2dtut/worlds
         gameRenderer.render();
     }
