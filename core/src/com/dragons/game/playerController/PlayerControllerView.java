@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class ControllerView {
+public class PlayerControllerView {
 
     private final Texture upTexture = new Texture("upArrow.PNG");
     private final Texture downTexture = new Texture("downArrow.PNG");
@@ -19,7 +19,7 @@ public class ControllerView {
 
     private final Rectangle allButtonRectangle;
 
-    public ControllerView(int xPos, int yPos) {
+    public PlayerControllerView(int xPos, int yPos) {
         int textureSize = upTexture.getHeight();  // Assumes all textures have equal size. In this case 80
 
         allButtonRectangle = new Rectangle(xPos, yPos, 3*textureSize, 3*textureSize);

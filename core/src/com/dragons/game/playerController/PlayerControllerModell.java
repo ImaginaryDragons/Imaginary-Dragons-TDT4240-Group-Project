@@ -1,4 +1,4 @@
 package com.dragons.game.playerController;
 
-public class ControllerModell {
+public class PlayerControllerModell {
 }
