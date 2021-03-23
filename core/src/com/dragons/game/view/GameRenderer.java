@@ -1,15 +1,12 @@
 package com.dragons.game.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.dragons.game.utilities.AssetDescriptors;
-import com.dragons.game.utilities.AssetsAnnotation;
+import com.dragons.game.utilities.AssetLoader;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -54,7 +51,7 @@ public class GameRenderer {
      * interface. Alternatively, we can assign all objects a type that is part of our global enum!**/
 
     private void loadAssets(){
-        manager.load(AssetsAnnotation.class);
+        manager.load(AssetLoader.class);
         manager.finishLoading();
     }
 

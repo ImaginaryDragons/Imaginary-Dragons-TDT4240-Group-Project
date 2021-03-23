@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
-public class AssetsAnnotation {
+public class AssetLoader {
 
     /** ENTER ALL TEXTURE PATHS HERE
      * AssetAnnotationManager: https://man.sr.ht/~dermetfan/libgdx-utils/ *
@@ -62,5 +62,5 @@ public class AssetsAnnotation {
 
             // LAST ELEMENT MUST HAVE ';'!!
 
-    private AssetsAnnotation(){}
+    private AssetLoader(){}
 }
