@@ -21,6 +21,10 @@ public class Constants {
     public static final float FireDisplayTime = 1.5f; // Seconds fire displays after bomb explodes
     public static final float BombReloadTime = BombExplodeTime + FireDisplayTime;
 
+    public static final int JoystickPosX = WIDTH - 50;
+    public static final int JoystickPosY = HEIGHT - 50;
+    public static final int JoystickRadius = 10;
+
 
 
 }

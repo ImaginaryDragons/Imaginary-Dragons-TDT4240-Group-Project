@@ -1,12 +1,15 @@
 package com.dragons.game.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.dragons.game.playerController.Joystick;
 import com.dragons.game.utilities.AssetLoader;
+import com.dragons.game.utilities.Constants;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -17,6 +20,7 @@ public class GameRenderer {
     private ShapeRenderer shapeRenderer;
     private SpriteBatch spriteBatch;
     private AnnotationAssetManager manager;
+    private Joystick joystick;
 
     // Asset loading: https://github.com/libgdx/libgdx/wiki/Managing-your-assets
     // https://www.codinginsights.blog/libgdx-assetmanager/
@@ -31,6 +35,7 @@ public class GameRenderer {
         this.shapeRenderer.setProjectionMatrix(cam.combined);
         this.spriteBatch = new SpriteBatch();
         this.spriteBatch.setProjectionMatrix(cam.combined);
+        this.joystick = new Joystick(50,50); // Arguments should be (Constants.JoystickPosX, Constants.JoystickPosY)
     }
 
 
@@ -42,7 +47,13 @@ public class GameRenderer {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // TODO: 2. Render the elements in the game world somehow!!
-
+//        spriteBatch.begin();
+//        joystick.render(spriteBatch);
+//        spriteBatch.end();
+        joystick.update();
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        joystick.render(shapeRenderer);
+        shapeRenderer.end();
     }
 
     // TODO: Write functionality for rendering the gameworld!

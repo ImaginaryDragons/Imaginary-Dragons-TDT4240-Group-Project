@@ -2,16 +2,20 @@ package com.dragons.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.dragons.game.playerController.Joystick;
+import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.GameRenderer;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
+import static com.dragons.game.utilities.Constants.JoystickPosY;
+
 public class GameScreen extends ScreenAdapter {
     private World gameWorld;
     private GameRenderer gameRenderer;
+    private Joystick joystick;
     private AnnotationAssetManager manager;
 
     // TODO: Integrating the gameWorld onto the firebase server
