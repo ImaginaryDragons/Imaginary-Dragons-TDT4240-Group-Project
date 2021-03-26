@@ -6,7 +6,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
@@ -14,6 +13,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class Tiled extends ApplicationAdapter implements InputProcessor {
+
+ // DENNE KLASSEN ER IKKE I BRUK ATM, ALT LIGGER I GAMESCREEN
     TiledMap tiledMap;
     OrthographicCamera camera;
     TiledMapRenderer tiledMapRenderer;
@@ -24,14 +25,14 @@ public class Tiled extends ApplicationAdapter implements InputProcessor {
 
     @Override
     public void create () {
-        /*float w = Gdx.graphics.getWidth();
+        float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera();
         camera.setToOrtho(false,w,h);
         camera.update();
         tiledMap = new TmxMapLoader().load("TileMapMobile.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        Gdx.input.setInputProcessor(this);*/
+        Gdx.input.setInputProcessor(this);
 
         tiledMap = new TmxMapLoader().load("TileMapMobile.tmx");
 
