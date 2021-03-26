@@ -6,8 +6,8 @@ import com.dragons.game.utilities.Constants;
 
 public enum Tile {
     FLOOR, // represents the floor on which the character can move and drop bombs
-    INDESTRUCTABLEBLOCK, // represents the blocks that cannot be destroyed or walked over
-    DESTRUCTABLEBLOCK  // represents the blocks that can be destroyed by bombs and potentially drop powerups
+    INDESTRUCTIBLE_BLOCK, // represents the blocks that cannot be destroyed or walked over
+    DESTRUCTIBLE_BLOCK  // represents the blocks that can be destroyed by bombs and potentially drop powerups
     }
 
 

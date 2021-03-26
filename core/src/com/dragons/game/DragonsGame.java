@@ -1,33 +1,47 @@
 package com.dragons.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.dragons.game.view.GameRenderer;
+import com.dragons.game.view.screens.GameScreen;
 
-public class DragonsGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
+public class DragonsGame extends Game {
+
+
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		Gdx.app.log("DragonsGame", "created");
+		setScreen(new GameScreen());
 	}
 
+
+	/* NOTE: This function actually becomes superficious. We are not rendering here anymore!
+	* Might just end up removing it, but it might serve a purpose. The purpose being rendering
+	* something if there are no set screens. Seems unlikely though. */
 	@Override
 	public void render () {
+		Gdx.app.log("DragonsGame", "rendering");
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		//batch.begin();
+		//batch.draw(img, 0, 0);
+		//batch.end();
+
 	}
+
+
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
-		img.dispose();
+		Gdx.app.log("DragonsGame", "dispose called");
 	}
 }
