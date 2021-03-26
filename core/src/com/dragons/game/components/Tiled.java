@@ -7,31 +7,50 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class Tiled extends ApplicationAdapter implements InputProcessor {
-    Texture img;
     TiledMap tiledMap;
     OrthographicCamera camera;
     TiledMapRenderer tiledMapRenderer;
 
+    private int tileWidth, tileHeight,
+            mapWidthInTiles, mapHeightInTiles,
+            mapWidthInPixels, mapHeightInPixels;
+
     @Override
     public void create () {
-        float w = Gdx.graphics.getWidth();
+        /*float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera();
         camera.setToOrtho(false,w,h);
         camera.update();
-        tiledMap = new TmxMapLoader().load("TiledMapNew.tmx");
+        tiledMap = new TmxMapLoader().load("TileMapMobile.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        Gdx.input.setInputProcessor(this);
+        Gdx.input.setInputProcessor(this);*/
+
+        tiledMap = new TmxMapLoader().load("TileMapMobile.tmx");
+
+        MapProperties properties = tiledMap.getProperties();
+        tileWidth         = properties.get("tilewidth", Integer.class);
+        tileHeight        = properties.get("tileheight", Integer.class);
+        mapWidthInTiles   = properties.get("width", Integer.class);
+        mapHeightInTiles  = properties.get("height", Integer.class);
+        mapWidthInPixels  = mapWidthInTiles  * tileWidth;
+        mapHeightInPixels = mapHeightInTiles * tileHeight;
+
+        camera = new OrthographicCamera(480.f, 350.f);
+        camera.position.x = mapWidthInPixels * .5f;
+        camera.position.y = mapHeightInPixels * .50f;
+
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
     }
     @Override
     public void render () {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
