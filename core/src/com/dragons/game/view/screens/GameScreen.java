@@ -2,13 +2,17 @@ package com.dragons.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.view.GameRenderer;
 
+import net.dermetfan.gdx.assets.AnnotationAssetManager;
+
 public class GameScreen extends ScreenAdapter {
-    World gameWorld;
-    GameRenderer gameRenderer;
+    private World gameWorld;
+    private GameRenderer gameRenderer;
+    private AnnotationAssetManager manager;
 
     // TODO: Integrating the gameWorld onto the firebase server
     /*Right now the gameWorld is statically defined within our gamescreen. However, we need
@@ -20,17 +24,31 @@ public class GameScreen extends ScreenAdapter {
     public GameScreen() {
         //super();
         Gdx.app.log("GameScreen", "Attached");
-        // initialize gameWorld. Set Gravity 0 and not simulating inactive objects true
+
+        //float screenWidth = Gdx.graphics.getWidth();
+        //float screenHeight = Gdx.graphics.getHeight();
+        //float gameWidth = 136;
+
+        // Initialize gameWorld. Set Gravity 0 and 'not simulate inactive objects' true
         gameWorld = new World(new Vector2(0,0), true);
-        gameRenderer = new GameRenderer(gameWorld); // Initialize world renderer
+        manager = new AnnotationAssetManager();
+        gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
+
+        // TODO: Create functionality for spawning game world
     }
 
     @Override
     public void render(float delta) {
-        //super.render(delta);
-        // TODO: gameWorld.step();
+        Gdx.app.log("GameScreen", "Rendering");
+
+        // Update game world
+        // In step, VelocityIteration and PositionIteration values are just 'recommended'
         // Explanation gameWorld step: http://www.iforce2d.net/b2dtut/worlds
+        gameWorld.step(delta, 6, 2);
+
+        // Render screen
         gameRenderer.render();
+        Gdx.app.log("GameScreen FPS", (1/delta) + "");
     }
 
     @Override
@@ -45,6 +63,17 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.app.log("GameScreen", "show called");
+
+        // Load all assets the game screen will use
+        /* TODO: Add file paths so that we can load our assets!
+        gameRenderer.loadAssets();
+        while(!manager.update()) {
+            float progress = manager.getProgress();
+            System.out.println("Loading ... " + progress * 100 + "%");
+        }
+        To get an asset, use manager.get(AssetDescriptors.ASSET_YOU_WANT)
+         */
+
         super.show();
     }
 
@@ -70,4 +99,5 @@ public class GameScreen extends ScreenAdapter {
     public void dispose() {
         super.dispose();
     }
+
 }

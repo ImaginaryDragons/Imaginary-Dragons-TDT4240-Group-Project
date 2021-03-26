@@ -10,8 +10,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.4'
-        
+        classpath 'com.android.tools.build:gradle:4.1.2'
 
     }
 }
@@ -37,6 +36,8 @@ allprojects {
         google()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url "https://mvnrepository.com/artifact/net.dermetfan.libgdx-utils/libgdx-utils"}
+
     }
 }
 
@@ -46,6 +47,7 @@ project(":desktop") {
 
     dependencies {
         implementation project(":core")
+        implementation group: 'net.dermetfan.libgdx-utils', name: 'libgdx-utils', version: '0.13.1'
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
@@ -61,6 +63,7 @@ project(":android") {
     dependencies {
         implementation project(":core")
         api "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+        implementation group: 'net.dermetfan.libgdx-utils', name: 'libgdx-utils', version: '0.13.1'
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
@@ -81,6 +84,7 @@ project(":core") {
 
 
     dependencies {
+        implementation group: 'net.dermetfan.libgdx-utils', name: 'libgdx-utils', version: '0.13.1'
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         
