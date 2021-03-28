@@ -7,14 +7,21 @@ import com.dragons.game.view.modelViews.IModelObserver;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Subject abstract class primarily contains the observer-related methods that we
+ * will use on all our subjects throughout the program. A subject is primarily an object
+ * or instance of something that is in our game world.
+ *
+ * @author Jakob Eikeland
+ * */
+
 public abstract class Subject implements ISubject{
 
-    private List<IModelObserver> observers = new ArrayList<>();
+    private List<IModelObserver> observers = new ArrayList<IModelObserver>();
 
-    public Subject(IModelObserver observer) {
-        addObserver(observer);
-    }
+    public Subject() {}
 
+    // TODO: Consider whether the get/set methods for shape and position should be written in here
 
     @Override
     public void addObserver(IModelObserver observer) {
