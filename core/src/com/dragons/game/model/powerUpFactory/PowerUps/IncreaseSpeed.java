@@ -1,15 +1,24 @@
-package com.dragons.game.model.PowerUpsFactory.PowerUps;
+package com.dragons.game.model.powerUpFactory.PowerUps;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
+import com.dragons.game.view.modelViews.IModelObserver;
 
-public class BombCapacity extends PowerUp{
+public class IncreaseSpeed extends PowerUp{
 
-    public Player player;
+    // TODO: ADD FIELDS
+    // private Tile tile etc
+
+    public IncreaseSpeed() {
+        super();
+    }
+
+    // TODO: IMPLEMENT METHODS
 
     @Override
     public void whenPickedUp() {
-        player.bombCapacity += 1;
+
     }
 
     @Override
