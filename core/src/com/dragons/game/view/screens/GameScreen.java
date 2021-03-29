@@ -2,9 +2,14 @@ package com.dragons.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.dragons.game.components.Tiled;
+import com.dragons.game.model.GameWorld.GameWorld;
 import com.dragons.game.view.GameRenderer;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -34,6 +39,12 @@ public class GameScreen extends ScreenAdapter {
         manager = new AnnotationAssetManager();
         gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
 
+        camera = new OrthographicCamera(480.f, 350.f);
+        camera.position.x = mapWidthInPixels * .50f;
+        camera.position.y = mapHeightInPixels * .50f;
+        camera.update();
+
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         // TODO: Create functionality for spawning game world
     }
 
@@ -47,7 +58,9 @@ public class GameScreen extends ScreenAdapter {
         gameWorld.step(delta, 6, 2);
 
         // Render screen
-        gameRenderer.render();
+        // gameRenderer.render();
+        tiledMapRenderer.setView(camera);
+        tiledMapRenderer.render();
         Gdx.app.log("GameScreen FPS", (1/delta) + "");
     }
 
