@@ -6,8 +6,6 @@ import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.view.modelViews.IModelObserver;
 
-import java.awt.Shape;
-
 /**
  * The ISubject interface is used to implement our top-level observer type that will be common
  * for all game-classes that may implement the observer pattern.

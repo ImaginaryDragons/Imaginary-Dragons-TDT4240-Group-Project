@@ -19,18 +19,16 @@ public class PowerUpFactory {
      * @return PowerUp if the type is correct
      * @throws IllegalArgumentException if
      */
-    public static PowerUp createPowerUp(PowerUpType type){
-        switch (type){
-            case BOMBCAPACITY:
-                return new BombCapacity();
-            case INCREASERANGE:
-                return new IncreaseRange();
-            case INCREASESPEED:
-                return new IncreaseSpeed();
-            default:
-                throw new IllegalArgumentException();
-        }
-
+        public static PowerUp createPowerUp(PowerUpType type){
+            switch (type) {
+                case BOMBCAPACITY:
+                    return new BombCapacity();
+                case INCREASERANGE:
+                    return new IncreaseRange();
+                case INCREASESPEED:
+                    return new IncreaseSpeed();
+                default:
+                    throw new IllegalArgumentException();
+            }
     }
-
 }

@@ -8,11 +8,6 @@ import com.dragons.game.model.Subject;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.utilities.Direction;
 
-import java.util.ArrayList;
-import java.util.Observer;
-
-import javax.swing.ImageIcon;
-
 /**
  * Instantiates a player. Has to be tied to a controller to control.
  * @param int ID, Vector2 startPos, PlayerColor color
