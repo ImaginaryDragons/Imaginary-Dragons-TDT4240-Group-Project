@@ -9,16 +9,11 @@ import com.dragons.game.view.modelViews.IModelObserver;
 public abstract class PowerUp extends Subject {
 
     // TODO: add/modify fields
-    protected float x, y;
-    protected Body body;
-    protected Texture texture;
 
-    public PowerUp(IModelObserver observer) {
-        super(observer);
+    public PowerUp() {
+        super();
     }
 
     public abstract void whenPickedUp();
-
-
 
 }
