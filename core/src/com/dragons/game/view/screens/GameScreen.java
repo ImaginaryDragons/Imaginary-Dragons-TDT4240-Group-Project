@@ -11,12 +11,15 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.components.Tiled;
+import com.dragons.game.model.GameWorld.GameWorld;
+import com.dragons.game.view.GameRenderer;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 public class GameScreen extends ScreenAdapter {
-    private World gameWorld;
-    //private GameRenderer gameRenderer;
+
+    private GameWorld gameWorld;
+    private GameRenderer gameRenderer;
     private AnnotationAssetManager manager;
     private Tiled tileRenderer;
 
@@ -43,8 +46,7 @@ public class GameScreen extends ScreenAdapter {
         //float screenHeight = Gdx.graphics.getHeight();
         //float gameWidth = 136;
 
-        // Initialize gameWorld. Set Gravity 0 and 'not simulate inactive objects' true
-        gameWorld = new World(new Vector2(0,0), true);
+        gameWorld = new GameWorld();
         manager = new AnnotationAssetManager();
         //gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
         tiledMap = new TmxMapLoader().load("TileMapMobile.tmx");
@@ -76,10 +78,7 @@ public class GameScreen extends ScreenAdapter {
         Gdx.app.log("GameScreen", "Rendering");
 
         // Update game world
-        // In step, VelocityIteration and PositionIteration values are just 'recommended'
-        // Explanation gameWorld step: http://www.iforce2d.net/b2dtut/worlds
-        gameWorld.step(delta, 6, 2);
-
+        gameWorld.update(delta);
         // Render screen
         // gameRenderer.render();
         tiledMapRenderer.setView(camera);
@@ -109,7 +108,6 @@ public class GameScreen extends ScreenAdapter {
         }
         To get an asset, use manager.get(AssetDescriptors.ASSET_YOU_WANT)
          */
-
         super.show();
     }
 
