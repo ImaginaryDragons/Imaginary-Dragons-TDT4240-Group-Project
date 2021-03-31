@@ -2,13 +2,7 @@ package com.dragons.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dragons.game.view.screens.GameScreen;
+import com.dragons.game.view.screens.MenuScreen;
 
 public class DragonsGame extends Game {
 
@@ -20,7 +14,7 @@ public class DragonsGame extends Game {
 	@Override
 	public void create () {
 		Gdx.app.log("DragonsGame", "created");
-		setScreen(new GameScreen());
+		setScreen(new MenuScreen());
 	}
 
 }

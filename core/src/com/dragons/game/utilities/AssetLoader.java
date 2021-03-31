@@ -58,7 +58,12 @@ public class AssetLoader {
 
             RANGE_POWERUP = "",
             BOMB_CAP_POWERUP = "",
-            SPEED_POWERUP = "";
+            SPEED_POWERUP = "",
+
+           /***************** MENU ******************/
+
+            BACKGROUND = "grey_background.png",
+            PLAYBUTTON = "playbutton.png";
 
             // LAST ELEMENT MUST HAVE ';'!!
 
