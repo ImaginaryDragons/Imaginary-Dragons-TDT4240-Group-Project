@@ -6,6 +6,9 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 public class AssetLoader {
 
+
+
+
     /** ENTER ALL TEXTURE PATHS HERE
      * AssetAnnotationManager: https://man.sr.ht/~dermetfan/libgdx-utils/ *
      * https://man.sr.ht/~dermetfan/libgdx-utils/net.dermetfan.gdx.assets.AnnotationAssetManager.md
@@ -13,41 +16,22 @@ public class AssetLoader {
 
     @AnnotationAssetManager.Asset(Texture.class)
     public static final String
-            CHARACTER_UP_BLUE = "",
-            CHARACTER_DOWN_BLUE = "",
-            CHARACTER_LEFT_BLUE = "",
-            CHARACTER_RIGHT_BLUE = "",
-            CHARACTER_UP_RUNNING_BLUE = "",
-            CHARACTER_DOWN_RUNNING_BLUE = "",
-            CHARACTER_LEFT_RUNNING_BLUE = "",
-            CHARACTER_RIGHT_RUNNING_BLUE = "",
+            DRAGON_SLIM_RED = "assets/red_dragon_slim.png",
+            DRAGON_MIDDLE_RED = "assets/red_dragon_middle.png",
+            DRAGON_WIDE_RED = "assets/red_dragon_wide.png",
 
-            CHARACTER_UP_RED = "",
-            CHARACTER_DOWN_RED = "",
-            CHARACTER_LEFT_RED = "",
-            CHARACTER_RIGHT_RED = "",
-            CHARACTER_UP_RUNNING_RED = "",
-            CHARACTER_DOWN_RUNNING_RED = "",
-            CHARACTER_LEFT_RUNNING_RED = "",
-            CHARACTER_RIGHT_RUNNING_RED = "",
+            DRAGON_SLIM_BLUE = "",
+            DRAGON_MIDDLE_BLUE = "",
+            DRAGON_WIDE_BLUE = "",
 
-            CHARACTER_UP_GREEN = "",
-            CHARACTER_DOWN_GREEN = "",
-            CHARACTER_LEFT_GREEN = "",
-            CHARACTER_RIGHT_GREEN = "",
-            CHARACTER_UP_RUNNING_GREEN = "",
-            CHARACTER_DOWN_RUNNING_GREEN = "",
-            CHARACTER_LEFT_RUNNING_GREEN = "",
-            CHARACTER_RIGHT_RUNNING_GREEN = "",
+            DRAGON_SLIM_GREEN = "",
+            DRAGON_MIDDLE_GREEN = "",
+            DRAGON_WIDE_GREEN = "",
 
-            CHARACTER_UP_YELLOW = "",
-            CHARACTER_DOWN_YELLOW = "",
-            CHARACTER_LEFT_YELLOW = "",
-            CHARACTER_RIGHT_YELLOW = "",
-            CHARACTER_UP_RUNNING_YELLOW = "",
-            CHARACTER_DOWN_RUNNING_YELLOW = "",
-            CHARACTER_LEFT_RUNNING_YELLOW = "",
-            CHARACTER_RIGHT_RUNNING_YELLOW = "",
+            DRAGON_SLIM_YELLOW = "",
+            DRAGON_MIDDLE_YELLOW = "",
+            DRAGON_WIDE_YELLOW = "",
+
 
             /****************** BLOCKS *******************/
 
@@ -58,7 +42,11 @@ public class AssetLoader {
 
             RANGE_POWERUP = "",
             BOMB_CAP_POWERUP = "",
-            SPEED_POWERUP = "";
+            SPEED_POWERUP = "",
+
+            /***************** FIRE ************************/
+            FIREBALL = "",
+            EXPLOSION = "";
 
             // LAST ELEMENT MUST HAVE ';'!!
 

@@ -1,24 +1,25 @@
 package com.dragons.game.model.powerUpFactory.PowerUps;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
-import com.dragons.game.view.modelViews.IModelObserver;
+import com.dragons.game.model.player.Player;
 
 public class IncreaseSpeed extends PowerUp{
 
     // TODO: ADD FIELDS
     // private Tile tile etc
+    private Player player;
 
-    public IncreaseSpeed() {
+    public IncreaseSpeed(Player player) {
         super();
+        this.player = player;
     }
 
     // TODO: IMPLEMENT METHODS
 
     @Override
     public void whenPickedUp() {
-
+        player.speed += 2;
     }
 
     @Override

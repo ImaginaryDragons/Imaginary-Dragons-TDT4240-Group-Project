@@ -26,11 +26,11 @@ public class Player extends Subject {
     private Rectangle boundRectangle;
     private Direction orientation; // The direction the player is looking
     private Vector2 position;
-    private int health;
-    private int speed;
-    private int bombCapacity;
+    public int health;
+    public int speed;
+    public int bombCapacity;
     private int bombsAvailable;
-    private float bombRange;
+    public float bombRange;
     private float bombReloadTime;
 
     // TODO: Consider if it is necessary to implement a decorator for color, ID etc..

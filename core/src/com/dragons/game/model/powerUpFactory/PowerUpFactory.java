@@ -1,10 +1,10 @@
 package com.dragons.game.model.powerUpFactory;
 
+import com.dragons.game.model.player.Player;
 import com.dragons.game.model.powerUpFactory.PowerUps.BombCapacity;
 import com.dragons.game.model.powerUpFactory.PowerUps.IncreaseRange;
 import com.dragons.game.model.powerUpFactory.PowerUps.IncreaseSpeed;
 import com.dragons.game.model.powerUpFactory.PowerUps.PowerUp;
-import com.dragons.game.view.modelViews.IModelObserver;
 
 /**
  * To extend the factory with a new powerup, create the new powerup class, add its corresponding
@@ -12,6 +12,8 @@ import com.dragons.game.view.modelViews.IModelObserver;
  */
 
 public class PowerUpFactory {
+    private Player player;
+
 
     /**
      * Returns a powerup object
@@ -22,11 +24,11 @@ public class PowerUpFactory {
         public static PowerUp createPowerUp(PowerUpType type){
             switch (type) {
                 case BOMBCAPACITY:
-                    return new BombCapacity();
+                    return new BombCapacity(player);
                 case INCREASERANGE:
-                    return new IncreaseRange();
+                    return new IncreaseRange(player);
                 case INCREASESPEED:
-                    return new IncreaseSpeed();
+                    return new IncreaseSpeed(player);
                 default:
                     throw new IllegalArgumentException();
             }
