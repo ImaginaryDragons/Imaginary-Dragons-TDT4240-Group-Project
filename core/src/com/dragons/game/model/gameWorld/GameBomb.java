@@ -1,7 +1,6 @@
-package com.dragons.game.model.GameWorld;
+package com.dragons.game.model.gameWorld;
 
 import com.badlogic.gdx.physics.box2d.World;
-import com.dragons.game.model.ISubject;
 import com.dragons.game.model.bomb.Bomb;
 
 public class GameBomb extends GameObject {

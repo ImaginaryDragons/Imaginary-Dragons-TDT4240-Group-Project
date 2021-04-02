@@ -1,9 +1,9 @@
-package com.dragons.game.model.GameWorld;
+package com.dragons.game.model.gameWorld;
 
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.dragons.game.model.ISubject;
+import com.dragons.game.model.IObject;
 import com.dragons.game.model.bomb.Bomb;
 import com.dragons.game.model.player.Player;
 
@@ -29,6 +29,7 @@ public class GameWorld {
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
 
     public GameWorld() {
+        // TODO: doSleep = true or false?
         world = new World(new Vector2(0,0), true);  // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         gameObjects = new ArrayList<GameObject>();
         players = new ArrayList<GameObject>();
@@ -50,7 +51,7 @@ public class GameWorld {
     }
 
     // Add object to GameObjects
-    public void addObject(ISubject obj, boolean isStatic) {
+    public void addObject(IObject obj, boolean isStatic) {
         gameObjects.add(new GameObject(obj, world, isStatic));
     }
 
