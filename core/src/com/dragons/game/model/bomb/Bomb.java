@@ -18,7 +18,7 @@ public class Bomb extends Subject {
     private boolean bombExplode;
     //public static List<BombComponent> bombs = new ArrayList<BombComponent>(); // liste med antall bomber en spiller har, skal heller være i player
 
-    public Bomb(Vector2 pos, float radius){ // Ta inn noe tiles?
+    public Bomb(Vector2 pos, float radius){ // Posistion to the player who drops bomb. Player gets position from tiles
         this.position = pos;
         this.circleBounds.set(pos, radius);
         bombExplode = false;

@@ -58,7 +58,11 @@ public class AssetLoader {
 
             RANGE_POWERUP = "",
             BOMB_CAP_POWERUP = "",
-            SPEED_POWERUP = "";
+            SPEED_POWERUP = "",
+
+            /****************** BOMB *******************/
+            FIREBALL ="fireball.png",
+            EXPLOSION="Explosion.png";
 
             // LAST ELEMENT MUST HAVE ';'!!
 

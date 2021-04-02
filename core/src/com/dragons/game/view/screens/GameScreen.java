@@ -48,7 +48,7 @@ public class GameScreen extends ScreenAdapter {
 
         gameWorld = new GameWorld();
         manager = new AnnotationAssetManager();
-        //gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
+        gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
         tiledMap = new TmxMapLoader().load("TileMapMobile.tmx");
 
         MapProperties properties = tiledMap.getProperties();
