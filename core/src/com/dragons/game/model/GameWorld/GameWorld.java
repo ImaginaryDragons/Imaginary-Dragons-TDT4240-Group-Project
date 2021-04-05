@@ -77,6 +77,7 @@ public class GameWorld {
     private void updateBombs(float delta) {
         for(GameBomb bomb : bombs)
         {
+            //bombView.updateBomb() er vel riktig her? Vi kaller bomb.update i bombview for å få mvc
             bomb.update(delta);
         }
     }
