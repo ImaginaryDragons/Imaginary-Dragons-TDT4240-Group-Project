@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.dragons.game.model.GameWorld.GameWorld;
+import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.utilities.AssetLoader;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;

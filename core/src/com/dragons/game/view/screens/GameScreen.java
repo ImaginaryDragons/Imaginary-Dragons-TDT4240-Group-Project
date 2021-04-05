@@ -3,16 +3,12 @@ package com.dragons.game.view.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.components.Tiled;
-import com.dragons.game.model.GameWorld.GameMap;
-import com.dragons.game.model.GameWorld.GameWorld;
+import com.dragons.game.model.gameWorld.GameMap;
+import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.view.GameRenderer;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -48,7 +44,7 @@ public class GameScreen extends ScreenAdapter {
         //float screenWidth = Gdx.graphics.getWidth();
         //float screenHeight = Gdx.graphics.getHeight();
         //float gameWidth = 136;
-        gameMap = new GameMap();
+        gameMap = new GameMap("TileMapMobile.tmx");
         gameWorld = new GameWorld();
         manager = new AnnotationAssetManager();
         gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer

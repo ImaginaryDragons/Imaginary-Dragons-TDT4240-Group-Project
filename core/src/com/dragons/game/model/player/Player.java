@@ -1,10 +1,9 @@
 package com.dragons.game.model.player;
 
-
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
-import com.dragons.game.model.Subject;
+import com.badlogic.gdx.physics.box2d.Shape;
+import com.dragons.game.model.IModelType;
+import com.dragons.game.model.IObject;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.utilities.Direction;
 
@@ -19,11 +18,11 @@ enum PlayerColor {
     RED, BLUE, GREEN, YELLOW
 }
 
-public class Player extends Subject {
+public class Player implements IObject {
 
     private int ID;
     private PlayerColor col;
-    private Rectangle boundRectangle;
+    private Shape boundRectangle;
     private Direction orientation; // The direction the player is looking
     private Vector2 position;
     public int health;
@@ -40,7 +39,8 @@ public class Player extends Subject {
         this.ID = ID;
         this.col = col;
         this.position = startPos;
-        this.boundRectangle = new Rectangle(startPos.x, startPos.y, Constants.PlayerWidth, Constants.PlayerHeight);
+        // this.boundRectangle = new Rectangle(startPos.x, startPos.y, Constants.PlayerWidth, Constants.PlayerHeight);
+        // TODO: FIX SHAPE
         this.orientation = Direction.DOWN;
         this.health = Constants.InitPlayerHealth;
         this.speed = Constants.PlayerSpeed;
@@ -60,12 +60,27 @@ public class Player extends Subject {
         return col;
     }
 
-    public Rectangle getShape() {
+    public Shape getShape() {
         return boundRectangle;
     }
 
-    public void setShape(Shape2D shape) {
-        boundRectangle.set((Rectangle)shape);
+    @Override
+    public IModelType getType() {
+        return null;
+    }
+
+    @Override
+    public boolean isStatic() {
+        return false;
+    }
+
+    @Override
+    public boolean isSensor() {
+        return false;
+    }
+
+    public void setShape(Shape shape) {
+        //TODO:: FIX THIS
     }
 
     public Direction getOrientation() {
@@ -82,7 +97,7 @@ public class Player extends Subject {
 
     public void setPosition(Vector2 pos) {
         this.position = pos;
-        this.boundRectangle.setPosition(pos.x, pos.y);
+        //this.boundRectangle.setPosition(pos.x, pos.y); TODO: FIX THIS
     }
 
     public int getHealth() {

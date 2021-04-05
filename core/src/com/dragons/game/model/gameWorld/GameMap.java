@@ -1,4 +1,4 @@
-package com.dragons.game.model.GameWorld;
+package com.dragons.game.model.gameWorld;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -9,27 +9,23 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
 import com.dragons.game.components.Tiled;
-import com.dragons.game.model.ISubject;
-import com.dragons.game.model.blockFactory.BlockFactory;
-import com.dragons.game.model.blockFactory.BlockType;
-import com.dragons.game.model.blockFactory.blocks.Block;
-import com.dragons.game.model.powerUpFactory.PowerUpFactory;
+import com.dragons.game.model.IObject;
 
-import net.dermetfan.gdx.assets.AnnotationAssetManager;
-
-import com.dragons.game.model.powerUpFactory.PowerUpType;
-import com.dragons.game.model.powerUpFactory.PowerUps.PowerUp;
+import com.dragons.game.model.blocks.Block;
+import com.dragons.game.model.factories.BlockFactory;
+import com.dragons.game.model.factories.PowerUpFactory;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
+import com.dragons.game.model.blocks.BlockType;
+
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class GameMap {
 
     private Tiled tileRenderer;
-    public Table<Integer, Integer, ArrayList<ISubject>> tileContainers;
+    public Table<Integer, Integer, ArrayList<IObject>> tileContainers;
     private int[][] index;
     private int tileWidth, tileHeight,
             mapWidthInTiles, mapHeightInTiles,
@@ -39,8 +35,8 @@ public class GameMap {
     private OrthographicCamera camera;
     private TiledMapRenderer tiledMapRenderer;
 
-    public GameMap(String mapType) {
-        tiledMap = new TmxMapLoader().load(mapType); //"TileMapMobile.tmx"
+    public GameMap(String mapName) {
+        tiledMap = new TmxMapLoader().load(mapName); //"TileMapMobile.tmx"
 
         MapProperties properties = tiledMap.getProperties();
         tileWidth         = properties.get("tilewidth", Integer.class);
@@ -57,7 +53,7 @@ public class GameMap {
         tileContainers = HashBasedTable.create();
         for(int x = 1; x <= mapWidthInTiles; x++) {
             for (int y = 1; y <= mapHeightInTiles; y++) {
-                tileContainers.put(x, y, new ArrayList<ISubject>());
+                tileContainers.put(x, y, new ArrayList<IObject>());
             }
         }
 
@@ -85,13 +81,13 @@ public class GameMap {
                     case "0":
                         break;
                     case "1":
-                        Block desblock = blockFactory.createBlock(BlockType.DESTRUCTIBLE, tilePos(tile), tileWidth, tileHeight);
+                        Block desblock = blockFactory.createBlock(tilePos(tile), BlockType.DESTRUCTIBLE, tileWidth, tileHeight);
                         tileContainers.get(x, y).add(desblock);
                     case "2":
-                        Block wallblock = blockFactory.createBlock(BlockType.WALL, tilePos(tile), tileWidth, tileHeight);
+                        Block wallblock = blockFactory.createBlock(tilePos(tile), BlockType.WALL, tileWidth, tileHeight);
                         tileContainers.get(x, y).add(wallblock);
                     case "3":
-                        Block desPowerupBlock = blockFactory.createBlock(BlockType.DESTRUCTIBLE, tilePos(tile), tileWidth, tileHeight);
+                        Block desPowerupBlock = blockFactory.createBlock(tilePos(tile), BlockType.DESTRUCTIBLE,  tileWidth, tileHeight);
                         //PowerUp powerup = powerUpFactory.createPowerUp(PowerUpType.INCREASESPEED); lager en random powerup
                         tileContainers.get(x, y).add(desPowerupBlock);
                         //tileContainers.get(x, y).add(powerup);

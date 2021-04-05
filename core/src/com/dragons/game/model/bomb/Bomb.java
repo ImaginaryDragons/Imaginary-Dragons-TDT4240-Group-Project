@@ -1,25 +1,21 @@
 package com.dragons.game.model.bomb;
 
-import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
-import com.dragons.game.model.GameWorld.GameMap;
-import com.dragons.game.model.Subject;
-import com.dragons.game.model.blockFactory.blocks.DestructibleBlock;
-import com.dragons.game.model.blockFactory.blocks.WallBlock;
+import com.badlogic.gdx.physics.box2d.Shape;
+import com.dragons.game.model.IModelType;
+import com.dragons.game.model.gameWorld.GameMap;
+import com.dragons.game.model.IObject;
 import com.dragons.game.model.player.Player;
 import com.dragons.game.utilities.Constants;
-import com.dragons.game.view.modelViews.BombView;
-import com.dragons.game.view.screens.GameScreen;
 
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Bomb extends Subject {
+public class Bomb implements IObject {
 
     private Vector2 position;
-    private Circle circleBounds;
+    // TODO: FIX SHAPE (private Circle circleBounds;)
     private Timer timer;
     private float loadingTime;
     private TimerTask task;
@@ -27,8 +23,6 @@ public class Bomb extends Subject {
     public boolean bombExploded;
     private float bombRange;
     private Player player;
-    private DestructibleBlock destructibleBlock;
-    private WallBlock wallBlock;
     private int tileHeight;
     private int tileWidth;
     private ArrayList<Vector2> fireTiles;
@@ -36,13 +30,11 @@ public class Bomb extends Subject {
 
     //public static List<BombComponent> bombs = new ArrayList<BombComponent>(); // liste med antall bomber en spiller har, skal heller være i player
 
-    public Bomb(Vector2 pos, float radius, TimerTask task, Player player, DestructibleBlock destructibleBlock, WallBlock wallBlock){ // Ta inn noe tiles?
+    public Bomb(Vector2 pos, float radius, TimerTask task, Player player){ // Ta inn noe tiles?
         this.position = pos;
         this.task = task;
         this.player = player;
-        this.destructibleBlock = destructibleBlock;
-        this.wallBlock = wallBlock;
-        this.circleBounds.set(pos, radius);
+        //this.circleBounds.set(pos, radius); TODO: FIX THIS
         bombExploded = false;
         loadingTime = Constants.BombExplodeTime;
         bombRange = this.player.getBombRange();
@@ -57,59 +49,61 @@ public class Bomb extends Subject {
 
     public ArrayList<Vector2> checkForWall(String direction) {
         Vector2 checkTile = new Vector2(0, 0);
+        ArrayList<Vector2> fireTiles = new ArrayList<Vector2>();
         int startPos;
         int increment;
-        int condition;
         switch (direction) {
             case "up":
                 startPos = (int) player.getPosition().y;
                 checkTile.x = (int) player.getPosition().x;
                 increment = 32;
-
+                break;
             case "down":
                 startPos = (int) player.getPosition().y;
                 checkTile.x = (int) player.getPosition().x;
                 increment = -32;
-
+                break;
             case "left":
                 startPos = (int) player.getPosition().x;
                 checkTile.y = (int) player.getPosition().y;
                 increment = -32;
-
+                break;
             case "right":
                 startPos = (int) player.getPosition().x;
                 checkTile.y = (int) player.getPosition().y;
                 increment = 32;
+                break;
+            default:
+                startPos = 0;
+                increment = 0;
+        }
 
-                // for (int i =
+        for (int i = 0; i < player.getBombRange(); i += 32) {
+            if (direction == "up" || direction == "down") {
+                checkTile.y = startPos + increment;
+            } else if (direction == "left" || direction == "right") {
+                checkTile.x = startPos + increment;
+            }
+            Vector2 tile = gameMap.pos2tile(checkTile);
+            Vector2 tileStart = gameMap.tilePos(tile);
+            if (gameMap.tileContainers.get(tile.x, tile.y).contains("desblock")) {
+                //denne tilen skal bli lik et bilde, starter i tilestart, 32x32, og så stoppe
+                //Sjekke kontakt, Eldar og Jakob skal se på det
+                fireTiles.add(tile);
 
-                for (int i = 0; i < player.getBombRange(); i += 32) {
-                    if (direction == "up" || direction == "down") {
-                        checkTile.y = startPos + increment;
-                    } else if (direction == "left" || direction == "right") {
-                        checkTile.x = startPos + increment;
-                    }
-                    Vector2 tile = gameMap.pos2tile(checkTile);
-                    Vector2 tileStart = gameMap.tilePos(tile);
-                    if (gameMap.tileContainers.get(tile.x, tile.y).contains("desblock")) {
-                        //denne tilen skal bli lik et bilde, starter i tilestart, 32x32, og så stoppe
-                        //Sjekke kontakt, Eldar og Jakob skal se på det
-                        fireTiles.add(tile);
+            } else if (gameMap.tileContainers.get(tile.x, tile.y).contains("wallblock")) {
+                //denne tilen skal ikke bli lik et bilde
+                //Sjekke kontakt, Eldar og Jakob skal se på det
 
-                    } else if (gameMap.tileContainers.get(tile.x, tile.y).contains("wallblock")) {
-                        //denne tilen skal ikke bli lik et bilde
-                        //Sjekke kontakt, Eldar og Jakob skal se på det
+            } else if (gameMap.tileContainers.get(tile.x, tile.y).contains("desPowerupBlock")) {
+                //denne tilen skal bli til en powerup
+                //Sjekke kontakt, Eldar og Jakob skal se på det
+                fireTiles.add(tile);
+            } else {
+                //Bli lik et bilde, sjekke videre
+                fireTiles.add(tile);
+            }
 
-                    } else if (gameMap.tileContainers.get(tile.x, tile.y).contains("desPowerupBlock")) {
-                        //denne tilen skal bli til en powerup
-                        //Sjekke kontakt, Eldar og Jakob skal se på det
-                        fireTiles.add(tile);
-                    } else {
-                        //Bli lik et bilde, sjekke videre
-                        fireTiles.add(tile);
-                    }
-
-                }
         }
         return fireTiles;
     }
@@ -137,7 +131,7 @@ public class Bomb extends Subject {
     public void setPosition(Vector2 pos) {
         pos = player.getPosition();
         this.position = pos;
-        this.circleBounds.setPosition(pos.x, pos.y);
+        //this.circleBounds.setPosition(pos.x, pos.y); TODO: FIX
     }
 
     @Override
@@ -145,13 +139,25 @@ public class Bomb extends Subject {
         return position;
     }
 
+
     @Override
-    public void setShape(Shape2D shape) {
-        this.circleBounds = (Circle)shape;
+    public Shape getShape() {
+        // TODO: FIX THIS
+        return null;
     }
 
     @Override
-    public Shape2D getShape() {
-        return this.circleBounds;
+    public IModelType getType() {
+        return null;
+    }
+
+    @Override
+    public boolean isStatic() {
+        return false;
+    }
+
+    @Override
+    public boolean isSensor() {
+        return false;
     }
 }
