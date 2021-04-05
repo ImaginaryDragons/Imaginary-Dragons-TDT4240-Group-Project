@@ -19,9 +19,9 @@ import java.util.ArrayList;
  * */
 
 public class GameWorld {
-    private ArrayList<GameObject> gameObjects;
-    private ArrayList<GameObject> players;
-    private ArrayList<GameBomb> bombs;
+    private ArrayList<com.dragons.game.model.gameWorld.GameObject> gameObjects;
+    private ArrayList<com.dragons.game.model.gameWorld.GameObject> players;
+    private ArrayList<com.dragons.game.model.gameWorld.GameBomb> bombs;
     private World world;
 
     //https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_hello.html#autotoc_md21
@@ -31,9 +31,9 @@ public class GameWorld {
     public GameWorld() {
         // TODO: doSleep = true or false?
         world = new World(new Vector2(0,0), true);  // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
-        gameObjects = new ArrayList<GameObject>();
-        players = new ArrayList<GameObject>();
-        bombs = new ArrayList<GameBomb>();
+        gameObjects = new ArrayList<com.dragons.game.model.gameWorld.GameObject>();
+        players = new ArrayList<com.dragons.game.model.gameWorld.GameObject>();
+        bombs = new ArrayList<com.dragons.game.model.gameWorld.GameBomb>();
     }
 
     // Update GameWorld with one time-step
@@ -52,16 +52,16 @@ public class GameWorld {
 
     // Add object to GameObjects
     public void addObject(IObject obj, boolean isStatic) {
-        gameObjects.add(new GameObject(obj, world, isStatic));
+        gameObjects.add(new com.dragons.game.model.gameWorld.GameObject(obj, world));
     }
 
     public void addPlayer(Player player) {
         // TODO: Add a game class that encapsulates a player with a controller (similar to the GameBomb class).
-        players.add(new GameObject(player, world, false)); //TODO: IS FALSE CORRECT?
+        players.add(new com.dragons.game.model.gameWorld.GameObject(player, world)); //TODO: IS FALSE CORRECT?
     }
 
     public void addBomb(Bomb bomb) {
-        GameBomb b = new GameBomb(bomb, world);
+        com.dragons.game.model.gameWorld.GameBomb b = new com.dragons.game.model.gameWorld.GameBomb(bomb, world);
         bombs.add(b);
     }
 
@@ -78,6 +78,7 @@ public class GameWorld {
     private void updateBombs(float delta) {
         for(GameBomb bomb : bombs)
         {
+            //bombView.updateBomb() er vel riktig her? Vi kaller bomb.update i bombview for å få mvc
             bomb.update(delta);
         }
     }

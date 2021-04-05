@@ -3,12 +3,11 @@ package com.dragons.game.view.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.dragons.game.components.Tiled;
+import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.view.GameRenderer;
 
@@ -24,6 +23,8 @@ public class GameScreen extends ScreenAdapter {
     private int tileWidth, tileHeight,
             mapWidthInTiles, mapHeightInTiles,
             mapWidthInPixels, mapHeightInPixels;
+
+    private GameMap gameMap;
 
     TiledMap tiledMap;
     OrthographicCamera camera;
@@ -43,21 +44,11 @@ public class GameScreen extends ScreenAdapter {
         //float screenWidth = Gdx.graphics.getWidth();
         //float screenHeight = Gdx.graphics.getHeight();
         //float gameWidth = 136;
-
+        gameMap = new GameMap("TileMapMobile.tmx");
         gameWorld = new GameWorld();
         manager = new AnnotationAssetManager();
-        //gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
-        tiledMap = new TmxMapLoader().load("TileMapMobile.tmx");
+        gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
 
-        MapProperties properties = tiledMap.getProperties();
-        tileWidth         = properties.get("tilewidth", Integer.class);
-        tileHeight        = properties.get("tileheight", Integer.class);
-        mapWidthInTiles   = properties.get("width", Integer.class);
-        mapHeightInTiles  = properties.get("height", Integer.class);
-        mapWidthInPixels  = mapWidthInTiles  * tileWidth;
-        mapHeightInPixels = mapHeightInTiles * tileHeight;
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
         //camera = new OrthographicCamera();
         //camera.setToOrtho(false,w,h);
         //camera.update();

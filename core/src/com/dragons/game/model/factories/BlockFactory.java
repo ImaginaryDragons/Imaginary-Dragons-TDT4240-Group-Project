@@ -16,9 +16,9 @@ public abstract class BlockFactory {
      */
     public static Block createBlock(Vector2 position, BlockType type, float width, float height){
         switch (type){
-            case DESTRUCTIBLEBLOCK:
+            case DESTRUCTIBLE:
                 return new DestructibleBlock(position, type, width, height);
-            case WALLBLOCK:
+            case WALL:
                 return new WallBlock(position, type, width, height);
             default:
                 throw new IllegalArgumentException();
