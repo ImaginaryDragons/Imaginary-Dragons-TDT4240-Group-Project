@@ -3,7 +3,6 @@ package com.dragons.game.view.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.dragons.game.components.Tiled;
@@ -18,15 +17,9 @@ public class GameScreen extends ScreenAdapter {
     private GameWorld gameWorld;
     private GameRenderer gameRenderer;
     private AnnotationAssetManager manager;
-    private Tiled tileRenderer;
-
-    private int tileWidth, tileHeight,
-            mapWidthInTiles, mapHeightInTiles,
-            mapWidthInPixels, mapHeightInPixels;
 
     private GameMap gameMap;
 
-    TiledMap tiledMap;
     OrthographicCamera camera;
     TiledMapRenderer tiledMapRenderer;
 
@@ -44,21 +37,21 @@ public class GameScreen extends ScreenAdapter {
         //float screenWidth = Gdx.graphics.getWidth();
         //float screenHeight = Gdx.graphics.getHeight();
         //float gameWidth = 136;
-        gameMap = new GameMap("TileMapMobile.tmx");
         gameWorld = new GameWorld();
         manager = new AnnotationAssetManager();
         gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
+        gameMap = new GameMap("TileMapMobile.tmx");
 
         //camera = new OrthographicCamera();
         //camera.setToOrtho(false,w,h);
         //camera.update();
 
         camera = new OrthographicCamera(480.f, 350.f);
-        camera.position.x = mapWidthInPixels * .50f;
-        camera.position.y = mapHeightInPixels * .50f;
+        camera.position.x = gameMap.getMapWidthInPixels() * .50f;
+        camera.position.y = gameMap.getMapHeightInPixels() * .50f;
         camera.update();
 
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
         // TODO: Create functionality for spawning game world
     }
 
