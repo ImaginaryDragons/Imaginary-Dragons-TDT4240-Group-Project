@@ -14,21 +14,10 @@ import com.dragons.game.view.GameRenderer;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
-
 public class GameScreen extends ScreenAdapter {
-
-    private GameWorld gameWorld;
+    private World gameWorld;
     private GameRenderer gameRenderer;
     private AnnotationAssetManager manager;
-    private Tiled tileRenderer;
-
-    private int tileWidth, tileHeight,
-            mapWidthInTiles, mapHeightInTiles,
-            mapWidthInPixels, mapHeightInPixels;
-
-    TiledMap tiledMap;
-    OrthographicCamera camera;
-    TiledMapRenderer tiledMapRenderer;
 
     // TODO: Integrating the gameWorld onto the firebase server
     /*Right now the gameWorld is statically defined within our gamescreen. However, we need
@@ -45,23 +34,10 @@ public class GameScreen extends ScreenAdapter {
         //float screenHeight = Gdx.graphics.getHeight();
         //float gameWidth = 136;
 
-        gameWorld = new GameWorld();
+        // Initialize gameWorld. Set Gravity 0 and 'not simulate inactive objects' true
+        gameWorld = new World(new Vector2(0,0), true);
         manager = new AnnotationAssetManager();
-        //gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
-        tiledMap = new TmxMapLoader().load("TileMapMobile.tmx");
-
-        MapProperties properties = tiledMap.getProperties();
-        tileWidth         = properties.get("tilewidth", Integer.class);
-        tileHeight        = properties.get("tileheight", Integer.class);
-        mapWidthInTiles   = properties.get("width", Integer.class);
-        mapHeightInTiles  = properties.get("height", Integer.class);
-        mapWidthInPixels  = mapWidthInTiles  * tileWidth;
-        mapHeightInPixels = mapHeightInTiles * tileHeight;
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
-        //camera = new OrthographicCamera();
-        //camera.setToOrtho(false,w,h);
-        //camera.update();
+        gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
 
         camera = new OrthographicCamera(480.f, 350.f);
         camera.position.x = mapWidthInPixels * .50f;
@@ -77,7 +53,10 @@ public class GameScreen extends ScreenAdapter {
         Gdx.app.log("GameScreen", "Rendering");
 
         // Update game world
-        gameWorld.update(delta);
+        // In step, VelocityIteration and PositionIteration values are just 'recommended'
+        // Explanation gameWorld step: http://www.iforce2d.net/b2dtut/worlds
+        gameWorld.step(delta, 6, 2);
+
         // Render screen
         // gameRenderer.render();
         tiledMapRenderer.setView(camera);
@@ -107,6 +86,7 @@ public class GameScreen extends ScreenAdapter {
         }
         To get an asset, use manager.get(AssetDescriptors.ASSET_YOU_WANT)
          */
+
         super.show();
     }
 
