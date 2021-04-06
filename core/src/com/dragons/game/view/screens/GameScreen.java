@@ -6,6 +6,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.playerController.Joystick;
 import com.dragons.game.utilities.Constants;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.dragons.game.components.Tiled;
+import com.dragons.game.model.gameWorld.GameMap;
+import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.view.GameRenderer;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -13,10 +19,16 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
 import static com.dragons.game.utilities.Constants.JoystickPosY;
 
 public class GameScreen extends ScreenAdapter {
-    private World gameWorld;
+
+    private GameWorld gameWorld;
     private GameRenderer gameRenderer;
     private Joystick joystick;
     private AnnotationAssetManager manager;
+
+    private GameMap gameMap;
+
+    OrthographicCamera camera;
+    TiledMapRenderer tiledMapRenderer;
 
     // TODO: Integrating the gameWorld onto the firebase server
     /*Right now the gameWorld is statically defined within our gamescreen. However, we need
@@ -32,12 +44,21 @@ public class GameScreen extends ScreenAdapter {
         //float screenWidth = Gdx.graphics.getWidth();
         //float screenHeight = Gdx.graphics.getHeight();
         //float gameWidth = 136;
-
-        // Initialize gameWorld. Set Gravity 0 and 'not simulate inactive objects' true
-        gameWorld = new World(new Vector2(0,0), true);
+        gameWorld = new GameWorld();
         manager = new AnnotationAssetManager();
         gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
+        gameMap = new GameMap("TileMapMobile.tmx");
 
+        //camera = new OrthographicCamera();
+        //camera.setToOrtho(false,w,h);
+        //camera.update();
+
+        camera = new OrthographicCamera(480.f, 350.f);
+        camera.position.x = gameMap.getMapWidthInPixels() * .50f;
+        camera.position.y = gameMap.getMapHeightInPixels() * .50f;
+        camera.update();
+
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
         // TODO: Create functionality for spawning game world
     }
 
@@ -46,12 +67,11 @@ public class GameScreen extends ScreenAdapter {
         Gdx.app.log("GameScreen", "Rendering");
 
         // Update game world
-        // In step, VelocityIteration and PositionIteration values are just 'recommended'
-        // Explanation gameWorld step: http://www.iforce2d.net/b2dtut/worlds
-        gameWorld.step(delta, 6, 2);
-
+        gameWorld.update(delta);
         // Render screen
-        gameRenderer.render();
+        // gameRenderer.render();
+        tiledMapRenderer.setView(camera);
+        tiledMapRenderer.render();
         Gdx.app.log("GameScreen FPS", (1/delta) + "");
     }
 
@@ -77,7 +97,6 @@ public class GameScreen extends ScreenAdapter {
         }
         To get an asset, use manager.get(AssetDescriptors.ASSET_YOU_WANT)
          */
-
         super.show();
     }
 
