@@ -20,20 +20,22 @@ import com.google.common.collect.Table;
 import com.dragons.game.model.blocks.BlockType;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GameMap {
 
     private Tiled tileRenderer;
     public Table<Integer, Integer, ArrayList<IObject>> tileContainers;
-    private int[][] index;
     private int tileWidth, tileHeight,
             mapWidthInTiles, mapHeightInTiles,
             mapWidthInPixels, mapHeightInPixels;
 
     private TiledMap tiledMap;
-    private OrthographicCamera camera;
-    private TiledMapRenderer tiledMapRenderer;
 
     public GameMap(String mapName) {
         tiledMap = new TmxMapLoader().load(mapName); //"TileMapMobile.tmx"
@@ -45,7 +47,7 @@ public class GameMap {
         mapHeightInTiles  = properties.get("height", Integer.class);
         mapWidthInPixels  = mapWidthInTiles  * tileWidth;
         mapHeightInPixels = mapHeightInTiles * tileHeight;
-        float w = Gdx.graphics.getWidth();
+        float w = Gdx.graphics.getWidth(); // TODO: SE PÅ HVA DETTE ER!!!
         float h = Gdx.graphics.getHeight();
         //camera = new OrthographicCamera();
         //camera.setToOrtho(false,w,h);
@@ -56,45 +58,59 @@ public class GameMap {
                 tileContainers.put(x, y, new ArrayList<IObject>());
             }
         }
-
     }
 
     public Vector2 pos2tile(Vector2 pos) { //brukes til å finne ut hvilken tile man er på basert på posisjonen
-        int resX = (int) ((pos.x-pos.x % 32)/32);
-        int resY = (int) ((pos.y-pos.y % 32)/32);
+        int resX = (int) ((pos.x-(pos.x % 32)) / 32);
+        int resY = (int) ((pos.y-(pos.y % 32)) / 32);
         return new Vector2(resX, resY);
-            }
+    }
 
     public Vector2 tilePos(Vector2 tile) { //brukes for å finne starten av tilen, bildet som brukes
         return new Vector2((tile.x - 1)*32, (tile.y - 1)*32);
     }
 
-    public void generateBlocks(BlockFactory blockFactory, PowerUpFactory powerUpFactory, int numberOfPowerups, String recipeFile) {
+    public void generateBlocks(BlockFactory blockFactory, PowerUpFactory powerUpFactory, int numberOfPowerups, String recipeFile) throws IOException {
         String number = null;
         Vector2 tile = new Vector2(0, 0);
-        for(int x = 1; x <= mapWidthInTiles; x++) {
-            for (int y = 1; y <= mapHeightInTiles; y++) {
-                //TODO: Les inn neste tall fra tekstfilen
-                tile.x = x;
-                tile.y = y;
-                switch (number) {
-                    case "0":
-                        break;
-                    case "1":
-                        Block desblock = blockFactory.createBlock(tilePos(tile), BlockType.DESTRUCTIBLE, tileWidth, tileHeight);
-                        tileContainers.get(x, y).add(desblock);
-                    case "2":
-                        Block wallblock = blockFactory.createBlock(tilePos(tile), BlockType.WALL, tileWidth, tileHeight);
-                        tileContainers.get(x, y).add(wallblock);
-                    case "3":
-                        Block desPowerupBlock = blockFactory.createBlock(tilePos(tile), BlockType.DESTRUCTIBLE,  tileWidth, tileHeight);
-                        //PowerUp powerup = powerUpFactory.createPowerUp(PowerUpType.INCREASESPEED); lager en random powerup
-                        tileContainers.get(x, y).add(desPowerupBlock);
-                        //tileContainers.get(x, y).add(powerup);
-                }
 
+        //String recipeFile = "C:\\Users\\Bruker\\Desktop\\Progark\\Prosjekt\\android\\assets\\map.txt"; For testing
+        Scanner scanner = new Scanner(new File(recipeFile));
+        scanner.useDelimiter(" ");
+        String nextChar;
+
+        int x = 0;
+        int y = mapHeightInTiles; // We start in the top left corner iterating through our recipe!
+        // TODO: Check that the initial indexes are correct in case of placement mistake!!
+
+        while(scanner.hasNext()) {
+            tile.x = x;
+            tile.y = y;
+            switch (scanner.next()) {
+                case "0":
+                    break;
+                case "1":
+                    Block desblock = blockFactory.createBlock(tilePos(tile), BlockType.DESTRUCTIBLE, tileWidth, tileHeight);
+                    tileContainers.get(x, y).add(desblock);
+                    break;
+                case "2":
+                    Block wallblock = blockFactory.createBlock(tilePos(tile), BlockType.WALL, tileWidth, tileHeight);
+                    tileContainers.get(x, y).add(wallblock);
+                    break;
+                case "3":
+                    Block desPowerupBlock = blockFactory.createBlock(tilePos(tile), BlockType.DESTRUCTIBLE, tileWidth, tileHeight);
+                    //PowerUp powerup = powerUpFactory.createPowerUp(PowerUpType.INCREASESPEED); lager en random powerup
+                    tileContainers.get(x, y).add(desPowerupBlock);
+                    //tileContainers.get(x, y).add(powerup);
+                    break;
+                case " ":
+                    break;
+                default:
+                    // Basically when we reach the end of the file!
+                    y = y - 1;
+                    x = 0;
+                    break;
             }
-
         }
     }
 

@@ -36,10 +36,6 @@ public class GameObject {
         obj.setPosition(newPos);
     }
 
-
-
-
-
     private void dispose() {
         world.destroyBody(body);
     }
