@@ -5,15 +5,13 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dragons.game.model.GameWorld.GameWorld;
+import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.utilities.Constants;
-import com.dragons.game.view.GameRenderer;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 public class MenuScreen implements Screen {
     private GameWorld gameWorld;
-    private GameRenderer gameRenderer;
     private AnnotationAssetManager manager;
     private SpriteBatch spriteBatch;
     private OrthographicCamera camera;
@@ -33,8 +31,7 @@ public class MenuScreen implements Screen {
         float h = Gdx.graphics.getHeight();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, w, h);
-        camera.update();
+        camera.setToOrtho(false, Constants.WIDTH / 2, Constants.HEIGHT / 2);
     }
 
     @Override
@@ -42,14 +39,17 @@ public class MenuScreen implements Screen {
 
     }
 
+    // TRENGER EN HANDLE INPUT
+
     @Override
     public void render(float delta) {
         gameWorld.update(delta);
+        spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
-        spriteBatch.draw(background,0,0, Constants.WIDTH,Constants.HEIGHT);
-        spriteBatch.draw(playbutton, ((Constants.WIDTH / 2)-(playbutton.getWidth() / 2)),
-                Constants.HEIGHT / 2);
+        spriteBatch.draw(background,0,0);
+        spriteBatch.draw(playbutton, camera.position.x - playbutton.getWidth() / 2, camera.position.y);
         spriteBatch.end();
+
     }
 
     @Override
