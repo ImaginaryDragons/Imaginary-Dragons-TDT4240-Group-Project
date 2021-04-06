@@ -11,8 +11,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.2'
-        
-
+        classpath 'com.google.gms:google-services:4.3.5'
     }
 }
 
@@ -37,6 +36,8 @@ allprojects {
         google()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url "https://mvnrepository.com/artifact/net.dermetfan.libgdx-utils/libgdx-utils"}
+
     }
 }
 
@@ -46,21 +47,26 @@ project(":desktop") {
 
     dependencies {
         implementation project(":core")
+        implementation group: 'net.dermetfan.libgdx-utils', name: 'libgdx-utils', version: '0.13.1'
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
-        
+        // 3. Android - Use Guava in your implementation only:
+        implementation("com.google.guava:guava:30.1.1-android")
+
     }
 }
 
 project(":android") {
     apply plugin: "com.android.application"
+    apply plugin: 'com.google.gms.google-services'
 
     configurations { natives }
 
     dependencies {
         implementation project(":core")
         api "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+        implementation group: 'net.dermetfan.libgdx-utils', name: 'libgdx-utils', version: '0.13.1'
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
@@ -72,6 +78,17 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
+
+        // Import the Firebase BoM
+        implementation platform('com.google.firebase:firebase-bom:26.8.0')
+
+        // Add the dependency for the Firebase SDK for Google Analytics
+        // When using the BoM, don't specify versions in Firebase dependencies
+        implementation 'com.google.firebase:firebase-analytics'
+        implementation 'com.google.firebase:firebase-database'
+
+        // Add the dependencies for any other desired Firebase products
+        // https://firebase.google.com/docs/android/setup#available-libraries
         
     }
 }
@@ -81,8 +98,11 @@ project(":core") {
 
 
     dependencies {
+        implementation group: 'net.dermetfan.libgdx-utils', name: 'libgdx-utils', version: '0.13.1'
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-        
+        implementation("com.google.guava:guava:30.1.1-jre")
+
+
     }
 }

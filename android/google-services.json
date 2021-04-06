@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "374434258358",
+    "project_id": "imaginary-dragons",
+    "storage_bucket": "imaginary-dragons.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374434258358:android:5624632ed86e77ebbdf517",
+        "android_client_info": {
+          "package_name": "com.dragons.game"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374434258358-5cgguujfuuv85dqlv8j1lk635e8iuj7a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_an5f_6ffugfxQdNt4iE9vGGbKUAQLvs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374434258358-5cgguujfuuv85dqlv8j1lk635e8iuj7a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
