@@ -17,7 +17,6 @@ public class GameScreen extends ScreenAdapter {
     private GameWorld gameWorld;
     private GameRenderer gameRenderer;
     private AnnotationAssetManager manager;
-
     private GameMap gameMap;
 
     OrthographicCamera camera;
@@ -42,10 +41,6 @@ public class GameScreen extends ScreenAdapter {
         gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
         gameMap = new GameMap("TileMapMobile.tmx");
 
-        //camera = new OrthographicCamera();
-        //camera.setToOrtho(false,w,h);
-        //camera.update();
-
         camera = new OrthographicCamera(480.f, 350.f);
         camera.position.x = gameMap.getMapWidthInPixels() * .50f;
         camera.position.y = gameMap.getMapHeightInPixels() * .50f;
@@ -53,6 +48,7 @@ public class GameScreen extends ScreenAdapter {
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
         // TODO: Create functionality for spawning game world
+
     }
 
     @Override
@@ -63,7 +59,7 @@ public class GameScreen extends ScreenAdapter {
         gameWorld.update(delta);
         // Render screen
         // gameRenderer.render();
-        tiledMapRenderer.setView(camera);
+        tiledMapRenderer.setView(camera); // TODO: Move this to where it's relevant
         tiledMapRenderer.render();
         Gdx.app.log("GameScreen FPS", (1/delta) + "");
     }
