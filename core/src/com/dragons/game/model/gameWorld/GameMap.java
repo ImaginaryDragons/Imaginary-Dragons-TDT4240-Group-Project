@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.components.Tiled;
 import com.dragons.game.model.IObject;
 
-import com.dragons.game.model.blocks.Block;
 import com.dragons.game.model.factories.BlockFactory;
 import com.dragons.game.model.factories.PowerUpFactory;
 import com.google.common.collect.HashBasedTable;
@@ -36,8 +35,8 @@ public class GameMap {
             mapWidthInPixels, mapHeightInPixels;
 
     private TiledMap tiledMap;
-    private BlockFactory blockFactory;
-    private PowerUpFactory powerUpFactory;
+    private final BlockFactory blockFactory;
+    private final PowerUpFactory powerUpFactory;
 
     public GameMap(String mapName) {
         Gdx.app.log("GameMap", "Constructing game map");
@@ -69,6 +68,7 @@ public class GameMap {
 
     public Vector2 pos2tile(Vector2 pos) {
         //brukes til å finne ut hvilken tile man er på basert på posisjonen
+        // TODO: change 32 to dynamic
         int resX = (int) ((pos.x-(pos.x % 32)) / 32);
         int resY = (int) ((pos.y-(pos.y % 32)) / 32);
         return new Vector2(resX, resY);
@@ -85,7 +85,7 @@ public class GameMap {
         Vector2 tile = new Vector2(0, 0);
 
         //String recipeFile = "C:\\Users\\Bruker\\Desktop\\Progark\\Prosjekt\\android\\assets\\map.txt"; For testing
-        Scanner scanner = new Scanner(new File(recipeFile));
+        Scanner scanner = new Scanner(new File("map.txt"));
         scanner.useDelimiter(" ");
         String nextChar;
 
@@ -101,16 +101,16 @@ public class GameMap {
                 case "0":
                     break;
                 case "1":
-                    Block desblock = blockFactory.createBlock(tilePos(tile), BlockType.DESTRUCTIBLE, tileWidth, tileHeight);
+                    IObject desblock = blockFactory.createBlock(tilePos(tile), BlockType.DESTRUCTIBLE, tileWidth, tileHeight);
                     tileContainers.get(x, y).add(desblock);
                     break;
                 case "2":
-                    Block wallblock = blockFactory.createBlock(tilePos(tile), BlockType.WALL, tileWidth, tileHeight);
+                    IObject wallblock = blockFactory.createBlock(tilePos(tile), BlockType.WALL, tileWidth, tileHeight);
                     tileContainers.get(x, y).add(wallblock);
                     break;
                 case "3":
-                    Block desPowerupBlock = blockFactory.createBlock(tilePos(tile), BlockType.DESTRUCTIBLE, tileWidth, tileHeight);
-                    //PowerUp powerup = powerUpFactory.createPowerUp(PowerUpType.INCREASESPEED); lager en random powerup
+                    IObject desPowerupBlock = blockFactory.createBlock(tilePos(tile), BlockType.DESTRUCTIBLE, tileWidth, tileHeight);
+                    //IObject powerup = powerUpFactory.createPowerUp(PowerUpType.INCREASESPEED); lager en random powerup
                     tileContainers.get(x, y).add(desPowerupBlock);
                     //tileContainers.get(x, y).add(powerup);
                     break;

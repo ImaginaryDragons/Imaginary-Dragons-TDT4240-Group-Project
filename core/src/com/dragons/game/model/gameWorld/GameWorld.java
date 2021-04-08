@@ -30,11 +30,12 @@ public class GameWorld {
     // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
 
-    public GameWorld(GameMap map) {
-        this.world = new World(new Vector2(0,0), true);  // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
-        this.gameObjects = new ArrayList<GameObject>();
-        this.players = new ArrayList<GameObject>();
-        this.bombs = new ArrayList<GameBomb>();
+    public GameWorld(World world, GameMap map) {
+        this.world = world;
+        world.setContactListener(new WorldContactListener());
+        gameObjects = new ArrayList<GameObject>();
+        players = new ArrayList<GameObject>();
+        bombs = new ArrayList<GameBomb>();
         this.map = map;
     }
 
@@ -44,7 +45,7 @@ public class GameWorld {
             for (int y = 1; y < map.getMapHeightInTiles(); y++){
                 //ArrayList<IObject> objList = map.tileContainers.get(x,y);
                 for (IObject obj : map.tileContainers.get(x,y)){
-                    this.addObject(obj, true);
+                    this.addObject(obj);
                 }
             }
         }
@@ -65,17 +66,17 @@ public class GameWorld {
     }
 
     // Add object to GameObjects
-    public void addObject(IObject obj, boolean isStatic) {
-        gameObjects.add(new com.dragons.game.model.gameWorld.GameObject(obj, world));
+    public void addObject(IObject obj) {
+        gameObjects.add(new GameObject(obj, world));
     }
 
     public void addPlayer(Player player) {
         // TODO: Add a game class that encapsulates a player with a controller (similar to the GameBomb class).
-        players.add(new com.dragons.game.model.gameWorld.GameObject(player, world)); //TODO: IS FALSE CORRECT?
+        players.add(new GameObject(player, world));
     }
 
     public void addBomb(Bomb bomb) {
-        com.dragons.game.model.gameWorld.GameBomb b = new com.dragons.game.model.gameWorld.GameBomb(bomb, world);
+        GameBomb b = new GameBomb(bomb, world);
         bombs.add(b);
     }
 

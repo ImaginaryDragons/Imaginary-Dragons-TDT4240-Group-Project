@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IObject;
+import com.dragons.game.model.PowerUps.IPowerUp;
+import com.dragons.game.model.blocks.IBlock;
 import com.dragons.game.view.modelViews.ModelView;
 
 
@@ -21,9 +23,10 @@ public class GameObject {
     public GameObject(IObject obj, World world) {
         Gdx.app.log("GameObject", "Creating game object");
         this.obj = obj;
-        this.body = BodyBuilder.createBody(world, obj);
         this.world = world;
+        this.body = BodyBuilder.createBody(world, this);
     }
+
 
     public IObject getObject() {
         return obj;
