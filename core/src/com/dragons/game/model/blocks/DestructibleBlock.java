@@ -15,7 +15,7 @@ public class DestructibleBlock extends Object implements IBlock {
     public DestructibleBlock(Vector2 position, BlockType type, float width, float height) {
         super(position, type, width, height, isStatic, isSensor);
         final PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
+        shape.setAsBox(width / 2, height / 2);
         super.setShape(shape);
 
     }

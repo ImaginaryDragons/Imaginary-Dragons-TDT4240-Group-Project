@@ -45,22 +45,15 @@ public class GameScreen extends ScreenAdapter {
     public GameScreen() throws IOException {
         //super();
         Gdx.app.log("GameScreen", "Attached");
-        //World dummyWorld = new World(new Vector2(0,0), false);
-
         //float screenWidth = Gdx.graphics.getWidth();
         //float screenHeight = Gdx.graphics.getHeight();
         //float gameWidth = 136;
         gameMap = new GameMap("TileMapMobile.tmx");
-
-
-
-        // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
-        b2dWorld = new World(new Vector2(10,-10f), true);
+        b2dWorld = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         gameWorld = new GameWorld(b2dWorld, gameMap);
+        manager = new AnnotationAssetManager();
 
         gameMap.generateBlocks(0, "map.txt");
-        manager = new AnnotationAssetManager();
-        gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
 
         //TODO: Change viewPortWidth and height to variables
         camera = new OrthographicCamera(480.f, 350.f);
@@ -68,13 +61,15 @@ public class GameScreen extends ScreenAdapter {
         camera.position.y = gameMap.getMapHeightInPixels() * .50f;
         camera.update();
 
+        gameRenderer = new GameRenderer(gameWorld, manager, camera); // Initialize world renderer
+
         /**
          * Not good but debugRenderer is only a tool on not in the final implementation
          */
         //TODO: Change viewPortWidth and height to variables
-        b2drCam = new OrthographicCamera(480.f/PPM, 350.f/PPM);
-        b2drCam.position.x = gameMap.getMapWidthInPixels() / PPM * .334f;
-        b2drCam.position.y = gameMap.getMapHeightInPixels() / PPM * .454f;
+        b2drCam = new OrthographicCamera(480.f, 350.f);
+        b2drCam.position.x = (gameMap.getMapWidthInPixels()) * .50f;
+        b2drCam.position.y = (gameMap.getMapHeightInPixels()) * .50f;
         b2drCam.update();
 
         b2dr = new Box2DDebugRenderer();
@@ -95,13 +90,8 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         //Gdx.app.log("GameScreen", "Rendering");
-
-        //Gdx.gl.glClearColor(0, 0, 0, 1);
-        //TODO: is this in the correct place?
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         tiledMapRenderer.render();
-
         // Update game world
         gameWorld.update(delta);
         // Render screen
@@ -116,9 +106,6 @@ public class GameScreen extends ScreenAdapter {
         Gdx.app.log("GameScreen", "resizing");
         super.resize(width, height);
     }
-
-    // TODO: At some point we want to remove all the override methods we haven't used!!
-    // For now I'll leave them her so we can log whenever one is called for research purposes.
 
     @Override
     public void show() {
