@@ -1,14 +1,9 @@
 package com.dragons.game.model;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
-import com.badlogic.gdx.physics.box2d.Shape.Type;
 
-import static com.dragons.game.utilities.Constants.PPM;
-
-public abstract class Object implements IObject{
+public abstract class Object implements IObject {
     private Vector2 position;
     private final IModelType type;
     private final float width, height;
@@ -31,7 +26,7 @@ public abstract class Object implements IObject{
     protected void setShape(Shape shape){
         this.shape = shape;
     }
-    
+
 
     @Override
     public void setPosition(Vector2 position) {
@@ -48,6 +43,7 @@ public abstract class Object implements IObject{
         return shape;
     }
 
+    //TODO: Method might not be necessary
     @Override
     public IModelType getType() {
         return type;

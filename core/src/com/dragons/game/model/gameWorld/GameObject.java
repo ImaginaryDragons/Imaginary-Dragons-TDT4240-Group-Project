@@ -5,8 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IObject;
-import com.dragons.game.model.PowerUps.IPowerUp;
-import com.dragons.game.model.blocks.IBlock;
 import com.dragons.game.view.modelViews.ModelView;
 
 

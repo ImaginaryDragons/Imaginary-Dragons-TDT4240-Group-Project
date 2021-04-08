@@ -1,12 +1,14 @@
 package com.dragons.game.model.factories;
 
 import com.badlogic.gdx.math.Vector2;
-import com.dragons.game.model.IModelType;
 import com.dragons.game.model.IObject;
 import com.dragons.game.model.PowerUps.PowerUpType;
 import com.dragons.game.model.PowerUps.BombCapacity;
 import com.dragons.game.model.PowerUps.IncreaseRange;
 import com.dragons.game.model.PowerUps.IncreaseSpeed;
+
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 
 /**
@@ -28,7 +30,9 @@ public final class PowerUpFactory {
      * @return PowerUp if the type is correct
      * @throws IllegalArgumentException if type doesn't exist
      */
-        public IObject createPowerUp(Vector2 position, PowerUpType type, float width, float height){
+
+        @NotNull
+        public IObject createPowerUp(Vector2 position, @NotNull PowerUpType type, float width, float height){
             switch (type) {
                 case BOMBCAPACITY:
                     return new BombCapacity(position, type, width, height);

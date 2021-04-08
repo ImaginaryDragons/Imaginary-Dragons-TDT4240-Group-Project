@@ -3,17 +3,10 @@ package com.dragons.game.model.gameWorld;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.dragons.game.model.IModelType;
 import com.dragons.game.model.IObject;
-import com.dragons.game.model.PowerUps.BombCapacity;
 import com.dragons.game.model.PowerUps.IPowerUp;
-import com.dragons.game.model.PowerUps.PowerUpType;
-import com.dragons.game.model.blocks.BlockType;
-import com.dragons.game.model.blocks.DestructibleBlock;
 import com.dragons.game.model.blocks.IBlock;
-import com.dragons.game.model.blocks.WallBlock;
 
 public class WorldContactListener implements ContactListener {
 
