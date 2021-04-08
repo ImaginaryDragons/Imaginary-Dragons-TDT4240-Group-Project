@@ -5,12 +5,16 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.components.Tiled;
 import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.view.GameRenderer;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
+
+import java.io.IOException;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -29,17 +33,20 @@ public class GameScreen extends ScreenAdapter {
     * not clear!
     * */
 
-    public GameScreen() {
+    public GameScreen() throws IOException {
         //super();
         Gdx.app.log("GameScreen", "Attached");
+        //World dummyWorld = new World(new Vector2(0,0), false);
 
         //float screenWidth = Gdx.graphics.getWidth();
         //float screenHeight = Gdx.graphics.getHeight();
         //float gameWidth = 136;
-        gameWorld = new GameWorld();
+        gameMap = new GameMap("TileMapMobile.tmx");
+        String recipeFile = "C:\\Users\\Bruker\\Desktop\\Progark\\Prosjekt\\android\\assets\\map.txt";
+        gameWorld = new GameWorld(gameMap);
+        gameMap.generateBlocks(0, recipeFile);
         manager = new AnnotationAssetManager();
         gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
-        gameMap = new GameMap("TileMapMobile.tmx");
 
         camera = new OrthographicCamera(480.f, 350.f);
         camera.position.x = gameMap.getMapWidthInPixels() * .50f;
@@ -47,13 +54,16 @@ public class GameScreen extends ScreenAdapter {
         camera.update();
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
+
         // TODO: Create functionality for spawning game world
+        gameWorld.generateMapBlocks();
+        // gameWorld.
 
     }
 
     @Override
     public void render(float delta) {
-        Gdx.app.log("GameScreen", "Rendering");
+        //Gdx.app.log("GameScreen", "Rendering");
 
         // Update game world
         gameWorld.update(delta);
@@ -61,7 +71,7 @@ public class GameScreen extends ScreenAdapter {
         // gameRenderer.render();
         tiledMapRenderer.setView(camera); // TODO: Move this to where it's relevant
         tiledMapRenderer.render();
-        Gdx.app.log("GameScreen FPS", (1/delta) + "");
+        //Gdx.app.log("GameScreen FPS", (1/delta) + "");
     }
 
     @Override

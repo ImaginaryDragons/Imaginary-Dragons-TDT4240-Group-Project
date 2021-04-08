@@ -1,6 +1,7 @@
 package com.dragons.game.model.gameWorld;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IObject;
@@ -19,21 +20,34 @@ import java.util.ArrayList;
  * */
 
 public class GameWorld {
-    private ArrayList<com.dragons.game.model.gameWorld.GameObject> gameObjects;
-    private ArrayList<com.dragons.game.model.gameWorld.GameObject> players;
-    private ArrayList<com.dragons.game.model.gameWorld.GameBomb> bombs;
+    private ArrayList<GameObject> gameObjects;
+    private ArrayList<GameObject> players;
+    private ArrayList<GameBomb> bombs;
     private World world;
+    private GameMap map;
 
     // https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_hello.html#autotoc_md21
     // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
 
-    public GameWorld() {
-        // TODO: doSleep = true or false?
-        world = new World(new Vector2(0,0), true);  // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
-        gameObjects = new ArrayList<com.dragons.game.model.gameWorld.GameObject>();
-        players = new ArrayList<com.dragons.game.model.gameWorld.GameObject>();
-        bombs = new ArrayList<com.dragons.game.model.gameWorld.GameBomb>();
+    public GameWorld(GameMap map) {
+        this.world = new World(new Vector2(0,0), true);  // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
+        this.gameObjects = new ArrayList<GameObject>();
+        this.players = new ArrayList<GameObject>();
+        this.bombs = new ArrayList<GameBomb>();
+        this.map = map;
+    }
+
+    public void generateMapBlocks() {
+        Gdx.app.log("GameWorld", "Adding map blocks");
+        for (int x = 1; x < map.getMapWidthInTiles(); x++){
+            for (int y = 1; y < map.getMapHeightInTiles(); y++){
+                //ArrayList<IObject> objList = map.tileContainers.get(x,y);
+                for (IObject obj : map.tileContainers.get(x,y)){
+                    this.addObject(obj, true);
+                }
+            }
+        }
     }
 
     // Update GameWorld with one time-step

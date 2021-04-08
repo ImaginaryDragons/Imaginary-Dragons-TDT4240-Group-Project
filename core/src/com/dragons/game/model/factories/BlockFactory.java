@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.blocks.*;
 
 
-public abstract class BlockFactory {
+public class BlockFactory {
 
     /**
      * Returns a block object

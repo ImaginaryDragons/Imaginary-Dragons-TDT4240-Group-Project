@@ -36,8 +36,11 @@ public class GameMap {
             mapWidthInPixels, mapHeightInPixels;
 
     private TiledMap tiledMap;
+    private BlockFactory blockFactory;
+    private PowerUpFactory powerUpFactory;
 
     public GameMap(String mapName) {
+        Gdx.app.log("GameMap", "Constructing game map");
         tiledMap = new TmxMapLoader().load(mapName); //"TileMapMobile.tmx"
 
         MapProperties properties = tiledMap.getProperties();
@@ -52,25 +55,32 @@ public class GameMap {
         //camera = new OrthographicCamera();
         //camera.setToOrtho(false,w,h);
         //camera.update();
+        blockFactory = new BlockFactory();
+        powerUpFactory = new PowerUpFactory();
         tileContainers = HashBasedTable.create();
+        // Initialize tileContainers with tiles
         for(int x = 1; x <= mapWidthInTiles; x++) {
             for (int y = 1; y <= mapHeightInTiles; y++) {
                 tileContainers.put(x, y, new ArrayList<IObject>());
             }
         }
+
     }
 
-    public Vector2 pos2tile(Vector2 pos) { //brukes til å finne ut hvilken tile man er på basert på posisjonen
+    public Vector2 pos2tile(Vector2 pos) {
+        //brukes til å finne ut hvilken tile man er på basert på posisjonen
         int resX = (int) ((pos.x-(pos.x % 32)) / 32);
         int resY = (int) ((pos.y-(pos.y % 32)) / 32);
         return new Vector2(resX, resY);
     }
 
-    public Vector2 tilePos(Vector2 tile) { //brukes for å finne starten av tilen, bildet som brukes
+    public Vector2 tilePos(Vector2 tile) {
+        //brukes for å finne starten av tilen, bildet som brukes
         return new Vector2((tile.x - 1)*32, (tile.y - 1)*32);
     }
 
-    public void generateBlocks(BlockFactory blockFactory, PowerUpFactory powerUpFactory, int numberOfPowerups, String recipeFile) throws IOException {
+    public void generateBlocks(int numberOfPowerups, String recipeFile) throws IOException {
+        Gdx.app.log("GameMap", "Generating blocks from recipe");
         String number = null;
         Vector2 tile = new Vector2(0, 0);
 
@@ -86,6 +96,7 @@ public class GameMap {
         while(scanner.hasNext()) {
             tile.x = x;
             tile.y = y;
+            x++;
             switch (scanner.next()) {
                 case "0":
                     break;
@@ -112,6 +123,14 @@ public class GameMap {
                     break;
             }
         }
+    }
+
+    public ArrayList<IObject> getTileContent(int xKey, int yKey) {
+        return tileContainers.get(xKey,yKey);
+    }
+
+    public void setTileContent(int xKey, int yKey, ArrayList<IObject> list) {
+        tileContainers.put(xKey, yKey, list);
     }
 
     public Tiled getTileRenderer() {
@@ -145,4 +164,5 @@ public class GameMap {
     public TiledMap getTiledMap() {
         return tiledMap;
     }
+
 }

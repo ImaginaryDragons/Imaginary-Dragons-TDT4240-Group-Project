@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragons.game.view.screens.GameScreen;
 
+import java.io.IOException;
+
 public class DragonsGame extends Game {
 
 	// TODO: Find out how to structure screen management for dynamically changing between them
@@ -23,7 +25,11 @@ public class DragonsGame extends Game {
 	@Override
 	public void create () {
 		Gdx.app.log("DragonsGame", "created");
-		setScreen(new GameScreen());
+		try {
+			setScreen(new GameScreen());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
