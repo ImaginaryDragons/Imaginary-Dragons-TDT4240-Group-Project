@@ -4,15 +4,18 @@ import com.badlogic.gdx.graphics.Texture;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
-public class AssetLoader {
-
-
+public class AssetLoader<BACKGROUND, STARTGAME_BTN, JOINGAME_BTN> {
+    private static final AssetLoader ourInstance = new AssetLoader();
 
 
     /** ENTER ALL TEXTURE PATHS HERE
      * AssetAnnotationManager: https://man.sr.ht/~dermetfan/libgdx-utils/ *
      * https://man.sr.ht/~dermetfan/libgdx-utils/net.dermetfan.gdx.assets.AnnotationAssetManager.md
      * */
+
+    public static AssetLoader getInstance() {
+        return ourInstance;
+    }
 
     @AnnotationAssetManager.Asset(Texture.class)
     public static final String
@@ -47,9 +50,17 @@ public class AssetLoader {
             /***************** FIRE ************************/
 
             FIREBALL ="fireball.png",
-            EXPLOSION="Explosion.png";
+            EXPLOSION="Explosion.png",
+
+            /***************** MENU SCREEN ************************/
+
+            BACKGROUND = "grey_background.jpeg",
+            STARTGAME_BTN = "start_game.jpeg",
+            JOINGAME_BTN = "join_game.jpeg";
 
             // LAST ELEMENT MUST HAVE ';'!!
 
     private AssetLoader(){}
+
+
 }

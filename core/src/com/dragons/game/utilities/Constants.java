@@ -3,8 +3,8 @@ package com.dragons.game.utilities;
 public class Constants {
 
     public static final int PPM = 223;
-    public static final int WIDTH = 480;
-    public static final int HEIGHT = 800;
+    public static final int WIDTH = 800;
+    public static final int HEIGHT = 480;
 
 
     public static final int InitPlayerHealth = 3; // Number of lives
