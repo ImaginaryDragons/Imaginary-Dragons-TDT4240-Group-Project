@@ -40,9 +40,8 @@ public class GameWorld {
 
     public void generateMapBlocks() {
         Gdx.app.log("GameWorld", "Adding map blocks");
-        for (int x = 1; x < map.getMapWidthInTiles(); x++){
-            for (int y = 1; y < map.getMapHeightInTiles(); y++){
-                //ArrayList<IObject> objList = map.tileContainers.get(x,y);
+        for (int x = 0; x < map.getMapWidthInTiles(); x++){
+            for (int y = 0; y < map.getMapHeightInTiles(); y++){
                 for (IObject obj : map.tileContainers.get(x,y)){
                     this.addObject(obj);
                 }
@@ -97,5 +96,17 @@ public class GameWorld {
             //bombView.updateBomb() er vel riktig her? Vi kaller bomb.update i bombview for å få mvc
             bomb.update(delta);
         }
+    }
+
+    public ArrayList<GameObject> getGameObjects() {
+        return gameObjects;
+    }
+
+    public ArrayList<GameObject> getPlayers() {
+        return players;
+    }
+
+    public ArrayList<GameBomb> getBombs() {
+        return bombs;
     }
 }

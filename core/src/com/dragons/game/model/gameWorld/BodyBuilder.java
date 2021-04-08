@@ -30,7 +30,7 @@ public final class BodyBuilder {
 
         // World units = meters
         // From world to screen -> Divide by Pixel Per Meter
-        bodyDef.position.set(position.x / PPM, position.y / PPM);
+        bodyDef.position.set(position.x, position.y);
         Body body = world.createBody(bodyDef);
 
 
