@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.dragons.game.model.IModelType;
 import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.IObject;
+import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.model.player.Player;
 import com.dragons.game.utilities.Constants;
 
@@ -106,6 +107,10 @@ public class Bomb implements IObject {
 
         }
         return fireTiles;
+    }
+
+    public void spawnFire(GameWorld gameWorld, GameMap gameMap) {
+
     }
 
     public void update(float timestep){
