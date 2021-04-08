@@ -47,11 +47,6 @@ public class GameWorld {
                 }
             }
         }
-        for (GameObject obj : gameObjects) { // TEST
-            // TODO: Make these two synchronized!!
-            System.out.println(obj.getBody().getPosition().toString());
-            System.out.println(obj.getObject().getPosition().toString());
-        }
     }
 
     // Update GameWorld with one time-step

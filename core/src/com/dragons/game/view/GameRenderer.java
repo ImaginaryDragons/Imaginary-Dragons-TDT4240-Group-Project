@@ -38,7 +38,12 @@ public class GameRenderer {
     public void render() {
         Gdx.app.log("GameRenderer", "render");
         for (GameObject obj : gameWorld.getGameObjects()) {
-
+            ModelView view = obj.getModelView();
+            if (view == null) {
+                break;
+            } else {
+                obj.getModelView().render();
+            }
         }
     }
 

@@ -98,7 +98,6 @@ public class GameMap {
                     x++;
                     break;
                 case "1":
-
                     IObject desblock = blockFactory.createBlock(tilePosCenter(tile), BlockType.DESTRUCTIBLE, tileWidth, tileHeight);
                     tileContainers.get(x, y).add(desblock);
                     x++;

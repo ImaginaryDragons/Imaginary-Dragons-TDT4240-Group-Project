@@ -23,8 +23,16 @@ public class GameObject {
         this.obj = obj;
         this.world = world;
         this.body = BodyBuilder.createBody(world, this);
+        this.objView = null;
     }
 
+    public void setModelView(ModelView view) {
+        this.objView = view;
+    }
+
+    public ModelView getModelView() {
+        return objView;
+    }
 
     public IObject getObject() {
         return obj;

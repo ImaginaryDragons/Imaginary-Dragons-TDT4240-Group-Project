@@ -79,7 +79,6 @@ public class GameScreen extends ScreenAdapter {
 
         // TODO: Create functionality for spawning game world
         gameWorld.generateMapBlocks();
-        // gameWorld.
 
         // TODO: HardCoding, remove after done
         IObject powerUp = PowerUpFactory.getInstance().createPowerUp(new Vector2(15, 230), PowerUpType.BOMBCAPACITY, 20, 20 );
@@ -95,7 +94,7 @@ public class GameScreen extends ScreenAdapter {
         // Update game world
         gameWorld.update(delta);
         // Render screen
-        //gameRenderer.render();
+        gameRenderer.render();
         //Gdx.app.log("GameScreen FPS", (1/delta) + "");
 
         b2dr.render(b2dWorld, b2drCam.combined);
