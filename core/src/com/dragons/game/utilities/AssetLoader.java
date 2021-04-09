@@ -16,24 +16,24 @@ public class AssetLoader {
 
     @AnnotationAssetManager.Asset(Texture.class)
     public static final String
-            DRAGON_SLIM_RED = "red_dragon_slim-1.png",
-            DRAGON_MIDDLE_RED = "red_dragon_middle-1.png",
-            DRAGON_WIDE_RED = "red_dragon_wide-1.png",
+            DRAGON_SLIM_RED = "r3.png",
+            DRAGON_MIDDLE_RED = "r2.png",
+            DRAGON_WIDE_RED = "r1.png",
 
-    /*
-            DRAGON_SLIM_BLUE = "",
-            DRAGON_MIDDLE_BLUE = "",
-            DRAGON_WIDE_BLUE = "",
 
-            DRAGON_SLIM_GREEN = "",
-            DRAGON_MIDDLE_GREEN = "",
-            DRAGON_WIDE_GREEN = "",
+            DRAGON_SLIM_BLUE = "b3.png",
+            DRAGON_MIDDLE_BLUE = "b2.png",
+            DRAGON_WIDE_BLUE = "b1.png",
 
-            DRAGON_SLIM_YELLOW = "",
-            DRAGON_MIDDLE_YELLOW = "",
-            DRAGON_WIDE_YELLOW = "",
+            DRAGON_SLIM_GREEN = "g3.png",
+            DRAGON_MIDDLE_GREEN = "g2.png",
+            DRAGON_WIDE_GREEN = "g1.png",
 
-     */
+            DRAGON_SLIM_YELLOW = "y3.png",
+            DRAGON_MIDDLE_YELLOW = "y2.png",
+            DRAGON_WIDE_YELLOW = "y1.png",
+
+
 
 
             /****************** BLOCKS *******************/
