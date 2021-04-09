@@ -7,16 +7,6 @@ import com.dragons.game.model.IObject;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.utilities.Direction;
 
-/**
- * Instantiates a player. Has to be tied to a controller to control.
- * @param int ID, Vector2 startPos, PlayerColor color
- *
- * @author Eldar Sandanger
- */
-
-enum PlayerColor {
-    RED, BLUE, GREEN, YELLOW
-}
 
 public class Player implements IObject {
 
@@ -34,6 +24,10 @@ public class Player implements IObject {
 
     // TODO: Consider if it is necessary to implement a decorator for color, ID etc..
     // I suspect the answer is no, but there might be a good reason for it
+
+    public Player() {
+
+    }
 
     public Player(int ID, Vector2 startPos, PlayerColor col) {
         this.ID = ID;

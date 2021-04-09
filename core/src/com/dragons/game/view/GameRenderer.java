@@ -34,7 +34,7 @@ public class GameRenderer {
     }
 
     public void render() {
-        Gdx.app.log("GameRenderer", "render");
+        //Gdx.app.log("GameRenderer", "render");
 
         // 1. Draw a colored background
         Gdx.gl.glClearColor(0.5f,0,0,1);
