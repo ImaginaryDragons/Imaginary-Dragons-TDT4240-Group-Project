@@ -18,7 +18,6 @@ public class GameRenderer {
     private GameWorld gameWorld;
     private OrthographicCamera cam;
     private ShapeRenderer shapeRenderer;
-    private SpriteBatch spriteBatch;
     private AnnotationAssetManager manager;
 
     // Asset loading: https://github.com/libgdx/libgdx/wiki/Managing-your-assets
@@ -30,25 +29,32 @@ public class GameRenderer {
         this.cam = cam;
         this.shapeRenderer = new ShapeRenderer();
         this.shapeRenderer.setProjectionMatrix(cam.combined);
-        this.spriteBatch = new SpriteBatch();
-        this.spriteBatch.setProjectionMatrix(cam.combined);
         loadAssets();
     }
 
-    public void render() {
-        Gdx.app.log("GameRenderer", "render");
+    public void render(SpriteBatch sb) {
+        /*
         for (GameObject obj : gameWorld.getGameObjects()) {
             ModelView view = obj.getModelView();
             if (view == null) {
+                Gdx.app.log("GameRenderer", "render");
                 break;
             } else {
-                obj.getModelView().render();
+                Gdx.app.log("GameRenderer", "render");
+                obj.getModelView().render(sb);
             }
+        }
+        */
+        for (GameObject player : gameWorld.getPlayers()) {
+            ModelView view = player.getModelView();
+            player.getModelView().render(sb);
         }
     }
 
     private void loadAssets(){
+        Gdx.app.log("Asset loader", "Loading assets");
         manager.load(AssetLoader.class);
         manager.finishLoading();
+        Gdx.app.log("Asset loader", "Loading assets finished");
     }
 }

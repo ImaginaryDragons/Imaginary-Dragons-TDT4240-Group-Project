@@ -2,10 +2,17 @@ package com.dragons.game.model.gameWorld;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IObject;
 import com.dragons.game.model.bomb.Bomb;
 import com.dragons.game.model.player.Player;
+import com.dragons.game.view.modelViews.BombView;
+import com.dragons.game.view.modelViews.ModelView;
+import com.dragons.game.view.modelViews.PlayerView;
+
+import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.util.ArrayList;
 
@@ -43,10 +50,18 @@ public class GameWorld {
         for (int x = 0; x < map.getMapWidthInTiles(); x++){
             for (int y = 0; y < map.getMapHeightInTiles(); y++){
                 for (IObject obj : map.tileContainers.get(x,y)){
-                    this.addObject(obj);
+                    this.addObject(obj, null);
                 }
             }
         }
+    }
+
+    public void initializePlayers(AnnotationAssetManager manager) {
+        Gdx.app.log("GameWorld", "Initializing main player");
+        Vector2 p1StartPos = map.tilePos(new Vector2(3,1));
+        Player p1 = new Player(1, p1StartPos, Color.RED, map.getTileWidth(), map.getTileHeight());
+        PlayerView p1v = new PlayerView(p1, manager);
+        this.addPlayer(p1, p1v);
     }
 
     // Update GameWorld with one time-step
@@ -64,17 +79,19 @@ public class GameWorld {
     }
 
     // Add object to GameObjects
-    public void addObject(IObject obj) {
-        gameObjects.add(new GameObject(obj, world));
+    public void addObject(IObject obj, ModelView objView) {
+        gameObjects.add(new GameObject(obj, objView, world));
     }
 
-    public void addPlayer(Player player) {
+    public void addPlayer(Player player, PlayerView playerView) {
         // TODO: Add a game class that encapsulates a player with a controller (similar to the GameBomb class).
-        players.add(new GameObject(player, world));
+        GameObject p = new GameObject(player, playerView, world);
+        players.add(p);
+        gameObjects.add(p);
     }
 
-    public void addBomb(Bomb bomb) {
-        GameBomb b = new GameBomb(bomb, world);
+    public void addBomb(Bomb bomb, ModelView bombView) {
+        GameBomb b = new GameBomb(bomb, bombView, world);
         bombs.add(b);
     }
 

@@ -46,11 +46,7 @@ public class GameMap {
         mapHeightInTiles  = properties.get("height", Integer.class);
         mapWidthInPixels  = mapWidthInTiles  * tileWidth;
         mapHeightInPixels = mapHeightInTiles * tileHeight;
-        float w = Gdx.graphics.getWidth(); // TODO: SE PÅ HVA DETTE ER!!!
-        float h = Gdx.graphics.getHeight();
-        //camera = new OrthographicCamera();
-        //camera.setToOrtho(false,w,h);
-        //camera.update();
+
         blockFactory = new BlockFactory();
         powerUpFactory = new PowerUpFactory();
         tileContainers = HashBasedTable.create();

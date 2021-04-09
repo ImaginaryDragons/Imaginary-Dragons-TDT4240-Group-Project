@@ -14,10 +14,6 @@ import java.io.IOException;
 
 public class DragonsGame extends Game {
 
-	// TODO: Find out how to structure screen management for dynamically changing between them
-	/*How do we treat e.g. being in a lobby, creating a game, setting the screen for the game,
-	* leaving, then joining a new lobby and initializing a new game again?
-	* */
 	FireBaseInterface _FBIC;
 
 	public DragonsGame(FireBaseInterface FBIC) { this._FBIC = FBIC; };
