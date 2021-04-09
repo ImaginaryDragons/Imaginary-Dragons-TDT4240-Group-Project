@@ -40,10 +40,10 @@ public class AssetLoader {
 
             /*
 
-            INDESTRUCTIBLE_BLOCK = "",
-            DESTRUCTIBLE_BLOCK = "",
+            INDESTRUCTIBLE_BLOCK = "", */
+            DESTRUCTIBLE_BLOCK = "Rock.png",
 
-             */
+
 
 
             /****************** POWER-UPS *******************/
@@ -58,7 +58,7 @@ public class AssetLoader {
 
             /***************** FIRE ************************/
 
-            FIREBALL ="fireball.png",
+            FIREBALL ="fireball1.png",
             EXPLOSION="Explosion.png";
 
             // LAST ELEMENT MUST HAVE ';'!!
