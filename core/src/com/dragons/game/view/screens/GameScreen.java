@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -28,8 +29,10 @@ public class GameScreen extends ScreenAdapter {
     private GameRenderer gameRenderer;
     private AnnotationAssetManager manager;
     private GameMap gameMap;
+    private SpriteBatch sb;
 
     private OrthographicCamera camera;
+    private OrthographicCamera sbcamera;
     private TiledMapRenderer tiledMapRenderer;
     private World b2dWorld;
     private Box2DDebugRenderer b2dr;
@@ -45,22 +48,18 @@ public class GameScreen extends ScreenAdapter {
     public GameScreen() throws IOException {
         //super();
         Gdx.app.log("GameScreen", "Attached");
-        //float screenWidth = Gdx.graphics.getWidth();
-        //float screenHeight = Gdx.graphics.getHeight();
-        //float gameWidth = 136;
+
         gameMap = new GameMap("TileMapMobile.tmx");
         b2dWorld = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         gameWorld = new GameWorld(b2dWorld, gameMap);
         manager = new AnnotationAssetManager();
-
-        gameMap.generateBlocks(0, "map.txt");
+        sb = new SpriteBatch();
 
         //TODO: Change viewPortWidth and height to variables
         camera = new OrthographicCamera(480.f, 350.f);
         camera.position.x = gameMap.getMapWidthInPixels() * .50f;
         camera.position.y = gameMap.getMapHeightInPixels() * .50f;
         camera.update();
-
         gameRenderer = new GameRenderer(gameWorld, manager, camera); // Initialize world renderer
 
         /**
@@ -71,33 +70,43 @@ public class GameScreen extends ScreenAdapter {
         b2drCam.position.x = (gameMap.getMapWidthInPixels()) * .50f;
         b2drCam.position.y = (gameMap.getMapHeightInPixels()) * .50f;
         b2drCam.update();
-
         b2dr = new Box2DDebugRenderer();
-
         tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
         tiledMapRenderer.setView(camera);
 
-        // TODO: Create functionality for spawning game world
-        gameWorld.generateMapBlocks();
+        sbcamera = new OrthographicCamera(480.f, 350.f);
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+        sbcamera.setToOrtho(false, w, h);
+        sbcamera.position.x = gameMap.getMapWidthInPixels() * 0.5f;
+        sbcamera.position.y = gameMap.getMapHeightInPixels() * 0.5f;
+        sbcamera.update();
+        sb.setProjectionMatrix(sbcamera.combined);
 
-        // TODO: HardCoding, remove after done
-        IObject powerUp = PowerUpFactory.getInstance().createPowerUp(new Vector2(15, 230), PowerUpType.BOMBCAPACITY, 20, 20 );
-        gameWorld.addObject(powerUp);
+        // TODO: Create functionality for spawning game world
+        gameMap.generateBlocks(0, "map.txt");
+        gameWorld.generateMapBlocks();
+        gameWorld.initializePlayers(manager);
+
 
     }
 
     @Override
     public void render(float delta) {
+
         //Gdx.app.log("GameScreen", "Rendering");
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         tiledMapRenderer.render();
         // Update game world
         gameWorld.update(delta);
         // Render screen
-        gameRenderer.render();
-        //Gdx.app.log("GameScreen FPS", (1/delta) + "");
+        sb.begin();
+        gameRenderer.render(sb);
+        sb.end();
 
         b2dr.render(b2dWorld, b2drCam.combined);
+        //Gdx.app.log("GameScreen FPS", (1/delta) + "");
     }
 
     @Override
@@ -109,16 +118,6 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.app.log("GameScreen", "show called");
-
-        // Load all assets the game screen will use
-        /* TODO: Add file paths so that we can load our assets!
-        gameRenderer.loadAssets();
-        while(!manager.update()) {
-            float progress = manager.getProgress();
-            System.out.println("Loading ... " + progress * 100 + "%");
-        }
-        To get an asset, use manager.get(AssetDescriptors.ASSET_YOU_WANT)
-         */
         super.show();
     }
 

@@ -18,12 +18,12 @@ public class GameObject {
     private final World world;
 
     // TODO: Pass ModelView as a parameter?
-    public GameObject(IObject obj, World world) {
+    public GameObject(IObject obj, ModelView objView, World world) {
         Gdx.app.log("GameObject", "Creating game object");
         this.obj = obj;
         this.world = world;
+        this.objView = objView;
         this.body = BodyBuilder.createBody(world, this);
-        this.objView = null;
     }
 
     public void setModelView(ModelView view) {
