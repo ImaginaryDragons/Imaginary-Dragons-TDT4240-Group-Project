@@ -16,9 +16,8 @@ public class GameRenderer {
     private GameWorld gameWorld;
     private OrthographicCamera cam;
     private ShapeRenderer shapeRenderer;
-    private SpriteBatch spriteBatch;
+//    private SpriteBatch spriteBatch;
     private AnnotationAssetManager manager;
-    private Joystick joystick;
 
     // Asset loading: https://github.com/libgdx/libgdx/wiki/Managing-your-assets
     // https://www.codinginsights.blog/libgdx-assetmanager/
@@ -31,9 +30,8 @@ public class GameRenderer {
         // TODO: Get viewport parameters from config
         this.shapeRenderer = new ShapeRenderer();
         this.shapeRenderer.setProjectionMatrix(cam.combined);
-        this.spriteBatch = new SpriteBatch();
-        this.spriteBatch.setProjectionMatrix(cam.combined);
-        this.joystick = new Joystick(50,50); // Arguments should be (Constants.JoystickPosX, Constants.JoystickPosY)
+//        this.spriteBatch = new SpriteBatch();
+//        this.spriteBatch.setProjectionMatrix(cam.combined);
     }
 
     public void render() {
@@ -44,13 +42,6 @@ public class GameRenderer {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // TODO: 2. Render the elements in the game world somehow!!
-//        spriteBatch.begin();
-//        joystick.render(spriteBatch);
-//        spriteBatch.end();
-        joystick.update();
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        joystick.render(shapeRenderer);
-        shapeRenderer.end();
     }
 
     private void loadAssets(){

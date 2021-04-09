@@ -3,6 +3,7 @@ package com.dragons.game.view.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.dragons.game.model.gameWorld.GameMap;
@@ -18,6 +19,8 @@ public class GameScreen extends ScreenAdapter {
     private GameRenderer gameRenderer;
     private Joystick joystick;
     private AnnotationAssetManager manager;
+
+    private SpriteBatch sb;   // To test joystick, probably better way to do this
 
     private GameMap gameMap;
 
@@ -53,12 +56,18 @@ public class GameScreen extends ScreenAdapter {
         camera.update();
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
+
+        sb = new SpriteBatch();
+        sb.setProjectionMatrix(camera.combined);
+        joystick = new Joystick();
         // TODO: Create functionality for spawning game world
     }
 
     @Override
     public void render(float delta) {
-        Gdx.app.log("GameScreen", "Rendering");
+//        Gdx.app.log("GameScreen", "Rendering");
+
+        sb.begin();
 
         // Update game world
         gameWorld.update(delta);
@@ -66,7 +75,10 @@ public class GameScreen extends ScreenAdapter {
         // gameRenderer.render();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-        Gdx.app.log("GameScreen FPS", (1/delta) + "");
+        joystick.render(sb);
+//        Gdx.app.log("GameScreen FPS", (1/delta) + "");
+
+        sb.end();
     }
 
     @Override
