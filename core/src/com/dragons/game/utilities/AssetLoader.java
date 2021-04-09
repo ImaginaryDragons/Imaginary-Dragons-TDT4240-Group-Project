@@ -48,13 +48,13 @@ public class AssetLoader {
 
             /****************** POWER-UPS *******************/
 
-            /*
 
-            RANGE_POWERUP = "",
-            BOMB_CAP_POWERUP = "",
-            SPEED_POWERUP = "",
 
-             */
+            //RANGE_POWERUP = "",
+            BOMB_CAP_POWERUP = "bomb_cap_powerup.png",
+            //SPEED_POWERUP = "",
+
+
 
             /***************** FIRE ************************/
 
