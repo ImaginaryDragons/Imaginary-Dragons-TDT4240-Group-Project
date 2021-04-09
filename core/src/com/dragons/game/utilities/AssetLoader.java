@@ -40,25 +40,25 @@ public class AssetLoader {
 
             /*
 
-            INDESTRUCTIBLE_BLOCK = "",
-            DESTRUCTIBLE_BLOCK = "",
+            INDESTRUCTIBLE_BLOCK = "", */
+            DESTRUCTIBLE_BLOCK = "Rock.png",
 
-             */
+
 
 
             /****************** POWER-UPS *******************/
 
-            /*
 
-            RANGE_POWERUP = "",
-            BOMB_CAP_POWERUP = "",
-            SPEED_POWERUP = "",
 
-             */
+            //RANGE_POWERUP = "",
+            BOMB_CAP_POWERUP = "bomb_cap_powerup.png",
+            //SPEED_POWERUP = "",
+
+
 
             /***************** FIRE ************************/
 
-            FIREBALL ="fireball.png",
+            FIREBALL ="fireball1.png",
             EXPLOSION="Explosion.png";
 
             // LAST ELEMENT MUST HAVE ';'!!
