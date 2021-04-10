@@ -1,9 +1,11 @@
 package com.dragons.game.model.bomb;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.dragons.game.model.IModelType;
 import com.dragons.game.model.IModel;
+import com.dragons.game.model.Model;
 import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.player.Player;
 import com.dragons.game.utilities.Constants;
@@ -12,7 +14,12 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Bomb implements IModel {
+enum BombType implements IModelType {
+    NORMALBOMB
+}
+
+
+public class Bomb extends Model {
 
     private Vector2 position;
     // TODO: FIX SHAPE (private Circle circleBounds;)
@@ -29,6 +36,7 @@ public class Bomb implements IModel {
     //public static List<BombComponent> bombs = new ArrayList<BombComponent>(); // liste med antall bomber en spiller har, skal heller være i player
 
     public Bomb(Vector2 pos, float radius, float timer, float bombRange){ // Ta inn noe tiles?
+        super(pos, BombType.NORMALBOMB,radius * 2,radius * 2);
         this.position = pos;
         this.timer = timer;
         this.height = radius * 2;
@@ -37,6 +45,9 @@ public class Bomb implements IModel {
         //this.circleBounds.set(pos, radius); TODO: FIX THIS
         bombExploded = false;
         loadingTime = Constants.BombExplodeTime;
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(width / 2, height / 2);
+        super.setShape(shape);
         //tileHeight = GameScreen.tileHeight;
         //tileWidth = GameScreen.tileWidth;
 
@@ -138,12 +149,6 @@ public class Bomb implements IModel {
         return position;
     }
 
-
-    @Override
-    public Shape getShape() {
-        // TODO: FIX THIS
-        return null;
-    }
 
     @Override
     public IModelType getType() {
