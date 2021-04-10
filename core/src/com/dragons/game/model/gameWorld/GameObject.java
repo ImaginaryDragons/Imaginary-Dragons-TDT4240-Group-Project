@@ -1,5 +1,6 @@
 package com.dragons.game.model.gameWorld;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
@@ -17,10 +18,20 @@ public class GameObject {
     private final World world;
 
     // TODO: Pass ModelView as a parameter?
-    public GameObject(IObject obj, World world) {
+    public GameObject(IObject obj, ModelView objView, World world) {
+        Gdx.app.log("GameObject", "Creating game object");
         this.obj = obj;
-        this.body = BodyBuilder.createBody(world, obj);
         this.world = world;
+        this.objView = objView;
+        this.body = BodyBuilder.createBody(world, this);
+    }
+
+    public void setModelView(ModelView view) {
+        this.objView = view;
+    }
+
+    public ModelView getModelView() {
+        return objView;
     }
 
     public IObject getObject() {

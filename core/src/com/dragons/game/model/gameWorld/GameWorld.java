@@ -1,11 +1,19 @@
 package com.dragons.game.model.gameWorld;
 
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IObject;
 import com.dragons.game.model.bomb.Bomb;
 import com.dragons.game.model.player.Player;
+import com.dragons.game.model.player.PlayerColor;
+import com.dragons.game.view.modelViews.BombView;
+import com.dragons.game.view.modelViews.ModelView;
+import com.dragons.game.view.modelViews.PlayerView;
+
+import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.util.ArrayList;
 
@@ -19,21 +27,42 @@ import java.util.ArrayList;
  * */
 
 public class GameWorld {
-    private ArrayList<com.dragons.game.model.gameWorld.GameObject> gameObjects;
-    private ArrayList<com.dragons.game.model.gameWorld.GameObject> players;
-    private ArrayList<com.dragons.game.model.gameWorld.GameBomb> bombs;
+    private ArrayList<GameObject> gameObjects;
+    private ArrayList<GameObject> players;
+    private ArrayList<GameBomb> bombs;
     private World world;
+    private GameMap map;
 
     // https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_hello.html#autotoc_md21
     // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
 
-    public GameWorld() {
-        // TODO: doSleep = true or false?
-        world = new World(new Vector2(0,0), true);  // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
-        gameObjects = new ArrayList<com.dragons.game.model.gameWorld.GameObject>();
-        players = new ArrayList<com.dragons.game.model.gameWorld.GameObject>();
-        bombs = new ArrayList<com.dragons.game.model.gameWorld.GameBomb>();
+    public GameWorld(World world, GameMap map) {
+        this.world = world;
+        world.setContactListener(new WorldContactListener());
+        gameObjects = new ArrayList<GameObject>();
+        players = new ArrayList<GameObject>();
+        bombs = new ArrayList<GameBomb>();
+        this.map = map;
+    }
+
+    public void generateMapBlocks() {
+        Gdx.app.log("GameWorld", "Adding map blocks");
+        for (int x = 0; x < map.getMapWidthInTiles(); x++){
+            for (int y = 0; y < map.getMapHeightInTiles(); y++){
+                for (IObject obj : map.tileContainers.get(x,y)){
+                    this.addObject(obj, null);
+                }
+            }
+        }
+    }
+
+    public void initializePlayers(AnnotationAssetManager manager) {
+        Gdx.app.log("GameWorld", "Initializing main player");
+        Vector2 p1StartPos = map.tilePos(new Vector2(3,1));
+        Player p1 = new Player(1, p1StartPos, PlayerColor.RED);
+        PlayerView p1v = new PlayerView(p1, manager);
+        this.addPlayer(p1, p1v);
     }
 
     // Update GameWorld with one time-step
@@ -51,17 +80,19 @@ public class GameWorld {
     }
 
     // Add object to GameObjects
-    public void addObject(IObject obj, boolean isStatic) {
-        gameObjects.add(new com.dragons.game.model.gameWorld.GameObject(obj, world));
+    public void addObject(IObject obj, ModelView objView) {
+        gameObjects.add(new GameObject(obj, objView, world));
     }
 
-    public void addPlayer(Player player) {
+    public void addPlayer(Player player, PlayerView playerView) {
         // TODO: Add a game class that encapsulates a player with a controller (similar to the GameBomb class).
-        players.add(new com.dragons.game.model.gameWorld.GameObject(player, world)); //TODO: IS FALSE CORRECT?
+        GameObject p = new GameObject(player, playerView, world);
+        players.add(p);
+        gameObjects.add(p);
     }
 
-    public void addBomb(Bomb bomb) {
-        com.dragons.game.model.gameWorld.GameBomb b = new com.dragons.game.model.gameWorld.GameBomb(bomb, world);
+    public void addBomb(Bomb bomb, ModelView bombView) {
+        GameBomb b = new GameBomb(bomb, bombView, world);
         bombs.add(b);
     }
 
@@ -83,5 +114,17 @@ public class GameWorld {
             //bombView.updateBomb() er vel riktig her? Vi kaller bomb.update i bombview for å få mvc
             bomb.update(delta);
         }
+    }
+
+    public ArrayList<GameObject> getGameObjects() {
+        return gameObjects;
+    }
+
+    public ArrayList<GameObject> getPlayers() {
+        return players;
+    }
+
+    public ArrayList<GameBomb> getBombs() {
+        return bombs;
     }
 }

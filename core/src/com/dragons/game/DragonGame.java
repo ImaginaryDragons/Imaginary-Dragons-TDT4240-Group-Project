@@ -34,7 +34,11 @@ public class DragonGame extends Game {
     @Override
     public void create () {
         //Gdx.app.log("DragonGame", "Attached");
-        setScreen(new GameScreen());
+        try {
+            setScreen(new GameScreen());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         _FBIC.SomeFunction();
         _FBIC.SetOnValueChangedListener();
         _FBIC.writePlayerToFB(4, player.getPosition(), player.getCol());
