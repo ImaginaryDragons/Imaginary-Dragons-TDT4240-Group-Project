@@ -14,30 +14,32 @@ import java.util.TimerTask;
 
 public class Bomb implements IModel {
 
+    private static final boolean isStatic = true;
+    private static final boolean isSensor = false;
+
     private Vector2 position;
     // TODO: FIX SHAPE (private Circle circleBounds;)
-    private Timer timer;
     private float loadingTime;
     private TimerTask task;
+    private float timer;
     private float timeLeft = 0;
     public boolean bombExploded;
     private float bombRange;
-    private Player player;
-    private int tileHeight;
-    private int tileWidth;
+    private float height;
+    private float width;
     private ArrayList<Vector2> fireTiles;
-    private GameMap gameMap;
 
     //public static List<BombComponent> bombs = new ArrayList<BombComponent>(); // liste med antall bomber en spiller har, skal heller være i player
 
-    public Bomb(Vector2 pos, float radius, TimerTask task, Player player){ // Ta inn noe tiles?
+    public Bomb(Vector2 pos, float radius, float timer, float bombRange){ // Ta inn noe tiles?
         this.position = pos;
-        this.task = task;
-        this.player = player;
+        this.timer = timer;
+        this.height = radius * 2;
+        this.width = radius * 2;
+        this.bombRange = bombRange;
         //this.circleBounds.set(pos, radius); TODO: FIX THIS
         bombExploded = false;
         loadingTime = Constants.BombExplodeTime;
-        bombRange = this.player.getBombRange();
         //tileHeight = GameScreen.tileHeight;
         //tileWidth = GameScreen.tileWidth;
 
@@ -47,30 +49,30 @@ public class Bomb implements IModel {
 
     }
 
-    public ArrayList<Vector2> checkForWall(String direction) {
+    public ArrayList<Vector2> checkForWall(String direction, GameMap gameMap) {
         Vector2 checkTile = new Vector2(0, 0);
         ArrayList<Vector2> fireTiles = new ArrayList<Vector2>();
         int startPos;
         int increment;
         switch (direction) {
             case "up":
-                startPos = (int) player.getPosition().y;
-                checkTile.x = (int) player.getPosition().x;
+                startPos = (int) this.position.y;
+                checkTile.x = (int) this.position.x;
                 increment = 32;
                 break;
             case "down":
-                startPos = (int) player.getPosition().y;
-                checkTile.x = (int) player.getPosition().x;
+                startPos = (int) this.position.y;
+                checkTile.x = (int) this.position.x;
                 increment = -32;
                 break;
             case "left":
-                startPos = (int) player.getPosition().x;
-                checkTile.y = (int) player.getPosition().y;
+                startPos = (int) this.position.x;
+                checkTile.y = (int) this.position.y;
                 increment = -32;
                 break;
             case "right":
-                startPos = (int) player.getPosition().x;
-                checkTile.y = (int) player.getPosition().y;
+                startPos = (int) this.position.x;
+                checkTile.y = (int) this.position.y;
                 increment = 32;
                 break;
             default:
@@ -78,7 +80,7 @@ public class Bomb implements IModel {
                 increment = 0;
         }
 
-        for (int i = 0; i < player.getBombRange(); i += 32) {
+        for (int i = 0; i < bombRange; i += 32) {
             if (direction == "up" || direction == "down") {
                 checkTile.y = startPos + increment;
             } else if (direction == "left" || direction == "right") {
@@ -108,7 +110,7 @@ public class Bomb implements IModel {
         return fireTiles;
     }
 
-    public void update(float timestep){
+    public void update(float timestep, GameMap gameMap){
             // TODO: Implement timestep update for bomb! This means update countdown for each delta
             // Når bomben slippes (space presses i controller), fireball vises i "loadingtime" sek,
             // etter det skal eksplosjonen skje, som vil ødelegge blocks og skade motstanderene i nærheten
@@ -120,16 +122,16 @@ public class Bomb implements IModel {
 
             loadingTime -= timestep;
             if (loadingTime < 0) {
-                checkForWall("up");
-                checkForWall("down");
-                checkForWall("left");
-                checkForWall("right");
+                checkForWall("up", gameMap);
+                checkForWall("down", gameMap);
+                checkForWall("left", gameMap);
+                checkForWall("right", gameMap);
             }
         }
 
     @Override
     public void setPosition(Vector2 pos) {
-        pos = player.getPosition();
+        pos = this.position;
         this.position = pos;
         //this.circleBounds.setPosition(pos.x, pos.y); TODO: FIX
     }
@@ -159,5 +161,13 @@ public class Bomb implements IModel {
     @Override
     public boolean isSensor() {
         return false;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public float getWidth() {
+        return width;
     }
 }

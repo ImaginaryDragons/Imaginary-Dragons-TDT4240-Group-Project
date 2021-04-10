@@ -51,5 +51,6 @@ public class GameObject {
 
     private void dispose() {
         world.destroyBody(body);
+
     }
 }

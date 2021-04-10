@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
+import com.dragons.game.model.PowerUps.IPowerUp;
 import com.dragons.game.model.blocks.DestructibleBlock;
 import com.dragons.game.model.bomb.Bomb;
 import com.dragons.game.model.player.Player;
+import com.dragons.game.view.modelViews.BombView;
 import com.dragons.game.view.modelViews.DestructibleBlockView;
 import com.dragons.game.view.modelViews.ModelView;
 import com.dragons.game.view.modelViews.PlayerView;
@@ -32,13 +34,15 @@ public class GameWorld {
     private ArrayList<GameBomb> bombs;
     private World world;
     private GameMap map;
+    private AnnotationAssetManager assetManager;
 
     // https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_hello.html#autotoc_md21
     // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
 
-    public GameWorld(World world, GameMap map) {
+    public GameWorld(World world, GameMap map, AnnotationAssetManager manager) {
         this.world = world;
+        this.assetManager = manager;
         world.setContactListener(new WorldContactListener());
         gameObjects = new ArrayList<GameObject>();
         players = new ArrayList<GameObject>();
@@ -46,14 +50,17 @@ public class GameWorld {
         this.map = map;
     }
 
-    public void generateMapBlocks(AnnotationAssetManager manager) {
+    public void generateMapBlocks() {
         Gdx.app.log("GameWorld", "Adding map blocks");
         for (int x = 0; x < map.getMapWidthInTiles(); x++){
             for (int y = 0; y < map.getMapHeightInTiles(); y++){
                 for (IModel obj : map.tileContainers.get(x,y)){
+                    if (obj instanceof IPowerUp) {
+                        Gdx.app.log("GameWorld/GenerateMapBlocks", "Generating power-up");
+                    }
                     if (obj instanceof DestructibleBlock){
-                        Gdx.app.log("DestructibleBlock", "Generating");
-                        DestructibleBlockView view = new DestructibleBlockView((DestructibleBlock) obj, manager);
+                        Gdx.app.log("GameWorld/GenerateMapBlocks", "Generating destructible block");
+                        DestructibleBlockView view = new DestructibleBlockView((DestructibleBlock) obj, assetManager);
                         this.addObject(obj, view);
                     }else {
                         this.addObject(obj, null);
@@ -63,11 +70,11 @@ public class GameWorld {
         }
     }
 
-    public void initializePlayers(AnnotationAssetManager manager) {
+    public void initializePlayers() {
         Gdx.app.log("GameWorld", "Initializing main player");
         Vector2 p1StartPos = map.tilePos(new Vector2(3,1));
         Player p1 = new Player(1, p1StartPos, Color.RED, map.getTileWidth(), map.getTileHeight());
-        PlayerView p1v = new PlayerView(p1, manager);
+        PlayerView p1v = new PlayerView(p1, assetManager);
         this.addPlayer(p1, p1v);
     }
 
@@ -97,9 +104,12 @@ public class GameWorld {
         gameObjects.add(p);
     }
 
-    public void addBomb(Bomb bomb, ModelView bombView) {
+    public void placeBomb(Vector2 position, float timer, float range) {
+        Bomb bomb = new Bomb(position, map.getTileWidth() / 2, timer, range);
+        BombView bombView = new BombView(bomb, assetManager, position);
         GameBomb b = new GameBomb(bomb, bombView, world);
         bombs.add(b);
+        gameObjects.add(b);
     }
 
     /*Due to the players always moving, it is beneficial to always check for positional updates
@@ -117,7 +127,6 @@ public class GameWorld {
     public void updateBombs(float delta) {
         for(GameBomb bomb : bombs)
         {
-            //bombView.updateBomb() er vel riktig her? Vi kaller bomb.update i bombview for å få mvc
             bomb.update(delta);
         }
     }

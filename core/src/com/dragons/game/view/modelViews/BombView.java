@@ -1,12 +1,16 @@
 package com.dragons.game.view.modelViews;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.bomb.Bomb;
 import com.dragons.game.utilities.Constants;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
+
+import static com.dragons.game.utilities.AssetLoader.BOMB;
 
 
 public class BombView implements ModelView {
@@ -18,14 +22,16 @@ public class BombView implements ModelView {
     public boolean bombExploded;
     private Rectangle fireInUse;
     private GameMap gameMap;
+    private Texture texture;
 
-    public BombView(Bomb bomb, AnnotationAssetManager manager, int x, int y) {
+    public BombView(Bomb bomb, AnnotationAssetManager manager, Vector2 pos) {
         this.bomb = bomb;
         this.manager = manager;
         loadingTime = Constants.BombExplodeTime;
-        this.fireball = manager.get("FIREBALL");
-        this.explosion = manager.get("EXPLOSION");
-        fireInUse = new Rectangle(x, y, gameMap.getTileWidth(), gameMap.getTileHeight());
+        //this.fireball = manager.get("FIREBALL");
+        //this.explosion = manager.get("EXPLOSION");
+        //fireInUse = new Rectangle(pos.x, pos.y, gameMap.getTileWidth(), gameMap.getTileHeight());
+        this.texture = manager.get(BOMB, Texture.class);
         //bomb = new Texture("");
         //explosion = new Texture("");
         // while bombExplode == false
@@ -34,9 +40,9 @@ public class BombView implements ModelView {
         // texture = explosion
     }
 
-    public void updateBomb() {
+    public void updateBomb(float delta) {
         //Miste en bombe når man legger den
-        bomb.update(loadingTime); //timertask lager en thread som kjører synkront med andre
+        bomb.update(delta); //timertask lager en thread som kjører synkront med andre
         if (!bomb.bombExploded) {
             fireInUse = fireball;
         }
@@ -53,6 +59,6 @@ public class BombView implements ModelView {
 
     @Override
     public void render(SpriteBatch sb) {
-
+        sb.draw(texture, bomb.getPosition().x - bomb.getWidth() / 2f, bomb.getPosition().y - bomb.getHeight() / 2f , bomb.getWidth(), bomb.getHeight());
     }
 }

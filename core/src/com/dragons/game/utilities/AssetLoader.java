@@ -44,7 +44,6 @@ public class AssetLoader {
 
 
 
-
             /****************** POWER-UPS *******************/
 
 
@@ -55,8 +54,9 @@ public class AssetLoader {
 
 
 
-            /***************** FIRE ************************/
+            /***************** BOMB AND FIRE ************************/
 
+            BOMB = "FireEgg.png",
             FIREBALL ="fireball1.png",
             EXPLOSION="Explosion.png";
 
