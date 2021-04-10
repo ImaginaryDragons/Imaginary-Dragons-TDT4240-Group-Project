@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.dragons.game.model.IObject;
+import com.dragons.game.model.Object;
 import com.dragons.game.model.player.Player;
 import com.dragons.game.model.player.*;
 
@@ -14,13 +16,18 @@ import static com.dragons.game.utilities.AssetLoader.DRAGON_SLIM_RED;
 
 public class PlayerView implements ModelView {
 
-    private Player player;
+    private Object player;
     private Texture texture;
     private AnnotationAssetManager manager;
+    private float height, width;
 
     public PlayerView(Player player, AnnotationAssetManager manager) {
         this.player = player;
         this.manager = manager;
+        height = player.getHeight();
+        width = player.getWidth();
+
+
 
         // TODO: load the appropriate textures in constructor
         Color col = player.getCol();
@@ -33,6 +40,6 @@ public class PlayerView implements ModelView {
 
     @Override
     public void render(SpriteBatch sb) {
-        sb.draw(texture, player.getPosition().x, player.getPosition().y, 32, 32);
+        sb.draw(texture, player.getPosition().x - width / 2f, player.getPosition().y - height / 2f , width, height);
     }
 }

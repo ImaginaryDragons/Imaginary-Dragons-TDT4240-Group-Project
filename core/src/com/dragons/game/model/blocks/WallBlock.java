@@ -16,7 +16,7 @@ public class WallBlock extends Object implements IBlock {
 
     public WallBlock(Vector2 position, BlockType type, float width, float height) {
         super(position, type, width, height, isStatic, isSensor);
-        final PolygonShape shape = new PolygonShape();
+        PolygonShape shape = new PolygonShape();
         shape.setAsBox(width / 2, height / 2);
         super.setShape(shape);
 

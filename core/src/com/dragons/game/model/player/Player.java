@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.dragons.game.model.IModelType;
 import com.dragons.game.model.IObject;
+import com.dragons.game.model.Object;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.utilities.Direction;
 
@@ -16,15 +17,14 @@ import com.dragons.game.utilities.Direction;
  * @author Eldar Sandanger
  */
 
-public class Player implements IObject {
+public class Player extends Object {
+    private static final boolean isStatic = false;
+    private static final boolean isSensor = false;
 
     private int ID;
     private Color col;
-    //private Shape boundRectangle;
-    private PolygonShape shape;
     private Direction orientation; // The direction the player is looking
-    private Vector2 position;
-    public int health;
+    public int lives;
     public int speed;
     public int bombCapacity;
     private int bombsAvailable;
@@ -35,15 +35,15 @@ public class Player implements IObject {
     // I suspect the answer is no, but there might be a good reason for it
 
     public Player(int ID, Vector2 startPos, Color col, int width, int height) {
+        super(startPos, PlayerType.NORMALPLAYER, width, height, isStatic, isSensor);
         this.ID = ID;
         this.col = col;
-        this.position = startPos;
-        this.shape = new PolygonShape();
-        shape.setAsBox(width / 2, height / 2);
+        final PolygonShape shape = new PolygonShape();
+        shape.setAsBox(width / 2f, height / 2f);
+        super.setShape(shape);
 
-        // TODO: FIX SHAPE
         this.orientation = Direction.DOWN;
-        this.health = Constants.InitPlayerHealth;
+        this.lives = Constants.InitPlayerHealth;
         this.speed = Constants.PlayerSpeed;
         this.bombCapacity = Constants.InitBombCap;
         this.bombsAvailable = this.bombCapacity;
@@ -61,28 +61,6 @@ public class Player implements IObject {
         return col;
     }
 
-    public PolygonShape getShape() {
-        return shape;
-    }
-
-    @Override
-    public IModelType getType() {
-        return null;
-    }
-
-    @Override
-    public boolean isStatic() {
-        return false;
-    }
-
-    @Override
-    public boolean isSensor() {
-        return false;
-    }
-
-    public void setShape(Shape shape) {
-        //TODO:: FIX THIS
-    }
 
     public Direction getOrientation() {
         return orientation;
@@ -92,21 +70,13 @@ public class Player implements IObject {
         this.orientation = orientation;
     }
 
-    public Vector2 getPosition() {
-        return position;
+
+    public int getLives() {
+        return lives;
     }
 
-    public void setPosition(Vector2 pos) {
-        this.position = pos;
-        //this.boundRectangle.setPosition(pos.x, pos.y); TODO: FIX THIS
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
+    public void setHealth(int lives) {
+        this.lives = lives;
     }
 
     public int getSpeed() {
