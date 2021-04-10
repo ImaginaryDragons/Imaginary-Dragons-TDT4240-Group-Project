@@ -68,7 +68,7 @@ public class GameScreen extends ScreenAdapter {
 
         // TODO: Create functionality for spawning game world
         gameMap.generateBlocks(0, "map.txt");
-        gameWorld.generateMapBlocks();
+        gameWorld.generateMapBlocks(manager);
         gameWorld.initializePlayers(manager);
 
         b2dr = new Box2DDebugRenderer();

@@ -2,11 +2,11 @@ package com.dragons.game.model.PowerUps;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.dragons.game.model.Object;
+import com.dragons.game.model.Model;
 
 import static com.dragons.game.utilities.Constants.PPM;
 
-public class IncreaseSpeed extends Object implements IPowerUp {
+public class IncreaseSpeed extends Model implements IPowerUp {
 
     private static final boolean isStatic = true;
     private static final boolean isSensor = true;

@@ -5,10 +5,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.dragons.game.model.IObject;
+import com.dragons.game.model.IModel;
+import com.dragons.game.model.blocks.DestructibleBlock;
 import com.dragons.game.model.bomb.Bomb;
 import com.dragons.game.model.player.Player;
-import com.dragons.game.view.modelViews.BombView;
+import com.dragons.game.view.modelViews.DestructibleBlockView;
 import com.dragons.game.view.modelViews.ModelView;
 import com.dragons.game.view.modelViews.PlayerView;
 
@@ -45,12 +46,18 @@ public class GameWorld {
         this.map = map;
     }
 
-    public void generateMapBlocks() {
+    public void generateMapBlocks(AnnotationAssetManager manager) {
         Gdx.app.log("GameWorld", "Adding map blocks");
         for (int x = 0; x < map.getMapWidthInTiles(); x++){
             for (int y = 0; y < map.getMapHeightInTiles(); y++){
-                for (IObject obj : map.tileContainers.get(x,y)){
-                    this.addObject(obj, null);
+                for (IModel obj : map.tileContainers.get(x,y)){
+                    if (obj instanceof DestructibleBlock){
+                        Gdx.app.log("DestructibleBlock", "Generating");
+                        DestructibleBlockView view = new DestructibleBlockView((DestructibleBlock) obj, manager);
+                        this.addObject(obj, view);
+                    }else {
+                        this.addObject(obj, null);
+                    }
                 }
             }
         }
@@ -79,7 +86,7 @@ public class GameWorld {
     }
 
     // Add object to GameObjects
-    public void addObject(IObject obj, ModelView objView) {
+    public void addObject(IModel obj, ModelView objView) {
         gameObjects.add(new GameObject(obj, objView, world));
     }
 

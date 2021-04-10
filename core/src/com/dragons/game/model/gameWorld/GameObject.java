@@ -4,21 +4,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
-import com.dragons.game.model.IObject;
+import com.dragons.game.model.IModel;
 import com.dragons.game.view.modelViews.ModelView;
+
+import static java.util.Objects.isNull;
 
 
 public class GameObject {
 
     // https://gamedev.stackexchange.com/questions/88455/how-can-i-attach-a-libgdx-actor-to-a-box2d-body
 
-    private final IObject obj;
+    private final IModel obj;
     private ModelView objView;
     private final Body body;
     private final World world;
 
     // TODO: Pass ModelView as a parameter?
-    public GameObject(IObject obj, ModelView objView, World world) {
+    public GameObject(IModel obj, ModelView objView, World world) {
         Gdx.app.log("GameObject", "Creating game object");
         this.obj = obj;
         this.world = world;
@@ -31,10 +33,14 @@ public class GameObject {
     }
 
     public ModelView getModelView() {
-        return objView;
+        if (objView == null){
+            return null;
+        }else{
+            return objView;
+        }
     }
 
-    public IObject getObject() {
+    public IModel getObject() {
         return obj;
     }
 

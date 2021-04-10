@@ -38,9 +38,8 @@ public class AssetLoader {
 
             /****************** BLOCKS *******************/
 
-            /*
 
-            INDESTRUCTIBLE_BLOCK = "", */
+            //INDESTRUCTIBLE_BLOCK = "",
             DESTRUCTIBLE_BLOCK = "Rock.png",
 
 

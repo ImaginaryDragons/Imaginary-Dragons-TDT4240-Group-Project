@@ -3,7 +3,7 @@ package com.dragons.game.model;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Shape;
 
-public abstract class Object implements IObject {
+public abstract class Model implements IModel {
     private Vector2 position;
     private final IModelType type;
     private final float width, height;
@@ -11,8 +11,8 @@ public abstract class Object implements IObject {
     private final boolean isSensor;
     private Shape shape;
 
-    public Object(Vector2 position, IModelType type, float width, float height, boolean isStatic,
-                  boolean isSensor) {
+    public Model(Vector2 position, IModelType type, float width, float height, boolean isStatic,
+                 boolean isSensor) {
 
         this.position = position;
         this.type = type;

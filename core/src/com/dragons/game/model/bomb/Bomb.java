@@ -3,7 +3,7 @@ package com.dragons.game.model.bomb;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.dragons.game.model.IModelType;
-import com.dragons.game.model.IObject;
+import com.dragons.game.model.IModel;
 import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.player.Player;
 import com.dragons.game.utilities.Constants;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Bomb implements IObject {
+public class Bomb implements IModel {
 
     private Vector2 position;
     // TODO: FIX SHAPE (private Circle circleBounds;)

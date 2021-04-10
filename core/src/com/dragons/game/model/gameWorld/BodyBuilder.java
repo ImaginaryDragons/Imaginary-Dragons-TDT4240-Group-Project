@@ -6,9 +6,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.dragons.game.model.IObject;
-
-import static com.dragons.game.utilities.Constants.PPM;
+import com.dragons.game.model.IModel;
 
 public final class BodyBuilder {
 
@@ -17,7 +15,7 @@ public final class BodyBuilder {
     // Create a body and a fixture for the object and place it in world!
 
     public static Body createBody(World world, GameObject gameObject) {
-        IObject object = gameObject.getObject();
+        IModel object = gameObject.getObject();
         boolean isStatic = object.isStatic();
         boolean isSensor = object.isSensor();
         Vector2 position = object.getPosition();
