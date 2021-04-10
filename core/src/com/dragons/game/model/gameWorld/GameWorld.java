@@ -57,8 +57,7 @@ public class GameWorld {
                 for (IModel obj : map.tileContainers.get(x,y)){
                     if (obj instanceof IPowerUp) {
                         Gdx.app.log("GameWorld/GenerateMapBlocks", "Generating power-up");
-                    }
-                    if (obj instanceof DestructibleBlock){
+                    } else if (obj instanceof DestructibleBlock){
                         Gdx.app.log("GameWorld/GenerateMapBlocks", "Generating destructible block");
                         DestructibleBlockView view = new DestructibleBlockView((DestructibleBlock) obj, assetManager);
                         this.addObject(obj, view, true, false);
