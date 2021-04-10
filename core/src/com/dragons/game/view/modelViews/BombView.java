@@ -1,5 +1,6 @@
 package com.dragons.game.view.modelViews;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.bomb.Bomb;
@@ -8,7 +9,7 @@ import com.dragons.game.utilities.Constants;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 
-public class BombView {
+public class BombView implements ModelView {
     private Bomb bomb;
     private Rectangle fireball;
     private Rectangle explosion;
@@ -47,6 +48,11 @@ public class BombView {
 
 
          */
+
+    }
+
+    @Override
+    public void render(SpriteBatch sb) {
 
     }
 }

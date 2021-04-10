@@ -6,7 +6,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.dragons.game.model.IModelType;
 import com.dragons.game.model.IObject;
 
 import static com.dragons.game.utilities.Constants.PPM;
@@ -17,15 +16,12 @@ public final class BodyBuilder {
 
     // Create a body and a fixture for the object and place it in world!
 
-    public static Body createBody(World world, IObject object) {
-
+    public static Body createBody(World world, GameObject gameObject) {
+        IObject object = gameObject.getObject();
         boolean isStatic = object.isStatic();
         boolean isSensor = object.isSensor();
         Vector2 position = object.getPosition();
         Shape shape = object.getShape();
-        IModelType modelType = object.getType();
-
-
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = isStatic ? BodyDef.BodyType.StaticBody : BodyDef.BodyType.DynamicBody;
@@ -34,7 +30,7 @@ public final class BodyBuilder {
 
         // World units = meters
         // From world to screen -> Divide by Pixel Per Meter
-        bodyDef.position.set(position.x / PPM, position.y / PPM);
+        bodyDef.position.set(position.x, position.y);
         Body body = world.createBody(bodyDef);
 
 
@@ -47,7 +43,7 @@ public final class BodyBuilder {
         fixtureDef.density = 1;
 
         // This is for the contactListener
-        body.createFixture(fixtureDef).setUserData(modelType);
+        body.createFixture(fixtureDef).setUserData(gameObject);
         shape.dispose();
 
         return body;

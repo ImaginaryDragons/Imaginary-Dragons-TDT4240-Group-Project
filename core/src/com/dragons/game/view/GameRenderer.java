@@ -5,8 +5,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.dragons.game.model.IObject;
+import com.dragons.game.model.gameWorld.GameObject;
 import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.utilities.AssetLoader;
+import com.dragons.game.view.modelViews.ModelView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -15,44 +18,43 @@ public class GameRenderer {
     private GameWorld gameWorld;
     private OrthographicCamera cam;
     private ShapeRenderer shapeRenderer;
-    private SpriteBatch spriteBatch;
     private AnnotationAssetManager manager;
 
     // Asset loading: https://github.com/libgdx/libgdx/wiki/Managing-your-assets
     // https://www.codinginsights.blog/libgdx-assetmanager/
 
-    public GameRenderer(GameWorld world, AnnotationAssetManager manager) {
+    public GameRenderer(GameWorld world, AnnotationAssetManager manager, OrthographicCamera cam) {
         this.gameWorld = world;
         this.manager = manager;
-        this.cam = new OrthographicCamera();
-        this.cam.setToOrtho(true, 136, 204); //Hvor kommer parametrene fra nå igjen??
-        // TODO: Get viewport parameters from config
+        this.cam = cam;
         this.shapeRenderer = new ShapeRenderer();
         this.shapeRenderer.setProjectionMatrix(cam.combined);
-        this.spriteBatch = new SpriteBatch();
-        this.spriteBatch.setProjectionMatrix(cam.combined);
+        loadAssets();
     }
 
-    public void render() {
-        Gdx.app.log("GameRenderer", "render");
-
-        // 1. Draw a colored background
-        Gdx.gl.glClearColor(0.5f,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        // TODO: 2. Render the elements in the game world somehow!
-        renderWorld();
-
+    public void render(SpriteBatch sb) {
+        /*
+        for (GameObject obj : gameWorld.getGameObjects()) {
+            ModelView view = obj.getModelView();
+            if (view == null) {
+                Gdx.app.log("GameRenderer", "render");
+                break;
+            } else {
+                Gdx.app.log("GameRenderer", "render");
+                obj.getModelView().render(sb);
+            }
+        }
+        */
+        for (GameObject player : gameWorld.getPlayers()) {
+            ModelView view = player.getModelView();
+            player.getModelView().render(sb);
+        }
     }
 
     private void loadAssets(){
+        Gdx.app.log("Asset loader", "Loading assets");
         manager.load(AssetLoader.class);
         manager.finishLoading();
-    }
-
-    private void renderWorld() {
-        // TODO: Render objects
-        // TODO: Render players
-        // TODO: Render bombs
+        Gdx.app.log("Asset loader", "Loading assets finished");
     }
 }
