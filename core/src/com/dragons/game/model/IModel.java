@@ -9,8 +9,4 @@ public interface IModel {
     Vector2 getPosition();
     Shape getShape();
     IModelType getType();
-    boolean isStatic();
-    boolean isSensor();
-
-
 }

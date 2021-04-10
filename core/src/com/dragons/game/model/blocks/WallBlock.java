@@ -9,11 +9,8 @@ import com.dragons.game.model.Model;
 public class WallBlock extends Model implements IBlock {
 
 
-    private static final boolean isStatic = true;
-    private static final boolean isSensor = false;
-
     public WallBlock(Vector2 position, BlockType type, float width, float height) {
-        super(position, type, width, height, isStatic, isSensor);
+        super(position, type, width, height);
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(width / 2, height / 2);
         super.setShape(shape);

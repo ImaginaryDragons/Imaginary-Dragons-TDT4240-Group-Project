@@ -14,9 +14,6 @@ import java.util.TimerTask;
 
 public class Bomb implements IModel {
 
-    private static final boolean isStatic = true;
-    private static final boolean isSensor = false;
-
     private Vector2 position;
     // TODO: FIX SHAPE (private Circle circleBounds;)
     private float loadingTime;
@@ -151,16 +148,6 @@ public class Bomb implements IModel {
     @Override
     public IModelType getType() {
         return null;
-    }
-
-    @Override
-    public boolean isStatic() {
-        return false;
-    }
-
-    @Override
-    public boolean isSensor() {
-        return false;
     }
 
     public float getHeight() {

@@ -42,7 +42,7 @@ public class BombView implements ModelView {
 
     public void updateBomb(float delta) {
         //Miste en bombe når man legger den
-        bomb.update(delta); //timertask lager en thread som kjører synkront med andre
+        //bomb.update(delta); //timertask lager en thread som kjører synkront med andre TODO: FIX THIS!
         if (!bomb.bombExploded) {
             fireInUse = fireball;
         }

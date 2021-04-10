@@ -71,7 +71,7 @@ public class GameScreen extends ScreenAdapter {
         gameWorld.generateMapBlocks();
         gameWorld.initializePlayers();
 
-        gameWorld.placeBomb(new Vector2(100,100), 2, 2); // PURE TEST!!
+        //gameWorld.placeBomb(new Vector2(100,100), 2, 2); // PURE TEST!!
 
         b2dr = new Box2DDebugRenderer();
 

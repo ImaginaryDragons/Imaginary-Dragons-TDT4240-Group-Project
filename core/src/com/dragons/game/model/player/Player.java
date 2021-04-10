@@ -32,7 +32,7 @@ public class Player extends Model {
     // I suspect the answer is no, but there might be a good reason for it
 
     public Player(int ID, Vector2 startPos, Color col, int width, int height) {
-        super(startPos, PlayerType.NORMALPLAYER, width, height, isStatic, isSensor);
+        super(startPos, PlayerType.NORMALPLAYER, width, height);
         this.ID = ID;
         this.col = col;
         final PolygonShape shape = new PolygonShape();

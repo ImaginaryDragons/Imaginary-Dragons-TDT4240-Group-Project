@@ -16,8 +16,10 @@ public class GameObject {
 
     private final IModel obj;
     private ModelView objView;
-    private final Body body;
+    private Body body;
     private final World world;
+    public boolean isStatic;
+    public boolean isSensor;
 
     // TODO: Pass ModelView as a parameter?
     public GameObject(IModel obj, ModelView objView, World world) {
@@ -25,6 +27,13 @@ public class GameObject {
         this.obj = obj;
         this.world = world;
         this.objView = objView;
+        this.isStatic = false;
+        this.isSensor = false;
+        this.body = null;
+        //this.body = BodyBuilder.createBody(world, this);
+    }
+
+    public void createBody() {
         this.body = BodyBuilder.createBody(world, this);
     }
 
@@ -45,8 +54,10 @@ public class GameObject {
     }
 
     public void syncPosition() {
-        Vector2 newPos = body.getPosition();
-        obj.setPosition(newPos);
+        if (this.body != null) {
+            Vector2 newPos = body.getPosition();
+            obj.setPosition(newPos);
+        }
     }
 
     private void dispose() {

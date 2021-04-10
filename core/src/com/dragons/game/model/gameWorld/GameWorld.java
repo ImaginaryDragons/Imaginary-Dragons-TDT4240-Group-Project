@@ -61,9 +61,9 @@ public class GameWorld {
                     if (obj instanceof DestructibleBlock){
                         Gdx.app.log("GameWorld/GenerateMapBlocks", "Generating destructible block");
                         DestructibleBlockView view = new DestructibleBlockView((DestructibleBlock) obj, assetManager);
-                        this.addObject(obj, view);
+                        this.addObject(obj, view, true, false);
                     }else {
-                        this.addObject(obj, null);
+                        this.addObject(obj, null, true, false);
                     }
                 }
             }
@@ -93,23 +93,33 @@ public class GameWorld {
     }
 
     // Add object to GameObjects
-    public void addObject(IModel obj, ModelView objView) {
-        gameObjects.add(new GameObject(obj, objView, world));
+    public void addObject(IModel obj, ModelView objView, boolean isStatic, boolean isSensor) {
+        GameObject newObject = new GameObject(obj, objView, world);
+        newObject.isStatic = isStatic;
+        newObject.isSensor = isSensor;
+        newObject.createBody();
+        gameObjects.add(newObject);
     }
 
     public void addPlayer(Player player, PlayerView playerView) {
         // TODO: Add a game class that encapsulates a player with a controller (similar to the GameBomb class).
-        GameObject p = new GameObject(player, playerView, world);
-        players.add(p);
-        gameObjects.add(p);
+        GameObject newObject = new GameObject(player, playerView, world);
+        newObject.isSensor = false;
+        newObject.isStatic = false;
+        newObject.createBody();
+        players.add(newObject);
+        gameObjects.add(newObject);
     }
 
     public void placeBomb(Vector2 position, float timer, float range) {
         Bomb bomb = new Bomb(position, map.getTileWidth() / 2, timer, range);
         BombView bombView = new BombView(bomb, assetManager, position);
-        GameBomb b = new GameBomb(bomb, bombView, world);
-        bombs.add(b);
-        gameObjects.add(b);
+        GameBomb newBomb = new GameBomb(bomb, bombView, world);
+        newBomb.isSensor = false;
+        newBomb.isStatic = false;
+        newBomb.createBody();
+        bombs.add(newBomb);
+        gameObjects.add(newBomb);
     }
 
     /*Due to the players always moving, it is beneficial to always check for positional updates
