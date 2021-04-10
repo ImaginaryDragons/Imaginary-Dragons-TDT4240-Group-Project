@@ -4,7 +4,7 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.dragons.game.model.IObject;
+import com.dragons.game.model.IModel;
 import com.dragons.game.model.PowerUps.IPowerUp;
 import com.dragons.game.model.blocks.IBlock;
 
@@ -17,8 +17,8 @@ public class WorldContactListener implements ContactListener {
         GameObject gameObjectA = (GameObject) contact.getFixtureA().getUserData();
         GameObject gameObjectB = (GameObject) contact.getFixtureB().getUserData();
 
-        IObject objA = gameObjectA.getObject();
-        IObject objB = gameObjectB.getObject();
+        IModel objA = gameObjectA.getObject();
+        IModel objB = gameObjectB.getObject();
 
         System.out.println("Collision");
 

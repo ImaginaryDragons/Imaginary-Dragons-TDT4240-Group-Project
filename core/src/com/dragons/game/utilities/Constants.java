@@ -3,7 +3,8 @@ package com.dragons.game.utilities;
 public class Constants {
 
     public static final float PPM = 32f;
-
+    public static final float VIRTUAL_WIDTH = 480f;
+    public static final float VIRTUAL_HEIGHT = 350f;
 
     public static final int InitPlayerHealth = 3; // Number of lives
     public static final int PlayerSpeed = 10; // RANDOM NUMBER FOR NOW
