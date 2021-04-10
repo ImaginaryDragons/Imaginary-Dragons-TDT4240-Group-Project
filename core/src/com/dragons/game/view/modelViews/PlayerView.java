@@ -1,14 +1,10 @@
 package com.dragons.game.view.modelViews;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.dragons.game.model.IObject;
-import com.dragons.game.model.Object;
+import com.dragons.game.model.Model;
 import com.dragons.game.model.player.Player;
-import com.dragons.game.model.player.*;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -16,7 +12,7 @@ import static com.dragons.game.utilities.AssetLoader.DRAGON_SLIM_RED;
 
 public class PlayerView implements ModelView {
 
-    private Object player;
+    private Model player;
     private Texture texture;
     private AnnotationAssetManager manager;
     private float height, width;
@@ -26,8 +22,6 @@ public class PlayerView implements ModelView {
         this.manager = manager;
         height = player.getHeight();
         width = player.getWidth();
-
-
 
         // TODO: load the appropriate textures in constructor
         Color col = player.getCol();

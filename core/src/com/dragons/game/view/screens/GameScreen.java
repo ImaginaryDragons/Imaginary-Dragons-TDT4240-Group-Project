@@ -51,8 +51,8 @@ public class GameScreen extends ScreenAdapter {
 
         gameMap = new GameMap("TileMapMobile.tmx");
         b2dWorld = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
-        gameWorld = new GameWorld(b2dWorld, gameMap);
         manager = new AnnotationAssetManager();
+        gameWorld = new GameWorld(b2dWorld, gameMap, manager);
         batch = new SpriteBatch();
 
         //TODO: Change viewPortWidth and height to variables
@@ -69,7 +69,9 @@ public class GameScreen extends ScreenAdapter {
         // TODO: Create functionality for spawning game world
         gameMap.generateBlocks(0, "map.txt");
         gameWorld.generateMapBlocks();
-        gameWorld.initializePlayers(manager);
+        gameWorld.initializePlayers();
+
+        gameWorld.placeBomb(new Vector2(100,100), 2, 2); // PURE TEST!!
 
         b2dr = new Box2DDebugRenderer();
 
@@ -82,10 +84,15 @@ public class GameScreen extends ScreenAdapter {
         //Gdx.app.log("GameScreen", "Rendering");
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        tiledMapRenderer.render();
+
         // Update game world
         gameWorld.update(delta);
-        // Render screen
+        // gameWorld.updatePlayerPositions(); TODO: Implement this so that it always follows its body!
+
+        //Render map
+        tiledMapRenderer.render();
+
+        // Render game objects
         batch.begin();
         gameRenderer.render(batch);
         batch.end();

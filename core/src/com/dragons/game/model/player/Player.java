@@ -3,10 +3,7 @@ package com.dragons.game.model.player;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.Shape;
-import com.dragons.game.model.IModelType;
-import com.dragons.game.model.IObject;
-import com.dragons.game.model.Object;
+import com.dragons.game.model.Model;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.utilities.Direction;
 
@@ -17,7 +14,7 @@ import com.dragons.game.utilities.Direction;
  * @author Eldar Sandanger
  */
 
-public class Player extends Object {
+public class Player extends Model {
     private static final boolean isStatic = false;
     private static final boolean isSensor = false;
 
@@ -35,7 +32,7 @@ public class Player extends Object {
     // I suspect the answer is no, but there might be a good reason for it
 
     public Player(int ID, Vector2 startPos, Color col, int width, int height) {
-        super(startPos, PlayerType.NORMALPLAYER, width, height, isStatic, isSensor);
+        super(startPos, PlayerType.NORMALPLAYER, width, height);
         this.ID = ID;
         this.col = col;
         final PolygonShape shape = new PolygonShape();
