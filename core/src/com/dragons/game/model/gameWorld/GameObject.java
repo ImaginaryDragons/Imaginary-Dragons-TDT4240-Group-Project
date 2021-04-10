@@ -33,11 +33,7 @@ public class GameObject {
     }
 
     public ModelView getModelView() {
-        if (objView == null){
-            return null;
-        }else{
-            return objView;
-        }
+        return objView;
     }
 
     public IModel getObject() {

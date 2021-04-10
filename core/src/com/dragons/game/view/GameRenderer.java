@@ -36,24 +36,14 @@ public class GameRenderer {
 
     public void render(SpriteBatch sb) {
         ArrayList<GameObject> list = gameWorld.getGameObjects();
-        ModelView view;
         for (GameObject obj : list) {
             if (obj.getModelView() == null) {
-                break;
+                // Do nothing
             } else {
-                Gdx.app.log("Render", "Instance of destructible block");
                 obj.getModelView().render(sb);
             }
-            /*
-            view = obj.getModelView();
-            if (view instanceof DestructibleBlockView) {
-                Gdx.app.log("Render", "Instance of destructible block");
-            }
-
-             */
         }
         for (GameObject player : gameWorld.getPlayers()) {
-            view = player.getModelView();
             player.getModelView().render(sb);
         }
     }
