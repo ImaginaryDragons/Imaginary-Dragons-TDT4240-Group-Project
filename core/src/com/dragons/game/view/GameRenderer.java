@@ -31,6 +31,15 @@ public class GameRenderer {
         loadAssets();
     }
 
+    // TODO: kanskje slå sammen disse til bare en for-løkke feks den under (eller slå sammen listene til en?)
+    /*for (GameObject obj : gameWorld.getAllObjects) {
+        if (obj.getModelView() == null) {
+            // Do nothing
+        } else {
+            obj.getModelView().render(sb);
+        }
+    }*/
+
     public void render(SpriteBatch sb){
         ArrayList<GameObject> list = gameWorld.getGameObjects();
         for (GameObject obj : list) {
