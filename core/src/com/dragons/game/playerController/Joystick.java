@@ -74,33 +74,30 @@ public class Joystick implements InputProcessor {
         Vector3 touch = new Vector3(screenX, screenY, 0);
         cam.unproject(touch);
 
-//        if (perimeter.contains(joystick)) {  // Contains the joystick circle in the perimeter.
-//            joystick.x = screenX;            // Does not show the joystick with this
-//            joystick.y = screenY;            // Used next two lines to test -v
-//        }
+        if (perimeter.contains(new Vector2(touch.x, touch.y))){
 
-        joystick.x = touch.x;  // For testing
-        joystick.y = touch.y;
-        float relativeX = touch.x - JOYSTICK_ORIGIN_X;
-        float relativeY = touch.y - JOYSTICK_ORIGIN_Y;
+            joystick.x = touch.x;
+            joystick.y = touch.y;
 
-//        float relativeX = -(JOYSTICK_ORIGIN_X - touch.x);
-//        float relativeY = -(JOYSTICK_ORIGIN_Y - touch.y);
+            float relativeX = touch.x - JOYSTICK_ORIGIN_X;
+            float relativeY = touch.y - JOYSTICK_ORIGIN_Y;
 
-        if (relativeX < relativeY && -relativeX < relativeY) {
-            Gdx.app.log("Touch down", String.format("UP\t\ttouch.x: %.1f\trelativeX: %.1f\n\t\t\t\t\ttouch.y: %.1f\trelativeY: %.1f", touch.x, relativeX, touch.y, relativeY));
+            if (relativeX < relativeY && -relativeX < relativeY) {
+                Gdx.app.log("Touch down", String.format("UP\t\ttouch.x: %.1f\trelativeX: %.1f\n\t\t\t\t\ttouch.y: %.1f\trelativeY: %.1f", touch.x, relativeX, touch.y, relativeY));
 //            player.body.setVelocity("UP");
-        } else if (relativeX > relativeY && -relativeX < relativeY) {
-            Gdx.app.log("Touch down", String.format("RIGHT\ttouch.x: %.1f\trelativeX: %.1f\n\t\t\t\t\ttouch.y: %.1f\trelativeY: %.1f", touch.x, relativeX, touch.y, relativeY));
+            } else if (relativeX > relativeY && -relativeX < relativeY) {
+                Gdx.app.log("Touch down", String.format("RIGHT\ttouch.x: %.1f\trelativeX: %.1f\n\t\t\t\t\ttouch.y: %.1f\trelativeY: %.1f", touch.x, relativeX, touch.y, relativeY));
 //            player.body.setVelocity("RIGHT");
-        } else if (relativeX < relativeY && -relativeX > relativeY) {
-            Gdx.app.log("Touch down", String.format("LEFT\ttouch.x: %.1f\trelativeX: %.1f\n\t\t\t\t\ttouch.y: %.1f\trelativeY: %.1f", touch.x, relativeX, touch.y, relativeY));
+            } else if (relativeX < relativeY && -relativeX > relativeY) {
+                Gdx.app.log("Touch down", String.format("LEFT\ttouch.x: %.1f\trelativeX: %.1f\n\t\t\t\t\ttouch.y: %.1f\trelativeY: %.1f", touch.x, relativeX, touch.y, relativeY));
 //            player.body.setVelocity("LEFT");
-        } else {
-            Gdx.app.log("Touch down", String.format("DOWN\ttouch.x: %.1f\trelativeX: %.1f\n\t\t\t\t\ttouch.y: %.1f\trelativeY: %.1f", touch.x, relativeX, touch.y, relativeY));
+            } else {
+                Gdx.app.log("Touch down", String.format("DOWN\ttouch.x: %.1f\trelativeX: %.1f\n\t\t\t\t\ttouch.y: %.1f\trelativeY: %.1f", touch.x, relativeX, touch.y, relativeY));
 //            player.body.setVelocity("DOWN");
+            }
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -116,31 +113,25 @@ public class Joystick implements InputProcessor {
         Vector3 touch = new Vector3(screenX, screenY, 0);
         cam.unproject(touch);
 
-//        if (perimeter.contains(joystick)) {  // Contains the joystick circle in the perimeter.
-//            joystick.x = screenX;            // Does not show the joystick with this
-//            joystick.y = screenY;            // Used next two lines to test -v
-//        }
-
-        joystick.x = touch.x;  // For testing
-        joystick.y = touch.y;
+        if (perimeter.contains(new Vector2(touch.x, touch.y))){
+            joystick.x = touch.x;
+            joystick.y = touch.y;
+        }
 
         float relativeX = touch.x - JOYSTICK_ORIGIN_X;
         float relativeY = touch.y - JOYSTICK_ORIGIN_Y;
 
-//        float relativeX = -(JOYSTICK_ORIGIN_X - touch.x);
-//        float relativeY = -(JOYSTICK_ORIGIN_Y - touch.y);
-
         if (relativeX < relativeY && -relativeX < relativeY) {
-            Gdx.app.log("Touch down", "UP");
+            Gdx.app.log("Touch dragged", "UP");
 //            player.body.setVelocity("UP");
         } else if (relativeX > relativeY && -relativeX < relativeY) {
-            Gdx.app.log("Touch down", "DOWN");
+            Gdx.app.log("Touch dragged", "RIGHT");
 //            player.body.setVelocity("RIGHT");
         } else if (relativeX < relativeY && -relativeX > relativeY) {
-            Gdx.app.log("Touch down", "LEFT");
+            Gdx.app.log("Touch dragged", "LEFT");
 //            player.body.setVelocity("LEFT");
         } else {
-            Gdx.app.log("Touch down", "RIGHT");
+            Gdx.app.log("Touch dragged", "DOWN");
 //            player.body.setVelocity("DOWN");
         }
         return true;
