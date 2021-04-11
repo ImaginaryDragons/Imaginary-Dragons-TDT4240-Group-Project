@@ -18,6 +18,7 @@ import com.dragons.game.view.GameRenderer;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static com.dragons.game.utilities.Constants.PPM;
 import static com.dragons.game.utilities.Constants.VIRTUAL_HEIGHT;
@@ -73,7 +74,14 @@ public class GameScreen extends ScreenAdapter {
         gameWorld.generateMapBlocks();
         gameWorld.initializePlayers();
 
-        gameWorld.placeBomb(new Vector2(100,100), 2, 2); // PURE TEST!!
+        // BOMB TEST!!
+        gameWorld.placeBomb(new Vector2(100,100), 2, 2);
+
+        // FIRE TEST
+        ArrayList<Vector2> fireTileList = new ArrayList<Vector2>();
+        fireTileList.add(gameMap.tilePos(new Vector2(5,5)));
+        fireTileList.add(gameMap.tilePos(new Vector2(5,6)));
+        gameWorld.spawnFire(fireTileList);
 
         b2dr = new Box2DDebugRenderer();
 

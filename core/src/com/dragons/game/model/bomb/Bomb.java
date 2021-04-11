@@ -42,11 +42,11 @@ public class Bomb extends Model {
         this.height = radius * 2;
         this.width = radius * 2;
         this.bombRange = bombRange;
-        //this.circleBounds.set(pos, radius); TODO: FIX THIS
+
         bombExploded = false;
         loadingTime = Constants.BombExplodeTime;
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width / 2, height / 2);
+        shape.setAsBox(width / 2f, height / 2f);
         super.setShape(shape);
         //tileHeight = GameScreen.tileHeight;
         //tileWidth = GameScreen.tileWidth;

@@ -44,11 +44,19 @@ public class GameRenderer {
             }
         }
 
-        for (GameObject obj : gameWorld.getPlayers()) {
-            if (obj.getModelView() == null) {
+        for (GameObject player : gameWorld.getPlayers()) {
+            if (player.getModelView() == null) {
                 // Do nothing
             } else {
-                obj.getModelView().render(sb);
+                player.getModelView().render(sb);
+            }
+        }
+
+        for (GameObject fire : gameWorld.getFires()) {
+            if (fire.getModelView() == null) {
+                // Do nothing
+            } else {
+                fire.getModelView().render(sb);
             }
         }
     }

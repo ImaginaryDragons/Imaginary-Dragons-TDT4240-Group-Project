@@ -21,8 +21,8 @@ public class FireView implements ModelView {
 
     public FireView(Fire fire, AnnotationAssetManager manager) {
         this.fire = fire;
-        //this.height = fire.getHeight();
-        //this.width = fire.getWidth();
+        this.height = fire.getHeight();
+        this.width = fire.getWidth();
         this.texture = manager.get(EXPLOSION, Texture.class);
     }
 
