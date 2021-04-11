@@ -8,8 +8,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		// TODO: Change fps to variable
-		config.backgroundFPS = 2;
-		config.foregroundFPS = 2;
+		config.backgroundFPS = 30;
+		config.foregroundFPS = 30;
 		new LwjglApplication(new DragonsGame(new DesktopFirebaseInterface()), config);
 	}
 }
