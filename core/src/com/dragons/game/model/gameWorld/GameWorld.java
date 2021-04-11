@@ -71,7 +71,7 @@ public class GameWorld {
 
     public void initializePlayers() {
         Gdx.app.log("GameWorld", "Initializing main player");
-        Vector2 p1StartPos = map.tilePos(new Vector2(3,1));
+        Vector2 p1StartPos = map.tilePos(new Vector2(1,1));
         Player p1 = new Player(1, p1StartPos, Color.RED, map.getTileWidth(), map.getTileHeight());
         PlayerView p1v = new PlayerView(p1, assetManager);
         this.addPlayer(p1, p1v);
@@ -123,6 +123,7 @@ public class GameWorld {
 
     /*Due to the players always moving, it is beneficial to always check for positional updates
     * for every frame iteration*/
+    // TODO: players not moving are vibrating
     public void updatePlayerPositions() {
         for(GameObject obj : players)
         {

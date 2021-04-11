@@ -70,10 +70,14 @@ public class GameScreen extends ScreenAdapter {
         gameMap.generateBlocks(0, "map.txt");
         gameWorld.generateMapBlocks();
         gameWorld.initializePlayers();
-
         gameWorld.placeBomb(new Vector2(100,100), 2, 2); // PURE TEST!!
 
         b2dr = new Box2DDebugRenderer();
+        b2drCam = new OrthographicCamera(VIRTUAL_WIDTH / PPM, VIRTUAL_HEIGHT / PPM);
+        b2drCam.position.set(gameMap.getMapWidthInPixels() / 2f / PPM, gameMap.getMapHeightInPixels() / 2f / PPM, 0);
+        b2drCam.update();
+
+
 
 
     }
@@ -97,7 +101,7 @@ public class GameScreen extends ScreenAdapter {
         gameRenderer.render(batch);
         batch.end();
 
-        b2dr.render(b2dWorld, camera.combined);
+        b2dr.render(b2dWorld, b2drCam.combined);
         //Gdx.app.log("GameScreen FPS", (1/delta) + "");
     }
 

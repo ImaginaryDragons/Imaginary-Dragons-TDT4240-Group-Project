@@ -34,6 +34,8 @@ public class PlayerView implements ModelView {
 
     @Override
     public void render(SpriteBatch sb) {
+        //TODO: Startposition is wrong first frame but changes to correct after?
+        //System.out.println(player.getPosition().toString());
         sb.draw(texture, player.getPosition().x - width / 2f, player.getPosition().y - height / 2f , width, height);
     }
 }

@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.dragons.game.utilities.Constants.PPM;
+
 enum BombType implements IModelType {
     NORMALBOMB
 }
@@ -46,7 +48,7 @@ public class Bomb extends Model {
         bombExploded = false;
         loadingTime = Constants.BombExplodeTime;
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width / 2, height / 2);
+        shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
         super.setShape(shape);
         //tileHeight = GameScreen.tileHeight;
         //tileWidth = GameScreen.tileWidth;

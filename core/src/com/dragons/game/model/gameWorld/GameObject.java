@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
 import com.dragons.game.view.modelViews.ModelView;
 
+import static com.dragons.game.utilities.Constants.PPM;
 import static java.util.Objects.isNull;
 
 
@@ -53,9 +54,16 @@ public class GameObject {
         return body;
     }
 
+    // TODO: FIX VIBRATING PLAYERS, velocity is 0 but bodyposition is changing?
     public void syncPosition() {
-        if (this.body != null) {
+        //boolean haveVelocity = body.getLinearVelocity().x != 0 && body.getLinearVelocity().y != 0;
+        //Gdx.app.log(body.getLinearVelocity().toString(), "linear Velocity");
+        //System.out.println(body.getPosition().toString());
+        if (body != null) {
             Vector2 newPos = body.getPosition();
+            // Multiply by PPM since world position is in meters
+            newPos.x *= PPM;
+            newPos.y *= PPM;
             obj.setPosition(newPos);
         }
     }
