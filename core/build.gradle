@@ -1,6 +1,8 @@
 sourceCompatibility = 1.7
 dependencies {
     implementation 'org.jetbrains:annotations-java5:15.0'
+    implementation 'com.google.firebase:firebase-database:19.7.0'
+
 }
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 

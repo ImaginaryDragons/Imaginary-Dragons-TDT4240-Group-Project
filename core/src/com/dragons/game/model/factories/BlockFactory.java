@@ -14,6 +14,10 @@ public final class BlockFactory{
     public static BlockFactory getInstance() {
         return INSTANCE;
     }
+
+    private BlockFactory() {
+    }
+
     /**
      * Returns a block object
      * @param type Block enum, Vector 2 position, width and height of block.

@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
 import com.dragons.game.view.modelViews.ModelView;
 
+import static com.dragons.game.utilities.Constants.PPM;
 import static java.util.Objects.isNull;
 
 
@@ -30,15 +31,12 @@ public class GameObject {
         this.isStatic = false;
         this.isSensor = false;
         this.body = null;
-        //this.body = BodyBuilder.createBody(world, this);
     }
+
+
 
     public void createBody() {
         this.body = BodyBuilder.createBody(world, this);
-    }
-
-    public void setModelView(ModelView view) {
-        this.objView = view;
     }
 
     public ModelView getModelView() {
@@ -54,8 +52,10 @@ public class GameObject {
     }
 
     public void syncPosition() {
-        if (this.body != null) {
-            Vector2 newPos = body.getPosition();
+        if (body != null) {
+            Vector2 bodyPosition = body.getPosition();
+            // Multiply by PPM since world position is in meters
+            Vector2 newPos = new Vector2(bodyPosition.x, bodyPosition.y);
             obj.setPosition(newPos);
         }
     }
