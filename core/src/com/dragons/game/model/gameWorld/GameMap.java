@@ -50,6 +50,7 @@ public class GameMap {
         blockFactory = new BlockFactory();
         powerUpFactory = new PowerUpFactory();
         tileContainers = HashBasedTable.create();
+
         // Initialize tileContainers with tiles
         for (int x = 0; x < mapWidthInTiles; x++) {
             for (int y = 0; y < mapHeightInTiles; y++) {
@@ -84,8 +85,6 @@ public class GameMap {
 
         int x = 0;
         int y = mapHeightInTiles-1; // We start in the top left corner iterating through our recipe!
-        // TODO: Check that the initial indexes are correct in case of placement mistake!!
-
         while(scanner.hasNext()) {
             tile.x = x;
             tile.y = y;
