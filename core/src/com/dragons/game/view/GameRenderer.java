@@ -34,7 +34,7 @@ public class GameRenderer {
         loadAssets();
     }
 
-    public void render(SpriteBatch sb) {
+    public void render(SpriteBatch sb){
         ArrayList<GameObject> list = gameWorld.getGameObjects();
         for (GameObject obj : list) {
             if (obj.getModelView() == null) {
@@ -45,10 +45,10 @@ public class GameRenderer {
         }
     }
 
-    private void loadAssets(){
+    private void loadAssets() {
         Gdx.app.log("Asset loader", "Loading assets");
         manager.load(AssetLoader.class);
         manager.finishLoading();
         Gdx.app.log("Asset loader", "Loading assets finished");
     }
-}
+    }

@@ -14,10 +14,16 @@ import com.dragons.game.utilities.Direction;
  * @author Eldar Sandanger
  */
 
+
+
 public class Player extends Model {
 
+    private int height;
+    private int width;
     private int ID;
     private Color col;
+    //private Shape boundRectangle;
+    private PolygonShape shape;
     private Direction orientation; // The direction the player is looking
     public int lives;
     public int speed;
@@ -25,6 +31,7 @@ public class Player extends Model {
     private int bombsAvailable;
     public float bombRange;
     private float bombReloadTime;
+
 
     // TODO: Consider if it is necessary to implement a decorator for color, ID etc..
     // I suspect the answer is no, but there might be a good reason for it
@@ -104,5 +111,13 @@ public class Player extends Model {
 
     public void setBombRange(float bombRange) {
         this.bombRange = bombRange;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
     }
 }

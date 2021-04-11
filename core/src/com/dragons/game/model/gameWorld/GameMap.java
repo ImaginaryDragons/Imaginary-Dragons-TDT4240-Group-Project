@@ -18,6 +18,7 @@ import com.dragons.game.model.blocks.BlockType;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -111,12 +112,18 @@ public class GameMap {
                     break;
                 case " ":
                     break;
-                default:
-                    // Basically when we reach the end of the line!
+                case "\r\n":
+                case "\n":
                     y = y - 1;
                     x = 0;
                     break;
+                    /*default:
+                    // Basically when we reach the end of the line!
+                        y = y - 1;
+                        x = 0;
+                    break;*/
             }
+
         }
     }
 
