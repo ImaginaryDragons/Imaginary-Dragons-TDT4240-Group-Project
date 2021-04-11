@@ -2,6 +2,7 @@ package com.dragons.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -48,7 +49,7 @@ public class DragonsGame extends Game {
         _FBIC.SetOnValueChangedListener();
         Gdx.app.log("DragonGame", "Listener changed");
         Vector2 pStartPos = gameScreen.gameMap.tilePos(new Vector2(1,1)); //gjør om til tilPos senere
-        _FBIC.writePlayerToFB(4, pStartPos , PlayerColor.BLUE, 32, 32);
+        _FBIC.writePlayerToFB(4, pStartPos , Color.BLUE, 32, 32);
         Gdx.app.log("DragonGame", "Write to FB");
     }
 
