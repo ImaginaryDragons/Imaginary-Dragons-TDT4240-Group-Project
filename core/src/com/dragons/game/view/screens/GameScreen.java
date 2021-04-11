@@ -59,7 +59,7 @@ public class GameScreen extends ScreenAdapter {
 
         sb = new SpriteBatch();
         sb.setProjectionMatrix(camera.combined);
-        joystick = new Joystick();
+        joystick = new Joystick(camera);
         // TODO: Create functionality for spawning game world
     }
 
