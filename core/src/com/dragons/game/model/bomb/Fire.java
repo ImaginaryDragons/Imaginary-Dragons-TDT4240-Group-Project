@@ -1,6 +1,8 @@
 package com.dragons.game.model.bomb;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.dragons.game.model.IModelType;
 import com.dragons.game.model.Model;
 
@@ -10,6 +12,7 @@ public class Fire extends Model {
     private Vector2 position;
     private IModelType type;
     private float width, height;
+    private Shape shape;
 
     public Fire(Vector2 position, IModelType type, float width, float height) {
         super(position, type, width, height);
@@ -17,6 +20,9 @@ public class Fire extends Model {
         this.type = type;
         this.width = width;
         this.height = height;
+        final PolygonShape shape = new PolygonShape();
+        shape.setAsBox(width / 2f, height / 2f);
+        super.setShape(shape);
     }
 
 
@@ -28,6 +34,7 @@ public class Fire extends Model {
         this.type = type;
     }
 
+    /*
     public float getWidth() {
         return width;
     }
@@ -43,6 +50,7 @@ public class Fire extends Model {
     public void setHeight(float height) {
         this.height = height;
     }
+    */
 
 
     @Override

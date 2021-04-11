@@ -54,6 +54,7 @@ public class GameWorld {
         gameObjects = new ArrayList<GameObject>();
         players = new ArrayList<GameObject>();
         bombs = new ArrayList<GameBomb>();
+        fires = new ArrayList<GameObject>();
         this.map = map;
     }
 
