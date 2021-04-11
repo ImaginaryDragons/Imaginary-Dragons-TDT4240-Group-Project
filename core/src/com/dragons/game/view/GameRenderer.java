@@ -35,35 +35,20 @@ public class GameRenderer {
     }
 
     public void render(SpriteBatch sb){
-        /*
-        for (GameObject obj : gameWorld.getGameObjects()) {
-            ModelView view = obj.getModelView();
-            if (view == null) {
-                Gdx.app.log("GameRenderer", "render");
-                break;
-=======
-    public void render(SpriteBatch sb) {
         ArrayList<GameObject> list = gameWorld.getGameObjects();
         for (GameObject obj : list) {
             if (obj.getModelView() == null) {
                 // Do nothing
->>>>>>> 1fe4bd8fd5c25b6cd7b8bd03fafabce1ca53bef1
             } else {
                 obj.getModelView().render(sb);
             }
         }
-<<<<<<< HEAD
-        */
-        for(GameObject player : gameWorld.getPlayers()) {
-            ModelView view = player.getModelView();
-            view.render(sb);
-            }
-        }
+    }
 
-        private void loadAssets() {
-            Gdx.app.log("Asset loader", "Loading assets");
-            manager.load(AssetLoader.class);
-            manager.finishLoading();
-            Gdx.app.log("Asset loader", "Loading assets finished");
-        }
+    private void loadAssets() {
+        Gdx.app.log("Asset loader", "Loading assets");
+        manager.load(AssetLoader.class);
+        manager.finishLoading();
+        Gdx.app.log("Asset loader", "Loading assets finished");
+    }
     }
