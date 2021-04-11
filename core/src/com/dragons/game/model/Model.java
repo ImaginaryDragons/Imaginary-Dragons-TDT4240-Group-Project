@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Shape;
 
 public abstract class Model implements IModel {
-    public Vector2 position;
+    private Vector2 position;
     private final IModelType type;
     private final float width, height;
 
