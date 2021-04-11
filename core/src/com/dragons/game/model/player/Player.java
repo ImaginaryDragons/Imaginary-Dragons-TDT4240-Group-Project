@@ -18,8 +18,6 @@ import com.dragons.game.utilities.Direction;
 
 public class Player extends Model {
 
-    private int height;
-    private int width;
     private int ID;
     private Color col;
     //private Shape boundRectangle;
@@ -113,11 +111,4 @@ public class Player extends Model {
         this.bombRange = bombRange;
     }
 
-    public float getWidth() {
-        return width;
-    }
-
-    public float getHeight() {
-        return height;
-    }
 }

@@ -36,7 +36,6 @@ public class PlayerView implements ModelView {
 
     @Override
     public void render(SpriteBatch sb) {
-       // sb.draw(texture, player.getPosition().x - width / 2f, player.getPosition().y - height / 2f , width, height);
-        sb.draw(texture, player.getPosition().x, player.getPosition().y, width*100, height*100);
+        sb.draw(texture, player.getPosition().x - width / 2f, player.getPosition().y - height / 2f , width, height);
     }
 }
