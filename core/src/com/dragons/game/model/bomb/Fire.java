@@ -34,25 +34,6 @@ public class Fire extends Model {
         this.type = type;
     }
 
-    /*
-    public float getWidth() {
-        return width;
-    }
-
-    public void setWidth(float width) {
-        this.width = width;
-    }
-
-    public float getHeight() {
-        return height;
-    }
-
-    public void setHeight(float height) {
-        this.height = height;
-    }
-    */
-
-
     @Override
     public void setPosition(Vector2 position) {
         this.position = position;
