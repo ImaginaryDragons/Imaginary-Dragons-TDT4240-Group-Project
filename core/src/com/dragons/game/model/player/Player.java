@@ -113,11 +113,4 @@ public class Player extends Model {
         this.bombRange = bombRange;
     }
 
-    public float getWidth() {
-        return width;
-    }
-
-    public float getHeight() {
-        return height;
-    }
 }
