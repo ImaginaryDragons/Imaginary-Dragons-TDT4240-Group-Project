@@ -8,7 +8,6 @@ import com.dragons.game.model.Model;
 
 public class WallBlock extends Model implements IBlock {
 
-
     public WallBlock(Vector2 position, BlockType type, float width, float height) {
         super(position, type, width, height);
         PolygonShape shape = new PolygonShape();

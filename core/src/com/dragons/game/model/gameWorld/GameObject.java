@@ -33,12 +33,10 @@ public class GameObject {
         //this.body = BodyBuilder.createBody(world, this);
     }
 
+
+
     public void createBody() {
         this.body = BodyBuilder.createBody(world, this);
-    }
-
-    public void setModelView(ModelView view) {
-        this.objView = view;
     }
 
     public ModelView getModelView() {
