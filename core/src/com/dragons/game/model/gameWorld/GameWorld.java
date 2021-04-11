@@ -78,7 +78,6 @@ public class GameWorld {
         Player p1 = new Player(1, p1StartPos, Color.RED, map.getTileWidth(), map.getTileHeight());
         PlayerView p1v = new PlayerView(p1, assetManager);
         this.addPlayer(p1, p1v);
-        Gdx.app.log("GameWorld", "Sjekk dette");
     }
 
     // Update GameWorld with one time-step
@@ -111,7 +110,6 @@ public class GameWorld {
         newObject.isStatic = false;
         newObject.createBody();
         players.add(newObject);
-        gameObjects.add(newObject);
     }
 
     public void placeBomb(Vector2 position, float timer, float range) {

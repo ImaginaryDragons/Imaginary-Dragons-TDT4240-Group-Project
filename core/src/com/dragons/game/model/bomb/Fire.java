@@ -8,6 +8,8 @@ public class Fire extends Object {
     private Vector2 position;
     private BombView bombView;
 
-    
 
+    public Vector2 getPosition() {
+        return position;
+    }
 }
