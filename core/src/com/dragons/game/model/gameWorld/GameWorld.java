@@ -139,6 +139,7 @@ public class GameWorld {
 
     /*Due to the players always moving, it is beneficial to always check for positional updates
     * for every frame iteration*/
+    // TODO: players not moving are vibrating
     public void updatePlayerPositions() {
         for(GameObject obj : players)
         {

@@ -23,6 +23,9 @@ public final class PowerUpFactory {
         return INSTANCE;
     }
 
+    private PowerUpFactory() {
+    }
+
     /**
      * Returns a powerup object
      * @param type PowerUp enum
