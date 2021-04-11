@@ -110,7 +110,6 @@ public class GameWorld {
         newObject.isStatic = false;
         newObject.createBody();
         players.add(newObject);
-        gameObjects.add(newObject);
     }
 
     public void placeBomb(Vector2 position, float timer, float range) {

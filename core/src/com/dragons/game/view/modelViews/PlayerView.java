@@ -1,5 +1,6 @@
 package com.dragons.game.view.modelViews;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,10 +25,9 @@ public class PlayerView implements ModelView {
         width = player.getWidth();
 
         // TODO: load the appropriate textures in constructor
-        texture = manager.get(DRAGON_SLIM_RED, Texture.class);
         Color col = player.getCol();
         if (Color.RED.equals(col)) {
-
+            texture = manager.get(DRAGON_SLIM_RED, Texture.class);
         } else if (Color.BLUE.equals(col)) {
             //texture = manager.get(DRAGON_SLIM_BLUE, Texture.class);
         }
@@ -36,8 +36,7 @@ public class PlayerView implements ModelView {
 
     @Override
     public void render(SpriteBatch sb) {
-
-        sb.draw(texture, player.getPosition().x - width / 2f, player.getPosition().y - height / 2f , width, height);
-
+       // sb.draw(texture, player.getPosition().x - width / 2f, player.getPosition().y - height / 2f , width, height);
+        sb.draw(texture, player.getPosition().x, player.getPosition().y, width*100, height*100);
     }
 }
