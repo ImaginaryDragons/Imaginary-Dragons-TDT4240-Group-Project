@@ -1,3 +1,4 @@
+apply plugin: 'com.google.gms.google-services'
 android {
 
     compileOptions {
@@ -92,6 +93,10 @@ task run(type: Exec) {
 
     def adb = path + "/platform-tools/adb"
     commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.dragons.game/com.dragons.game.AndroidLauncher'
+}
+
+dependencies {
+    implementation 'com.google.firebase:firebase-database:19.7.0'
 }
 
 eclipse.project.name = appName + "-android"

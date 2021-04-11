@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.player.Player;
 import com.dragons.game.model.player.PlayerColor;
@@ -29,12 +30,12 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
     int speed;
     float bombRange;
     int health;
-    PlayerColor color;
+    Color color;
     String userId;
 
 
     public AndroidFirebaseInterface() {
-        database = FirebaseDatabase.getInstance(); //rotnoden, hele databasen
+        database = FirebaseDatabase.getInstance("https://imaginary-dragons-default-rtdb.europe-west1.firebasedatabase.app/"); //rotnoden, hele databasen
         gameRef = database.getReference("GameScreen");
         playerRef = database.getReference("Players"); //får tak i referansen Players, peker på alle players
 
@@ -42,14 +43,13 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
 
     @Override
     public void SomeFunction() {
-        check = database.getReference("message");
-        check.setValue("Funker dette?");
+        check = database.getReference("message3");
+        check.setValue("Screen blir ikke generert");
     }
 
 
-
     @Override
-    public void writePlayerToFB(int ID, Vector2 position, PlayerColor color, int width, int height) {
+    public void writePlayerToFB(int ID, Vector2 position, Color color, int width, int height) {
 
         Player firebasePlayer = new Player(ID, position, color, width, height); //Lage en unik Id der vi kaller funksjonen
 
