@@ -54,16 +54,11 @@ public class GameObject {
         return body;
     }
 
-    // TODO: FIX VIBRATING PLAYERS, velocity is 0 but bodyposition is changing?
     public void syncPosition() {
-        //boolean haveVelocity = body.getLinearVelocity().x != 0 && body.getLinearVelocity().y != 0;
-        //Gdx.app.log(body.getLinearVelocity().toString(), "linear Velocity");
-        //System.out.println(body.getPosition().toString());
         if (body != null) {
-            Vector2 newPos = body.getPosition();
+            Vector2 bodyPosition = body.getPosition();
             // Multiply by PPM since world position is in meters
-            newPos.x *= PPM;
-            newPos.y *= PPM;
+            Vector2 newPos = new Vector2(bodyPosition.x, bodyPosition.y);
             obj.setPosition(newPos);
         }
     }
