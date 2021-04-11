@@ -15,8 +15,6 @@ import com.dragons.game.utilities.Direction;
  */
 
 public class Player extends Model {
-    private static final boolean isStatic = false;
-    private static final boolean isSensor = false;
 
     private int ID;
     private Color col;

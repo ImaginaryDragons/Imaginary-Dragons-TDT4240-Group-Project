@@ -30,7 +30,6 @@ public class GameObject {
         this.isStatic = false;
         this.isSensor = false;
         this.body = null;
-        //this.body = BodyBuilder.createBody(world, this);
     }
 
 
