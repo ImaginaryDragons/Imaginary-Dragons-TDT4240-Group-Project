@@ -7,6 +7,8 @@ import com.dragons.game.model.Model;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.utilities.Direction;
 
+import static com.dragons.game.utilities.Constants.PPM;
+
 /**
  * Instantiates a player. Has to be tied to a controller to control.
  * int ID, Vector2 startPos, Color color
@@ -14,12 +16,14 @@ import com.dragons.game.utilities.Direction;
  * @author Eldar Sandanger
  */
 
+
+
 public class Player extends Model {
-    private static final boolean isStatic = false;
-    private static final boolean isSensor = false;
 
     private int ID;
     private Color col;
+    //private Shape boundRectangle;
+    private PolygonShape shape;
     private Direction orientation; // The direction the player is looking
     public int lives;
     public int speed;
@@ -28,15 +32,16 @@ public class Player extends Model {
     public float bombRange;
     private float bombReloadTime;
 
+
     // TODO: Consider if it is necessary to implement a decorator for color, ID etc..
     // I suspect the answer is no, but there might be a good reason for it
-
+    // TODO: change width and height to float
     public Player(int ID, Vector2 startPos, Color col, int width, int height) {
-        super(startPos, PlayerType.NORMALPLAYER, width, height);
+        super(startPos, PlayerType.NORMALPLAYER, (float) width, (float) height);
         this.ID = ID;
         this.col = col;
         final PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width / 2f, height / 2f);
+        shape.setAsBox(width / 2f / PPM, height / 2f / PPM);
         super.setShape(shape);
 
         this.orientation = Direction.DOWN;
@@ -107,4 +112,5 @@ public class Player extends Model {
     public void setBombRange(float bombRange) {
         this.bombRange = bombRange;
     }
+
 }
