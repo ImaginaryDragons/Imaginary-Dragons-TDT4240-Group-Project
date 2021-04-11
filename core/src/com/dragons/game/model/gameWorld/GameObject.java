@@ -58,7 +58,7 @@ public class GameObject {
         if (body != null) {
             Vector2 bodyPosition = body.getPosition();
             // Multiply by PPM since world position is in meters
-            Vector2 newPos = new Vector2(bodyPosition.x, bodyPosition.y);
+            Vector2 newPos = new Vector2(bodyPosition.x * PPM, bodyPosition.y * PPM);
             obj.setPosition(newPos);
         }
     }
