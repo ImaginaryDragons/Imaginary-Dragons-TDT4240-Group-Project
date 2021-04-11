@@ -120,7 +120,6 @@ public class GameWorld {
         world.step(delta, 6, 2);
         updatePlayerPositions();
 
-        // TODO: Get contact list and deal with every contact
 
         // Make sure that the positions are automatically synchronized
         // Maybe put observers on the gameobjects that get updates when the objects in the world are updated?
@@ -137,9 +136,6 @@ public class GameWorld {
         gameObjects.add(newBomb);
     }
 
-    /*Due to the players always moving, it is beneficial to always check for positional updates
-    * for every frame iteration*/
-    // TODO: players not moving are vibrating
     public void updatePlayerPositions() {
         for(GameObject obj : players)
         {

@@ -26,5 +26,7 @@ public class IncreaseSpeed extends Model implements IPowerUp {
         if (model instanceof Player) ((Player) model).increaseSpeed(increaseAmount);
         // For debugging
         else throw new IllegalArgumentException("Model is not of type Player");
+
+        super.destroyModel();
     }
 }

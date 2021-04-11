@@ -25,5 +25,7 @@ public class IncreaseRange extends Model implements IPowerUp {
         if (model instanceof Player) ((Player) model).increaseBombRange(increaseAmount);
         // for debugging
         else throw new IllegalArgumentException("Model is not of type Player");
+
+        super.destroyModel();
     }
 }
