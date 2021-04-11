@@ -47,7 +47,7 @@ public class GameRenderer {
         */
         for(GameObject player : gameWorld.getPlayers()) {
             ModelView view = player.getModelView();
-            player.getModelView().render(sb);
+            view.render(sb);
             }
         }
 

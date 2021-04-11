@@ -28,7 +28,7 @@ public class GameScreen extends ScreenAdapter {
     private GameWorld gameWorld;
     private GameRenderer gameRenderer;
     private AnnotationAssetManager manager;
-    private GameMap gameMap;
+    public GameMap gameMap;
     private SpriteBatch sb;
 
     private OrthographicCamera camera;
@@ -84,7 +84,7 @@ public class GameScreen extends ScreenAdapter {
         sb.setProjectionMatrix(sbcamera.combined);
 
         // TODO: Create functionality for spawning game world
-        gameMap.generateBlocks(0, "map.txt");
+        gameMap.generateBlocks(0, "C:\\Users\\maba9\\AndroidStudioProjects\\ImaginaryDragonsGame\\android\\assets\\map.txt");
         gameWorld.generateMapBlocks();
         gameWorld.initializePlayers(manager);
 
@@ -93,7 +93,6 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-
         //Gdx.app.log("GameScreen", "Rendering");
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

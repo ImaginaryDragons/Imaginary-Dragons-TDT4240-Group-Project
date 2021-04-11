@@ -114,12 +114,18 @@ public class GameMap {
                     break;
                 case " ":
                     break;
-                default:
-                    // Basically when we reach the end of the line!
+                case "\r\n":
+                case "\n":
                     y = y - 1;
                     x = 0;
                     break;
+                    /*default:
+                    // Basically when we reach the end of the line!
+                        y = y - 1;
+                        x = 0;
+                    break;*/
             }
+
         }
     }
 

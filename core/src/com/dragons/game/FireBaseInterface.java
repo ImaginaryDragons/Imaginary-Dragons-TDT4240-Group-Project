@@ -7,7 +7,7 @@ public interface FireBaseInterface {
 
     public void SomeFunction();
 
-    public void writePlayerToFB(int ID, Vector2 position, PlayerColor color);
+    public void writePlayerToFB(int ID, Vector2 position, PlayerColor color, int width, int height);
 
     public void SetOnValueChangedListener();
 }

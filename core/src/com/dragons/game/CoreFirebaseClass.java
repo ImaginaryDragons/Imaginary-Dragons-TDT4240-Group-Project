@@ -13,7 +13,7 @@ public class CoreFirebaseClass implements FireBaseInterface {
     }
 
     @Override
-    public void writePlayerToFB(int ID, Vector2 position, PlayerColor color) {
+    public void writePlayerToFB(int ID, Vector2 position, PlayerColor color, int width, int height) {
 
     }
 

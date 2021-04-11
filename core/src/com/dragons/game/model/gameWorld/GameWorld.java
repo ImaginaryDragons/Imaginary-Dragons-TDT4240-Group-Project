@@ -32,6 +32,7 @@ public class GameWorld {
     private ArrayList<GameBomb> bombs;
     private World world;
     private GameMap map;
+    private Player player;
 
     // https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_hello.html#autotoc_md21
     // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
@@ -59,10 +60,12 @@ public class GameWorld {
 
     public void initializePlayers(AnnotationAssetManager manager) {
         Gdx.app.log("GameWorld", "Initializing main player");
-        Vector2 p1StartPos = map.tilePos(new Vector2(3,1));
-        Player p1 = new Player(1, p1StartPos, PlayerColor.RED);
+        Vector2 p1StartPos = map.tilePos(new Vector2(1,1));
+
+        Player p1 = new Player(1, p1StartPos, PlayerColor.RED, 32, 32);
         PlayerView p1v = new PlayerView(p1, manager);
         this.addPlayer(p1, p1v);
+        Gdx.app.log("GameWorld", "Sjekk dette");
     }
 
     // Update GameWorld with one time-step

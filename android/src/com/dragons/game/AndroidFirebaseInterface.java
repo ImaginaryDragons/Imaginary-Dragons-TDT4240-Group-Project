@@ -22,6 +22,7 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
     DatabaseReference gameRef;
     private Player player;
     DatabaseReference playerName;
+    DatabaseReference check;
 
     String name;
     Vector2 position;
@@ -41,15 +42,16 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
 
     @Override
     public void SomeFunction() {
-        System.out.println("Halla");
+        check = database.getReference("message");
+        check.setValue("Funker dette?");
     }
 
 
 
     @Override
-    public void writePlayerToFB(int ID, Vector2 position, PlayerColor color) {
+    public void writePlayerToFB(int ID, Vector2 position, PlayerColor color, int width, int height) {
 
-        Player firebasePlayer = new Player(ID, position, color); //Lage en unik Id der vi kaller funksjonen
+        Player firebasePlayer = new Player(ID, position, color, width, height); //Lage en unik Id der vi kaller funksjonen
 
        playerRef.child(userId).setValue(firebasePlayer); //kan bruke color istedenfor userId, skriver her en player til firebase
     }

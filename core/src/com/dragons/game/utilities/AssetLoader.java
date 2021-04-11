@@ -16,7 +16,7 @@ public class AssetLoader {
 
     @AnnotationAssetManager.Asset(Texture.class)
     public static final String
-            DRAGON_SLIM_RED = "r3.png",
+            DRAGON_SLIM_RED = "red_dragon_slim-1.png",
             DRAGON_MIDDLE_RED = "r2.png",
             DRAGON_WIDE_RED = "r1.png",
 
@@ -52,7 +52,7 @@ public class AssetLoader {
 
             //RANGE_POWERUP = "",
             BOMB_CAP_POWERUP = "bomb_cap_powerup.png",
-            //SPEED_POWERUP = "",
+            SPEED_POWERUP = "dragon_wings-1.png",
 
 
 

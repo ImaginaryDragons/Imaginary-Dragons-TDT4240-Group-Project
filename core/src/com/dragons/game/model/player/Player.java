@@ -19,6 +19,8 @@ import com.dragons.game.utilities.Direction;
 
 public class Player implements IObject {
 
+    private int height;
+    private int width;
     private int ID;
     private PlayerColor col;
     //private Shape boundRectangle;
@@ -32,6 +34,7 @@ public class Player implements IObject {
     public float bombRange;
     private float bombReloadTime;
 
+
     // TODO: Consider if it is necessary to implement a decorator for color, ID etc..
     // I suspect the answer is no, but there might be a good reason for it
 
@@ -39,13 +42,16 @@ public class Player implements IObject {
 
     }
 
-    public Player(int ID, Vector2 startPos, PlayerColor col) {
+    public Player(int ID, Vector2 startPos, PlayerColor col, int width, int height) {
 
         this.ID = ID;
         this.col = col;
         this.position = startPos;
         this.shape = new PolygonShape();
-        //shape.setAsBox(width / 2, height / 2);
+        this.width = width;
+        this.height = height;
+
+        shape.setAsBox(width / 2, height / 2);
 
         // TODO: FIX SHAPE
         this.orientation = Direction.DOWN;
@@ -145,5 +151,13 @@ public class Player implements IObject {
 
     public void setBombRange(float bombRange) {
         this.bombRange = bombRange;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }
