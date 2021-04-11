@@ -41,12 +41,6 @@ public class PlayerView implements ModelView {
     @SuppressWarnings("NewApi")
     @Override
     public void render(SpriteBatch sb) {
-        if (isNull(texture) ){
-            System.out.println("Object is Null");
-        } else {
-            System.out.println("Not Null");
-
-        }
 
         sb.draw(texture, player.getPosition().x - width / 2f, player.getPosition().y - height / 2f , width, height);
 
