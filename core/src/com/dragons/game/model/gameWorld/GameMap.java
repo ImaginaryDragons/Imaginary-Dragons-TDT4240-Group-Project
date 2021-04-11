@@ -47,8 +47,8 @@ public class GameMap {
         mapWidthInPixels  = mapWidthInTiles  * tileWidth;
         mapHeightInPixels = mapHeightInTiles * tileHeight;
 
-        blockFactory = new BlockFactory();
-        powerUpFactory = new PowerUpFactory();
+        blockFactory = BlockFactory.getInstance();
+        powerUpFactory = PowerUpFactory.getInstance();
         tileContainers = HashBasedTable.create();
 
         // Initialize tileContainers with tiles

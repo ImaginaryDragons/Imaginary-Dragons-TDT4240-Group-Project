@@ -2,7 +2,8 @@ package com.dragons.game.utilities;
 
 public class Constants {
 
-    public static final float PPM = 32f;
+    public static final float PPM = 1f;
+    public static final int FPS = 2;
     public static final float VIRTUAL_WIDTH = 480f;
     public static final float VIRTUAL_HEIGHT = 350f;
 
