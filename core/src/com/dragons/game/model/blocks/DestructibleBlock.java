@@ -9,7 +9,6 @@ import static com.dragons.game.utilities.Constants.PPM;
 
 public class DestructibleBlock extends Model implements IBlock {
 
-
     public DestructibleBlock(Vector2 position, BlockType type, float width, float height) {
         super(position, type, width, height);
         final PolygonShape shape = new PolygonShape();

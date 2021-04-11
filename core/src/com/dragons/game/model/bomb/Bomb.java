@@ -4,12 +4,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.dragons.game.model.IModelType;
+import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.Model;
 import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.player.Player;
 import com.dragons.game.utilities.Constants;
-
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -44,7 +44,7 @@ public class Bomb extends Model {
         this.height = radius * 2;
         this.width = radius * 2;
         this.bombRange = bombRange;
-        //this.circleBounds.set(pos, radius); TODO: FIX THIS
+
         bombExploded = false;
         loadingTime = Constants.BombExplodeTime;
         PolygonShape shape = new PolygonShape();
@@ -120,6 +120,10 @@ public class Bomb extends Model {
         return fireTiles;
     }
 
+    public void spawnFire(GameWorld gameWorld, GameMap gameMap) {
+
+    }
+
     public void update(float timestep, GameMap gameMap){
             // TODO: Implement timestep update for bomb! This means update countdown for each delta
             // Når bomben slippes (space presses i controller), fireball vises i "loadingtime" sek,
@@ -129,7 +133,6 @@ public class Bomb extends Model {
             timer.schedule(explosionTask, (long) (timestep * 1000)); //after 2.5 seconds
             timer.schedule(explosionDone, (long) (4000)); //etter 4 sek er bomben borte (den vises i 1,5 sek)
     */
-
             loadingTime -= timestep;
             if (loadingTime < 0) {
                 checkForWall("up", gameMap);

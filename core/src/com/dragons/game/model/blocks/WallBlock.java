@@ -10,7 +10,6 @@ import static com.dragons.game.utilities.Constants.PPM;
 
 public class WallBlock extends Model implements IBlock {
 
-
     public WallBlock(Vector2 position, BlockType type, float width, float height) {
         super(position, type, width, height);
         PolygonShape shape = new PolygonShape();

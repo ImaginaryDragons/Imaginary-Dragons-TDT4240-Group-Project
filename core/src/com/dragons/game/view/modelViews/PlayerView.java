@@ -1,5 +1,6 @@
 package com.dragons.game.view.modelViews;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,6 +32,7 @@ public class PlayerView implements ModelView {
             //texture = manager.get(DRAGON_SLIM_BLUE, Texture.class);
         }
     }
+
 
     @Override
     public void render(SpriteBatch sb) {
