@@ -23,7 +23,6 @@ enum BombType implements IModelType {
 
 public class Bomb extends Model {
 
-    private Vector2 position;
     // TODO: FIX SHAPE (private Circle circleBounds;)
     private float loadingTime;
     private TimerTask task;
@@ -31,24 +30,20 @@ public class Bomb extends Model {
     private float timeLeft = 0;
     public boolean bombExploded;
     private float bombRange;
-    private float height;
-    private float width;
+
     private ArrayList<Vector2> fireTiles;
 
     //public static List<BombComponent> bombs = new ArrayList<BombComponent>(); // liste med antall bomber en spiller har, skal heller være i player
 
     public Bomb(Vector2 pos, float radius, float timer, float bombRange){ // Ta inn noe tiles?
         super(pos, BombType.NORMALBOMB,radius * 2,radius * 2);
-        this.position = pos;
         this.timer = timer;
-        this.height = radius * 2;
-        this.width = radius * 2;
         this.bombRange = bombRange;
 
         bombExploded = false;
         loadingTime = Constants.BombExplodeTime;
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
+        shape.setAsBox(radius / PPM, radius /  PPM);
         super.setShape(shape);
         //tileHeight = GameScreen.tileHeight;
         //tileWidth = GameScreen.tileWidth;
@@ -66,23 +61,23 @@ public class Bomb extends Model {
         int increment;
         switch (direction) {
             case "up":
-                startPos = (int) this.position.y;
-                checkTile.x = (int) this.position.x;
+                startPos = (int) super.getPosition().y;
+                checkTile.x = (int) super.getPosition().x;
                 increment = 32;
                 break;
             case "down":
-                startPos = (int) this.position.y;
-                checkTile.x = (int) this.position.x;
+                startPos = (int) super.getPosition().y;
+                checkTile.x = (int) super.getPosition().x;
                 increment = -32;
                 break;
             case "left":
-                startPos = (int) this.position.x;
-                checkTile.y = (int) this.position.y;
+                startPos = (int) super.getPosition().x;
+                checkTile.y = (int) super.getPosition().y;
                 increment = -32;
                 break;
             case "right":
-                startPos = (int) this.position.x;
-                checkTile.y = (int) this.position.y;
+                startPos = (int) super.getPosition().x;
+                checkTile.y = (int) super.getPosition().y;
                 increment = 32;
                 break;
             default:
@@ -125,46 +120,20 @@ public class Bomb extends Model {
     }
 
     public void update(float timestep, GameMap gameMap){
-            // TODO: Implement timestep update for bomb! This means update countdown for each delta
-            // Når bomben slippes (space presses i controller), fireball vises i "loadingtime" sek,
-            // etter det skal eksplosjonen skje, som vil ødelegge blocks og skade motstanderene i nærheten
-            /*
-            timer = new Timer();
-            timer.schedule(explosionTask, (long) (timestep * 1000)); //after 2.5 seconds
-            timer.schedule(explosionDone, (long) (4000)); //etter 4 sek er bomben borte (den vises i 1,5 sek)
-    */
-            loadingTime -= timestep;
-            if (loadingTime < 0) {
-                checkForWall("up", gameMap);
-                checkForWall("down", gameMap);
-                checkForWall("left", gameMap);
-                checkForWall("right", gameMap);
-            }
+        // TODO: Implement timestep update for bomb! This means update countdown for each delta
+        // Når bomben slippes (space presses i controller), fireball vises i "loadingtime" sek,
+        // etter det skal eksplosjonen skje, som vil ødelegge blocks og skade motstanderene i nærheten
+        /*
+        timer = new Timer();
+        timer.schedule(explosionTask, (long) (timestep * 1000)); //after 2.5 seconds
+        timer.schedule(explosionDone, (long) (4000)); //etter 4 sek er bomben borte (den vises i 1,5 sek)
+*/
+        loadingTime -= timestep;
+        if (loadingTime < 0) {
+            checkForWall("up", gameMap);
+            checkForWall("down", gameMap);
+            checkForWall("left", gameMap);
+            checkForWall("right", gameMap);
         }
-
-    @Override
-    public void setPosition(Vector2 pos) {
-        pos = this.position;
-        this.position = pos;
-        //this.circleBounds.setPosition(pos.x, pos.y); TODO: FIX
-    }
-
-    @Override
-    public Vector2 getPosition() {
-        return position;
-    }
-
-
-    @Override
-    public IModelType getType() {
-        return null;
-    }
-
-    public float getHeight() {
-        return height;
-    }
-
-    public float getWidth() {
-        return width;
     }
 }

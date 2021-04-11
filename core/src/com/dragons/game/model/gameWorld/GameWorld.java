@@ -144,6 +144,8 @@ public class GameWorld {
         for(GameObject obj : players)
         {
             obj.syncPosition();
+            //TODO: remove, this is only to test
+            obj.getBody().setLinearVelocity(0, 10);
         }
     }
 
@@ -154,6 +156,7 @@ public class GameWorld {
         for(GameBomb bomb : bombs)
         {
             bomb.update(delta);
+            bomb.syncPosition();
         }
     }
 
