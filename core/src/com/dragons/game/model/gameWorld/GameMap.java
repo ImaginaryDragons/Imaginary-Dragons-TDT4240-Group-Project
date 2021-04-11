@@ -1,17 +1,14 @@
 package com.dragons.game.model.gameWorld;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
 import com.dragons.game.components.Tiled;
-import com.dragons.game.model.IObject;
+import com.dragons.game.model.IModel;
 
-import com.dragons.game.model.blocks.Block;
 import com.dragons.game.model.factories.BlockFactory;
 import com.dragons.game.model.factories.PowerUpFactory;
 import com.google.common.collect.HashBasedTable;
@@ -20,22 +17,26 @@ import com.google.common.collect.Table;
 import com.dragons.game.model.blocks.BlockType;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GameMap {
 
     private Tiled tileRenderer;
-    public Table<Integer, Integer, ArrayList<IObject>> tileContainers;
-    private int[][] index;
+    public Table<Integer, Integer, ArrayList<IModel>> tileContainers;
     private int tileWidth, tileHeight,
             mapWidthInTiles, mapHeightInTiles,
             mapWidthInPixels, mapHeightInPixels;
 
     private TiledMap tiledMap;
-    private OrthographicCamera camera;
-    private TiledMapRenderer tiledMapRenderer;
+    private final BlockFactory blockFactory;
+    private final PowerUpFactory powerUpFactory;
 
     public GameMap(String mapName) {
+        Gdx.app.log("GameMap", "Constructing game map");
         tiledMap = new TmxMapLoader().load(mapName); //"TileMapMobile.tmx"
 
         MapProperties properties = tiledMap.getProperties();
@@ -45,57 +46,93 @@ public class GameMap {
         mapHeightInTiles  = properties.get("height", Integer.class);
         mapWidthInPixels  = mapWidthInTiles  * tileWidth;
         mapHeightInPixels = mapHeightInTiles * tileHeight;
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
-        //camera = new OrthographicCamera();
-        //camera.setToOrtho(false,w,h);
-        //camera.update();
+
+        blockFactory = BlockFactory.getInstance();
+        powerUpFactory = PowerUpFactory.getInstance();
         tileContainers = HashBasedTable.create();
-        for(int x = 1; x <= mapWidthInTiles; x++) {
-            for (int y = 1; y <= mapHeightInTiles; y++) {
-                tileContainers.put(x, y, new ArrayList<IObject>());
+
+        // Initialize tileContainers with tiles
+        for (int x = 0; x < mapWidthInTiles; x++) {
+            for (int y = 0; y < mapHeightInTiles; y++) {
+                tileContainers.put(x, y, new ArrayList<IModel>());
             }
         }
 
     }
 
-    public Vector2 pos2tile(Vector2 pos) { //brukes til å finne ut hvilken tile man er på basert på posisjonen
-        int resX = (int) ((pos.x-pos.x % 32)/32);
-        int resY = (int) ((pos.y-pos.y % 32)/32);
+    // Find the associated tile given a coordinate position
+    public Vector2 pos2tile(Vector2 pos) {
+        int resX = (int) ((pos.x-(pos.x % tileWidth)) / tileWidth) - 1;
+        int resY = (int) ((pos.y-(pos.y % tileHeight)) / tileHeight) - 1;
         return new Vector2(resX, resY);
-            }
-
-    public Vector2 tilePos(Vector2 tile) { //brukes for å finne starten av tilen, bildet som brukes
-        return new Vector2((tile.x - 1)*32, (tile.y - 1)*32);
     }
 
-    public void generateBlocks(BlockFactory blockFactory, PowerUpFactory powerUpFactory, int numberOfPowerups, String recipeFile) {
-        String number = null;
-        Vector2 tile = new Vector2(0, 0);
-        for(int x = 1; x <= mapWidthInTiles; x++) {
-            for (int y = 1; y <= mapHeightInTiles; y++) {
-                //TODO: Les inn neste tall fra tekstfilen
-                tile.x = x;
-                tile.y = y;
-                switch (number) {
-                    case "0":
-                        break;
-                    case "1":
-                        Block desblock = blockFactory.createBlock(tilePos(tile), BlockType.DESTRUCTIBLE, tileWidth, tileHeight);
-                        tileContainers.get(x, y).add(desblock);
-                    case "2":
-                        Block wallblock = blockFactory.createBlock(tilePos(tile), BlockType.WALL, tileWidth, tileHeight);
-                        tileContainers.get(x, y).add(wallblock);
-                    case "3":
-                        Block desPowerupBlock = blockFactory.createBlock(tilePos(tile), BlockType.DESTRUCTIBLE,  tileWidth, tileHeight);
-                        //PowerUp powerup = powerUpFactory.createPowerUp(PowerUpType.INCREASESPEED); lager en random powerup
-                        tileContainers.get(x, y).add(desPowerupBlock);
-                        //tileContainers.get(x, y).add(powerup);
-                }
+    // Find the starting position of a tile given the tile index
+    public Vector2 tilePos(Vector2 tile) {
+        return new Vector2((tile.x)*tileWidth, (tile.y)*tileHeight);
+    }
 
+    public Vector2 tilePosCenter(Vector2 tile) {
+        return new Vector2((tile.x)*tileWidth + (tileWidth/2), (tile.y)*tileHeight + (tileHeight/2));
+    }
+
+    // Generate block instances in the tile containers given a recipe
+    public void generateBlocks(int numberOfPowerups, String recipeFile) throws IOException {
+        Gdx.app.log("GameMap", "Generating blocks from recipe");
+        Vector2 tile = new Vector2(0, 0);
+        Scanner scanner = new Scanner(new File(recipeFile));
+        scanner.useDelimiter("");
+
+        int x = 0;
+        int y = mapHeightInTiles-1; // We start in the top left corner iterating through our recipe!
+        while(scanner.hasNext()) {
+            tile.x = x;
+            tile.y = y;
+            switch (scanner.next()) {
+                case "0":
+                    x++;
+                    break;
+                case "1":
+                    IModel desblock = blockFactory.createBlock(tilePosCenter(tile), BlockType.DESTRUCTIBLE, tileWidth, tileHeight);
+                    tileContainers.get(x, y).add(desblock);
+                    x++;
+                    break;
+                case "2":
+                    System.out.print(tilePos(tile).toString());
+                    IModel wallblock = blockFactory.createBlock(tilePosCenter(tile), BlockType.WALL, tileWidth, tileHeight);
+                    tileContainers.get(x, y).add(wallblock);
+                    x++;
+                    break;
+                case "3":
+                    IModel desPowerupBlock = blockFactory.createBlock(tilePosCenter(tile), BlockType.DESTRUCTIBLE, tileWidth, tileHeight);
+                    //IObject powerup = powerUpFactory.createPowerUp(PowerUpType.INCREASESPEED); lager en random powerup
+                    tileContainers.get(x, y).add(desPowerupBlock);
+                    //tileContainers.get(x, y).add(powerup);
+                    x++;
+                    break;
+                case " ":
+                    break;
+                case "\r\n":
+                case "\n":
+                    y = y - 1;
+                    x = 0;
+                    break;
+                    /*default:
+                    // Basically when we reach the end of the line!
+                        y = y - 1;
+                        x = 0;
+                    break;*/
             }
 
         }
+    }
+
+    public ArrayList<IModel> getTileContent(int xKey, int yKey) {
+        return tileContainers.get(xKey,yKey);
+    }
+
+    public void setTileContent(int xKey, int yKey, ArrayList<IModel> list) {
+        tileContainers.put(xKey, yKey, list);
     }
 
     public Tiled getTileRenderer() {
@@ -129,4 +166,5 @@ public class GameMap {
     public TiledMap getTiledMap() {
         return tiledMap;
     }
+
 }

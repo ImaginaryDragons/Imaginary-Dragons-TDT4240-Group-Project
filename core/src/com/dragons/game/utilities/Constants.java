@@ -4,9 +4,10 @@ import com.badlogic.gdx.Gdx;
 
 public class Constants {
 
-    public static final int PPM = 223;
-    public static final int WIDTH = Gdx.graphics.getWidth();
-    public static final int HEIGHT = Gdx.graphics.getHeight();
+    public static final float PPM = 1f;
+    public static final int FPS = 2;
+    public static final float VIRTUAL_WIDTH = 480f;
+    public static final float VIRTUAL_HEIGHT = 350f;
 
     public static final int InitPlayerHealth = 3; // Number of lives
     public static final int PlayerSpeed = 10; // RANDOM NUMBER FOR NOW

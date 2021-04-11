@@ -3,11 +3,11 @@ package com.dragons.game.model.gameWorld;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.dragons.game.model.IModelType;
-import com.dragons.game.model.PowerUps.PowerUpType;
-import com.dragons.game.model.blocks.BlockType;
+import com.dragons.game.model.IModel;
+import com.dragons.game.model.PowerUps.IPowerUp;
+import com.dragons.game.model.blocks.IBlock;
+import com.dragons.game.model.player.Player;
 
 public class WorldContactListener implements ContactListener {
 
@@ -15,17 +15,21 @@ public class WorldContactListener implements ContactListener {
     @Override
     public void beginContact(Contact contact) {
 
-        //TODO: fixtures might not be needed, only the type?
-        Fixture fixtureA = contact.getFixtureA();
-        Fixture fixtureB = contact.getFixtureB();
+        GameObject gameObjectA = (GameObject) contact.getFixtureA().getUserData();
+        GameObject gameObjectB = (GameObject) contact.getFixtureB().getUserData();
 
-        IModelType aType = (IModelType) fixtureA.getUserData();
-        IModelType bType = (IModelType) fixtureB.getUserData();
+        IModel objA = gameObjectA.getObject();
+        IModel objB = gameObjectB.getObject();
 
-        boolean oneIsPowerUp = oneIsPowerUp(aType, bType);
-        boolean oneIsBlock = oneIsBlock(aType, bType);
+
+
         //TODO: oneIsPlayer, oneIsBomb, and full implementation
+        boolean oneIsBlock = objA instanceof IBlock || objB instanceof IBlock;
+        boolean oneIsPowerUp = objA instanceof IPowerUp || objB instanceof IPowerUp;
+        boolean oneIsPlayer = objA instanceof Player || objB instanceof Player;
 
+        if (oneIsBlock && oneIsPowerUp) System.out.println("Collision block and powerup");
+        if (oneIsBlock && oneIsPlayer) System.out.println("Collision block and player");
 
     }
 
@@ -44,22 +48,5 @@ public class WorldContactListener implements ContactListener {
 
     }
 
-    private static boolean oneIsPowerUp(IModelType aType, IModelType bType) {
-        for (IModelType type : PowerUpType.values()) {
-            if (type == aType || type == bType) {
-                return true;
-            }
 
-        }
-        return false;
-    }
-
-    private static boolean oneIsBlock(IModelType aType, IModelType bType) {
-        for (IModelType type : BlockType.values()) {
-            if (type == aType || type == bType) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
