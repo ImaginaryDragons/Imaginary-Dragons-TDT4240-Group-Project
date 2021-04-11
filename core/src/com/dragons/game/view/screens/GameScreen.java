@@ -69,7 +69,7 @@ public class GameScreen extends ScreenAdapter {
         batch.setProjectionMatrix(camera.combined);
 
         // TODO: Create functionality for spawning game world
-        gameMap.generateBlocks(0, "C:\\Users\\maba9\\AndroidStudioProjects\\ImaginaryDragonsGame\\android\\assets\\map.txt");
+        gameMap.generateBlocks(0, "map.txt");
         gameWorld.generateMapBlocks();
         gameWorld.initializePlayers();
 

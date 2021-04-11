@@ -5,6 +5,7 @@ import com.dragons.game.model.bomb.Bomb;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Shape;
+import com.dragons.game.model.bomb.Fire;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -20,8 +21,8 @@ public class FireView implements ModelView {
 
     public FireView(Fire fire, AnnotationAssetManager manager) {
         this.fire = fire;
-        this.height = fire.getHeight();
-        this.width = fire.getWidth();
+        //this.height = fire.getHeight();
+        //this.width = fire.getWidth();
         this.texture = manager.get(EXPLOSION, Texture.class);
     }
 
