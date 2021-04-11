@@ -3,9 +3,7 @@ package com.dragons.game.model.player;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.Shape;
-import com.dragons.game.model.IModelType;
-import com.dragons.game.model.IObject;
+import com.dragons.game.model.Model;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.utilities.Direction;
 
@@ -17,17 +15,19 @@ import com.dragons.game.utilities.Direction;
  */
 
 
-public class Player implements IObject {
+
+public class Player extends Model {
+    private static final boolean isStatic = false;
+    private static final boolean isSensor = false;
 
     private int height;
     private int width;
     private int ID;
-    private PlayerColor col;
+    private Color col;
     //private Shape boundRectangle;
     private PolygonShape shape;
     private Direction orientation; // The direction the player is looking
-    private Vector2 position;
-    public int health;
+    public int lives;
     public int speed;
     public int bombCapacity;
     private int bombsAvailable;
@@ -38,24 +38,16 @@ public class Player implements IObject {
     // TODO: Consider if it is necessary to implement a decorator for color, ID etc..
     // I suspect the answer is no, but there might be a good reason for it
 
-    public Player() {
-
-    }
-
-    public Player(int ID, Vector2 startPos, PlayerColor col, int width, int height) {
-
+    public Player(int ID, Vector2 startPos, Color col, int width, int height) {
+        super(startPos, PlayerType.NORMALPLAYER, width, height);
         this.ID = ID;
         this.col = col;
-        this.position = startPos;
-        this.shape = new PolygonShape();
-        this.width = width;
-        this.height = height;
+        final PolygonShape shape = new PolygonShape();
+        shape.setAsBox(width / 2f, height / 2f);
+        super.setShape(shape);
 
-        shape.setAsBox(width / 2, height / 2);
-
-        // TODO: FIX SHAPE
         this.orientation = Direction.DOWN;
-        this.health = Constants.InitPlayerHealth;
+        this.lives = Constants.InitPlayerHealth;
         this.speed = Constants.PlayerSpeed;
         this.bombCapacity = Constants.InitBombCap;
         this.bombsAvailable = this.bombCapacity;
@@ -69,32 +61,10 @@ public class Player implements IObject {
         return ID;
     }
 
-    public PlayerColor getCol() {
+    public Color getCol() {
         return col;
     }
 
-    public PolygonShape getShape() {
-        return shape;
-    }
-
-    @Override
-    public IModelType getType() {
-        return null;
-    }
-
-    @Override
-    public boolean isStatic() {
-        return false;
-    }
-
-    @Override
-    public boolean isSensor() {
-        return false;
-    }
-
-    public void setShape(Shape shape) {
-        //TODO:: FIX THIS
-    }
 
     public Direction getOrientation() {
         return orientation;
@@ -104,21 +74,13 @@ public class Player implements IObject {
         this.orientation = orientation;
     }
 
-    public Vector2 getPosition() {
-        return position;
+
+    public int getLives() {
+        return lives;
     }
 
-    public void setPosition(Vector2 pos) {
-        this.position = pos;
-        //this.boundRectangle.setPosition(pos.x, pos.y); TODO: FIX THIS
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
+    public void setHealth(int lives) {
+        this.lives = lives;
     }
 
     public int getSpeed() {
@@ -153,11 +115,11 @@ public class Player implements IObject {
         this.bombRange = bombRange;
     }
 
-    public int getWidth() {
+    public float getWidth() {
         return width;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 }

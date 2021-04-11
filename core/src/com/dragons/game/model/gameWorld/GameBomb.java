@@ -17,6 +17,7 @@ public class GameBomb extends GameObject {
     }
 
     public void update(float delta) {
-        bomb.update(delta);
+
+        // bomb.update(delta); TODO: FIX THIS
     }
 }

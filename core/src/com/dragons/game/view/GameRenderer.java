@@ -1,17 +1,19 @@
 package com.dragons.game.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.dragons.game.model.IObject;
+import com.dragons.game.model.Model;
 import com.dragons.game.model.gameWorld.GameObject;
 import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.utilities.AssetLoader;
+import com.dragons.game.view.modelViews.DestructibleBlockView;
 import com.dragons.game.view.modelViews.ModelView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
+
+import java.util.ArrayList;
 
 public class GameRenderer {
 
@@ -39,11 +41,18 @@ public class GameRenderer {
             if (view == null) {
                 Gdx.app.log("GameRenderer", "render");
                 break;
+=======
+    public void render(SpriteBatch sb) {
+        ArrayList<GameObject> list = gameWorld.getGameObjects();
+        for (GameObject obj : list) {
+            if (obj.getModelView() == null) {
+                // Do nothing
+>>>>>>> 1fe4bd8fd5c25b6cd7b8bd03fafabce1ca53bef1
             } else {
-                Gdx.app.log("GameRenderer", "render");
                 obj.getModelView().render(sb);
             }
         }
+<<<<<<< HEAD
         */
         for(GameObject player : gameWorld.getPlayers()) {
             ModelView view = player.getModelView();

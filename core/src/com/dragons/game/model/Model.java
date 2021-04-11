@@ -3,24 +3,18 @@ package com.dragons.game.model;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Shape;
 
-public abstract class Object implements IObject {
-    private Vector2 position;
+public abstract class Model implements IModel {
+    public Vector2 position;
     private final IModelType type;
     private final float width, height;
-    private final boolean isStatic;
-    private final boolean isSensor;
+
     private Shape shape;
 
-    public Object(Vector2 position, IModelType type, float width, float height, boolean isStatic,
-                  boolean isSensor) {
-
+    public Model(Vector2 position, IModelType type, float width, float height) {
         this.position = position;
         this.type = type;
         this.width = width;
         this.height = height;
-        this.isStatic = isStatic;
-        this.isSensor = isSensor;
-
     }
 
     protected void setShape(Shape shape){
@@ -47,16 +41,6 @@ public abstract class Object implements IObject {
     @Override
     public IModelType getType() {
         return type;
-    }
-
-    @Override
-    public boolean isStatic() {
-        return isStatic;
-    }
-
-    @Override
-    public boolean isSensor() {
-        return isSensor;
     }
 
     public float getHeight() {

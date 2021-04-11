@@ -1,12 +1,11 @@
 package com.dragons.game.view.modelViews;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
+import com.dragons.game.model.Model;
 import com.dragons.game.model.player.Player;
-import com.dragons.game.model.player.*;
+import com.dragons.game.model.player.PlayerColor;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -17,17 +16,20 @@ import static java.util.Objects.isNull;
 
 public class PlayerView implements ModelView {
 
-    private Player player;
+    private Model player;
     private Texture texture;
     private AnnotationAssetManager manager;
+    private float height, width;
 
     public PlayerView(Player player, AnnotationAssetManager manager) {
         this.player = player;
         this.manager = manager;
+        height = player.getHeight();
+        width = player.getWidth();
 
         // TODO: load the appropriate textures in constructor
         texture = manager.get(DRAGON_SLIM_RED, Texture.class);
-        PlayerColor col = player.getCol();
+        Color col = player.getCol();
         if (Color.RED.equals(col)) {
 
         } else if (Color.BLUE.equals(col)) {
@@ -46,6 +48,7 @@ public class PlayerView implements ModelView {
 
         }
 
-        sb.draw(texture, player.getPosition().x, player.getPosition().y, 32, 32);
+        sb.draw(texture, player.getPosition().x - width / 2f, player.getPosition().y - height / 2f , width, height);
+
     }
 }

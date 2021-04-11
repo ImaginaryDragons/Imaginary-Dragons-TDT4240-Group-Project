@@ -1,3 +1,4 @@
+
 package com.dragons.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
@@ -10,9 +11,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.dragons.game.model.IObject;
-import com.dragons.game.model.PowerUps.PowerUpType;
-import com.dragons.game.model.factories.PowerUpFactory;
 import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.view.GameRenderer;
@@ -22,17 +20,21 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
 import java.io.IOException;
 
 import static com.dragons.game.utilities.Constants.PPM;
+import static com.dragons.game.utilities.Constants.VIRTUAL_HEIGHT;
+import static com.dragons.game.utilities.Constants.VIRTUAL_WIDTH;
 
 public class GameScreen extends ScreenAdapter {
 
     private GameWorld gameWorld;
     private GameRenderer gameRenderer;
     private AnnotationAssetManager manager;
+
     public GameMap gameMap;
-    private SpriteBatch sb;
+    private SpriteBatch batch;
+
 
     private OrthographicCamera camera;
-    private OrthographicCamera sbcamera;
+
     private TiledMapRenderer tiledMapRenderer;
     private World b2dWorld;
     private Box2DDebugRenderer b2dr;
@@ -40,10 +42,10 @@ public class GameScreen extends ScreenAdapter {
 
     // TODO: Integrating the gameWorld onto the firebase server
     /*Right now the gameWorld is statically defined within our gamescreen. However, we need
-    * some way of ensuring that the main gameworld is on our server and that this version is
-    * primarily loaded from the server and then continuously updated. How this should be done is
-    * not clear!
-    * */
+     * some way of ensuring that the main gameworld is on our server and that this version is
+     * primarily loaded from the server and then continuously updated. How this should be done is
+     * not clear!
+     * */
 
     public GameScreen() throws IOException {
         //super();
@@ -51,42 +53,29 @@ public class GameScreen extends ScreenAdapter {
 
         gameMap = new GameMap("TileMapMobile.tmx");
         b2dWorld = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
-        gameWorld = new GameWorld(b2dWorld, gameMap);
         manager = new AnnotationAssetManager();
-        sb = new SpriteBatch();
+        gameWorld = new GameWorld(b2dWorld, gameMap, manager);
+        batch = new SpriteBatch();
 
         //TODO: Change viewPortWidth and height to variables
-        camera = new OrthographicCamera(480.f, 350.f);
-        camera.position.x = gameMap.getMapWidthInPixels() * .50f;
-        camera.position.y = gameMap.getMapHeightInPixels() * .50f;
+        camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+        camera.position.set(gameMap.getMapWidthInPixels() / 2f, gameMap.getMapHeightInPixels() / 2f, 0);
         camera.update();
         gameRenderer = new GameRenderer(gameWorld, manager, camera); // Initialize world renderer
 
-        /**
-         * Not good but debugRenderer is only a tool on not in the final implementation
-         */
-        //TODO: Change viewPortWidth and height to variables
-        b2drCam = new OrthographicCamera(480.f, 350.f);
-        b2drCam.position.x = (gameMap.getMapWidthInPixels()) * .50f;
-        b2drCam.position.y = (gameMap.getMapHeightInPixels()) * .50f;
-        b2drCam.update();
-        b2dr = new Box2DDebugRenderer();
         tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
         tiledMapRenderer.setView(camera);
 
-        sbcamera = new OrthographicCamera(480.f, 350.f);
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
-        sbcamera.setToOrtho(false, w, h);
-        sbcamera.position.x = gameMap.getMapWidthInPixels() * 0.5f;
-        sbcamera.position.y = gameMap.getMapHeightInPixels() * 0.5f;
-        sbcamera.update();
-        sb.setProjectionMatrix(sbcamera.combined);
+        batch.setProjectionMatrix(camera.combined);
 
         // TODO: Create functionality for spawning game world
         gameMap.generateBlocks(0, "C:\\Users\\maba9\\AndroidStudioProjects\\ImaginaryDragonsGame\\android\\assets\\map.txt");
         gameWorld.generateMapBlocks();
-        gameWorld.initializePlayers(manager);
+        gameWorld.initializePlayers();
+
+        gameWorld.placeBomb(new Vector2(100,100), 2, 2); // PURE TEST!!
+
+        b2dr = new Box2DDebugRenderer();
 
 
     }
@@ -96,15 +85,20 @@ public class GameScreen extends ScreenAdapter {
         //Gdx.app.log("GameScreen", "Rendering");
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        tiledMapRenderer.render();
+
         // Update game world
         gameWorld.update(delta);
-        // Render screen
-        sb.begin();
-        gameRenderer.render(sb);
-        sb.end();
+        // gameWorld.updatePlayerPositions(); TODO: Implement this so that it always follows its body!
 
-        b2dr.render(b2dWorld, b2drCam.combined);
+        //Render map
+        tiledMapRenderer.render();
+
+        // Render game objects
+        batch.begin();
+        gameRenderer.render(batch);
+        batch.end();
+
+        b2dr.render(b2dWorld, camera.combined);
         //Gdx.app.log("GameScreen FPS", (1/delta) + "");
     }
 

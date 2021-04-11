@@ -38,11 +38,9 @@ public class AssetLoader {
 
             /****************** BLOCKS *******************/
 
-            /*
 
-            INDESTRUCTIBLE_BLOCK = "", */
+            //INDESTRUCTIBLE_BLOCK = "",
             DESTRUCTIBLE_BLOCK = "Rock.png",
-
 
 
 
@@ -56,8 +54,9 @@ public class AssetLoader {
 
 
 
-            /***************** FIRE ************************/
+            /***************** BOMB AND FIRE ************************/
 
+            BOMB = "FireEgg.png",
             FIREBALL ="fireball1.png",
             EXPLOSION="Explosion.png";
 
