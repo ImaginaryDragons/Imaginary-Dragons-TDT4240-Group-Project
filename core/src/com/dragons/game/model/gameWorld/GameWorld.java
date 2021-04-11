@@ -12,11 +12,10 @@ import com.dragons.game.model.bomb.Bomb;
 import com.dragons.game.model.bomb.Fire;
 import com.dragons.game.model.bomb.FireType;
 import com.dragons.game.model.player.Player;
-import com.dragons.game.model.player.PlayerColor;
 import com.dragons.game.view.modelViews.BombView;
 import com.dragons.game.view.modelViews.DestructibleBlockView;
 import com.dragons.game.view.modelViews.FireView;
-import com.dragons.game.view.modelViews.ModelView;
+import com.dragons.game.view.modelViews.IModelView;
 import com.dragons.game.view.modelViews.PlayerView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -59,7 +58,7 @@ public class GameWorld {
     }
 
     // Add object to GameObjects
-    public void addObject(IModel obj, ModelView objView, boolean isStatic, boolean isSensor) {
+    public void addObject(IModel obj, IModelView objView, boolean isStatic, boolean isSensor) {
         GameObject newObject = new GameObject(obj, objView, world);
         newObject.isStatic = isStatic;
         newObject.isSensor = isSensor;

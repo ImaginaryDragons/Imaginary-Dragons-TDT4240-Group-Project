@@ -2,16 +2,14 @@ package com.dragons.game.view.modelViews;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dragons.game.model.IModel;
 import com.dragons.game.model.Model;
 import com.dragons.game.model.blocks.DestructibleBlock;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import static com.dragons.game.utilities.AssetLoader.DESTRUCTIBLE_BLOCK;
-import static com.dragons.game.utilities.AssetLoader.DRAGON_SLIM_RED;
 
-public class DestructibleBlockView implements ModelView {
+public class DestructibleBlockView implements IModelView {
 
     private Model destructibleBlock;
     private Texture texture;

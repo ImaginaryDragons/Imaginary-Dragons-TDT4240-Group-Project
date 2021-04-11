@@ -4,12 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.dragons.game.model.Model;
 import com.dragons.game.model.gameWorld.GameObject;
 import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.utilities.AssetLoader;
-import com.dragons.game.view.modelViews.DestructibleBlockView;
-import com.dragons.game.view.modelViews.ModelView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
