@@ -28,8 +28,9 @@ public class BombView implements IModelView {
     private Texture current_frame;
     private static float FRAME_DURATION = 0.1f;
     private Animation<Texture> bombAnimation;
-    private Texture texture;
     private static float state_time;
+    private Texture texture;
+
 
     public BombView(Bomb bomb, AnnotationAssetManager manager, Vector2 pos) {
         this.bomb = bomb;

@@ -61,8 +61,15 @@ public class AssetLoader {
             BOMB3 = "bomb3.png",
             BOMB4 = "bomb4.png",
             /*BOMB = "FireEgg.png",
-            FIREBALL ="fireball1.png",*/
-            EXPLOSION="Explosion.png";
+            FIREBALL ="fireball1.png",
+            EXPLOSION="Explosion.png";*/
+            EXPLOSION1= "explosion1.png",
+            EXPLOSION2= "explosion2.png",
+            EXPLOSION3= "explosion3.png",
+            EXPLOSION4= "explosion4.png",
+            EXPLOSION5= "explosion5.png";
+
+
 
             // LAST ELEMENT MUST HAVE ';'!!
 
