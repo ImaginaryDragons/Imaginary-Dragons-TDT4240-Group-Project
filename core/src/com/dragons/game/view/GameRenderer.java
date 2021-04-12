@@ -4,12 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.dragons.game.model.Model;
 import com.dragons.game.model.gameWorld.GameObject;
 import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.utilities.AssetLoader;
-import com.dragons.game.view.modelViews.DestructibleBlockView;
-import com.dragons.game.view.modelViews.ModelView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -34,7 +31,16 @@ public class GameRenderer {
         loadAssets();
     }
 
-    public void render(SpriteBatch sb) {
+    // TODO: kanskje slå sammen disse til bare en for-løkke feks den under (eller slå sammen listene til en?)
+    /*for (GameObject obj : gameWorld.getAllObjects) {
+        if (obj.getModelView() == null) {
+            // Do nothing
+        } else {
+            obj.getModelView().render(sb);
+        }
+    }*/
+
+    public void render(SpriteBatch sb){
         ArrayList<GameObject> list = gameWorld.getGameObjects();
         for (GameObject obj : list) {
             if (obj.getModelView() == null) {
@@ -43,12 +49,28 @@ public class GameRenderer {
                 obj.getModelView().render(sb);
             }
         }
+
+        for (GameObject player : gameWorld.getPlayers()) {
+            if (player.getModelView() == null) {
+                // Do nothing
+            } else {
+                player.getModelView().render(sb);
+            }
+        }
+
+        for (GameObject fire : gameWorld.getFires()) {
+            if (fire.getModelView() == null) {
+                // Do nothing
+            } else {
+                fire.getModelView().render(sb);
+            }
+        }
     }
 
-    private void loadAssets(){
+    private void loadAssets() {
         Gdx.app.log("Asset loader", "Loading assets");
         manager.load(AssetLoader.class);
         manager.finishLoading();
         Gdx.app.log("Asset loader", "Loading assets finished");
     }
-}
+    }

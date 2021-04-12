@@ -8,6 +8,8 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
 
+import static com.dragons.game.utilities.Constants.PPM;
+
 public final class BodyBuilder {
 
 
@@ -25,7 +27,7 @@ public final class BodyBuilder {
 
         // World units = meters
         // From world to screen -> Divide by Pixel Per Meter
-        bodyDef.position.set(position.x, position.y);
+        bodyDef.position.set(position.x / PPM, position.y / PPM);
         Body body = world.createBody(bodyDef);
 
         // TODO: FIX FILTERING FOR THE BODIES, EXAMPLE => players shouldnt collide with eachother
@@ -34,6 +36,7 @@ public final class BodyBuilder {
         fixtureDef.isSensor = gameObject.isSensor;
         //TODO: Find real density! We might not need to have different densities
         fixtureDef.density = 1;
+        fixtureDef.friction = 0;
 
         // This is for the contactListener
         body.createFixture(fixtureDef).setUserData(gameObject);

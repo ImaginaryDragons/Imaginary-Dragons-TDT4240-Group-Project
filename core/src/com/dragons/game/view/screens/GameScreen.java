@@ -18,6 +18,7 @@ import com.dragons.game.view.GameRenderer;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static com.dragons.game.utilities.Constants.PPM;
 import static com.dragons.game.utilities.Constants.VIRTUAL_HEIGHT;
@@ -28,8 +29,10 @@ public class GameScreen extends ScreenAdapter {
     private GameWorld gameWorld;
     private GameRenderer gameRenderer;
     private AnnotationAssetManager manager;
-    private GameMap gameMap;
+
+    public GameMap gameMap;
     private SpriteBatch batch;
+
 
     private OrthographicCamera camera;
 
@@ -71,16 +74,28 @@ public class GameScreen extends ScreenAdapter {
         gameWorld.generateMapBlocks();
         gameWorld.initializePlayers();
 
-        gameWorld.placeBomb(new Vector2(100,100), 2, 2); // PURE TEST!!
+        // BOMB TEST!!
+        // TODO: get right tile position
+        gameWorld.placeBomb(new Vector2(40,300), 2, 2);
+
+        // FIRE TEST
+        ArrayList<Vector2> fireTileList = new ArrayList<Vector2>();
+        fireTileList.add(gameMap.tilePos(new Vector2(5,5)));
+        fireTileList.add(gameMap.tilePos(new Vector2(5,6)));
+        gameWorld.spawnFire(fireTileList);
 
         b2dr = new Box2DDebugRenderer();
+        b2drCam = new OrthographicCamera(VIRTUAL_WIDTH / PPM, VIRTUAL_HEIGHT / PPM);
+        b2drCam.position.set(gameMap.getMapWidthInPixels() / 2f / PPM, gameMap.getMapHeightInPixels() / 2f / PPM, 0);
+        b2drCam.update();
+
+
 
 
     }
 
     @Override
     public void render(float delta) {
-
         //Gdx.app.log("GameScreen", "Rendering");
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -97,7 +112,7 @@ public class GameScreen extends ScreenAdapter {
         gameRenderer.render(batch);
         batch.end();
 
-        b2dr.render(b2dWorld, camera.combined);
+        b2dr.render(b2dWorld, b2drCam.combined);
         //Gdx.app.log("GameScreen FPS", (1/delta) + "");
     }
 

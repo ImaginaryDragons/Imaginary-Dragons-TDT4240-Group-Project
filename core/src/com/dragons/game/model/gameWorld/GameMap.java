@@ -18,6 +18,7 @@ import com.dragons.game.model.blocks.BlockType;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -46,9 +47,10 @@ public class GameMap {
         mapWidthInPixels  = mapWidthInTiles  * tileWidth;
         mapHeightInPixels = mapHeightInTiles * tileHeight;
 
-        blockFactory = new BlockFactory();
-        powerUpFactory = new PowerUpFactory();
+        blockFactory = BlockFactory.getInstance();
+        powerUpFactory = PowerUpFactory.getInstance();
         tileContainers = HashBasedTable.create();
+
         // Initialize tileContainers with tiles
         for (int x = 0; x < mapWidthInTiles; x++) {
             for (int y = 0; y < mapHeightInTiles; y++) {
@@ -83,8 +85,6 @@ public class GameMap {
 
         int x = 0;
         int y = mapHeightInTiles-1; // We start in the top left corner iterating through our recipe!
-        // TODO: Check that the initial indexes are correct in case of placement mistake!!
-
         while(scanner.hasNext()) {
             tile.x = x;
             tile.y = y;
@@ -112,12 +112,18 @@ public class GameMap {
                     break;
                 case " ":
                     break;
-                default:
-                    // Basically when we reach the end of the line!
+                case "\r\n":
+                case "\n":
                     y = y - 1;
                     x = 0;
                     break;
+                    /*default:
+                    // Basically when we reach the end of the line!
+                        y = y - 1;
+                        x = 0;
+                    break;*/
             }
+
         }
     }
 

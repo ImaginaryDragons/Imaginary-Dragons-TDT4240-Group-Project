@@ -1,4 +1,9 @@
 android {
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     buildToolsVersion "30.0.3"
     compileSdkVersion 30
     sourceSets {
@@ -18,7 +23,7 @@ android {
     }
     defaultConfig {
         applicationId "com.dragons.game"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"

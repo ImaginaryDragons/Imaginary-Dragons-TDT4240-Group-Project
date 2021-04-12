@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.PowerUps.IPowerUp;
 import com.dragons.game.model.blocks.IBlock;
+import com.dragons.game.model.player.Player;
 
 public class WorldContactListener implements ContactListener {
 
@@ -20,15 +21,23 @@ public class WorldContactListener implements ContactListener {
         IModel objA = gameObjectA.getObject();
         IModel objB = gameObjectB.getObject();
 
-        System.out.println("Collision");
 
 
         //TODO: oneIsPlayer, oneIsBomb, and full implementation
         boolean oneIsBlock = objA instanceof IBlock || objB instanceof IBlock;
         boolean oneIsPowerUp = objA instanceof IPowerUp || objB instanceof IPowerUp;
+        boolean oneIsPlayer = objA instanceof Player || objB instanceof Player;
 
         if (oneIsBlock && oneIsPowerUp) System.out.println("Collision block and powerup");
+        if (oneIsBlock && oneIsPlayer) System.out.println("Collision block and player");
 
+        if (oneIsPlayer && oneIsPowerUp){
+            System.out.println("Collision PowerUp and Player");
+            if (objA instanceof IPowerUp){
+                ((IPowerUp) objA).handlePickedUp(objB);
+            }
+            else ((IPowerUp) objB).handlePickedUp(objA);
+        }
 
     }
 

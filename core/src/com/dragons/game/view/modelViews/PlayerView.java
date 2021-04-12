@@ -28,7 +28,7 @@ import static com.dragons.game.utilities.AssetLoader.DRAGON_WIDE_GREEN;
 import static com.dragons.game.utilities.AssetLoader.DRAGON_WIDE_RED;
 import static com.dragons.game.utilities.AssetLoader.DRAGON_WIDE_YELLOW;
 
-public class PlayerView implements ModelView {
+public class PlayerView implements IModelView {
 
     private Model player;
 
@@ -89,6 +89,7 @@ public class PlayerView implements ModelView {
     public void update(float delta){
         state_time +=  delta;
     }
+
 
     @Override
     public void render(SpriteBatch sb) {
