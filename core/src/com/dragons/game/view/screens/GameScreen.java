@@ -109,7 +109,7 @@ public class GameScreen extends ScreenAdapter {
 
         // Render game objects
         batch.begin();
-        gameRenderer.render(batch);
+        gameRenderer.render(batch, delta);
         batch.end();
 
         b2dr.render(b2dWorld, b2drCam.combined);
