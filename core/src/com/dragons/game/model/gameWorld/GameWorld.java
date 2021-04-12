@@ -12,11 +12,10 @@ import com.dragons.game.model.bomb.Bomb;
 import com.dragons.game.model.bomb.Fire;
 import com.dragons.game.model.bomb.FireType;
 import com.dragons.game.model.player.Player;
-import com.dragons.game.model.player.PlayerColor;
 import com.dragons.game.view.modelViews.BombView;
 import com.dragons.game.view.modelViews.DestructibleBlockView;
 import com.dragons.game.view.modelViews.FireView;
-import com.dragons.game.view.modelViews.ModelView;
+import com.dragons.game.view.modelViews.IModelView;
 import com.dragons.game.view.modelViews.PlayerView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -59,7 +58,7 @@ public class GameWorld {
     }
 
     // Add object to GameObjects
-    public void addObject(IModel obj, ModelView objView, boolean isStatic, boolean isSensor) {
+    public void addObject(IModel obj, IModelView objView, boolean isStatic, boolean isSensor) {
         GameObject newObject = new GameObject(obj, objView, world);
         newObject.isStatic = isStatic;
         newObject.isSensor = isSensor;
@@ -112,7 +111,6 @@ public class GameWorld {
         world.step(delta, 6, 2);
         updatePlayerPositions();
 
-        // TODO: Get contact list and deal with every contact
 
         // Make sure that the positions are automatically synchronized
         // Maybe put observers on the gameobjects that get updates when the objects in the world are updated?
@@ -144,6 +142,8 @@ public class GameWorld {
         for(GameObject obj : players)
         {
             obj.syncPosition();
+            //TODO: remove, this is only to test
+            obj.getBody().setLinearVelocity(0, 10);
         }
     }
 
@@ -154,6 +154,7 @@ public class GameWorld {
         for(GameBomb bomb : bombs)
         {
             bomb.update(delta);
+            bomb.syncPosition();
         }
     }
 

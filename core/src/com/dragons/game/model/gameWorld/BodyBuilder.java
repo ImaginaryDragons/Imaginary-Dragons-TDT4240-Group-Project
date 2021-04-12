@@ -36,7 +36,7 @@ public final class BodyBuilder {
         fixtureDef.isSensor = gameObject.isSensor;
         //TODO: Find real density! We might not need to have different densities
         fixtureDef.density = 1;
-        fixtureDef.restitution = 0;
+        fixtureDef.friction = 0;
 
         // This is for the contactListener
         body.createFixture(fixtureDef).setUserData(gameObject);

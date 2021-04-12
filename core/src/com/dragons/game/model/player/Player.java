@@ -25,11 +25,11 @@ public class Player extends Model {
     //private Shape boundRectangle;
     private PolygonShape shape;
     private Direction orientation; // The direction the player is looking
-    public int lives;
-    public int speed;
-    public int bombCapacity;
+    private int lives;
+    private int speed;
+    private int bombCapacity;
     private int bombsAvailable;
-    public float bombRange;
+    private int bombRange;
     private float bombReloadTime;
 
 
@@ -44,13 +44,13 @@ public class Player extends Model {
         shape.setAsBox(width / 2f / PPM, height / 2f / PPM);
         super.setShape(shape);
 
-        this.orientation = Direction.DOWN;
-        this.lives = Constants.InitPlayerHealth;
-        this.speed = Constants.PlayerSpeed;
-        this.bombCapacity = Constants.InitBombCap;
-        this.bombsAvailable = this.bombCapacity;
-        this.bombRange = Constants.InitBombRange;
-        this.bombReloadTime = Constants.BombReloadTime;
+        orientation = Direction.DOWN;
+        lives = Constants.InitPlayerHealth;
+        speed = Constants.PlayerSpeed;
+        bombCapacity = Constants.InitBombCap;
+        bombsAvailable = bombCapacity; // Whats the difference between this and bombCapacity?
+        bombRange = Constants.InitBombRange;
+        bombReloadTime = Constants.BombReloadTime;
     }
 
     // TODO: Write necessary observer classes for the player
@@ -61,6 +61,18 @@ public class Player extends Model {
 
     public Color getCol() {
         return col;
+    }
+
+    public void increaseSpeed(int amount){
+        speed += amount;
+    }
+
+    public void increaseBombRange(int amount){
+        bombRange += amount;
+    }
+
+    public void increaseBombCapacity(int amount){
+        bombCapacity += amount;
     }
 
 
@@ -77,7 +89,7 @@ public class Player extends Model {
         return lives;
     }
 
-    public void setHealth(int lives) {
+    public void setLives(int lives) {
         this.lives = lives;
     }
 
@@ -109,7 +121,7 @@ public class Player extends Model {
         return bombRange;
     }
 
-    public void setBombRange(float bombRange) {
+    public void setBombRange(int bombRange) {
         this.bombRange = bombRange;
     }
 

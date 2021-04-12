@@ -23,13 +23,11 @@ enum BombType implements IModelType {
 
 public class Bomb extends Model {
 
-    private Vector2 position;
     // TODO: FIX SHAPE (private Circle circleBounds;)
     private float loadingTime;
     public boolean bombExploded;
     private float bombRange;
-    private float height;
-    private float width;
+
     private ArrayList<Vector2> fireTiles;
 
     public Bomb(Vector2 pos, float radius, float bombRange){
@@ -42,7 +40,7 @@ public class Bomb extends Model {
         bombExploded = false;
         loadingTime = Constants.BombExplodeTime;
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
+        shape.setAsBox(radius / PPM, radius /  PPM);
         super.setShape(shape);
 
     }
@@ -70,23 +68,23 @@ public class Bomb extends Model {
         int increment;
         switch (direction) {
             case "up":
-                startPos = (int) this.position.y;
-                checkTile.x = (int) this.position.x;
+                startPos = (int) super.getPosition().y;
+                checkTile.x = (int) super.getPosition().x;
                 increment = 32;
                 break;
             case "down":
-                startPos = (int) this.position.y;
-                checkTile.x = (int) this.position.x;
+                startPos = (int) super.getPosition().y;
+                checkTile.x = (int) super.getPosition().x;
                 increment = -32;
                 break;
             case "left":
-                startPos = (int) this.position.x;
-                checkTile.y = (int) this.position.y;
+                startPos = (int) super.getPosition().x;
+                checkTile.y = (int) super.getPosition().y;
                 increment = -32;
                 break;
             case "right":
-                startPos = (int) this.position.x;
-                checkTile.y = (int) this.position.y;
+                startPos = (int) super.getPosition().x;
+                checkTile.y = (int) super.getPosition().y;
                 increment = 32;
                 break;
             default:

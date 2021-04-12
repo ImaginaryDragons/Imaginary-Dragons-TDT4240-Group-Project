@@ -1,7 +1,6 @@
 package com.dragons.game.view.modelViews;
 
 
-import com.dragons.game.model.bomb.Bomb;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Shape;
@@ -11,7 +10,7 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import static com.dragons.game.utilities.AssetLoader.EXPLOSION;
 
-public class FireView implements ModelView {
+public class FireView implements IModelView {
 
     private Fire fire;
     private Shape shape;
