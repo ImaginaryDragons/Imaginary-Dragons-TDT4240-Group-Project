@@ -31,7 +31,7 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
     float bombRange;
     int health;
     Color color;
-    String userId;
+    int userId;
 
 
     public AndroidFirebaseInterface() {
@@ -44,16 +44,16 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
     @Override
     public void SomeFunction() {
         check = database.getReference("message3");
-        check.setValue("Screen blir ikke generert");
+        check.setValue("Screen blir ikke kjørt2");
     }
 
 
     @Override
     public void writePlayerToFB(int ID, Vector2 position, Color color, int width, int height) {
 
-        Player firebasePlayer = new Player(ID, position, color, width, height); //Lage en unik Id der vi kaller funksjonen
+        Player firebasePlayer = new Player(userId, position, color, width, height); //Lage en unik Id der vi kaller funksjonen
 
-       playerRef.child(userId).setValue(firebasePlayer); //kan bruke color istedenfor userId, skriver her en player til firebase
+       playerRef.child(String.valueOf(userId)).setValue(firebasePlayer); //kan bruke color istedenfor userId, skriver her en player til firebase
     }
 
 
@@ -66,13 +66,13 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
                 //følge med på når player oppdateres
                 //når gamemap oppdateres
 
-                if (snapshot.exists()) {
+               /* if (snapshot.exists()) {
 
                        Player playerFromDB = snapshot.getValue(Player.class); //Henter player objektet fra firebase for å bruke i UI
 
 
                 //oppdatere UI
-                        System.out.println(playerFromDB);
+                        System.out.println(playerFromDB);*/
                         /*
                         String nameFromDB = snapshot.child(userId).child("name").getValue(String.class);
                         float posXFromDB = snapshot.child(userId).child("positionX").getValue(float.class);
@@ -84,11 +84,7 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
 
                         */
 
-
                         }
-
-
-            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

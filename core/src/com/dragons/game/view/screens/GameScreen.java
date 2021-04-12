@@ -2,6 +2,7 @@
 package com.dragons.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -18,11 +19,15 @@ import com.dragons.game.view.GameRenderer;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.dragons.game.utilities.Constants.PPM;
 import static com.dragons.game.utilities.Constants.VIRTUAL_HEIGHT;
 import static com.dragons.game.utilities.Constants.VIRTUAL_WIDTH;
+
 
 public class GameScreen extends ScreenAdapter {
 
@@ -33,13 +38,16 @@ public class GameScreen extends ScreenAdapter {
     public GameMap gameMap;
     private SpriteBatch batch;
 
-
     private OrthographicCamera camera;
 
     private TiledMapRenderer tiledMapRenderer;
     private World b2dWorld;
     private Box2DDebugRenderer b2dr;
     private OrthographicCamera b2drCam;
+
+    //InputStream txt = getAssets().open("map.txt");
+
+   // private String MapTxt = manager.get(MAP, String.class);
 
     // TODO: Integrating the gameWorld onto the firebase server
     /*Right now the gameWorld is statically defined within our gamescreen. However, we need
@@ -48,46 +56,64 @@ public class GameScreen extends ScreenAdapter {
      * not clear!
      * */
 
+
     public GameScreen() throws IOException {
         //super();
         Gdx.app.log("GameScreen", "Attached");
 
         gameMap = new GameMap("TileMapMobile.tmx");
+        Gdx.app.log("GameScreen", "1");
         b2dWorld = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
-        manager = new AnnotationAssetManager();
-        gameWorld = new GameWorld(b2dWorld, gameMap, manager);
-        batch = new SpriteBatch();
 
+        Gdx.app.log("GameScreen", "2");
+        manager = new AnnotationAssetManager();
+        Gdx.app.log("GameScreen", "3");
+        gameWorld = new GameWorld(b2dWorld, gameMap, manager);
+        Gdx.app.log("GameScreen", "4");
+        batch = new SpriteBatch();
+        Gdx.app.log("GameScreen", "5");
         //TODO: Change viewPortWidth and height to variables
         camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+        Gdx.app.log("GameScreen", "6");
         camera.position.set(gameMap.getMapWidthInPixels() / 2f, gameMap.getMapHeightInPixels() / 2f, 0);
+        Gdx.app.log("GameScreen", "7");
         camera.update();
+        Gdx.app.log("GameScreen", "8");
         gameRenderer = new GameRenderer(gameWorld, manager, camera); // Initialize world renderer
-
+        Gdx.app.log("GameScreen", "9");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
+        Gdx.app.log("GameScreen", "10");
         tiledMapRenderer.setView(camera);
-
+        Gdx.app.log("GameScreen", "11");
         batch.setProjectionMatrix(camera.combined);
-
+        Gdx.app.log("GameScreen", "12");
         // TODO: Create functionality for spawning game world
-        gameMap.generateBlocks(0, "C:\\Users\\maba9\\AndroidStudioProjects\\ImaginaryDragonsGame\\android\\assets\\map.txt");
+        gameMap.generateBlocks(0, "map.txt");
+        Gdx.app.log("GameScreen", "13");
         gameWorld.generateMapBlocks();
+        Gdx.app.log("GameScreen", "14");
         gameWorld.initializePlayers();
-
+        Gdx.app.log("GameScreen", "15");
         // BOMB TEST!!
         gameWorld.placeBomb(new Vector2(100,100), 2, 2);
-
+        Gdx.app.log("GameScreen", "16");
         // FIRE TEST
         ArrayList<Vector2> fireTileList = new ArrayList<Vector2>();
+        Gdx.app.log("GameScreen", "17");
         fireTileList.add(gameMap.tilePos(new Vector2(5,5)));
+        Gdx.app.log("GameScreen", "18");
         fireTileList.add(gameMap.tilePos(new Vector2(5,6)));
+        Gdx.app.log("GameScreen", "199");
         gameWorld.spawnFire(fireTileList);
-
+        Gdx.app.log("GameScreen", "20");
         b2dr = new Box2DDebugRenderer();
+        Gdx.app.log("GameScreen", "21");
         b2drCam = new OrthographicCamera(VIRTUAL_WIDTH / PPM, VIRTUAL_HEIGHT / PPM);
+        Gdx.app.log("GameScreen", "22");
         b2drCam.position.set(gameMap.getMapWidthInPixels() / 2f / PPM, gameMap.getMapHeightInPixels() / 2f / PPM, 0);
+        Gdx.app.log("GameScreen", "23");
         b2drCam.update();
-
+        Gdx.app.log("GameScreen", "24");
 
 
 

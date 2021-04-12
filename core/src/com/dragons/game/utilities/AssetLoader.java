@@ -34,8 +34,6 @@ public class AssetLoader {
             DRAGON_WIDE_YELLOW = "y1.png",
 
 
-
-
             /****************** BLOCKS *******************/
 
 
