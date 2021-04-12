@@ -7,6 +7,9 @@ import com.dragons.game.DragonsGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new DragonsGame(), config);
+		// TODO: Change fps to variable
+		config.backgroundFPS = 60;
+		config.foregroundFPS = 60;
+		new LwjglApplication(new DragonsGame(new DesktopFirebaseInterface()), config);
 	}
 }

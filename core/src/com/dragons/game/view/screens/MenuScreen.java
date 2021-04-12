@@ -1,70 +1,123 @@
 package com.dragons.game.view.screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.dragons.game.model.gameWorld.GameWorld;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.dragons.game.DragonsGame;
 import com.dragons.game.utilities.Constants;
 
-import net.dermetfan.gdx.assets.AnnotationAssetManager;
+import java.io.IOException;
 
-public class MenuScreen extends DefaultScreen {
-    private GameWorld gameWorld;
-    private AnnotationAssetManager manager;
-    private SpriteBatch spriteBatch;
+import static com.badlogic.gdx.Gdx.app;
+
+public class MenuScreen implements Screen {
+    //private SpriteBatch spriteBatch;
+    //private Texture background;
+    //private Texture startbtn;
+    //private Texture joinbtn;
+    //private Texture logo;
+
+    //private Viewport viewport;
+    //private TextureRegion startTextureRegion;
+    //private TextureRegionDrawable startRegionDrawable;
+    //private ImageButton start;
+    private TextureAtlas atlas;
+    //private InputMultiplexer inputMultiplexer;
+
     private OrthographicCamera camera;
-    private Stage stage;
+    protected Stage stage;
 
-    private Texture background;
-    private Texture startbtn;
-    private Texture joinbtn;
-    private Texture logo;
+    private TextField name_field;
 
-    private InputMultiplexer inputMultiplexer;
+    protected Skin skin;
+
+    private final DragonsGame dragonsGame;
 
 
-    public MenuScreen() {
-        gameWorld = new GameWorld();
-        manager = new AnnotationAssetManager();
-        spriteBatch = new SpriteBatch();
+    public MenuScreen(final DragonsGame dragonsGame) {
+        this.dragonsGame = dragonsGame;
+
+        /*spriteBatch = new SpriteBatch();
 
         background = new Texture("grey_background.jpeg");
         startbtn = new Texture("start_game.jpeg");
         joinbtn = new Texture("join_game.jpeg");
-        logo = new Texture("logo.png");
+        logo = new Texture("logo.png");*/
+
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
+
+       /*viewport = new FitViewport(Constants.WorldWidth, Constants.WorldHeight, camera);
+                viewport.apply();
+
+        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+
+        camera.update();     */
+
+        stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight));
+
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, Constants.WIDTH / 2, Constants.HEIGHT / 2);
+        camera.setToOrtho(false, camera.viewportWidth / 2, camera.viewportHeight / 2);
     }
 
 
    @Override
     public void show() {
-        // FRA BOMBERMAN GITHUB
-        //stage = new Stage(new StretchViewport(Constants.WIDTH, Constants.HEIGHT));
-        //InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        //inputMultiplexer.addProcessor(stage);
 
+        Gdx.input.setInputProcessor(stage);
+        stage.clear();
+
+       /*this.skin = new Skin();
+       this.skin.addRegions(dragonsGame.assets.get("uiskin.atlas", TextureAtlas.class));
+       this.skin.load(Gdx.files.internal("uiskin.json"));*/
+
+       atlas = new TextureAtlas("uiskin.atlas");
+       skin = new Skin(Gdx.files.internal("uiskin.json"), atlas);
+
+       initButtons();
     }
 
+   /*private void drawUI(){
+    TextField usernameTextField = new TextField("", );
+    usernameTextField.setPosition(24,73);;
+    usernameTextField.setSize(88, 14); */
+
+    private void update(float delta){
+        stage.act(delta);
+    }
 
     @Override
     public void render(float delta) {
-        gameWorld.update(delta);
-        spriteBatch.setProjectionMatrix(camera.combined);
-        spriteBatch.begin();
+        app.log("MenuScreen", "render");
+        /*spriteBatch.begin();
         spriteBatch.draw(background,0,0);
-        spriteBatch.draw(logo,camera.position.x - logo.getWidth() / 2, camera.position.y);
-        spriteBatch.draw(startbtn, camera.position.x - startbtn.getWidth() / 2, camera.position.y - startbtn.getHeight());
-        spriteBatch.draw(joinbtn, camera.position.x - joinbtn.getWidth() / 2, camera.position.y - (startbtn.getHeight() * 3));
-        spriteBatch.end();
+        spriteBatch.draw(logo,camera.position.x - logo.getWidth() / 2, camera.position.y);   spriteBatch.setProjectionMatrix(camera.combined);
+        spriteBatch.draw(startbtn, camera.position.x - startbtn.getWidth() / 2, camera.position.y - startbtn.getHeight() * 2);
+        spriteBatch.draw(joinbtn, camera.position.x - joinbtn.getWidth() / 2, camera.position.y - (startbtn.getHeight() * 4));
+        spriteBatch.end();*/
+
+        Gdx.gl.glClearColor(.1f, .14f, .12f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        update(delta);
+
+        stage.act();
+        stage.draw();
 
     }
 
@@ -72,6 +125,10 @@ public class MenuScreen extends DefaultScreen {
 
     @Override
     public void resize(int width, int height) {
+        /*viewport.update(width, height);
+        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+        camera.update();*/
+        stage.getViewport().update(width, height, true);
 
     }
 
@@ -93,12 +150,70 @@ public class MenuScreen extends DefaultScreen {
 
     @Override
       public void dispose() {
+        stage.dispose();
+    }
+
+    private void initButtons(){
+        //Create Table
+        Table mainTable = new Table();
+        //Set table to fill stage
+        mainTable.setFillParent(true);
+        //Set alignment of contents in the table.
+        mainTable.top();
+
+        name_field = new TextField("Joshua", skin, "default");
+        name_field.setMessageText("Your Name");
+        name_field.setColor(1.0f, 1.0f, 0.0f, 0.8f);
+        name_field.setSize(280, 60);
+        name_field.getStyle().fontColor = Color.WHITE;
+
+        //Create buttons
+        TextButton playButton = new TextButton("Start game", skin, "default");
+        TextButton joinButton = new TextButton("Join game", skin, "default");
+
+        playButton.setPosition(110, 260);
+        playButton.setSize(280, 60);
+
+       /*startTextureRegion = new TextureRegion(startbtn);
+       startRegionDrawable = new TextureRegionDrawable(startTextureRegion);
+       start = new ImageButton(startRegionDrawable);*/
+
+        //Add listeners to buttons
+        playButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                try {
+                    ((Game) app.getApplicationListener()).setScreen(new GameScreen());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        joinButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                try {
+                    ((Game) app.getApplicationListener()).setScreen(new GameScreen());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        //Add buttons to table
+        mainTable.add(new Label("Name: ", skin, "default")).colspan(2).pad(10);
+        mainTable.add(name_field).colspan(2).pad(10, 0f, 10, 10f);
+        mainTable.add(playButton);
+        mainTable.row();
+        mainTable.add(joinButton);
+        mainTable.row();
+        //mainTable.add(start);
+
+        //Add table to stage
+        stage.addActor(mainTable);
+
 
     }
 
-    @Override
-    public InputProcessor getInputProcessor() {
-        return null;
-    }
 
 }

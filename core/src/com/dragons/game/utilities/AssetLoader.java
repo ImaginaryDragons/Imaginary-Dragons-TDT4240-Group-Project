@@ -19,10 +19,11 @@ public class AssetLoader<BACKGROUND, STARTGAME_BTN, JOINGAME_BTN> {
 
     @AnnotationAssetManager.Asset(Texture.class)
     public static final String
-            DRAGON_SLIM_RED = "assets/red_dragon_slim.png",
-            DRAGON_MIDDLE_RED = "assets/red_dragon_middle.png",
-            DRAGON_WIDE_RED = "assets/red_dragon_wide.png",
+            DRAGON_SLIM_RED = "red_dragon_slim-1.png",
+            DRAGON_MIDDLE_RED = "red_dragon_middle-1.png",
+            DRAGON_WIDE_RED = "red_dragon_wide-1.png",
 
+    /*
             DRAGON_SLIM_BLUE = "",
             DRAGON_MIDDLE_BLUE = "",
             DRAGON_WIDE_BLUE = "",
@@ -35,17 +36,28 @@ public class AssetLoader<BACKGROUND, STARTGAME_BTN, JOINGAME_BTN> {
             DRAGON_MIDDLE_YELLOW = "",
             DRAGON_WIDE_YELLOW = "",
 
+     */
+
 
             /****************** BLOCKS *******************/
+
+            /*
 
             INDESTRUCTIBLE_BLOCK = "",
             DESTRUCTIBLE_BLOCK = "",
 
+             */
+
+
             /****************** POWER-UPS *******************/
+
+            /*
 
             RANGE_POWERUP = "",
             BOMB_CAP_POWERUP = "",
             SPEED_POWERUP = "",
+
+             */
 
             /***************** FIRE ************************/
 
