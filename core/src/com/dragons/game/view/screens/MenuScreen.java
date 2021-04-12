@@ -36,6 +36,7 @@ public class MenuScreen implements Screen {
     //private ImageButton start;
     private TextureAtlas atlas;
     //private InputMultiplexer inputMultiplexer;
+    private TextButton playButton, joinButton;
 
     private OrthographicCamera camera;
     protected Stage stage;
@@ -58,8 +59,8 @@ public class MenuScreen implements Screen {
         logo = new Texture("logo.png");*/
 
 
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
+        //float w = Gdx.graphics.getWidth();
+        //float h = Gdx.graphics.getHeight();
 
 
        /*viewport = new FitViewport(Constants.WorldWidth, Constants.WorldHeight, camera);
@@ -73,6 +74,7 @@ public class MenuScreen implements Screen {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, camera.viewportWidth / 2, camera.viewportHeight / 2);
+
     }
 
 
@@ -90,6 +92,7 @@ public class MenuScreen implements Screen {
        skin = new Skin(Gdx.files.internal("uiskin.json"), atlas);
 
        initButtons();
+
     }
 
    /*private void drawUI(){
@@ -161,15 +164,15 @@ public class MenuScreen implements Screen {
         //Set alignment of contents in the table.
         mainTable.top();
 
-        name_field = new TextField("Joshua", skin, "default");
-        name_field.setMessageText("Your Name");
-        name_field.setColor(1.0f, 1.0f, 0.0f, 0.8f);
-        name_field.setSize(280, 60);
+        name_field = new TextField("H", skin, "default");
+        name_field.setMessageText("J");
+        name_field.setColor(1.0f, 0.0f, 0.0f, 0.8f);
+        name_field.setSize(500, 100);
         name_field.getStyle().fontColor = Color.WHITE;
 
         //Create buttons
-        TextButton playButton = new TextButton("Start game", skin, "default");
-        TextButton joinButton = new TextButton("Join game", skin, "default");
+        playButton = new TextButton("N", skin, "default");
+        joinButton = new TextButton("M", skin, "default");
 
         playButton.setPosition(110, 260);
         playButton.setSize(280, 60);
@@ -202,7 +205,9 @@ public class MenuScreen implements Screen {
 
         //Add buttons to table
         mainTable.add(new Label("Name: ", skin, "default")).colspan(2).pad(10);
+        mainTable.row();
         mainTable.add(name_field).colspan(2).pad(10, 0f, 10, 10f);
+        mainTable.row();
         mainTable.add(playButton);
         mainTable.row();
         mainTable.add(joinButton);
