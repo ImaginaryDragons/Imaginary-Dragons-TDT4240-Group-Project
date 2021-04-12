@@ -104,14 +104,6 @@ public class GameWorld {
         this.addPlayer(p1, p1v);
     }
 
-    public void spawnFire(ArrayList<Vector2> fireTiles) {
-        for (Vector2 firePos : fireTiles) {
-            Fire newFire = new Fire(firePos, FireType.NORMALFIRE, map.getTileWidth(), map.getTileHeight());
-            FireView newFireView = new FireView(newFire, assetManager);
-            this.addObject(newFire, newFireView, true, true);
-        }
-    }
-
     // Update GameWorld with one time-step
     public void update(float delta) {
         // In step, VelocityIteration and PositionIteration values are just 'recommended'
@@ -127,7 +119,7 @@ public class GameWorld {
     }
 
     public void placeBomb(Vector2 position, float timer, float range) {
-        Bomb bomb = new Bomb(position, map.getTileWidth() / 2, timer, range);
+        Bomb bomb = new Bomb(position, map.getTileWidth() / 2, range);
         BombView bombView = new BombView(bomb, assetManager, position);
         GameBomb newBomb = new GameBomb(bomb, bombView, world);
         newBomb.isSensor = false;
@@ -135,6 +127,14 @@ public class GameWorld {
         newBomb.createBody();
         bombs.add(newBomb);
         gameObjects.add(newBomb);
+    }
+
+    public void spawnFire(ArrayList<Vector2> fireTiles) {
+        for (Vector2 firePos : fireTiles) {
+            Fire newFire = new Fire(firePos, FireType.NORMALFIRE, map.getTileWidth(), map.getTileHeight());
+            FireView newFireView = new FireView(newFire, assetManager);
+            this.addObject(newFire, newFireView, true, true);
+        }
     }
 
     /*Due to the players always moving, it is beneficial to always check for positional updates
