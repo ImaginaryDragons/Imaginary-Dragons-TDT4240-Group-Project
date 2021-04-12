@@ -29,6 +29,11 @@ public class BombView implements IModelView {
     }
 
     @Override
+    public void update(float delta) {
+
+    }
+
+    @Override
     public void render(SpriteBatch sb) {
         sb.draw(texture, bomb.getPosition().x - bomb.getWidth() / 2f, bomb.getPosition().y - bomb.getHeight() / 2f , bomb.getWidth(), bomb.getHeight());
     }

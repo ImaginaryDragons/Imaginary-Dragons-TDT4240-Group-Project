@@ -26,6 +26,11 @@ public class FireView implements IModelView {
     }
 
     @Override
+    public void update(float delta) {
+
+    }
+
+    @Override
     public void render(SpriteBatch sb) {
         sb.draw(texture, fire.getPosition().x - width / 2f, fire.getPosition().y - width / 2f, width, height);
     }

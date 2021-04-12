@@ -40,12 +40,13 @@ public class GameRenderer {
         }
     }*/
 
-    public void render(SpriteBatch sb){
+    public void render(SpriteBatch sb, float delta){
         ArrayList<GameObject> list = gameWorld.getGameObjects();
         for (GameObject obj : list) {
             if (obj.getModelView() == null) {
                 // Do nothing
             } else {
+                obj.getModelView().update(delta);
                 obj.getModelView().render(sb);
             }
         }
@@ -54,6 +55,7 @@ public class GameRenderer {
             if (player.getModelView() == null) {
                 // Do nothing
             } else {
+                player.getModelView().update(delta);
                 player.getModelView().render(sb);
             }
         }
@@ -62,6 +64,7 @@ public class GameRenderer {
             if (fire.getModelView() == null) {
                 // Do nothing
             } else {
+                fire.getModelView().update(delta);
                 fire.getModelView().render(sb);
             }
         }
