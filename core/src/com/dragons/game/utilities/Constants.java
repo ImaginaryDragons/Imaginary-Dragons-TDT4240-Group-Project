@@ -10,7 +10,7 @@ public class Constants {
     public static final float VIRTUAL_HEIGHT = 350f;
 
     public static final int InitPlayerHealth = 3; // Number of lives
-    public static final float PlayerSpeed = 10f; // RANDOM NUMBER FOR NOW
+    public static final int PlayerSpeed = 10; // RANDOM NUMBER FOR NOW
     public static final int PlayerSpeedBoostInc = 5;
     public static final float PlayerHeight = 10; // Has to be precalculated from a tile ratio!!
     public static final float PlayerWidth = 10; // Has to be precalculated from a tile ratio!!
