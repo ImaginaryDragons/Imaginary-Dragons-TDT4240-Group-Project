@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragons.game.model.Model;
 import com.dragons.game.model.player.Player;
+import com.dragons.game.utilities.Direction;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -30,7 +31,7 @@ import static com.dragons.game.utilities.AssetLoader.DRAGON_WIDE_YELLOW;
 
 public class PlayerView implements IModelView {
 
-    private Model player;
+    private Player player;
 
     private float height, width;
     private static float FRAME_DURATION = 0.1f;
@@ -38,12 +39,13 @@ public class PlayerView implements IModelView {
     private Texture[] DragonTextures;
     private Texture current_frame;
     private static float state_time;
+    private Direction direction;
 
     public PlayerView(Player player, AnnotationAssetManager manager) {
         this.player = player;
         height = player.getHeight();
         width = player.getWidth();
-
+        this.direction = direction;
         Color col = player.getCol();
         Texture texture1;
         Texture texture2;
@@ -98,6 +100,20 @@ public class PlayerView implements IModelView {
     @Override
     public void render(SpriteBatch sb) {
         current_frame = dragon.getKeyFrame(state_time, true);
-        sb.draw(current_frame, player.getPosition().x - width / 2f, player.getPosition().y - height / 2f , width, height);
+
+        if (player.getOrientation() == Direction.UP){
+            sb.draw(current_frame, player.getPosition().x - width / 2f, player.getPosition().y - height / 2f, width * 0.5f,
+                    height * 0.5f, width, height, 1, 1, 0, 1, 1, current_frame.getWidth(), current_frame.getHeight(), false, false);
+        } else if (player.getOrientation() == Direction.DOWN){
+            sb.draw(current_frame, player.getPosition().x - width / 2f, player.getPosition().y - height / 2f, width * 0.5f,
+                    height * 0.5f, width, height, 1, 1, 180, 1, 1, current_frame.getWidth(), current_frame.getHeight(), false, false);
+        } else if (player.getOrientation() == Direction.LEFT){
+            sb.draw(current_frame, player.getPosition().x - width / 2f, player.getPosition().y - height / 2f, width * 0.5f,
+                    height * 0.5f, width, height, 1, 1, 90, 1, 1, current_frame.getWidth(), current_frame.getHeight(), false, false);
+        } else if (player.getOrientation() == Direction.RIGHT){
+            sb.draw(current_frame, player.getPosition().x - width / 2f, player.getPosition().y - height / 2f, width * 0.5f,
+                    height * 0.5f, width, height, 1, 1, 270, 1, 1, current_frame.getWidth(), current_frame.getHeight(), false, false);
+        }
+
     }
 }

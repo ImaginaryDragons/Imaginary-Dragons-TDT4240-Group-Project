@@ -44,7 +44,7 @@ public class Player extends Model {
         shape.setAsBox(width / 2f / PPM, height / 2f / PPM);
         super.setShape(shape);
 
-        orientation = Direction.DOWN;
+        orientation = Direction.UP;
         lives = Constants.InitPlayerHealth;
         speed = Constants.PlayerSpeed;
         bombCapacity = Constants.InitBombCap;
