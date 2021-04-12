@@ -66,15 +66,6 @@ public class GameWorld {
         gameObjects.add(newObject);
     }
 
-    // Add player to the game
-    public void addPlayer(Player player, PlayerView playerView) {
-        // TODO: Add a game class that encapsulates a player with a controller (similar to the GameBomb class).
-        GameObject newObject = new GameObject(player, playerView, world);
-        newObject.isSensor = false;
-        newObject.isStatic = false;
-        newObject.createBody();
-        players.add(newObject);
-    }
 
     public void generateMapBlocks() {
         Gdx.app.log("GameWorld", "Adding map blocks");
@@ -95,12 +86,20 @@ public class GameWorld {
         }
     }
 
-    public void initializePlayers() {
+    public void initializePlayers(PlayerController ctr) {
         Gdx.app.log("GameWorld", "Initializing main player");
         Vector2 p1StartPos = map.tilePos(new Vector2(1,1));
-        Player p1 = new Player(1, p1StartPos, Color.RED, map.getTileWidth(), map.getTileHeight());
-        PlayerView p1v = new PlayerView(p1, assetManager);
-        this.addPlayer(p1, p1v);
+        Player newPlayer = new Player(1, p1StartPos, Color.RED, map.getTileWidth(), map.getTileHeight());
+        PlayerView newPlayerView = new PlayerView(newPlayer, assetManager);
+        GameObject newObject = new GameObject(newPlayer, newPlayerView, world);
+        newObject.isSensor = false;
+        newObject.isStatic = false;
+        newObject.createBody();
+        // ctr.addPlayer(newObject);
+        players.add(newObject);
+
+        Gdx.app.log("GameWorld", "Initializing main player");
+            // TODO: Initialize guest players
     }
 
     // Update GameWorld with one time-step
