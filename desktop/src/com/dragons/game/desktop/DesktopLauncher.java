@@ -20,7 +20,5 @@ public class DesktopLauncher {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-
 	}
 }
