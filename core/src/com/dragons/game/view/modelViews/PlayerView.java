@@ -44,7 +44,6 @@ public class PlayerView implements IModelView {
         height = player.getHeight();
         width = player.getWidth();
 
-        // TODO: load the appropriate textures in constructor
         Color col = player.getCol();
         Texture texture1;
         Texture texture2;
