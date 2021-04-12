@@ -117,7 +117,7 @@ public class GameScreen extends ScreenAdapter {
         batch.end();
 
         b2dr.render(b2dWorld, b2drCam.combined);
-        //Gdx.app.log("GameScreen FPS", (1/delta) + "");
+//        Gdx.app.log("GameScreen FPS", (1/delta) + "");
     }
 
     @Override

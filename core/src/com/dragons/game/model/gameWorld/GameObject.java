@@ -17,7 +17,7 @@ public class GameObject {
 
     private final IModel obj;
     private ModelView objView;
-    private Body body;
+    public Body body;
     private final World world;
     public boolean isStatic;
     public boolean isSensor;
