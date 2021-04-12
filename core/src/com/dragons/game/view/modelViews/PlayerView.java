@@ -1,6 +1,5 @@
 package com.dragons.game.view.modelViews;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,7 +10,7 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import static com.dragons.game.utilities.AssetLoader.DRAGON_SLIM_RED;
 
-public class PlayerView implements ModelView {
+public class PlayerView implements IModelView {
 
     private Model player;
     private Texture texture;
