@@ -89,4 +89,8 @@ task run(type: Exec) {
     commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.dragons.game/com.dragons.game.AndroidLauncher'
 }
 
+dependencies {
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+}
+
 eclipse.project.name = appName + "-android"

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
@@ -24,7 +25,7 @@ public class LoadingScreen implements Screen {
     }
 
     private void queueAssets() {
-        // dragonsGame.assets.load("img/splash.png", Texture.class);
+        dragonsGame.assets.load("logo.png", Texture.class);
         dragonsGame.assets.load("uiskin.atlas", TextureAtlas.class);
     }
 
@@ -51,10 +52,10 @@ public class LoadingScreen implements Screen {
         update(delta);
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.BLACK);
+        shapeRenderer.setColor(Color.GRAY);
         shapeRenderer.rect(32, dragonsGame.camera.viewportHeight / 2 - 8, dragonsGame.camera.viewportWidth - 64, 16);
 
-        shapeRenderer.setColor(Color.BLUE);
+        shapeRenderer.setColor(Color.LIME);
         shapeRenderer.rect(32, dragonsGame.camera.viewportHeight / 2 - 8, progress * (dragonsGame.camera.viewportWidth - 64), 16);
         shapeRenderer.end();
     }

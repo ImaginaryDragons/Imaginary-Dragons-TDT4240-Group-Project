@@ -3,13 +3,15 @@ package com.dragons.game.view.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.DragonsGame;
@@ -22,7 +24,10 @@ public class TestMenuScreen implements Screen {
     private Stage stage;
     private Skin skin;
 
+    private TextField nameField;
     private TextButton startButton, joinButton;
+
+    private Image logo;
 
     public TestMenuScreen(final DragonsGame dragonsGame){
         this.dragonsGame = dragonsGame;
@@ -41,7 +46,8 @@ public class TestMenuScreen implements Screen {
         this.skin.add("default-font", dragonsGame.font);
         this.skin.load(Gdx.files.internal("uiskin.json"));
 
-        initButtons();
+
+        initMenu();
     }
 
     private void update(float delta) {
@@ -92,18 +98,19 @@ public class TestMenuScreen implements Screen {
 
     }
 
-    private void initButtons(){
-        //Create table
-        Table mainTable = new Table();
-        //Set table to fill stage
-        mainTable.setFillParent(true);
-        //Set alignment of contents in the table.
-        mainTable.top();
-        startButton = new TextButton("Start game", skin, "default");
-        startButton.setPosition(110, 260);
-        startButton.setSize(280, 60);
+
+    private void initMenu(){
+        Texture logoTex = dragonsGame.assets.get("logo.png", Texture.class);
+        logo = new Image(logoTex);
+        logo.setPosition(dragonsGame.camera.position.x - logo.getWidth() / 2, dragonsGame.camera.position.y - 70);
+
+        startButton = new TextButton("Start game");
+        startButton.setSize(250, 50);
+        startButton.setPosition(dragonsGame.camera.position.x - startButton.getWidth() / 2, dragonsGame.camera.position.y - startButton.getHeight());
 
         joinButton = new TextButton("Join game", skin, "default");
+        joinButton.setSize(250, 50);
+        joinButton.setPosition(dragonsGame.camera.position.x - startButton.getWidth() / 2, dragonsGame.camera.position.y - startButton.getHeight() - 70);
 
         startButton.addListener(new ClickListener(){
             @Override
@@ -118,12 +125,10 @@ public class TestMenuScreen implements Screen {
             }
         });
 
-        mainTable.add(startButton);
-        mainTable.row();
-        mainTable.add(joinButton);
-        mainTable.row();
 
-        stage.addActor(mainTable);
+        stage.addActor(logo);
+        stage.addActor(startButton);
+        stage.addActor(joinButton);
 
     }
 }
