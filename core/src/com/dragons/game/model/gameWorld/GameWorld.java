@@ -12,11 +12,10 @@ import com.dragons.game.model.bomb.Bomb;
 import com.dragons.game.model.bomb.Fire;
 import com.dragons.game.model.bomb.FireType;
 import com.dragons.game.model.player.Player;
-import com.dragons.game.model.player.PlayerColor;
 import com.dragons.game.view.modelViews.BombView;
 import com.dragons.game.view.modelViews.DestructibleBlockView;
 import com.dragons.game.view.modelViews.FireView;
-import com.dragons.game.view.modelViews.ModelView;
+import com.dragons.game.view.modelViews.IModelView;
 import com.dragons.game.view.modelViews.PlayerView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -59,7 +58,7 @@ public class GameWorld {
     }
 
     // Add object to GameObjects
-    public void addObject(IModel obj, ModelView objView, boolean isStatic, boolean isSensor) {
+    public void addObject(IModel obj, IModelView objView, boolean isStatic, boolean isSensor) {
         GameObject newObject = new GameObject(obj, objView, world);
         newObject.isStatic = isStatic;
         newObject.isSensor = isSensor;
@@ -67,15 +66,6 @@ public class GameWorld {
         gameObjects.add(newObject);
     }
 
-    // Add player to the game
-    public void addPlayer(Player player, PlayerView playerView) {
-        // TODO: Add a game class that encapsulates a player with a controller (similar to the GameBomb class).
-        GameObject newObject = new GameObject(player, playerView, world);
-        newObject.isSensor = false;
-        newObject.isStatic = false;
-        newObject.createBody();
-        players.add(newObject);
-    }
 
     public void generateMapBlocks() {
         Gdx.app.log("GameWorld", "Adding map blocks");
@@ -99,17 +89,17 @@ public class GameWorld {
     public void initializePlayers() {
         Gdx.app.log("GameWorld", "Initializing main player");
         Vector2 p1StartPos = map.tilePos(new Vector2(1,1));
-        Player p1 = new Player(1, p1StartPos, Color.RED, map.getTileWidth(), map.getTileHeight());
-        PlayerView p1v = new PlayerView(p1, assetManager);
-        this.addPlayer(p1, p1v);
-    }
+        Player newPlayer = new Player(1, p1StartPos, Color.RED, map.getTileWidth(), map.getTileHeight());
+        PlayerView newPlayerView = new PlayerView(newPlayer, assetManager);
+        GameObject newObject = new GameObject(newPlayer, newPlayerView, world);
+        newObject.isSensor = false;
+        newObject.isStatic = false;
+        newObject.createBody();
+        // ctr.addPlayer(newObject);
+        players.add(newObject);
 
-    public void spawnFire(ArrayList<Vector2> fireTiles) {
-        for (Vector2 firePos : fireTiles) {
-            Fire newFire = new Fire(firePos, FireType.NORMALFIRE, map.getTileWidth(), map.getTileHeight());
-            FireView newFireView = new FireView(newFire, assetManager);
-            this.addObject(newFire, newFireView, true, true);
-        }
+        Gdx.app.log("GameWorld", "Initializing secondary players");
+            // TODO: Initialize guest players
     }
 
     // Update GameWorld with one time-step
@@ -120,14 +110,13 @@ public class GameWorld {
         world.step(delta, 6, 2);
         updatePlayerPositions();
 
-        // TODO: Get contact list and deal with every contact
 
         // Make sure that the positions are automatically synchronized
         // Maybe put observers on the gameobjects that get updates when the objects in the world are updated?
     }
 
     public void placeBomb(Vector2 position, float timer, float range) {
-        Bomb bomb = new Bomb(position, map.getTileWidth() / 2, timer, range);
+        Bomb bomb = new Bomb(position, map.getTileWidth() / 2, range);
         BombView bombView = new BombView(bomb, assetManager, position);
         GameBomb newBomb = new GameBomb(bomb, bombView, world);
         newBomb.isSensor = false;
@@ -137,6 +126,14 @@ public class GameWorld {
         gameObjects.add(newBomb);
     }
 
+    public void spawnFire(ArrayList<Vector2> fireTiles) {
+        for (Vector2 firePos : fireTiles) {
+            Fire newFire = new Fire(firePos, FireType.NORMALFIRE, map.getTileWidth(), map.getTileHeight());
+            FireView newFireView = new FireView(newFire, assetManager);
+            this.addObject(newFire, newFireView, true, true);
+        }
+    }
+
     /*Due to the players always moving, it is beneficial to always check for positional updates
     * for every frame iteration*/
     // TODO: players not moving are vibrating
@@ -144,6 +141,8 @@ public class GameWorld {
         for(GameObject obj : players)
         {
             obj.syncPosition();
+            //TODO: remove, this is only to test
+            obj.getBody().setLinearVelocity(0, 10);
         }
     }
 
@@ -154,6 +153,7 @@ public class GameWorld {
         for(GameBomb bomb : bombs)
         {
             bomb.update(delta);
+            bomb.syncPosition();
         }
     }
 

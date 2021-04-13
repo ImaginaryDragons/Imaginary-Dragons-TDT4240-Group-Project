@@ -9,4 +9,9 @@ public interface IModel {
     Vector2 getPosition();
     Shape getShape();
     IModelType getType();
+
+    /**
+     * checks if the model should be destroyed
+     */
+    boolean shallDestroyModel();
 }

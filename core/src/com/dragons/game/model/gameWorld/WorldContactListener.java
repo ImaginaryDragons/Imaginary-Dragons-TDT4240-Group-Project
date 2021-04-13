@@ -31,6 +31,14 @@ public class WorldContactListener implements ContactListener {
         if (oneIsBlock && oneIsPowerUp) System.out.println("Collision block and powerup");
         if (oneIsBlock && oneIsPlayer) System.out.println("Collision block and player");
 
+        if (oneIsPlayer && oneIsPowerUp){
+            System.out.println("Collision PowerUp and Player");
+            if (objA instanceof IPowerUp){
+                ((IPowerUp) objA).handlePickedUp(objB);
+            }
+            else ((IPowerUp) objB).handlePickedUp(objA);
+        }
+
     }
 
     @Override

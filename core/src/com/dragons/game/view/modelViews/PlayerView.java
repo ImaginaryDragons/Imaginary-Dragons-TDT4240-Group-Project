@@ -1,6 +1,5 @@
 package com.dragons.game.view.modelViews;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,8 +9,8 @@ import com.dragons.game.model.player.Player;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import static com.dragons.game.utilities.AssetLoader.DRAGON_SLIM_RED;
-
-public class PlayerView implements ModelView {
+import static com.dragons.game.utilities.AssetLoader.DRAGON_SLIM_BLUE;
+public class PlayerView implements IModelView {
 
     private Model player;
     private Texture texture;
@@ -29,7 +28,7 @@ public class PlayerView implements ModelView {
         if (Color.RED.equals(col)) {
             texture = manager.get(DRAGON_SLIM_RED, Texture.class);
         } else if (Color.BLUE.equals(col)) {
-            //texture = manager.get(DRAGON_SLIM_BLUE, Texture.class);
+            texture = manager.get(DRAGON_SLIM_BLUE, Texture.class);
         }
     }
 

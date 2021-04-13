@@ -15,6 +15,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 import static android.content.ContentValues.TAG;
 
 public class AndroidFirebaseInterface implements FireBaseInterface {
@@ -51,9 +53,9 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
     @Override
     public void writePlayerToFB(int ID, Vector2 position, Color color, int width, int height) {
 
-        Player firebasePlayer = new Player(userId, position, color, width, height); //Lage en unik Id der vi kaller funksjonen
+        Player firebasePlayer = new Player(ID, position, color, width, height); //Lage en unik Id der vi kaller funksjonen
+        playerRef.child(String.valueOf(ID)).setValue(firebasePlayer);
 
-       playerRef.child(String.valueOf(userId)).setValue(firebasePlayer); //kan bruke color istedenfor userId, skriver her en player til firebase
     }
 
 
@@ -63,16 +65,16 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                //følge med på når player oppdateres
-                //når gamemap oppdateres
+            ArrayList<Player> playerFromDB = (ArrayList<Player>) snapshot.getValue(); //Henter player objektet fra firebase for å bruke i UI
 
-               /* if (snapshot.exists()) {
+                /*Funker ikke
+            Player player1 = playerFromDB.get(1);
+            Player player2 = playerFromDB.get(2);
+            Player player3 = playerFromDB.get(3);
+            Player player4 = playerFromDB.get(4);
+*/
+            System.out.println(playerFromDB);
 
-                       Player playerFromDB = snapshot.getValue(Player.class); //Henter player objektet fra firebase for å bruke i UI
-
-
-                //oppdatere UI
-                        System.out.println(playerFromDB);*/
                         /*
                         String nameFromDB = snapshot.child(userId).child("name").getValue(String.class);
                         float posXFromDB = snapshot.child(userId).child("positionX").getValue(float.class);
