@@ -20,6 +20,7 @@ public class GameObject {
     private final World world;
     public boolean isStatic;
     public boolean isSensor;
+    private boolean destroyObject;
 
     // TODO: Pass IModelView as a parameter?
     public GameObject(IModel obj, IModelView objView, World world) {
@@ -29,6 +30,7 @@ public class GameObject {
         this.objView = objView;
         this.isStatic = false;
         this.isSensor = false;
+        this.destroyObject = false;
         this.body = null;
     }
 

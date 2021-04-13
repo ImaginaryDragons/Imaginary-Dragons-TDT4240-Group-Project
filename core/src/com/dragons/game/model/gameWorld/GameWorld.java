@@ -110,7 +110,6 @@ public class GameWorld {
         world.step(delta, 6, 2);
         updatePlayerPositions();
 
-
         // Make sure that the positions are automatically synchronized
         // Maybe put observers on the gameobjects that get updates when the objects in the world are updated?
     }
