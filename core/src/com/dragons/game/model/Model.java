@@ -1,14 +1,11 @@
 package com.dragons.game.model;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Shape;
 
 public abstract class Model implements IModel {
     private Vector2 position;
     private final IModelType type;
     private final float width, height;
-
-    private Shape shape;
     private boolean destroyModel = false;
 
     // TODO: might remove ModelType but keep it for the moment
@@ -19,9 +16,6 @@ public abstract class Model implements IModel {
         this.height = height;
     }
 
-    protected void setShape(Shape shape){
-        this.shape = shape;
-    }
 
 
     @Override
@@ -34,10 +28,6 @@ public abstract class Model implements IModel {
         return position;
     }
 
-    @Override
-    public Shape getShape() {
-        return shape;
-    }
 
     //TODO: Method might not be necessary
     @Override

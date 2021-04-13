@@ -1,12 +1,11 @@
 package com.dragons.game.model.powerUps;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.Model;
 import com.dragons.game.model.player.Player;
 
-import static com.dragons.game.utilities.Constants.PPM;
+
 
 public class IncreaseRange extends Model implements IPowerUp {
 
@@ -14,9 +13,6 @@ public class IncreaseRange extends Model implements IPowerUp {
 
     public IncreaseRange(Vector2 position, PowerUpType type, float width, float height) {
         super(position, type, width, height);
-        final PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
-        super.setShape(shape);
     }
 
 

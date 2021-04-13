@@ -2,12 +2,10 @@ package com.dragons.game.model.player;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.dragons.game.model.Model;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.utilities.Direction;
 
-import static com.dragons.game.utilities.Constants.PPM;
 
 /**
  * Instantiates a player. Has to be tied to a controller to control.
@@ -18,12 +16,10 @@ import static com.dragons.game.utilities.Constants.PPM;
 
 
 
-public class Player extends Model {
+public class Player extends Model implements IPlayer {
 
     private int ID;
     private Color col;
-    //private Shape boundRectangle;
-    private PolygonShape shape;
     private Direction orientation; // The direction the player is looking
     private int lives;
     private int speed;
@@ -40,9 +36,6 @@ public class Player extends Model {
         super(startPos, PlayerType.NORMALPLAYER, (float) width, (float) height);
         this.ID = ID;
         this.col = col;
-        final PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width / 2f / PPM, height / 2f / PPM);
-        super.setShape(shape);
 
         orientation = Direction.UP;
         lives = Constants.InitPlayerHealth;

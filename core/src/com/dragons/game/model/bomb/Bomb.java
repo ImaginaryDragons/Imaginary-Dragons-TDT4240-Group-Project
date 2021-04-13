@@ -1,27 +1,16 @@
 package com.dragons.game.model.bomb;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.Shape;
-import com.dragons.game.model.IModelType;
-import com.dragons.game.model.gameWorld.GameWorld;
-import com.dragons.game.model.IModel;
+
 import com.dragons.game.model.Model;
 import com.dragons.game.model.gameWorld.GameMap;
-import com.dragons.game.model.player.Player;
 import com.dragons.game.utilities.Constants;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import static com.dragons.game.utilities.Constants.PPM;
-
-enum BombType implements IModelType {
-    NORMALBOMB
-}
+import static com.dragons.game.model.bomb.BombType.NORMALBOMB;
 
 
-public class Bomb extends Model {
+public class Bomb extends Model implements IBomb {
 
     // TODO: FIX SHAPE (private Circle circleBounds;)
     private float loadingTime;
@@ -31,14 +20,11 @@ public class Bomb extends Model {
     private ArrayList<Vector2> fireTiles;
 
     public Bomb(Vector2 pos, float radius, float bombRange){
-        super(pos, BombType.NORMALBOMB,radius * 2,radius * 2);
+        super(pos, NORMALBOMB,radius * 2,radius * 2);
         this.bombRange = bombRange;
 
         bombExploded = false;
         loadingTime = Constants.BombExplodeTime;
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(radius / PPM, radius /  PPM);
-        super.setShape(shape);
 
     }
 

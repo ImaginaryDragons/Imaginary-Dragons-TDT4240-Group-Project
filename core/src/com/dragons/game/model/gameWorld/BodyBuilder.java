@@ -3,23 +3,41 @@ package com.dragons.game.model.gameWorld;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
+import com.dragons.game.model.IModelType;
+import com.dragons.game.model.Model;
+import com.dragons.game.model.blocks.BlockType;
+import com.dragons.game.model.blocks.IBlock;
+import com.dragons.game.model.bomb.BombType;
+import com.dragons.game.model.bomb.FireType;
+import com.dragons.game.model.bomb.IBomb;
+import com.dragons.game.model.bomb.IFire;
+import com.dragons.game.model.player.IPlayer;
+import com.dragons.game.model.player.Player;
+import com.dragons.game.model.player.PlayerType;
+import com.dragons.game.model.powerUps.IPowerUp;
+import com.dragons.game.model.powerUps.PowerUpType;
+
+import org.jetbrains.annotations.NotNull;
 
 import static com.dragons.game.utilities.Constants.PPM;
 
 public final class BodyBuilder {
 
-
+    private BodyBuilder() {
+    }
 
     // Create a body and a fixture for the object and place it in world!
 
     public static Body createBody(World world, GameObject gameObject) {
-        IModel object = gameObject.getObject();
-        Vector2 position = object.getPosition();
-        Shape shape = object.getShape();
+        IModel model = gameObject.getObject();
+        Vector2 position = model.getPosition();
+        Shape shape = getShape(model);
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = gameObject.isStatic ? BodyDef.BodyType.StaticBody : BodyDef.BodyType.DynamicBody;
@@ -44,4 +62,70 @@ public final class BodyBuilder {
 
         return body;
     }
+
+    private static Shape getShape(@NotNull IModel iModel){
+        Model model = (Model) iModel;
+        if      (model instanceof IPowerUp) return getPowerUpShape(model);
+        else if (model instanceof IBlock) return getBlockShape(model);
+        else if (model instanceof IPlayer) return getPlayerShape(model);
+        else if (model instanceof IBomb) return getBombShape(model);
+        else if (model instanceof IFire) return getFireShape(model);
+        else throw new IllegalArgumentException("Wrong IModel type as argument");
+    }
+
+    private static Shape getPowerUpShape(Model model){
+        PowerUpType type = (PowerUpType) model.getType(); // Use for case statement if necessary
+        final PolygonShape shape = new PolygonShape();
+        shape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
+        return shape;
+    }
+
+    private static Shape getBlockShape(Model model){
+        BlockType type = (BlockType) model.getType(); // Use for case statement if necessary
+        final PolygonShape shape = new PolygonShape();
+        shape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
+        return shape;
+    }
+
+    private static Shape getPlayerShape(Model model){
+        PlayerType type = (PlayerType) model.getType();
+
+        switch (type){
+            case NORMALPLAYER:
+                final PolygonShape normalPlayerShape = new PolygonShape();
+                normalPlayerShape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
+                return normalPlayerShape;
+
+            default:
+                throw new IllegalArgumentException("Wrong type");
+        }
+    }
+
+    private static Shape getBombShape(Model model){
+        BombType type = (BombType) model.getType();
+
+        switch (type){
+            case NORMALBOMB:
+                final CircleShape normalBomb = new CircleShape();
+                normalBomb.setRadius(model.getHeight() / 2 / PPM);
+                return normalBomb;
+
+            default:
+                throw new IllegalArgumentException("Wrong type");
+        }
+    }
+
+    private static Shape getFireShape(Model model){
+        FireType type = (FireType) model.getType();
+        switch (type){
+            case NORMALFIRE:
+                final PolygonShape normalFireShape = new PolygonShape();
+                normalFireShape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
+                return normalFireShape;
+
+            default:
+                throw new IllegalArgumentException("Wrong type");
+        }
+    }
+
 }
