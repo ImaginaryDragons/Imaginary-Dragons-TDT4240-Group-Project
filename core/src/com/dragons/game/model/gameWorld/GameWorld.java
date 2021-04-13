@@ -3,7 +3,10 @@ package com.dragons.game.model.gameWorld;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.powerUps.IPowerUp;
@@ -21,6 +24,10 @@ import com.dragons.game.view.modelViews.PlayerView;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.util.ArrayList;
+
+import static com.dragons.game.utilities.Constants.PPM;
+import static com.dragons.game.utilities.Constants.VIRTUAL_HEIGHT;
+import static com.dragons.game.utilities.Constants.VIRTUAL_WIDTH;
 
 /**
  * The GameWorld class instantiates the world in which a single game will be played. The
@@ -41,13 +48,16 @@ public class GameWorld {
     private Player player;
     private AnnotationAssetManager assetManager;
 
+    private Box2DDebugRenderer b2dr;
+    private OrthographicCamera b2drCam;
+
 
     // https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_hello.html#autotoc_md21
     // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
 
-    public GameWorld(World world, GameMap map, AnnotationAssetManager manager) {
-        this.world = world;
+    public GameWorld(GameMap map, AnnotationAssetManager manager) {
+        world = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         this.assetManager = manager;
         world.setContactListener(new WorldContactListener());
         gameObjects = new ArrayList<GameObject>();
@@ -55,6 +65,11 @@ public class GameWorld {
         bombs = new ArrayList<GameBomb>();
         fires = new ArrayList<GameObject>();
         this.map = map;
+
+        b2dr = new Box2DDebugRenderer();
+        b2drCam = new OrthographicCamera(VIRTUAL_WIDTH / PPM, VIRTUAL_HEIGHT / PPM);
+        b2drCam.position.set(map.getMapWidthInPixels() / 2f / PPM, map.getMapHeightInPixels() / 2f / PPM, 0);
+        b2drCam.update();
     }
 
     // Add object to GameObjects
@@ -110,6 +125,7 @@ public class GameWorld {
         updateBombs(delta);
         world.step(delta, 6, 2);
         updatePlayerPositions();
+        b2dr.render(world, b2drCam.combined); 
 
 
         // Make sure that the positions are automatically synchronized
@@ -172,5 +188,9 @@ public class GameWorld {
 
     public ArrayList<GameBomb> getBombs() {
         return bombs;
+    }
+
+    public World getWorld() {
+        return world;
     }
 }

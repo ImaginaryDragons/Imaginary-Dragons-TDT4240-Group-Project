@@ -48,7 +48,7 @@ public class DragonsGame extends Game {
         _FBIC.SomeFunction();
         _FBIC.SetOnValueChangedListener();
         Gdx.app.log("DragonGame", "Listener changed");
-        Vector2 pStartPos = gameScreen.gameMap.tilePos(new Vector2(1,1)); //gjør om til tilPos senere
+        Vector2 pStartPos = gameScreen.getGameMap().tilePos(new Vector2(1,1)); //gjør om til tilPos senere
         _FBIC.writePlayerToFB(4, pStartPos , Color.BLUE, 32, 32);
         Gdx.app.log("DragonGame", "Write to FB");
     }
