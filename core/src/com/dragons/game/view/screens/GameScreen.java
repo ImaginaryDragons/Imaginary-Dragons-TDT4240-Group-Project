@@ -58,7 +58,6 @@ public class GameScreen extends ScreenAdapter {
         gameWorld = new GameWorld(b2dWorld, gameMap, manager);
         batch = new SpriteBatch();
 
-        //TODO: Change viewPortWidth and height to variables
         camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         camera.position.set(gameMap.getMapWidthInPixels() / 2f, gameMap.getMapHeightInPixels() / 2f, 0);
         camera.update();

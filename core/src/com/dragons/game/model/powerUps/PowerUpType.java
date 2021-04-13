@@ -1,4 +1,4 @@
-package com.dragons.game.model.PowerUps;
+package com.dragons.game.model.powerUps;
 
 import com.dragons.game.model.IModelType;
 
