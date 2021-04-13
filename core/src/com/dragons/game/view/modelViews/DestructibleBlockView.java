@@ -27,6 +27,11 @@ public class DestructibleBlockView implements IModelView {
     }
 
     @Override
+    public void update(float delta) {
+
+    }
+
+    @Override
     public void render(SpriteBatch sb) {
         sb.draw(texture, destructibleBlock.getPosition().x - width / 2f, destructibleBlock.getPosition().y - height / 2f , width, height);
     }

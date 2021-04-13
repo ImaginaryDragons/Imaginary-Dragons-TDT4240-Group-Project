@@ -18,9 +18,11 @@ public class Fire extends Model {
         super.setShape(shape);
     }
 
+    /*
     public IModelType getType() {
         return type;
     }
+
 
     public void setType(IModelType type) {
         this.type = type;
@@ -36,5 +38,7 @@ public class Fire extends Model {
     public Vector2 getPosition() {
         return position;
     }
+
+     */
 
 }

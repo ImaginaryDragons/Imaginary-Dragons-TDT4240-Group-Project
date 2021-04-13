@@ -32,9 +32,6 @@ public class Bomb extends Model {
 
     public Bomb(Vector2 pos, float radius, float bombRange){
         super(pos, BombType.NORMALBOMB,radius * 2,radius * 2);
-        this.position = pos;
-        this.height = radius * 2;
-        this.width = radius * 2;
         this.bombRange = bombRange;
 
         bombExploded = false;
@@ -122,6 +119,7 @@ public class Bomb extends Model {
         return fireTiles;
     }
 
+    /*
     @Override
     public void setPosition(Vector2 pos) {
         pos = this.position;
@@ -134,12 +132,15 @@ public class Bomb extends Model {
         return position;
     }
 
+     */
+
 
     @Override
     public IModelType getType() {
         return null;
     }
 
+    /*
     public float getHeight() {
         return height;
     }
@@ -147,4 +148,6 @@ public class Bomb extends Model {
     public float getWidth() {
         return width;
     }
+
+     */
 }
