@@ -104,7 +104,7 @@ public class TestMenuScreen implements Screen {
         logo = new Image(logoTex);
         logo.setPosition(dragonsGame.camera.position.x - logo.getWidth() / 2, dragonsGame.camera.position.y - 70);
 
-        startButton = new TextButton("Start game");
+        startButton = new TextButton("Start game", skin, "default");
         startButton.setSize(250, 50);
         startButton.setPosition(dragonsGame.camera.position.x - startButton.getWidth() / 2, dragonsGame.camera.position.y - startButton.getHeight());
 
