@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
-import com.dragons.game.model.PowerUps.IPowerUp;
+import com.dragons.game.model.powerUps.IPowerUp;
 import com.dragons.game.model.blocks.DestructibleBlock;
 import com.dragons.game.model.bomb.Bomb;
 import com.dragons.game.model.bomb.Fire;

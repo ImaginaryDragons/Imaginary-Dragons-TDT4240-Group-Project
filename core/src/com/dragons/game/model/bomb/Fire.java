@@ -18,27 +18,5 @@ public class Fire extends Model {
         super.setShape(shape);
     }
 
-    /*
-    public IModelType getType() {
-        return type;
-    }
-
-
-    public void setType(IModelType type) {
-        this.type = type;
-    }
-
-    @Override
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
-
-
-    @Override
-    public Vector2 getPosition() {
-        return position;
-    }
-
-     */
 
 }

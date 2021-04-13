@@ -2,10 +2,10 @@ package com.dragons.game.model.factories;
 
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.IModel;
-import com.dragons.game.model.PowerUps.PowerUpType;
-import com.dragons.game.model.PowerUps.BombCapacity;
-import com.dragons.game.model.PowerUps.IncreaseRange;
-import com.dragons.game.model.PowerUps.IncreaseSpeed;
+import com.dragons.game.model.powerUps.PowerUpType;
+import com.dragons.game.model.powerUps.BombCapacity;
+import com.dragons.game.model.powerUps.IncreaseRange;
+import com.dragons.game.model.powerUps.IncreaseSpeed;
 
 import org.jetbrains.annotations.NotNull;
 

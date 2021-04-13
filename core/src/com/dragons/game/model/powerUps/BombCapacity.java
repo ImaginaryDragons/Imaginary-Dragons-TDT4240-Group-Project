@@ -1,4 +1,4 @@
-package com.dragons.game.model.PowerUps;
+package com.dragons.game.model.powerUps;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.PolygonShape;

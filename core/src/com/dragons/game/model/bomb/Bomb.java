@@ -119,35 +119,7 @@ public class Bomb extends Model {
         return fireTiles;
     }
 
-    /*
-    @Override
-    public void setPosition(Vector2 pos) {
-        pos = this.position;
-        this.position = pos;
-        //this.circleBounds.setPosition(pos.x, pos.y); TODO: FIX
-    }
-
-    @Override
-    public Vector2 getPosition() {
-        return position;
-    }
-
-     */
 
 
-    @Override
-    public IModelType getType() {
-        return null;
-    }
 
-    /*
-    public float getHeight() {
-        return height;
-    }
-
-    public float getWidth() {
-        return width;
-    }
-
-     */
 }
