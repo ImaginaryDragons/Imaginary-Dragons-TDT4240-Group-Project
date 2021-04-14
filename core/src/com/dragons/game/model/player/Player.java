@@ -51,7 +51,6 @@ public class Player extends Model implements IPlayer {
         bombReloadTime = Constants.BombReloadTime;
     }
 
-    // TODO: Write necessary observer classes for the player
 
     public int getID() {
         return ID;

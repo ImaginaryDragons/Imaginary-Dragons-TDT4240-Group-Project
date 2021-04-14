@@ -50,7 +50,7 @@ public class GameScreen extends ScreenAdapter {
         OrthographicCamera camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         camera.position.set(gameMap.getMapWidthInPixels() / 2f, gameMap.getMapHeightInPixels() / 2f, 0);
         camera.update();
-        gameRenderer = new GameRenderer(gameWorld, manager, camera); // Initialize world renderer
+        gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
         tiledMapRenderer.setView(camera);

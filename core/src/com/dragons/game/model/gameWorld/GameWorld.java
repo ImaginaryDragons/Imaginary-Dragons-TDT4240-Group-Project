@@ -4,7 +4,6 @@ package com.dragons.game.model.gameWorld;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -66,7 +65,8 @@ public class GameWorld {
         // In step, VelocityIteration and PositionIteration values are just 'recommended'
         // Explanation gameWorld step: http://www.iforce2d.net/b2dtut/worlds
         world.step(delta, 6, 2);
-        updateDynamicObjectPositions(delta);
+        updateDynamicObjects(delta);
+        updateStaticObjects(delta);
         b2dr.render(world, b2drCam.combined);
 
 
@@ -74,19 +74,7 @@ public class GameWorld {
         // Maybe put observers on the gameobjects that get updates when the objects in the world are updated?
     }
 
-    public void render(SpriteBatch batch){
-        for (GameObject object : dynamicGameObjects){
-            if (object.getModelView() != null){
-            object.getModelView().render(batch);
-            }
-        }
-        for (GameObject object : staticGameObjects){
-            if (object.getModelView() != null){
-                object.getModelView().render(batch);
-            }
-        }
 
-    }
 
     // Add object to GameObjects
     public void addStaticObject(IModel obj) {
@@ -131,7 +119,7 @@ public class GameWorld {
         }
     }
 
-    public void updateDynamicObjectPositions(float delta) {
+    public void updateDynamicObjects(float delta) {
         for(GameObject object : dynamicGameObjects)
         {
             object.syncPosition(delta);
@@ -143,4 +131,17 @@ public class GameWorld {
 
     }
 
+    public void updateStaticObjects(final float delta){
+        for (GameObject object : staticGameObjects){
+            object.update(delta);
+        }
+    }
+
+    public ArrayList<GameObject> getStaticGameObjects() {
+        return staticGameObjects;
+    }
+
+    public ArrayList<GameObject> getDynamicGameObjects() {
+        return dynamicGameObjects;
+    }
 }
