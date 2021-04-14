@@ -8,9 +8,13 @@ public interface IModel {
     void setPosition(Vector2 position);
     Vector2 getPosition();
     IModelType getType();
+    float getWidth();
+    float getHeight();
+    boolean isStatic();
+    boolean isSensor();
 
     /**
      * checks if the model should be destroyed
      */
-    boolean shallDestroyModel();
+    boolean isDisposed();
 }

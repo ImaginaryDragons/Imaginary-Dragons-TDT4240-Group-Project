@@ -5,7 +5,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
+import com.dragons.game.model.blocks.IBlock;
+import com.dragons.game.model.player.PlayerType;
 import com.dragons.game.view.modelViews.IModelView;
+import com.dragons.game.view.modelViews.ModelViewFactory;
+
+import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import static com.dragons.game.utilities.Constants.PPM;
 
@@ -14,53 +19,54 @@ public class GameObject {
 
     // https://gamedev.stackexchange.com/questions/88455/how-can-i-attach-a-libgdx-actor-to-a-box2d-body
 
-    private final IModel obj;
-    private IModelView objView;
+    private IModel model;
+    private IModelView modelView;
     private Body body;
     private final World world;
-    public boolean isStatic;
-    public boolean isSensor;
+    private AnnotationAssetManager assetManager;
 
-    // TODO: Pass IModelView as a parameter?
-    public GameObject(IModel obj, IModelView objView, World world) {
+
+    public GameObject(IModel model, World world, AnnotationAssetManager manager) {
         Gdx.app.log("GameObject", "Creating game object");
-        this.obj = obj;
+        this.model = model;
         this.world = world;
-        this.objView = objView;
-        this.isStatic = false;
-        this.isSensor = false;
-        this.body = null;
-    }
-
-
-
-    public void createBody() {
+        this.assetManager = manager;
+        this.modelView = ModelViewFactory.getInstance().createModelView(model, assetManager);
         this.body = BodyBuilder.createBody(world, this);
+        body.setLinearVelocity(0,10);
+
     }
+
+
 
     public IModelView getModelView() {
-        return objView;
+        return modelView;
     }
 
     public IModel getObject() {
-        return obj;
+        return model;
     }
 
     public Body getBody() {
         return body;
     }
 
-    public void syncPosition() {
+    public void syncPosition(float delta) {
         if (body != null) {
             Vector2 bodyPosition = body.getPosition();
             // Multiply by PPM since world position is in meters
             Vector2 newPos = new Vector2(bodyPosition.x * PPM, bodyPosition.y * PPM);
-            obj.setPosition(newPos);
+            model.setPosition(newPos);
+            modelView.update(delta, newPos);
         }
     }
 
+
+
+
     private void dispose() {
         world.destroyBody(body);
+
 
     }
 }

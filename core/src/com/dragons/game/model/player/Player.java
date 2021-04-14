@@ -6,6 +6,8 @@ import com.dragons.game.model.Model;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.utilities.Direction;
 
+import static com.dragons.game.model.player.PlayerType.NORMALPLAYER;
+
 
 /**
  * Instantiates a player. Has to be tied to a controller to control.
@@ -28,12 +30,15 @@ public class Player extends Model implements IPlayer {
     private int bombRange;
     private float bombReloadTime;
 
+    private static final boolean isStatic = false;
+    private static final boolean isSensor = false;
+
 
     // TODO: Consider if it is necessary to implement a decorator for color, ID etc..
     // I suspect the answer is no, but there might be a good reason for it
     // TODO: change width and height to float
     public Player(int ID, Vector2 startPos, Color col, int width, int height) {
-        super(startPos, PlayerType.NORMALPLAYER, (float) width, (float) height);
+        super(startPos, NORMALPLAYER, (float) width, (float) height, isStatic, isSensor);
         this.ID = ID;
         this.col = col;
 
@@ -52,7 +57,8 @@ public class Player extends Model implements IPlayer {
         return ID;
     }
 
-    public Color getCol() {
+    @Override
+    public Color getColor() {
         return col;
     }
 

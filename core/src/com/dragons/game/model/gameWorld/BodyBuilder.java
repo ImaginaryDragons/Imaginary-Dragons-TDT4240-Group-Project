@@ -38,9 +38,11 @@ public final class BodyBuilder {
         IModel model = gameObject.getObject();
         Vector2 position = model.getPosition();
         Shape shape = getShape(model);
+        boolean isStatic = model.isStatic();
+        boolean isSensor = model.isSensor();
 
         BodyDef bodyDef = new BodyDef();
-        bodyDef.type = gameObject.isStatic ? BodyDef.BodyType.StaticBody : BodyDef.BodyType.DynamicBody;
+        bodyDef.type = isStatic ? BodyDef.BodyType.StaticBody : BodyDef.BodyType.DynamicBody;
         bodyDef.fixedRotation = true;
 
         // World units = meters
@@ -51,7 +53,7 @@ public final class BodyBuilder {
         // TODO: FIX FILTERING FOR THE BODIES, EXAMPLE => players shouldnt collide with eachother
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.isSensor = gameObject.isSensor;
+        fixtureDef.isSensor = isSensor;
         //TODO: Find real density! We might not need to have different densities
         fixtureDef.density = 1;
         //fixtureDef.friction = 0;
@@ -66,10 +68,10 @@ public final class BodyBuilder {
     private static Shape getShape(@NotNull IModel iModel){
         Model model = (Model) iModel;
         if      (model instanceof IPowerUp) return getPowerUpShape(model);
-        else if (model instanceof IBlock) return getBlockShape(model);
-        else if (model instanceof IPlayer) return getPlayerShape(model);
-        else if (model instanceof IBomb) return getBombShape(model);
-        else if (model instanceof IFire) return getFireShape(model);
+        else if (model instanceof IBlock)   return getBlockShape(model);
+        else if (model instanceof IPlayer)  return getPlayerShape(model);
+        else if (model instanceof IBomb)    return getBombShape(model);
+        else if (model instanceof IFire)    return getFireShape(model);
         else throw new IllegalArgumentException("Wrong IModel type as argument");
     }
 

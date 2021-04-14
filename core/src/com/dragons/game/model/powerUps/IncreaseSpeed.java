@@ -9,9 +9,11 @@ import com.dragons.game.model.player.Player;
 public class IncreaseSpeed extends Model implements IPowerUp {
 
     private static final int increaseAmount = 1;
+    private static final boolean isStatic = true;
+    private static final boolean isSensor = true;
 
     public IncreaseSpeed(Vector2 position, PowerUpType type, float width, float height) {
-        super(position, type, width, height);
+        super(position, type, width, height, isStatic, isSensor);
 
     }
 
@@ -22,6 +24,6 @@ public class IncreaseSpeed extends Model implements IPowerUp {
         // For debugging
         else throw new IllegalArgumentException("Model is not of type Player");
 
-        super.destroyModel();
+        super.disposeModel();
     }
 }

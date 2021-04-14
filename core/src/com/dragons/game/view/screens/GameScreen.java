@@ -93,7 +93,7 @@ public class GameScreen extends ScreenAdapter {
 
         // Render game objects
         batch.begin();
-        gameRenderer.render(batch, delta);
+        gameRenderer.render(batch);
         batch.end();
 
         // Update game world

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 public class GameRenderer {
 
     private GameWorld gameWorld;
-    private OrthographicCamera cam;
     private ShapeRenderer shapeRenderer;
     private AnnotationAssetManager manager;
 
@@ -25,49 +24,16 @@ public class GameRenderer {
     public GameRenderer(GameWorld world, AnnotationAssetManager manager, OrthographicCamera cam) {
         this.gameWorld = world;
         this.manager = manager;
-        this.cam = cam;
-        this.shapeRenderer = new ShapeRenderer();
-        this.shapeRenderer.setProjectionMatrix(cam.combined);
+        //this.shapeRenderer = new ShapeRenderer();
+        //this.shapeRenderer.setProjectionMatrix(cam.combined);
         loadAssets();
     }
 
-    // TODO: kanskje slå sammen disse til bare en for-løkke feks den under (eller slå sammen listene til en?)
-    /*for (GameObject obj : gameWorld.getAllObjects) {
-        if (obj.getModelView() == null) {
-            // Do nothing
-        } else {
-            obj.getModelView().render(sb);
-        }
-    }*/
 
-    public void render(SpriteBatch sb, float delta){
-        ArrayList<GameObject> list = gameWorld.getGameObjects();
-        for (GameObject obj : list) {
-            if (obj.getModelView() == null) {
-                // Do nothing
-            } else {
-                obj.getModelView().update(delta);
-                obj.getModelView().render(sb);
-            }
-        }
+    public void render(SpriteBatch batch){
+        gameWorld.render(batch);
 
-        for (GameObject player : gameWorld.getPlayers()) {
-            if (player.getModelView() == null) {
-                // Do nothing
-            } else {
-                player.getModelView().update(delta);
-                player.getModelView().render(sb);
-            }
-        }
 
-        for (GameObject fire : gameWorld.getFires()) {
-            if (fire.getModelView() == null) {
-                // Do nothing
-            } else {
-                fire.getModelView().update(delta);
-                fire.getModelView().render(sb);
-            }
-        }
     }
 
     private void loadAssets() {

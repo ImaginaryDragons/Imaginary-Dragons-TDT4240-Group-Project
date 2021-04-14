@@ -12,15 +12,16 @@ import static com.dragons.game.model.bomb.BombType.NORMALBOMB;
 
 public class Bomb extends Model implements IBomb {
 
-    // TODO: FIX SHAPE (private Circle circleBounds;)
     private float loadingTime;
-    public boolean bombExploded;
+    private boolean bombExploded;
     private float bombRange;
+    private static final boolean isStatic = true;
+    private static final boolean isSensor = false;
 
     private ArrayList<Vector2> fireTiles;
 
-    public Bomb(Vector2 pos, float radius, float bombRange){
-        super(pos, NORMALBOMB,radius * 2,radius * 2);
+    public Bomb(Vector2 pos, float width, float bombRange){
+        super(pos, NORMALBOMB, width, width, isStatic, isSensor);
         this.bombRange = bombRange;
 
         bombExploded = false;
