@@ -48,6 +48,10 @@ public class WorldContactListener implements ContactListener {
             System.out.println("Collision Player and Bomb");
         }
 
+        if (oneIsPlayer && oneIsFire){
+            System.out.println("Collision player and Fire");
+        }
+
     }
 
     @Override
