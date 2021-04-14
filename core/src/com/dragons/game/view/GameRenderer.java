@@ -15,30 +15,28 @@ import java.util.ArrayList;
 public class GameRenderer {
 
     private GameWorld gameWorld;
-    private OrthographicCamera cam;
-    private ShapeRenderer shapeRenderer;
     private AnnotationAssetManager manager;
 
     // Asset loading: https://github.com/libgdx/libgdx/wiki/Managing-your-assets
     // https://www.codinginsights.blog/libgdx-assetmanager/
 
-    public GameRenderer(GameWorld world, AnnotationAssetManager manager, OrthographicCamera cam) {
+    public GameRenderer(GameWorld world, AnnotationAssetManager manager) {
         this.gameWorld = world;
         this.manager = manager;
-        this.cam = cam;
-        this.shapeRenderer = new ShapeRenderer();
-        this.shapeRenderer.setProjectionMatrix(cam.combined);
         loadAssets();
     }
 
-    public void render(SpriteBatch sb, float delta){
-        ArrayList<GameObject> list = gameWorld.getGameObjects();
-        for (GameObject obj : list) {
-            if (obj.getModelView() == null) {
-                // Do nothing
-            } else {
-                obj.getModelView().update(delta);
-                obj.getModelView().render(sb);
+    public void render(SpriteBatch batch){
+        ArrayList<GameObject> dynamicGameObjects = gameWorld.getDynamicGameObjects();
+        for (GameObject object : dynamicGameObjects){
+            if (object.getModelView() != null){
+                object.getModelView().render(batch);
+            }
+        }
+        ArrayList<GameObject> staticGameObjects = gameWorld.getStaticGameObjects();
+        for (GameObject object : staticGameObjects){
+            if (object.getModelView() != null){
+                object.getModelView().render(batch);
             }
         }
     }

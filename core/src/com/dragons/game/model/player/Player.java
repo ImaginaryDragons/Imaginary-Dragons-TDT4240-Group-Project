@@ -2,12 +2,12 @@ package com.dragons.game.model.player;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.dragons.game.model.Model;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.utilities.Direction;
 
-import static com.dragons.game.utilities.Constants.PPM;
+import static com.dragons.game.model.player.PlayerType.NORMALPLAYER;
+
 
 /**
  * Instantiates a player. Has to be tied to a controller to control.
@@ -18,12 +18,10 @@ import static com.dragons.game.utilities.Constants.PPM;
 
 
 
-public class Player extends Model {
+public class Player extends Model implements IPlayer {
 
     private int ID;
     private Color col;
-    //private Shape boundRectangle;
-    private PolygonShape shape;
     private Direction orientation; // The direction the player is looking
     private int lives;
     private int speed;
@@ -32,17 +30,17 @@ public class Player extends Model {
     private int bombRange;
     private float bombReloadTime;
 
+    private static final boolean isStatic = false;
+    private static final boolean isSensor = false;
+
 
     // TODO: Consider if it is necessary to implement a decorator for color, ID etc..
     // I suspect the answer is no, but there might be a good reason for it
     // TODO: change width and height to float
     public Player(int ID, Vector2 startPos, Color col, int width, int height) {
-        super(startPos, PlayerType.NORMALPLAYER, (float) width, (float) height);
+        super(startPos, NORMALPLAYER, (float) width, (float) height, isStatic, isSensor);
         this.ID = ID;
         this.col = col;
-        final PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width / 2f / PPM, height / 2f / PPM);
-        super.setShape(shape);
 
         orientation = Direction.UP;
         lives = Constants.InitPlayerHealth;
@@ -53,13 +51,13 @@ public class Player extends Model {
         bombReloadTime = Constants.BombReloadTime;
     }
 
-    // TODO: Write necessary observer classes for the player
 
     public int getID() {
         return ID;
     }
 
-    public Color getCol() {
+    @Override
+    public Color getColor() {
         return col;
     }
 

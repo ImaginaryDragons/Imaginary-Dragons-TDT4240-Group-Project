@@ -1,20 +1,13 @@
 package com.dragons.game.view.modelViews;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dragons.game.model.Model;
 import com.dragons.game.model.player.Player;
 import com.dragons.game.utilities.Direction;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.soap.Text;
 
 import static com.dragons.game.utilities.AssetLoader.DRAGON_MIDDLE_BLUE;
 import static com.dragons.game.utilities.AssetLoader.DRAGON_MIDDLE_GREEN;
@@ -46,7 +39,7 @@ public class PlayerView implements IModelView {
         height = player.getHeight();
         width = player.getWidth();
         this.direction = direction;
-        Color col = player.getCol();
+        Color col = player.getColor();
         Texture texture1;
         Texture texture2;
         Texture texture3;
