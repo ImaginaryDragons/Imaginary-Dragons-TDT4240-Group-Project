@@ -8,10 +8,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
-import com.dragons.game.model.bomb.Bomb;
-import com.dragons.game.model.bomb.Fire;
-import com.dragons.game.model.bomb.FireType;
-import com.dragons.game.model.player.Player;
+import com.dragons.game.model.bombs.BombType;
+import com.dragons.game.model.factories.BlockFactory;
+import com.dragons.game.model.factories.BombFactory;
+import com.dragons.game.model.factories.FireFactory;
+import com.dragons.game.model.factories.PlayerFactory;
+import com.dragons.game.model.factories.PowerUpFactory;
+import com.dragons.game.model.players.NormalPlayer;
+import com.dragons.game.model.players.PlayerType;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -34,12 +38,18 @@ public class GameWorld {
     private ArrayList<GameObject> staticGameObjects;
     private ArrayList<GameObject> dynamicGameObjects;
 
-    private World world;
-    private GameMap map;
-    private AnnotationAssetManager assetManager;
+    // Factories
+    private final PlayerFactory playerFactory = PlayerFactory.getInstance();
+    private final BombFactory bombFactory = BombFactory.getInstance();
+    private final FireFactory fireFactory = FireFactory.getInstance();
 
-    private Box2DDebugRenderer b2dr;
-    private OrthographicCamera b2drCam;
+
+    private final World world;
+    private final GameMap map;
+    private final AnnotationAssetManager assetManager;
+
+    private final Box2DDebugRenderer b2dr;
+    private final OrthographicCamera b2drCam;
 
 
     // https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_hello.html#autotoc_md21
@@ -99,7 +109,7 @@ public class GameWorld {
         for (int x = 0; x < map.getMapWidthInTiles(); x++){
             for (int y = 0; y < map.getMapHeightInTiles(); y++){
                 for (IModel model : map.tileContainers.get(x,y)){
-                    addStaticObject(model);
+                    addGameObject(model);
                 }
             }
         }
@@ -108,33 +118,36 @@ public class GameWorld {
     public void initializePlayers() {
         Gdx.app.log("GameWorld", "Initializing main player");
         Vector2 p1StartPos = map.tilePos(new Vector2(1,1));
-        IModel p1 = new Player(1, p1StartPos, Color.RED, map.getTileWidth(), map.getTileHeight());
+        // TODO: why doesnt player get centered if scaled down?
+        IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER,
+                                            Color.RED, map.getTileWidth() * 0.9f, map.getTileHeight() * 0.9f);
         this.addGameObject(p1);
     }
 
 
-    public void placeBomb(Vector2 position, float timer, float range) {
-        IModel bomb = new Bomb(position, map.getTileWidth(), range);
+    public void placeBomb(Vector2 position, BombType type, float range) {
+        // TODO: why doesnt bomb get centered if scaled down?
+        IModel bomb = bombFactory.createBomb(position, type, map.getTileWidth() * 0.8f, map.getTileHeight() * 0.8f, range);
         addGameObject(bomb);
     }
 
-    public void spawnFire(ArrayList<Vector2> fireTiles) {
+    public void spawnFire(ArrayList<Vector2> fireTiles, BombType type) {
         for (Vector2 firePos : fireTiles) {
-            IModel newFire = new Fire(firePos, FireType.NORMALFIRE, map.getTileWidth(), map.getTileHeight());
+            IModel newFire = fireFactory.createFire(firePos, type, map.getTileWidth(), map.getTileHeight());
             addGameObject(newFire);
         }
     }
 
     public void updateGameObjects(float delta) {
-        for(GameObject object : dynamicGameObjects) {
-            object.syncPosition();
-            object.update(delta);
+        for(GameObject dynamicGameObject : dynamicGameObjects) {
+            dynamicGameObject.syncPosition();
+            dynamicGameObject.update(delta);
 
             // TODO: remove this, only for testing velocity
-            object.getBody().setLinearVelocity(0, -20);
+            dynamicGameObject.getBody().setLinearVelocity(-5, 20);
         }
-        for (GameObject object : staticGameObjects){
-            object.update(delta);
+        for (GameObject staticObject : staticGameObjects){
+            staticObject.update(delta);
         }
 
     }

@@ -10,16 +10,15 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.Model;
-import com.dragons.game.model.blocks.BlockType;
 import com.dragons.game.model.blocks.IBlock;
-import com.dragons.game.model.bomb.BombType;
-import com.dragons.game.model.bomb.FireType;
-import com.dragons.game.model.bomb.IBomb;
-import com.dragons.game.model.bomb.IFire;
-import com.dragons.game.model.player.IPlayer;
-import com.dragons.game.model.player.PlayerType;
+import com.dragons.game.model.bombs.IBomb;
+import com.dragons.game.model.bombs.fires.IFire;
+import com.dragons.game.model.players.IPlayer;
+import com.dragons.game.model.bombs.NormalBomb;
+import com.dragons.game.model.bombs.fires.NormalFire;
+import com.dragons.game.model.players.NormalPlayer;
 import com.dragons.game.model.powerUps.IPowerUp;
-import com.dragons.game.model.powerUps.PowerUpType;
+
 
 import org.jetbrains.annotations.NotNull;
 
@@ -74,58 +73,44 @@ public final class BodyBuilder {
     }
 
     private static Shape getPowerUpShape(Model model){
-        PowerUpType type = (PowerUpType) model.getType(); // Use for case statement if necessary
         final PolygonShape shape = new PolygonShape();
         shape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
         return shape;
     }
 
     private static Shape getBlockShape(Model model){
-        BlockType type = (BlockType) model.getType(); // Use for case statement if necessary
         final PolygonShape shape = new PolygonShape();
         shape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
         return shape;
     }
 
     private static Shape getPlayerShape(Model model){
-        PlayerType type = (PlayerType) model.getType();
-
-        switch (type){
-            case NORMALPLAYER:
-                final PolygonShape normalPlayerShape = new PolygonShape();
-                normalPlayerShape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
-                return normalPlayerShape;
-
-            default:
-                throw new IllegalArgumentException("Wrong type");
+        if (model instanceof NormalPlayer){
+            final PolygonShape normalPlayerShape = new PolygonShape();
+            normalPlayerShape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
+            return normalPlayerShape;
         }
+        else throw new IllegalArgumentException("Wrong Player instance");
+
+
     }
 
     private static Shape getBombShape(Model model){
-        BombType type = (BombType) model.getType();
-
-        switch (type){
-            case NORMALBOMB:
-                final CircleShape normalBomb = new CircleShape();
-                normalBomb.setRadius(model.getHeight() / 2 / PPM);
-                return normalBomb;
-
-            default:
-                throw new IllegalArgumentException("Wrong type");
+        if (model instanceof NormalBomb){
+            final CircleShape normalBomb = new CircleShape();
+            normalBomb.setRadius(model.getHeight() / 2 / PPM);
+            return normalBomb;
         }
+        else throw new IllegalArgumentException("Wrong Bomb instance");
     }
 
     private static Shape getFireShape(Model model){
-        FireType type = (FireType) model.getType();
-        switch (type){
-            case NORMALFIRE:
-                final PolygonShape normalFireShape = new PolygonShape();
-                normalFireShape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
-                return normalFireShape;
-
-            default:
-                throw new IllegalArgumentException("Wrong type");
+        if (model instanceof NormalFire){
+            final PolygonShape normalFireShape = new PolygonShape();
+            normalFireShape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
+            return normalFireShape;
         }
+        else throw new IllegalArgumentException("Wrong Fire instance");
     }
 
 }

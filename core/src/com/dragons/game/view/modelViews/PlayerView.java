@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dragons.game.model.player.Player;
+import com.dragons.game.model.players.NormalPlayer;
 import com.dragons.game.utilities.Direction;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -24,7 +24,7 @@ import static com.dragons.game.utilities.AssetLoader.DRAGON_WIDE_YELLOW;
 
 public class PlayerView implements IModelView {
 
-    private Player player;
+    private NormalPlayer player;
 
     private float height, width;
     private static float FRAME_DURATION = 0.1f;
@@ -34,7 +34,7 @@ public class PlayerView implements IModelView {
     private static float state_time;
     private Direction direction;
 
-    public PlayerView(Player player, AnnotationAssetManager manager) {
+    public PlayerView(NormalPlayer player, AnnotationAssetManager manager) {
         this.player = player;
         height = player.getHeight();
         width = player.getWidth();

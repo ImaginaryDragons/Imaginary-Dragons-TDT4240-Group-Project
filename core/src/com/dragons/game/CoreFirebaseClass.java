@@ -3,7 +3,6 @@ package com.dragons.game;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import com.dragons.game.model.player.PlayerColor;
 
 public class CoreFirebaseClass implements FireBaseInterface {
 

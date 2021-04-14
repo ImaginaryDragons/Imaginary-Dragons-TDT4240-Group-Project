@@ -1,12 +1,9 @@
 package com.dragons.game.model.gameWorld;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
-import com.dragons.game.model.blocks.IBlock;
-import com.dragons.game.model.player.PlayerType;
 import com.dragons.game.view.modelViews.IModelView;
 import com.dragons.game.view.modelViews.ModelViewFactory;
 
