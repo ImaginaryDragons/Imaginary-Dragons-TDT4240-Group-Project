@@ -1,4 +1,4 @@
-package com.dragons.game.model.factories;
+package com.dragons.game.model.modelFactories;
 
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.IModel;

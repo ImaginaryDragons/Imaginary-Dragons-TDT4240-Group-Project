@@ -9,12 +9,9 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.bombs.BombType;
-import com.dragons.game.model.factories.BlockFactory;
-import com.dragons.game.model.factories.BombFactory;
-import com.dragons.game.model.factories.FireFactory;
-import com.dragons.game.model.factories.PlayerFactory;
-import com.dragons.game.model.factories.PowerUpFactory;
-import com.dragons.game.model.players.NormalPlayer;
+import com.dragons.game.model.modelFactories.BombFactory;
+import com.dragons.game.model.modelFactories.FireFactory;
+import com.dragons.game.model.modelFactories.PlayerFactory;
 import com.dragons.game.model.players.PlayerType;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;

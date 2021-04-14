@@ -9,8 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.components.Tiled;
 import com.dragons.game.model.IModel;
 
-import com.dragons.game.model.factories.BlockFactory;
-import com.dragons.game.model.factories.PowerUpFactory;
+import com.dragons.game.model.modelFactories.BlockFactory;
+import com.dragons.game.model.modelFactories.PowerUpFactory;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
