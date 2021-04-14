@@ -26,6 +26,7 @@ public class LoadingScreen implements Screen {
 
     private void queueAssets() {
         dragonsGame.assets.load("logo.png", Texture.class);
+        dragonsGame.assets.load("over.png", Texture.class);
         dragonsGame.assets.load("uiskin.atlas", TextureAtlas.class);
     }
 
@@ -40,7 +41,7 @@ public class LoadingScreen implements Screen {
     private void update(float delta) {
         progress = MathUtils.lerp(progress, dragonsGame.assets.getProgress(), .1f);
         if (dragonsGame.assets.update() && progress >= dragonsGame.assets.getProgress() - .001f) {
-            dragonsGame.setScreen(dragonsGame.testMenuScreen);
+            dragonsGame.setScreen(new MenuScreen(dragonsGame));
         }
     }
 

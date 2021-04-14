@@ -9,23 +9,22 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragons.game.utilities.Constants;
-import com.dragons.game.view.screens.GameScreen;
 import com.dragons.game.view.screens.LoadingScreen;
-import com.dragons.game.view.screens.TestMenuScreen;
-
-import java.io.IOException;
 
 
 public class DragonsGame extends Game {
 	public AssetManager assets;
 	public BitmapFont font;
+	public BitmapFont fontWhite;
 
 	public OrthographicCamera camera;
 	public SpriteBatch batch;
 
-	public LoadingScreen loadingScreen;
-	public TestMenuScreen testMenuScreen;
-	public GameScreen gameScreen;
+	//public LoadingScreen loadingScreen;
+	//public TestMenuScreen testMenuScreen;
+	//public GameScreen gameScreen;
+	//public GameOverScreen gameOverScreen;
+
 
 	// TODO: Find out how to structure screen management for dynamically changing between them
 	/*How do we treat e.g. being in a lobby, creating a game, setting the screen for the game,
@@ -42,13 +41,15 @@ public class DragonsGame extends Game {
 		camera.setToOrtho(false, Constants.WorldWidth, Constants.WorldHeight);
 		batch = new SpriteBatch();
 
-		testMenuScreen = new TestMenuScreen(this);
+
+		/*testMenuScreen = new TestMenuScreen(this);
 		loadingScreen = new LoadingScreen(this);
-		try {
+		gameOverScreen = new GameOverScreen(this, ); */
+		/**try {
 			gameScreen = new GameScreen();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 
 		Gdx.app.log("DragonsGame", "created");
@@ -58,16 +59,17 @@ public class DragonsGame extends Game {
 			e.printStackTrace();
 		}*/
 		initFonts();
-		this.setScreen(loadingScreen);
+		//this.setScreen(loadingScreen);
+		this.setScreen(new LoadingScreen(this));
 
 		//setScreen(new MenuScreen(this));
 	}
 
 	@Override
 	public void dispose() {
-		assets.dispose();
-		font.dispose();
-		testMenuScreen.dispose();
+		super.dispose();
+		batch.dispose();
+		//testMenuScreen.dispose();
 	}
 
 	private void initFonts(){
@@ -75,7 +77,7 @@ public class DragonsGame extends Game {
 		FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
 
 		params.size = 24;
-		params.color = Color.BLACK;
+		params.color = Color.WHITE;
 		font = generator.generateFont(params);
 	}
 
