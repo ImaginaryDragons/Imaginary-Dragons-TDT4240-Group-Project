@@ -1,14 +1,13 @@
 package com.dragons.game;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import com.dragons.game.model.player.Player;
-import com.dragons.game.model.player.PlayerColor;
+import com.dragons.game.model.players.NormalPlayer;
+import com.dragons.game.model.players.PlayerColor;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +20,7 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
     FirebaseDatabase database;
     DatabaseReference playerRef;
     DatabaseReference gameRef;
-    private Player player;
+    private NormalPlayer player;
     DatabaseReference playerName;
     DatabaseReference check;
 
@@ -52,7 +51,7 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
     @Override
     public void writePlayerToFB(int ID, Vector2 position, Color color, int width, int height) {
 
-        Player firebasePlayer = new Player(ID, position, color, width, height); //Lage en unik Id der vi kaller funksjonen
+        NormalPlayer firebasePlayer = new NormalPlayer(ID, position, color, width, height); //Lage en unik Id der vi kaller funksjonen
 
        playerRef.child(userId).setValue(firebasePlayer); //kan bruke color istedenfor userId, skriver her en player til firebase
     }
@@ -69,7 +68,7 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
 
                 if (snapshot.exists()) {
 
-                       Player playerFromDB = snapshot.getValue(Player.class); //Henter player objektet fra firebase for å bruke i UI
+                       NormalPlayer playerFromDB = snapshot.getValue(NormalPlayer.class); //Henter player objektet fra firebase for å bruke i UI
 
 
                 //oppdatere UI

@@ -1,4 +1,4 @@
-package com.dragons.game.model.bomb;
+package com.dragons.game.model.bombs;
 
 import com.dragons.game.model.IModelType;
 

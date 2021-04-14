@@ -31,8 +31,10 @@ public class GameMap {
             mapWidthInPixels, mapHeightInPixels;
 
     private TiledMap tiledMap;
-    private final BlockFactory blockFactory;
-    private final PowerUpFactory powerUpFactory;
+
+    // Factories
+    private final BlockFactory blockFactory = BlockFactory.getInstance();;
+    private final PowerUpFactory powerUpFactory = PowerUpFactory.getInstance();;
 
     public GameMap(String mapName) {
         Gdx.app.log("GameMap", "Constructing game map");
@@ -46,8 +48,6 @@ public class GameMap {
         mapWidthInPixels  = mapWidthInTiles  * tileWidth;
         mapHeightInPixels = mapHeightInTiles * tileHeight;
 
-        blockFactory = BlockFactory.getInstance();
-        powerUpFactory = PowerUpFactory.getInstance();
         tileContainers = HashBasedTable.create();
 
         // Initialize tileContainers with tiles

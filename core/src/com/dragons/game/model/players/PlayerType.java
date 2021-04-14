@@ -1,4 +1,4 @@
-package com.dragons.game.model.player;
+package com.dragons.game.model.players;
 
 import com.dragons.game.model.IModelType;
 

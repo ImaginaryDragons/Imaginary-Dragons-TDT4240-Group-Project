@@ -3,17 +3,15 @@ package com.dragons.game.view.modelViews;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.blocks.BlockType;
 import com.dragons.game.model.blocks.IBlock;
-import com.dragons.game.model.bomb.BombType;
-import com.dragons.game.model.bomb.FireType;
-import com.dragons.game.model.bomb.IBomb;
-import com.dragons.game.model.bomb.IFire;
-import com.dragons.game.model.player.IPlayer;
-import com.dragons.game.model.player.Player;
-import com.dragons.game.model.player.PlayerType;
+import com.dragons.game.model.bombs.BombType;
+import com.dragons.game.model.bombs.IBomb;
+import com.dragons.game.model.bombs.fires.IFire;
+import com.dragons.game.model.players.IPlayer;
+import com.dragons.game.model.players.PlayerType;
 import com.dragons.game.view.modelViews.blocks.DestructibleBlockView;
-import com.dragons.game.view.modelViews.bombs.BombView;
-import com.dragons.game.view.modelViews.bombs.FireView;
-import com.dragons.game.view.modelViews.players.PlayerView;
+import com.dragons.game.view.modelViews.bombs.NormalBombView;
+import com.dragons.game.view.modelViews.bombs.NormalFireView;
+import com.dragons.game.view.modelViews.players.NormalPlayerView;
 
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -59,7 +57,7 @@ public class ModelViewFactory {
         IPlayer player = (IPlayer) model;
         switch (type){
             case NORMALPLAYER:
-                return new PlayerView(model, assetManager);
+                return new NormalPlayerView(model, assetManager);
             default:
                 throw new IllegalArgumentException("Wrong PlayerType");
         }
@@ -69,17 +67,17 @@ public class ModelViewFactory {
         BombType type = (BombType) model.getType();
         switch (type){
             case NORMALBOMB:
-                return new BombView(model, assetManager);
+                return new NormalBombView(model, assetManager);
             default:
                 throw new IllegalArgumentException("Wrong PlayerType");
         }
     }
 
     private IModelView createFireView(IModel model, AnnotationAssetManager assetManager){
-        FireType type = (FireType) model.getType();
+        BombType type = (BombType) model.getType();
         switch (type){
-            case NORMALFIRE:
-                return new FireView(model, assetManager);
+            case NORMALBOMB:
+                return new NormalFireView(model, assetManager);
             default:
                 throw new IllegalArgumentException("Wrong PlayerType");
         }

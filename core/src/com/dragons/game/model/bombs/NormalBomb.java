@@ -1,4 +1,4 @@
-package com.dragons.game.model.bomb;
+package com.dragons.game.model.bombs;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -7,10 +7,10 @@ import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.utilities.Constants;
 import java.util.ArrayList;
 
-import static com.dragons.game.model.bomb.BombType.NORMALBOMB;
+import static com.dragons.game.model.bombs.BombType.NORMALBOMB;
 
 
-public class Bomb extends Model implements IBomb {
+public class NormalBomb extends Model implements IBomb {
 
     private float loadingTime;
     private boolean bombExploded;
@@ -20,8 +20,8 @@ public class Bomb extends Model implements IBomb {
 
     private ArrayList<Vector2> fireTiles;
 
-    public Bomb(Vector2 pos, float width, float bombRange){
-        super(pos, NORMALBOMB, width, width, isStatic, isSensor);
+    public NormalBomb(Vector2 pos, float width, float height, float bombRange){
+        super(pos, NORMALBOMB, width, height, isStatic, isSensor);
         this.bombRange = bombRange;
 
         bombExploded = false;

@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class PowerUpFactory {
 
-    private static PowerUpFactory INSTANCE = new PowerUpFactory();
+    private static final PowerUpFactory INSTANCE = new PowerUpFactory();
 
     public static PowerUpFactory getInstance() {
         return INSTANCE;

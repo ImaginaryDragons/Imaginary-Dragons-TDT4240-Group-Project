@@ -9,17 +9,14 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
-import com.dragons.game.model.IModelType;
 import com.dragons.game.model.Model;
 import com.dragons.game.model.blocks.BlockType;
 import com.dragons.game.model.blocks.IBlock;
-import com.dragons.game.model.bomb.BombType;
-import com.dragons.game.model.bomb.FireType;
-import com.dragons.game.model.bomb.IBomb;
-import com.dragons.game.model.bomb.IFire;
-import com.dragons.game.model.player.IPlayer;
-import com.dragons.game.model.player.Player;
-import com.dragons.game.model.player.PlayerType;
+import com.dragons.game.model.bombs.BombType;
+import com.dragons.game.model.bombs.IBomb;
+import com.dragons.game.model.bombs.fires.IFire;
+import com.dragons.game.model.players.IPlayer;
+import com.dragons.game.model.players.PlayerType;
 import com.dragons.game.model.powerUps.IPowerUp;
 import com.dragons.game.model.powerUps.PowerUpType;
 
@@ -118,9 +115,9 @@ public final class BodyBuilder {
     }
 
     private static Shape getFireShape(Model model){
-        FireType type = (FireType) model.getType();
+        BombType type = (BombType) model.getType();
         switch (type){
-            case NORMALFIRE:
+            case NORMALBOMB:
                 final PolygonShape normalFireShape = new PolygonShape();
                 normalFireShape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
                 return normalFireShape;

@@ -1,4 +1,4 @@
-package com.dragons.game.model.player;
+package com.dragons.game.model.players;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
@@ -6,7 +6,7 @@ import com.dragons.game.model.Model;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.utilities.Direction;
 
-import static com.dragons.game.model.player.PlayerType.NORMALPLAYER;
+import static com.dragons.game.model.players.PlayerType.NORMALPLAYER;
 
 
 /**
@@ -18,7 +18,7 @@ import static com.dragons.game.model.player.PlayerType.NORMALPLAYER;
 
 
 
-public class Player extends Model implements IPlayer {
+public class NormalPlayer extends Model implements IPlayer {
 
     private int ID;
     private Color col;
@@ -37,8 +37,8 @@ public class Player extends Model implements IPlayer {
     // TODO: Consider if it is necessary to implement a decorator for color, ID etc..
     // I suspect the answer is no, but there might be a good reason for it
     // TODO: change width and height to float
-    public Player(int ID, Vector2 startPos, Color col, int width, int height) {
-        super(startPos, NORMALPLAYER, (float) width, (float) height, isStatic, isSensor);
+    public NormalPlayer(int ID, Vector2 startPos, Color col, float width, float height) {
+        super(startPos, NORMALPLAYER, width, height, isStatic, isSensor);
         this.ID = ID;
         this.col = col;
 

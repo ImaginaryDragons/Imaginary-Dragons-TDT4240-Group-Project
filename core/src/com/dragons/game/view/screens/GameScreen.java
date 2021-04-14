@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.view.GameRenderer;
@@ -64,13 +65,13 @@ public class GameScreen extends ScreenAdapter {
 
         // BOMB TEST!!
         // TODO: get right tile position
-        gameWorld.placeBomb(new Vector2(40,300), 2, 2);
+        gameWorld.placeBomb(new Vector2(45,300), BombType.NORMALBOMB, 2);
 
         // FIRE TEST
         ArrayList<Vector2> fireTileList = new ArrayList<>();
         fireTileList.add(gameMap.tilePos(new Vector2(5,5)));
         fireTileList.add(gameMap.tilePos(new Vector2(5,6)));
-        gameWorld.spawnFire(fireTileList);
+        gameWorld.spawnFire(fireTileList, BombType.NORMALBOMB);
 
 
     }

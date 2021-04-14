@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class BlockFactory{
 
-    private static BlockFactory INSTANCE = new BlockFactory();
+    private static final BlockFactory INSTANCE = new BlockFactory();
 
     public static BlockFactory getInstance() {
         return INSTANCE;
