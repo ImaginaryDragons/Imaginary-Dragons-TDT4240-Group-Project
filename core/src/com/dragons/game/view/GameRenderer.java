@@ -31,15 +31,6 @@ public class GameRenderer {
         loadAssets();
     }
 
-    // TODO: kanskje slå sammen disse til bare en for-løkke feks den under (eller slå sammen listene til en?)
-    /*for (GameObject obj : gameWorld.getAllObjects) {
-        if (obj.getModelView() == null) {
-            // Do nothing
-        } else {
-            obj.getModelView().render(sb);
-        }
-    }*/
-
     public void render(SpriteBatch sb, float delta){
         ArrayList<GameObject> list = gameWorld.getGameObjects();
         for (GameObject obj : list) {
@@ -50,24 +41,6 @@ public class GameRenderer {
                 obj.getModelView().render(sb);
             }
         }
-
-        for (GameObject player : gameWorld.getPlayers()) {
-            if (player.getModelView() == null) {
-                // Do nothing
-            } else {
-                player.getModelView().update(delta);
-                player.getModelView().render(sb);
-            }
-        }
-
-        for (GameObject fire : gameWorld.getFires()) {
-            if (fire.getModelView() == null) {
-                // Do nothing
-            } else {
-                fire.getModelView().update(delta);
-                fire.getModelView().render(sb);
-            }
-        }
     }
 
     private void loadAssets() {
@@ -76,4 +49,4 @@ public class GameRenderer {
         manager.finishLoading();
         Gdx.app.log("Asset loader", "Loading assets finished");
     }
-    }
+}

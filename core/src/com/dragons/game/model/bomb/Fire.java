@@ -9,7 +9,6 @@ import com.dragons.game.model.Model;
 
 public class Fire extends Model {
 
-
     public Fire(Vector2 position, IModelType type, float width, float height) {
         super(position, type, width, height);
 
@@ -17,28 +16,5 @@ public class Fire extends Model {
         shape.setAsBox(width / 2f, height / 2f);
         super.setShape(shape);
     }
-
-    /*
-    public IModelType getType() {
-        return type;
-    }
-
-
-    public void setType(IModelType type) {
-        this.type = type;
-    }
-
-    @Override
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
-
-
-    @Override
-    public Vector2 getPosition() {
-        return position;
-    }
-
-     */
 
 }

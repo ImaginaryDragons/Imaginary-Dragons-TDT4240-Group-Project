@@ -57,7 +57,6 @@ public class GameMap {
                 tileContainers.put(x, y, new ArrayList<IModel>());
             }
         }
-
     }
 
     // Find the associated tile given a coordinate position

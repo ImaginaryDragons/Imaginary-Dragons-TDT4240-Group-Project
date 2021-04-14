@@ -10,6 +10,8 @@ import com.dragons.game.model.Model;
 import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.player.Player;
 import com.dragons.game.utilities.Constants;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,17 +25,13 @@ enum BombType implements IModelType {
 
 public class Bomb extends Model {
 
-    // TODO: FIX SHAPE (private Circle circleBounds;)
     private float loadingTime;
     public boolean bombExploded;
     private float bombRange;
 
-    private ArrayList<Vector2> fireTiles;
-
     public Bomb(Vector2 pos, float radius, float bombRange){
         super(pos, BombType.NORMALBOMB,radius * 2,radius * 2);
         this.bombRange = bombRange;
-
         bombExploded = false;
         loadingTime = Constants.BombExplodeTime;
         PolygonShape shape = new PolygonShape();
@@ -42,23 +40,23 @@ public class Bomb extends Model {
 
     }
 
-
-    public void update(float timestep, GameMap gameMap){
-
-
-
+    public void update(float timestep){
         loadingTime -= timestep;
         if (loadingTime < 0) {
-            checkForWall("up", gameMap);
-            checkForWall("down", gameMap);
-            checkForWall("left", gameMap);
-            checkForWall("right", gameMap);
+            bombExploded = true;
         }
-
-        
     }
 
-    public ArrayList<Vector2> checkForWall(String direction, GameMap gameMap) {
+    public ArrayList<Vector2> getFireTiles(GameMap gameMap) {
+        ArrayList<Vector2> fireTiles = new ArrayList<Vector2>();
+        fireTiles.addAll(checkForWall("up", gameMap));
+        fireTiles.addAll(checkForWall("down", gameMap));
+        fireTiles.addAll(checkForWall("left", gameMap));
+        fireTiles.addAll(checkForWall("right", gameMap));
+        return fireTiles;
+    }
+
+    private ArrayList<Vector2> checkForWall(String direction, GameMap gameMap) {
         Vector2 checkTile = new Vector2(0, 0);
         ArrayList<Vector2> fireTiles = new ArrayList<Vector2>();
         int startPos;
@@ -119,35 +117,4 @@ public class Bomb extends Model {
         return fireTiles;
     }
 
-    /*
-    @Override
-    public void setPosition(Vector2 pos) {
-        pos = this.position;
-        this.position = pos;
-        //this.circleBounds.setPosition(pos.x, pos.y); TODO: FIX
-    }
-
-    @Override
-    public Vector2 getPosition() {
-        return position;
-    }
-
-     */
-
-
-    @Override
-    public IModelType getType() {
-        return null;
-    }
-
-    /*
-    public float getHeight() {
-        return height;
-    }
-
-    public float getWidth() {
-        return width;
-    }
-
-     */
 }

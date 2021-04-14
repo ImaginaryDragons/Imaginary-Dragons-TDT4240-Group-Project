@@ -171,4 +171,13 @@ public class GameWorld {
     public ArrayList<GameBomb> getBombs() {
         return bombs;
     }
+
+    public void cleanupDestroyedObjects(){
+        for (GameObject obj : gameObjects) {
+            if (obj.destroyObject == true) {
+                obj.dispose();
+                gameObjects.remove(obj);
+            }
+        }
+    }
 }

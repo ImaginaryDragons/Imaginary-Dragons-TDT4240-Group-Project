@@ -114,6 +114,5 @@ public class PlayerView implements IModelView {
             sb.draw(current_frame, player.getPosition().x - width / 2f, player.getPosition().y - height / 2f, width * 0.5f,
                     height * 0.5f, width, height, 1, 1, 270, 1, 1, current_frame.getWidth(), current_frame.getHeight(), false, false);
         }
-
     }
 }
