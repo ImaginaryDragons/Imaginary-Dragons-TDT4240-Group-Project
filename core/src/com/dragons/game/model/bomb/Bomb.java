@@ -24,7 +24,7 @@ public class Bomb extends Model implements IBomb {
     public Bomb(Vector2 pos, float width, float bombRange){
         super(pos, NORMALBOMB, width, width, isStatic, isSensor);
         this.bombRange = bombRange;
-        bombExploded = false;
+        this.bombExploded = false;
         loadingTime = Constants.BombExplodeTime;
 
     }
@@ -32,7 +32,7 @@ public class Bomb extends Model implements IBomb {
     public void update(float timestep){
         loadingTime -= timestep;
         if (loadingTime < 0) {
-            bombExploded = true;
+            this.bombExploded = true;
         }
     }
 
