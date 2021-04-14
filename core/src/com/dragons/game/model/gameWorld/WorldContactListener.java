@@ -5,6 +5,8 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.dragons.game.model.IModel;
+import com.dragons.game.model.bomb.IBomb;
+import com.dragons.game.model.bomb.IFire;
 import com.dragons.game.model.player.IPlayer;
 import com.dragons.game.model.powerUps.IPowerUp;
 import com.dragons.game.model.blocks.IBlock;
@@ -28,6 +30,8 @@ public class WorldContactListener implements ContactListener {
         boolean oneIsBlock = objA instanceof IBlock || objB instanceof IBlock;
         boolean oneIsPowerUp = objA instanceof IPowerUp || objB instanceof IPowerUp;
         boolean oneIsPlayer = objA instanceof IPlayer || objB instanceof Player;
+        boolean oneIsBomb = objA instanceof IBomb || objB instanceof IBomb;
+        boolean oneIsFire = objA instanceof IFire || objB instanceof IFire;
 
         if (oneIsBlock && oneIsPowerUp) System.out.println("Collision block and powerup");
         if (oneIsBlock && oneIsPlayer) System.out.println("Collision block and player");
@@ -38,6 +42,10 @@ public class WorldContactListener implements ContactListener {
                 ((IPowerUp) objA).handlePickedUp(objB);
             }
             else ((IPowerUp) objB).handlePickedUp(objA);
+        }
+
+        if (oneIsBomb && oneIsPlayer){
+            System.out.println("Collision Player and Bomb");
         }
 
     }

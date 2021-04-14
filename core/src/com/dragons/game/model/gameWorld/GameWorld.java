@@ -131,7 +131,7 @@ public class GameWorld {
             object.update(delta);
 
             // TODO: remove this, only for testing velocity
-            object.getBody().setLinearVelocity(0, 20);
+            object.getBody().setLinearVelocity(0, -20);
         }
         for (GameObject object : staticGameObjects){
             object.update(delta);
