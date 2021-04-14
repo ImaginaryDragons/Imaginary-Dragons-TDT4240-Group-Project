@@ -37,7 +37,7 @@ public class ModelViewFactory {
         else if (model instanceof IBomb)    return createBombView(model, assetManager);
         else if (model instanceof IFire)    return createFireView(model, assetManager);
 
-        else throw new IllegalArgumentException("Wrong ModelInstance");
+        else throw new IllegalArgumentException("Model instance doesn' exist");
     }
 
     private IModelView createBlockView(IModel model, AnnotationAssetManager assetManager){
