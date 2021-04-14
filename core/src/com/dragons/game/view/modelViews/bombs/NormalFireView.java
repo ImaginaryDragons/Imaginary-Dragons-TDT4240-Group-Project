@@ -18,17 +18,15 @@ import static com.dragons.game.utilities.AssetLoader.EXPLOSION5;
 
 public class NormalFireView implements IModelView {
 
-    private final Texture[] ExplosionTextures;
-    private Texture current_frame;
     private static final float FRAME_DURATION = 0.1f;
     private final Animation<Texture> explosion;
     private static float state_time;
-    private NormalFire fire;
+    private final NormalFire fire;
 
 
     public NormalFireView(IModel model, AnnotationAssetManager manager) {
         fire = (NormalFire) model;
-        ExplosionTextures = new Texture[]{
+        Texture[] explosionTextures = new Texture[]{
                 manager.get(EXPLOSION1, Texture.class),
                 manager.get(EXPLOSION2, Texture.class),
                 manager.get(EXPLOSION3, Texture.class),
@@ -36,7 +34,7 @@ public class NormalFireView implements IModelView {
                 manager.get(EXPLOSION5, Texture.class)
 
         };
-        explosion = new Animation<Texture>(FRAME_DURATION, ExplosionTextures);
+        explosion = new Animation<>(FRAME_DURATION, explosionTextures);
         explosion.setPlayMode(Animation.PlayMode.LOOP);
         state_time = 0;
 
@@ -50,7 +48,7 @@ public class NormalFireView implements IModelView {
 
     @Override
     public void render(SpriteBatch batch) {
-        current_frame = explosion.getKeyFrame(state_time, true);
+        final Texture current_frame = explosion.getKeyFrame(state_time, true);
         float x = fire.getPosition().x;
         float y = fire.getPosition().y;
         float width = fire.getWidth();

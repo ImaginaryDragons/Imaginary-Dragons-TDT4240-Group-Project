@@ -35,11 +35,11 @@ public class ModelViewFactory {
     }
 
     public IModelView createModelView(IModel model, AnnotationAssetManager assetManager){
-        if      (model instanceof IBlock)   return blockViewFactory.createModelView(model, assetManager);
-        else if (model instanceof IPowerUp) return powerUpViewFactory.createModelView(model, assetManager);
-        else if (model instanceof IPlayer)  return playerViewFactory.createModelView(model, assetManager);
-        else if (model instanceof IBomb)    return bombViewFactory.createModelView(model, assetManager);
-        else if (model instanceof IFire)    return fireViewFactory.createModelView(model, assetManager);
+        if      (model instanceof IBlock)   return blockViewFactory.createModelView(    model, assetManager);
+        else if (model instanceof IPowerUp) return powerUpViewFactory.createModelView(  model, assetManager);
+        else if (model instanceof IPlayer)  return playerViewFactory.createModelView(   model, assetManager);
+        else if (model instanceof IBomb)    return bombViewFactory.createModelView(     model, assetManager);
+        else if (model instanceof IFire)    return fireViewFactory.createModelView(     model, assetManager);
 
         else throw new IllegalArgumentException("Model instance doesn't exist");
     }

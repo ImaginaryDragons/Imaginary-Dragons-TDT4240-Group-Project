@@ -18,24 +18,23 @@ import static com.dragons.game.utilities.AssetLoader.BOMB4;
 
 public class NormalBombView implements IModelView {
 
-    private Texture[] BombTextures;
-    private Texture current_frame;
+
     private static final float FRAME_DURATION = 0.1f;
-    private Animation<Texture> bombAnimation;
+    private final Animation<Texture> bombAnimation;
     private static float state_time;
-    private NormalBomb bomb;
+    private final NormalBomb bomb;
 
 
     public NormalBombView(IModel model, AnnotationAssetManager manager) {
 
         bomb = (NormalBomb) model;
-        BombTextures = new Texture[]{
+        Texture[] bombTextures = new Texture[]{
                 manager.get(BOMB1, Texture.class),
                 manager.get(BOMB2, Texture.class),
                 manager.get(BOMB3, Texture.class),
                 manager.get(BOMB4, Texture.class),
         };
-        bombAnimation = new Animation<Texture>(FRAME_DURATION, BombTextures);
+        bombAnimation = new Animation<>(FRAME_DURATION, bombTextures);
         bombAnimation.setPlayMode(Animation.PlayMode.LOOP);
         state_time = 0;
 
@@ -48,7 +47,7 @@ public class NormalBombView implements IModelView {
 
     @Override
     public void render(SpriteBatch batch) {
-        current_frame = bombAnimation.getKeyFrame(state_time, true);
+        final Texture current_frame = bombAnimation.getKeyFrame(state_time, true);
         float x = bomb.getPosition().x;
         float y = bomb.getPosition().y;
         float width = bomb.getWidth();

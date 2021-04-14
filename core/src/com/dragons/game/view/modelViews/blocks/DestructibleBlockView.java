@@ -14,7 +14,7 @@ import static com.dragons.game.utilities.AssetLoader.DESTRUCTIBLE_BLOCK;
 public class DestructibleBlockView implements IModelView {
 
     private final Texture texture;
-    private DestructibleBlock block;
+    private final DestructibleBlock block;
 
     public DestructibleBlockView(IModel block, AnnotationAssetManager manager) {
         this.block = (DestructibleBlock) block;
