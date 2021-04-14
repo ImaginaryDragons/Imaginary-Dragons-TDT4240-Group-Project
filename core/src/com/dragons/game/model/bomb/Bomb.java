@@ -15,7 +15,7 @@ public class Bomb extends Model implements IBomb {
     private float loadingTime;
     private boolean bombExploded;
     private float bombRange;
-    private static final boolean isStatic = true;
+    private static final boolean isStatic = false;
     private static final boolean isSensor = false;
 
     private ArrayList<Vector2> fireTiles;

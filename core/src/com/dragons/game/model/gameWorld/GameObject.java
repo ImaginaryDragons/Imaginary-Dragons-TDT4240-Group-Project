@@ -50,10 +50,12 @@ public class GameObject {
 
     public void syncPosition() {
         if (body != null) {
-            Vector2 bodyPosition = body.getPosition();
+
             // Multiply by PPM since world position is in meters
-            Vector2 newPos = new Vector2(bodyPosition.x * PPM, bodyPosition.y * PPM);
-            model.setPosition(newPos);
+            float x = body.getPosition().x * PPM;
+            float y = body.getPosition().y * PPM;
+
+            model.getPosition().set(x, y);
 
         }
     }

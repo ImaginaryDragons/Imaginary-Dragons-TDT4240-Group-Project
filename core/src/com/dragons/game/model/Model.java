@@ -20,12 +20,6 @@ public abstract class Model implements IModel {
     }
 
 
-
-    @Override
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
-
     @Override
     public Vector2 getPosition() {
         return position;

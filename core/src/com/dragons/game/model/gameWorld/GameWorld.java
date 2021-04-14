@@ -74,15 +74,22 @@ public class GameWorld {
     }
 
 
+    private void addGameObject(IModel model){
+        if (model.isStatic()) {
+            addStaticObject(model);
+        } else {
+            addDynamicObject(model);
+        }
+    }
 
-    // Add object to GameObjects
-    public void addStaticObject(IModel obj) {
-        GameObject newObject = new GameObject(obj, world, assetManager);
+    // Add static object to GameObjects
+    private void addStaticObject(IModel model) {
+        GameObject newObject = new GameObject(model, world, assetManager);
         staticGameObjects.add(newObject);
     }
 
-    public void addDynamicObject(IModel obj) {
-        GameObject newObject = new GameObject(obj, world, assetManager);
+    private void addDynamicObject(IModel model) {
+        GameObject newObject = new GameObject(model, world, assetManager);
         dynamicGameObjects.add(newObject);
     }
 
@@ -102,19 +109,19 @@ public class GameWorld {
         Gdx.app.log("GameWorld", "Initializing main player");
         Vector2 p1StartPos = map.tilePos(new Vector2(1,1));
         IModel p1 = new Player(1, p1StartPos, Color.RED, map.getTileWidth(), map.getTileHeight());
-        this.addDynamicObject(p1);
+        this.addGameObject(p1);
     }
 
 
     public void placeBomb(Vector2 position, float timer, float range) {
         IModel bomb = new Bomb(position, map.getTileWidth(), range);
-        addStaticObject(bomb);
+        addGameObject(bomb);
     }
 
     public void spawnFire(ArrayList<Vector2> fireTiles) {
         for (Vector2 firePos : fireTiles) {
             IModel newFire = new Fire(firePos, FireType.NORMALFIRE, map.getTileWidth(), map.getTileHeight());
-            this.addStaticObject(newFire);
+            addGameObject(newFire);
         }
     }
 
