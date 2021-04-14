@@ -44,7 +44,7 @@ public class ModelViewFactory {
         BlockType type = (BlockType) model.getType();
         switch (type){
             case DESTRUCTIBLEBlOCK:
-                return new DestructibleBlockView(model.getPosition(), model.getWidth(), model.getHeight(), assetManager);
+                return new DestructibleBlockView(model, assetManager);
 
             case WALLBLOCK:
                 return null;
@@ -59,8 +59,7 @@ public class ModelViewFactory {
         IPlayer player = (IPlayer) model;
         switch (type){
             case NORMALPLAYER:
-                return new PlayerView(model.getPosition(), model.getWidth(), model.getHeight(),
-                                        player.getColor(), assetManager);
+                return new PlayerView(model, assetManager);
             default:
                 throw new IllegalArgumentException("Wrong PlayerType");
         }
@@ -70,7 +69,7 @@ public class ModelViewFactory {
         BombType type = (BombType) model.getType();
         switch (type){
             case NORMALBOMB:
-                return new BombView(model.getPosition(), model.getWidth(), model.getHeight(), assetManager);
+                return new BombView(model, assetManager);
             default:
                 throw new IllegalArgumentException("Wrong PlayerType");
         }
@@ -80,7 +79,7 @@ public class ModelViewFactory {
         FireType type = (FireType) model.getType();
         switch (type){
             case NORMALFIRE:
-                return new FireView(model.getPosition(), model.getWidth(), model.getHeight(), assetManager);
+                return new FireView(model, assetManager);
             default:
                 throw new IllegalArgumentException("Wrong PlayerType");
         }

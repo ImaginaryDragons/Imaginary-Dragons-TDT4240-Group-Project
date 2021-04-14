@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public interface IModelView {
 
-    void update(float delta, Vector2 position);
+    void update(float delta);
 
     void render(SpriteBatch sb);
 }

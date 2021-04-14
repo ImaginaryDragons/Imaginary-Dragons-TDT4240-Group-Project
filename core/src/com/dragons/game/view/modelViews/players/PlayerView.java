@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.dragons.game.model.IModel;
+import com.dragons.game.model.player.IPlayer;
+import com.dragons.game.model.player.Player;
 import com.dragons.game.utilities.Direction;
 import com.dragons.game.view.modelViews.IModelView;
 
@@ -27,21 +30,19 @@ import static com.dragons.game.utilities.AssetLoader.DRAGON_WIDE_YELLOW;
 
 public class PlayerView implements IModelView {
 
-    private float x, y;
-    private final float height, width;
     private static final float FRAME_DURATION = 0.1f;
     private Animation<Texture> dragon;
     private Texture[] DragonTextures;
     private Texture current_frame;
     private static float state_time;
     private Direction direction;
+    private Player player;
 
-    public PlayerView(Vector2 position, float width, float height, Color col, AnnotationAssetManager manager) {
-        x = position.x;
-        y = position.y;
-        this.width = width;
-        this.height = height;
+
+    public PlayerView(IModel model, AnnotationAssetManager manager) {
+        player = (Player) model;
         this.direction = Direction.UP;
+        final Color col = this.player.getColor();
         if (Color.RED.equals(col)) {
             DragonTextures = new Texture[]{
                     manager.get(DRAGON_SLIM_RED, Texture.class),
@@ -84,10 +85,8 @@ public class PlayerView implements IModelView {
     }
 
     @Override
-    public void update(float delta, Vector2 position){
+    public void update(float delta){
         state_time +=  delta;
-        x = position.x;
-        y = position.y;
     }
 
 
@@ -95,6 +94,11 @@ public class PlayerView implements IModelView {
     @Override
     public void render(SpriteBatch batch) {
         current_frame = dragon.getKeyFrame(state_time, true);
+
+        float x = player.getPosition().x;
+        float y = player.getPosition().y;
+        float width = player.getWidth();
+        float height = player.getHeight();
 
         switch (direction){
             case UP:

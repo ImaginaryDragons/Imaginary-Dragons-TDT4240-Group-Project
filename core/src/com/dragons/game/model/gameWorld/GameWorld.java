@@ -65,8 +65,7 @@ public class GameWorld {
         // In step, VelocityIteration and PositionIteration values are just 'recommended'
         // Explanation gameWorld step: http://www.iforce2d.net/b2dtut/worlds
         world.step(delta, 6, 2);
-        updateDynamicObjects(delta);
-        updateStaticObjects(delta);
+        updateGameObjects(delta);
         b2dr.render(world, b2drCam.combined);
 
 
@@ -119,23 +118,20 @@ public class GameWorld {
         }
     }
 
-    public void updateDynamicObjects(float delta) {
-        for(GameObject object : dynamicGameObjects)
-        {
-            object.syncPosition(delta);
+    public void updateGameObjects(float delta) {
+        for(GameObject object : dynamicGameObjects) {
+            object.syncPosition();
+            object.update(delta);
 
             // TODO: remove this, only for testing velocity
             object.getBody().setLinearVelocity(0, 20);
-
         }
-
-    }
-
-    public void updateStaticObjects(final float delta){
         for (GameObject object : staticGameObjects){
             object.update(delta);
         }
+
     }
+
 
     public ArrayList<GameObject> getStaticGameObjects() {
         return staticGameObjects;

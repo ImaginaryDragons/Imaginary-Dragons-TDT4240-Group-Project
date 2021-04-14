@@ -19,24 +19,21 @@ public class GameObject {
 
     // https://gamedev.stackexchange.com/questions/88455/how-can-i-attach-a-libgdx-actor-to-a-box2d-body
 
-    private IModel model;
-    private IModelView modelView;
-    private Body body;
+    private final IModel model;
+    private final IModelView modelView;
+    private final Body body;
     private final World world;
-    private AnnotationAssetManager assetManager;
 
 
-    public GameObject(IModel model, World world, AnnotationAssetManager manager) {
+
+    public GameObject(IModel model, World world, AnnotationAssetManager assetManager) {
         Gdx.app.log("GameObject", "Creating game object");
         this.model = model;
         this.world = world;
-        this.assetManager = manager;
         this.modelView = ModelViewFactory.getInstance().createModelView(model, assetManager);
         this.body = BodyBuilder.createBody(world, this);
-        body.setLinearVelocity(0,10);
 
     }
-
 
 
     public IModelView getModelView() {
@@ -51,18 +48,18 @@ public class GameObject {
         return body;
     }
 
-    public void syncPosition(float delta) {
+    public void syncPosition() {
         if (body != null) {
             Vector2 bodyPosition = body.getPosition();
             // Multiply by PPM since world position is in meters
             Vector2 newPos = new Vector2(bodyPosition.x * PPM, bodyPosition.y * PPM);
             model.setPosition(newPos);
-            modelView.update(delta, newPos);
+
         }
     }
     // TODO: remove need for position as argument, encapsulate in controller instead
     public void update(float delta){
-        if (modelView != null) modelView.update(delta, body.getPosition());
+        if (modelView != null) modelView.update(delta);
     }
 
 
