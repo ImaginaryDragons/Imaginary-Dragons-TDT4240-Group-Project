@@ -28,9 +28,9 @@ public final class BlockFactory{
     public IModel createBlock(Vector2 position, @NotNull BlockType type, float width, float height){
         switch (type){
             case DESTRUCTIBLEBlOCK:
-                return new DestructibleBlock(position, type, width, height);
+                return new DestructibleBlock(position, width, height);
             case WALLBLOCK:
-                return new WallBlock(position, type, width, height);
+                return new WallBlock(position, width, height);
             default:
                 throw new IllegalArgumentException();
         }

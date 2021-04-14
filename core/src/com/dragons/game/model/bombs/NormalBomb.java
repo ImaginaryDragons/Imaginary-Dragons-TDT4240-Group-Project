@@ -7,8 +7,6 @@ import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.utilities.Constants;
 import java.util.ArrayList;
 
-import static com.dragons.game.model.bombs.BombType.NORMALBOMB;
-
 
 public class NormalBomb extends Model implements IBomb {
 
@@ -21,7 +19,7 @@ public class NormalBomb extends Model implements IBomb {
     private ArrayList<Vector2> fireTiles;
 
     public NormalBomb(Vector2 pos, float width, float height, float bombRange){
-        super(pos, NORMALBOMB, width, height, isStatic, isSensor);
+        super(pos, width, height, isStatic, isSensor);
         this.bombRange = bombRange;
 
         bombExploded = false;

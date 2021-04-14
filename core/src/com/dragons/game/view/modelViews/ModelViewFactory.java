@@ -1,13 +1,15 @@
 package com.dragons.game.view.modelViews;
 
 import com.dragons.game.model.IModel;
-import com.dragons.game.model.blocks.BlockType;
+import com.dragons.game.model.blocks.DestructibleBlock;
 import com.dragons.game.model.blocks.IBlock;
-import com.dragons.game.model.bombs.BombType;
+import com.dragons.game.model.blocks.WallBlock;
 import com.dragons.game.model.bombs.IBomb;
+import com.dragons.game.model.bombs.NormalBomb;
 import com.dragons.game.model.bombs.fires.IFire;
+import com.dragons.game.model.bombs.fires.NormalFire;
 import com.dragons.game.model.players.IPlayer;
-import com.dragons.game.model.players.PlayerType;
+import com.dragons.game.model.players.NormalPlayer;
 import com.dragons.game.view.modelViews.blocks.DestructibleBlockView;
 import com.dragons.game.view.modelViews.bombs.NormalBombView;
 import com.dragons.game.view.modelViews.bombs.NormalFireView;
@@ -35,51 +37,36 @@ public class ModelViewFactory {
         else if (model instanceof IBomb)    return createBombView(model, assetManager);
         else if (model instanceof IFire)    return createFireView(model, assetManager);
 
-        else throw new IllegalArgumentException("Wrong ModelType");
+        else throw new IllegalArgumentException("Wrong ModelInstance");
     }
 
     private IModelView createBlockView(IModel model, AnnotationAssetManager assetManager){
-        BlockType type = (BlockType) model.getType();
-        switch (type){
-            case DESTRUCTIBLEBlOCK:
-                return new DestructibleBlockView(model, assetManager);
+        if      (model instanceof DestructibleBlock)    return new DestructibleBlockView(model, assetManager);
+        else if (model instanceof WallBlock)            return null;
 
-            case WALLBLOCK:
-                return null;
-            default:
-                throw new IllegalArgumentException("Wrong Blocktype");
-        }
+        else throw new IllegalArgumentException("Wrong BlockInstance");
+
     }
 
 
     private IModelView createPlayerView(IModel model, AnnotationAssetManager assetManager){
-        PlayerType type = (PlayerType) model.getType();
-        IPlayer player = (IPlayer) model;
-        switch (type){
-            case NORMALPLAYER:
-                return new NormalPlayerView(model, assetManager);
-            default:
-                throw new IllegalArgumentException("Wrong PlayerType");
-        }
+        if (model instanceof NormalPlayer) return new NormalPlayerView(model, assetManager);
+
+        else throw new IllegalArgumentException("Wrong PlayerInstance");
+
     }
 
     private IModelView createBombView(IModel model, AnnotationAssetManager assetManager){
-        BombType type = (BombType) model.getType();
-        switch (type){
-            case NORMALBOMB:
-                return new NormalBombView(model, assetManager);
-            default:
-                throw new IllegalArgumentException("Wrong PlayerType");
-        }
+        if (model instanceof NormalBomb) return new NormalBombView(model, assetManager);
+
+        else throw new IllegalArgumentException("Wrong BombInstance");
+
     }
 
     private IModelView createFireView(IModel model, AnnotationAssetManager assetManager){
-        BombType type = (BombType) model.getType();
-        switch (type){
-            case NORMALBOMB:
-                return new NormalFireView(model, assetManager);
-            default:
-                throw new IllegalArgumentException("Wrong PlayerType");
-        }
+        if (model instanceof NormalFire) return new NormalFireView(model, assetManager);
+
+        else throw new IllegalArgumentException("Wrong FireInstance");
+
     }
 }

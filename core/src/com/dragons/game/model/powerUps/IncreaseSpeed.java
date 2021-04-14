@@ -8,12 +8,13 @@ import com.dragons.game.model.players.NormalPlayer;
 
 public class IncreaseSpeed extends Model implements IPowerUp {
 
+    // TODO: take from constants?
     private static final int increaseAmount = 1;
     private static final boolean isStatic = true;
     private static final boolean isSensor = true;
 
-    public IncreaseSpeed(Vector2 position, PowerUpType type, float width, float height) {
-        super(position, type, width, height, isStatic, isSensor);
+    public IncreaseSpeed(Vector2 position, float width, float height) {
+        super(position, width, height, isStatic, isSensor);
 
     }
 

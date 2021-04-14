@@ -6,7 +6,6 @@ import com.badlogic.gdx.physics.box2d.Shape;
 
 public interface IModel {
     Vector2 getPosition();
-    IModelType getType();
     float getWidth();
     float getHeight();
     boolean isStatic();

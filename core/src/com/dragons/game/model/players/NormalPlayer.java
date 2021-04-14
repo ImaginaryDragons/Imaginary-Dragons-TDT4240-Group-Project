@@ -38,7 +38,7 @@ public class NormalPlayer extends Model implements IPlayer {
     // I suspect the answer is no, but there might be a good reason for it
     // TODO: change width and height to float
     public NormalPlayer(int ID, Vector2 startPos, Color col, float width, float height) {
-        super(startPos, NORMALPLAYER, width, height, isStatic, isSensor);
+        super(startPos, width, height, isStatic, isSensor);
         this.ID = ID;
         this.col = col;
 

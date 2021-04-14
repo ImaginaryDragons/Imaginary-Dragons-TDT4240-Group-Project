@@ -37,11 +37,11 @@ public final class PowerUpFactory {
         public IModel createPowerUp(Vector2 position, @NotNull PowerUpType type, float width, float height){
             switch (type) {
                 case BOMBCAPACITY:
-                    return new BombCapacity(position, type, width, height);
+                    return new BombCapacity(position, width, height);
                 case INCREASERANGE:
-                    return new IncreaseRange(position, type, width, height);
+                    return new IncreaseRange(position, width, height);
                 case INCREASESPEED:
-                    return new IncreaseSpeed(position, type, width, height);
+                    return new IncreaseSpeed(position, width, height);
                 default:
                     throw new IllegalArgumentException();
             }
