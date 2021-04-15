@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
 import com.dragons.game.view.modelViews.IModelView;
-import com.dragons.game.view.modelViews.ModelViewFactory;
+import com.dragons.game.view.modelViews.modelViewFactories.ModelViewFactory;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 

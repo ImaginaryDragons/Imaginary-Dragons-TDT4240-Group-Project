@@ -14,7 +14,7 @@ import static com.dragons.game.utilities.AssetLoader.DESTRUCTIBLE_BLOCK;
 public class DestructibleBlockView implements IModelView {
 
     private final Texture texture;
-    private DestructibleBlock block;
+    private final DestructibleBlock block;
 
     public DestructibleBlockView(IModel block, AnnotationAssetManager manager) {
         this.block = (DestructibleBlock) block;
@@ -28,12 +28,12 @@ public class DestructibleBlockView implements IModelView {
     }
 
     @Override
-    public void render(SpriteBatch sb) {
+    public void render(SpriteBatch batch) {
         float x = block.getPosition().x;
         float y = block.getPosition().y;
         float width = block.getWidth();
         float height = block.getHeight();
 
-        sb.draw(texture, x - width / 2f, y - height / 2f , width, height);
+        batch.draw(texture, x - width / 2f, y - height / 2f , width, height);
     }
 }

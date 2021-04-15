@@ -30,7 +30,6 @@ public class NormalPlayerView implements IModelView {
 
     private static final float FRAME_DURATION = 0.1f;
     private final Animation<Texture> dragon;
-    private Texture current_frame;
     private static float state_time;
     private Direction direction;
     private final NormalPlayer player;
@@ -76,7 +75,7 @@ public class NormalPlayerView implements IModelView {
         } else {
             throw new IllegalArgumentException("Wrong Color in PlayerView");
         }
-        dragon = new Animation<Texture>(FRAME_DURATION, dragonTextures);
+        dragon = new Animation<>(FRAME_DURATION, dragonTextures);
         dragon.setPlayMode(Animation.PlayMode.LOOP);
         state_time = 0f;
 
@@ -91,8 +90,7 @@ public class NormalPlayerView implements IModelView {
 
     @Override
     public void render(SpriteBatch batch) {
-        current_frame = dragon.getKeyFrame(state_time, true);
-
+        final Texture current_frame = dragon.getKeyFrame(state_time, true);
         float x = player.getPosition().x;
         float y = player.getPosition().y;
         float width = player.getWidth();
