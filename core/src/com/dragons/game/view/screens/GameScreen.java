@@ -12,8 +12,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.gameWorld.GameWorld;
-import com.dragons.game.playerController.Joystick;
-import com.dragons.game.playerController.PlayerController;
 import com.dragons.game.view.GameRenderer;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;

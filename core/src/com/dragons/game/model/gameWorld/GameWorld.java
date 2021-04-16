@@ -13,7 +13,7 @@ import com.dragons.game.model.modelFactories.BombFactory;
 import com.dragons.game.model.modelFactories.FireFactory;
 import com.dragons.game.model.modelFactories.PlayerFactory;
 import com.dragons.game.model.players.PlayerType;
-import com.dragons.game.playerController.PlayerController;
+import com.dragons.game.model.playerController.PlayerController;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -72,7 +72,7 @@ public class GameWorld {
         b2drCam.position.set(map.getMapWidthInPixels() / 2f / PPM, map.getMapHeightInPixels() / 2f / PPM, 0);
         b2drCam.update();
 
-        playerController = new PlayerController(camera, manager);
+        playerController = new PlayerController(camera, manager, this);
 
         this.cleanupCounter = 0;
     }

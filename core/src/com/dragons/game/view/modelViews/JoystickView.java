@@ -1,13 +1,11 @@
 package com.dragons.game.view.modelViews;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
-import com.dragons.game.playerController.Joystick;
-import com.dragons.game.view.modelViews.IModelView;
+import com.dragons.game.model.playerController.Joystick;
 
 import static com.dragons.game.utilities.Constants.JOYSTICK_ORIGIN_X;
 import static com.dragons.game.utilities.Constants.JOYSTICK_ORIGIN_Y;

@@ -1,4 +1,4 @@
-package com.dragons.game.playerController;
+package com.dragons.game.model.playerController;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;

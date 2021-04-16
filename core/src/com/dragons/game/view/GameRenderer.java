@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragons.game.model.gameWorld.GameObject;
 import com.dragons.game.model.gameWorld.GameWorld;
-import com.dragons.game.playerController.Joystick;
-import com.dragons.game.playerController.PlayerController;
 import com.dragons.game.utilities.AssetLoader;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
