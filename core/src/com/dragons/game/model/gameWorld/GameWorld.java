@@ -12,8 +12,10 @@ import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.modelFactories.BombFactory;
 import com.dragons.game.model.modelFactories.FireFactory;
 import com.dragons.game.model.modelFactories.PlayerFactory;
+import com.dragons.game.model.players.NormalPlayer;
 import com.dragons.game.model.players.PlayerType;
 import com.dragons.game.utilities.Constants;
+import com.dragons.game.view.modelViews.LifeDisplayView;
 import com.dragons.game.view.modelViews.PlayerView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -40,6 +42,7 @@ public class GameWorld {
     private ArrayList<GameObject> dynamicGameObjects;
     private ArrayList<IGameObjectController> actionControllers;
     private ArrayList<IGameObjectController> tempControllerContainer; // This is a workaround from a problem with adding to actionControllers while iterating through it!
+    private ArrayList<LifeDisplayView> lifeDisplay;
 
     // Factories
     private final PlayerFactory playerFactory = PlayerFactory.getInstance();
@@ -67,6 +70,7 @@ public class GameWorld {
         dynamicGameObjects = new ArrayList<GameObject>();
         actionControllers = new ArrayList<IGameObjectController>();
         tempControllerContainer = new ArrayList<IGameObjectController>();
+        lifeDisplay = new ArrayList<LifeDisplayView>();
         this.map = map;
 
         b2dr = new Box2DDebugRenderer();
@@ -121,6 +125,8 @@ public class GameWorld {
         GameObject player1 = new GameObject(p1, world, assetManager);
         // TODO: Add player to controller
         dynamicGameObjects.add(player1);
+        LifeDisplayView healthView = new LifeDisplayView((NormalPlayer)p1, assetManager, map, map.tilePosCenter(new Vector2(1,10)));
+        lifeDisplay.add(healthView);
 
         Gdx.app.log("GameWorld", "Initializing secondary player");
         Vector2 p2StartPos = map.tilePosCenter(new Vector2(13,9));
@@ -209,5 +215,10 @@ public class GameWorld {
 
     public GameMap getMap() {
         return map;
+    }
+
+
+    public ArrayList<LifeDisplayView> getLifeDisplay() {
+        return lifeDisplay;
     }
 }

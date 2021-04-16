@@ -67,8 +67,11 @@ public class AssetLoader {
             EXPLOSION2= "explosion2.png",
             EXPLOSION3= "explosion3.png",
             EXPLOSION4= "explosion4.png",
-            EXPLOSION5= "explosion5.png";
+            EXPLOSION5= "explosion5.png",
 
+            /*********** HEALTH *************/
+            FULL_HEALTH = "fullhealth.png",
+            EMPTY_HEALTH = "emptyhealth.png";
 
 
             // LAST ELEMENT MUST HAVE ';'!!
