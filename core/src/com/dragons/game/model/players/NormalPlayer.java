@@ -43,7 +43,7 @@ public class NormalPlayer extends Model implements IPlayer {
         this.ID = ID;
         this.col = col;
 
-        orientation = Direction.RIGHT;
+        orientation = Direction.UP;
         lives = Constants.InitPlayerHealth;
         speed = Constants.PlayerSpeed;
         bombCapacity = Constants.InitBombCap;
