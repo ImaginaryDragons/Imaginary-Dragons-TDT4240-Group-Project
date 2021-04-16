@@ -78,12 +78,7 @@ public class NormalBomb extends Model implements IBomb {
             System.out.println(checkTile.toString());
             ArrayList<IModel> tileContainer = gameMap.tileContainers.get((int)checkTile.x, (int)checkTile.y);
             if (tileContainer == null){
-                System.out.println("Breaking stuff here");
-                break;
-            }
-            if (tileContainer.isEmpty()) {
-                System.out.println("Is empty here");
-                fireTiles.add(gameMap.tilePosCenter(checkTile));
+                // Stop checking in this direction
                 break;
             }
 
@@ -91,7 +86,6 @@ public class NormalBomb extends Model implements IBomb {
             boolean stopExpanding = false;
             boolean addCurrentTile = true;
             for (IModel obj : tileContainer) {
-
                 if (obj instanceof WallBlock) {
                     stopExpanding = true;
                     addCurrentTile = false;
@@ -108,34 +102,11 @@ public class NormalBomb extends Model implements IBomb {
                 System.out.println("Tile added");
                 fireTiles.add(new Vector2(gameMap.tilePosCenter(checkTile)));
             }
-
             if (stopExpanding == true) {
                 // TODO: Check that this has the desired behavior
                 System.out.println("Is the loop cut off entirely??");
                 break;
             }
-
-            /*
-            if (gameMap.tileContainers.get(tile.x, tile.y).contains("desblock")) {
-                //denne tilen skal bli lik et bilde, starter i tilestart, 32x32, og så stoppe
-                //Sjekke kontakt, Eldar og Jakob skal se på det
-                fireTiles.add(tile);
-
-            } else if (gameMap.tileContainers.get(tile.x, tile.y).contains("wallblock")) {
-                //denne tilen skal ikke bli lik et bilde
-                //Sjekke kontakt, Eldar og Jakob skal se på det
-
-            } else if (gameMap.tileContainers.get(tile.x, tile.y).contains("desPowerupBlock")) {
-                //denne tilen skal bli til en powerup
-                //Sjekke kontakt, Eldar og Jakob skal se på det
-                fireTiles.add(tile);
-            } else {
-                //Bli lik et bilde, sjekke videre
-                fireTiles.add(tile);
-            }
-
-             */
-
         }
         return fireTiles;
     }

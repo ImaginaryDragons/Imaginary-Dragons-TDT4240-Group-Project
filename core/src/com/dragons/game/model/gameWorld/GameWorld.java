@@ -167,6 +167,8 @@ public class GameWorld {
                 it.remove();
             }
         }
+        // This step has to be performed due to limitations on how iterators work. We can't add to the same list we try to iterate through.
+        // Therefore we store new controllers in a temporary list and add them afterwards
         actionControllers.addAll(tempControllerContainer);
         tempControllerContainer.clear();
     }

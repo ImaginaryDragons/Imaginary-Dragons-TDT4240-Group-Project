@@ -17,8 +17,6 @@ public class NormalFire extends Model implements IFire {
         super(position, width, height, isStatic, isSensor);
         this.fireExpired = false;
         loadingTime = Constants.FireDisplayTime;
-
-
     }
 
     @Override

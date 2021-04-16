@@ -22,7 +22,6 @@ public class BombController implements IGameObjectController {
     @Override
     public void controllerAction(GameWorld gameWorld) {
         if (bomb.isExploded()) {
-            System.out.println("Hei mofo");
 
             ArrayList<Vector2> fireTiles = bomb.getFireTiles(gameWorld.getMap());
             gameWorld.spawnFire(fireTiles, BombType.NORMALBOMB);
