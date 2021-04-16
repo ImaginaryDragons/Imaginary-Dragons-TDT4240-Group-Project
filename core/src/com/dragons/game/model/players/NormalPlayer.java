@@ -1,5 +1,6 @@
 package com.dragons.game.model.players;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.Model;
@@ -80,6 +81,7 @@ public class NormalPlayer extends Model implements IPlayer {
 
     public void setOrientation(Direction orientation) {
         this.orientation = orientation;
+        Gdx.app.log("Orientation", this.orientation.toString());
     }
 
 
