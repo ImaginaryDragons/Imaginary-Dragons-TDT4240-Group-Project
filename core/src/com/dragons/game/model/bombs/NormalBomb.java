@@ -37,7 +37,6 @@ public class NormalBomb extends Model implements IBomb {
         }
     }
 
-
     public boolean isExploded() {
         return bombExploded;
     }
@@ -69,7 +68,7 @@ public class NormalBomb extends Model implements IBomb {
 
         System.out.println("Ready to check for wall");
 
-        for (int i = 0; i < bombRange; i++) {
+        for (int i = 0; i < bombRange-1; i++) {
             if (direction == "up" || direction == "down") {
                 checkTile.y += increment;
             } else if (direction == "left" || direction == "right") {

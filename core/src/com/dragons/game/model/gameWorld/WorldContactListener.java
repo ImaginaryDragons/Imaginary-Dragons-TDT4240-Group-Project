@@ -25,7 +25,6 @@ public class WorldContactListener implements ContactListener {
         IModel objB = gameObjectB.getObject();
 
 
-
         //TODO: oneIsPlayer, oneIsBomb, and full implementation
         boolean oneIsBlock = objA instanceof IBlock || objB instanceof IBlock;
         boolean oneIsPowerUp = objA instanceof IPowerUp || objB instanceof IPowerUp;

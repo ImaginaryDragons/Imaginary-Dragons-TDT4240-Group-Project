@@ -13,6 +13,8 @@ import com.dragons.game.model.modelFactories.BombFactory;
 import com.dragons.game.model.modelFactories.FireFactory;
 import com.dragons.game.model.modelFactories.PlayerFactory;
 import com.dragons.game.model.players.PlayerType;
+import com.dragons.game.utilities.Constants;
+import com.dragons.game.view.modelViews.PlayerView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -113,17 +115,23 @@ public class GameWorld {
 
     public void initializePlayers() {
         Gdx.app.log("GameWorld", "Initializing main player");
-        Vector2 p1StartPos = map.tilePos(new Vector2(1,1));
-        // TODO: why doesnt player get centered if scaled down?
-        IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER,
-                                            Color.RED, map.getTileWidth() * 0.9f, map.getTileHeight() * 0.9f); // TODO: Remove magic numbers
-        this.addGameObject(p1);
+        Vector2 p1StartPos = map.tilePosCenter(new Vector2(1,1));
+        IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER, Color.RED, map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor); // TODO: Remove magic numbers
+        //this.addGameObject(p1);
+        GameObject player1 = new GameObject(p1, world, assetManager);
+        // TODO: Add player to controller
+        dynamicGameObjects.add(player1);
+
+        Gdx.app.log("GameWorld", "Initializing secondary player");
+        Vector2 p2StartPos = map.tilePosCenter(new Vector2(13,9));
+        IModel p2 = playerFactory.createPlayer(2, p2StartPos, PlayerType.NORMALPLAYER, Color.BLUE, map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
+        GameObject player2 = new GameObject(p2, world, assetManager);
+        dynamicGameObjects.add(player2);
     }
 
 
     public void placeBomb(Vector2 centerPos, BombType type, float range) {
-        // TODO: why doesnt bomb get centered if scaled down?
-        IModel bomb = bombFactory.createBomb(centerPos, type, map.getTileWidth() * 0.8f, map.getTileHeight() * 0.8f, range); // TODO: Remove magic numbers
+        IModel bomb = bombFactory.createBomb(centerPos, type, map.getTileWidth() * Constants.BombScaleFactor, map.getTileHeight() * Constants.BombScaleFactor, range); // TODO: Remove magic numbers
         GameObject newBomb = new GameObject(bomb, world, assetManager);
         BombController newBombCtr = new BombController(newBomb);
         this.dynamicGameObjects.add(newBomb);
@@ -131,10 +139,9 @@ public class GameWorld {
     }
 
     public void spawnFire(ArrayList<Vector2> fireTiles, BombType type) {
-        System.out.println("Spawning fire!");
+        Gdx.app.log("GameWorld", "Spawning fire");
         for (Vector2 firePos : fireTiles) {
-            System.out.println("Fire Spawned");
-            IModel fire = fireFactory.createFire(firePos, type, map.getTileWidth(), map.getTileHeight());
+            IModel fire = fireFactory.createFire(firePos, type, map.getTileWidth() * Constants.FireScaleFactor, map.getTileHeight() * Constants.FireScaleFactor);
             GameObject newFire = new GameObject(fire,world,assetManager);
             FireController newFireCtr = new FireController(newFire);
             this.staticGameObjects.add(newFire);
@@ -146,8 +153,6 @@ public class GameWorld {
         for(GameObject dynamicGameObject : dynamicGameObjects) {
             dynamicGameObject.syncPosition();
             dynamicGameObject.update(delta);
-            // TODO: remove this, only for testing velocity
-            //dynamicGameObject.getBody().setLinearVelocity(-5, 20);
         }
         for (GameObject staticObject : staticGameObjects){
             staticObject.update(delta);
