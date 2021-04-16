@@ -25,13 +25,14 @@ public class Joystick implements InputProcessor {
     private final Circle perimeter;
     private GameObject player; // body and player
 
-    OrthographicCamera cam;
+//    OrthographicCamera cam;
 
-    public Joystick(OrthographicCamera cam) {
-        this.cam = cam;
+//    public Joystick(OrthographicCamera cam) {
+    public Joystick() {
+//        this.cam = cam;
         joystick = new Circle(JOYSTICK_ORIGIN_X, JOYSTICK_ORIGIN_Y, JOYSTICK_RADIUS);
         perimeter = new Circle(JOYSTICK_ORIGIN_X, JOYSTICK_ORIGIN_Y, JOYSTICK_PERIMETER_RADIUS);
-        Gdx.input.setInputProcessor(this);
+//        Gdx.input.setInputProcessor(this);
     }
 
     public void addPlayer(GameObject player){
@@ -56,7 +57,7 @@ public class Joystick implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Vector3 touch = new Vector3(screenX, screenY, 0);
-        cam.unproject(touch);
+//        cam.unproject(touch);
 
         if (perimeter.contains(new Vector2(touch.x, touch.y))){
 
@@ -96,7 +97,7 @@ public class Joystick implements InputProcessor {
         // TODO: when a touch is touched down outside the perimeter and dragged it still moves joystick
 
         Vector3 touch = new Vector3(screenX, screenY, 0);
-        cam.unproject(touch);
+//        cam.unproject(touch);
 
         if (perimeter.contains(new Vector2(touch.x, touch.y))){
             joystick.x = touch.x;

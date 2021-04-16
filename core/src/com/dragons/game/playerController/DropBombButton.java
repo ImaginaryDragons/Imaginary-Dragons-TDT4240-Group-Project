@@ -8,18 +8,17 @@ import com.badlogic.gdx.math.Vector3;
 import com.dragons.game.model.gameWorld.GameObject;
 import com.dragons.game.view.modelViews.GameScreenButtonsView;
 
-public class GameScreenButtons implements InputProcessor {
+public class DropBombButton implements InputProcessor {
 
-    private final OrthographicCamera cam;
+//    private final OrthographicCamera cam;
     private GameObject player;
 
     private final Rectangle dropBombBounds;
-    private final Rectangle exitButtonBounds;
 
-    public GameScreenButtons(OrthographicCamera cam, GameScreenButtonsView buttonsView) {
-        this.cam = cam;
+//    public GameScreenButtons(OrthographicCamera cam, GameScreenButtonsView buttonsView) {
+    public DropBombButton(GameScreenButtonsView buttonsView) {
+//        this.cam = cam;
         dropBombBounds = buttonsView.getDropBombBounds();
-        exitButtonBounds = buttonsView.getExitButtonBounds();
     }
 
     @Override
@@ -40,17 +39,13 @@ public class GameScreenButtons implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Vector3 touch = new Vector3(screenX, screenY, 0);
-        cam.unproject(touch);
+//        cam.unproject(touch);
 
-        if (exitButtonBounds.contains(touch.x, touch.y)) {
-//            game.setScreen(new MenuScreen(game));  // TODO: Need to access main DragonGame to set screen
-            Gdx.app.log("Game button", "EXIT");
-        }
         if (dropBombBounds.contains(touch.x, touch.y)) {
             // Drop bomb
             Gdx.app.log("Game button", "DROP BOMB");
         }
-        return true;
+        return false;
     }
 
     @Override

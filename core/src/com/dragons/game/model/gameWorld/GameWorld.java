@@ -13,6 +13,7 @@ import com.dragons.game.model.modelFactories.BombFactory;
 import com.dragons.game.model.modelFactories.FireFactory;
 import com.dragons.game.model.modelFactories.PlayerFactory;
 import com.dragons.game.model.players.PlayerType;
+import com.dragons.game.playerController.PlayerController;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -48,6 +49,8 @@ public class GameWorld {
     private final Box2DDebugRenderer b2dr;
     private final OrthographicCamera b2drCam;
 
+    private final PlayerController playerController;
+
     private int cleanupCounter;
 
 
@@ -68,6 +71,8 @@ public class GameWorld {
         b2drCam = new OrthographicCamera(VIRTUAL_WIDTH / PPM, VIRTUAL_HEIGHT / PPM);
         b2drCam.position.set(map.getMapWidthInPixels() / 2f / PPM, map.getMapHeightInPixels() / 2f / PPM, 0);
         b2drCam.update();
+
+        playerController = new PlayerController();
 
         this.cleanupCounter = 0;
     }

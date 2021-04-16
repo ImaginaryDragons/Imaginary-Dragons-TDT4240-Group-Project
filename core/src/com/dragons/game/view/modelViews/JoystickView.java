@@ -41,6 +41,11 @@ public class JoystickView implements IModelView {
     }
 
     @Override
+    public void update(float delta) {
+
+    }
+
+    @Override
     public void render(SpriteBatch sb) {
         pos = joystick.getCircle();
 
