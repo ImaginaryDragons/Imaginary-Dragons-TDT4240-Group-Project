@@ -6,7 +6,6 @@ import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.bombs.IBomb;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class BombController implements IGameObjectController {
 

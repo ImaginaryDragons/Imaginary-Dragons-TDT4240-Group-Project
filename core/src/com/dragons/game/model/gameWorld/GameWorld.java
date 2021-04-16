@@ -18,6 +18,7 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
 import static com.dragons.game.utilities.Constants.PPM;
 import static com.dragons.game.utilities.Constants.VIRTUAL_HEIGHT;
@@ -36,6 +37,7 @@ public class GameWorld {
     private ArrayList<GameObject> staticGameObjects;
     private ArrayList<GameObject> dynamicGameObjects;
     private ArrayList<IGameObjectController> actionControllers;
+    private ArrayList<IGameObjectController> tempControllerContainer; // This is a workaround from a problem with adding to actionControllers while iterating through it!
 
     // Factories
     private final PlayerFactory playerFactory = PlayerFactory.getInstance();
@@ -62,6 +64,7 @@ public class GameWorld {
         staticGameObjects = new ArrayList<GameObject>();
         dynamicGameObjects = new ArrayList<GameObject>();
         actionControllers = new ArrayList<IGameObjectController>();
+        tempControllerContainer = new ArrayList<IGameObjectController>();
         this.map = map;
 
         b2dr = new Box2DDebugRenderer();
@@ -135,8 +138,7 @@ public class GameWorld {
             GameObject newFire = new GameObject(fire,world,assetManager);
             FireController newFireCtr = new FireController(newFire);
             this.staticGameObjects.add(newFire);
-            this.actionControllers.add(newFireCtr);
-
+            this.tempControllerContainer.add(newFireCtr);
         }
     }
 
@@ -154,14 +156,19 @@ public class GameWorld {
         // Iterate through the controllers and perform actions
         // We have to use an iterator to remove them correctly
         // REMOVING FIX: https://stackoverflow.com/questions/10033025/crash-when-trying-to-remove-object-from-arraylist
-        Iterator<IGameObjectController> i = actionControllers.iterator();
-        while(i.hasNext()){
-            IGameObjectController ctr = i.next();
+        Iterator<IGameObjectController> it = actionControllers.iterator();
+        IGameObjectController ctr;
+        while(it.hasNext()){
+            ctr = it.next();
             ctr.controllerAction(this);
             if (ctr.remove()) {
-                i.remove();
+                System.out.println(actionControllers.toString());
+                System.out.println(it.toString());
+                it.remove();
             }
         }
+        actionControllers.addAll(tempControllerContainer);
+        tempControllerContainer.clear();
     }
 
     public ArrayList<GameObject> getStaticGameObjects() {
