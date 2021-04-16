@@ -65,6 +65,10 @@ public class GameMap {
         return new Vector2(resX, resY);
     }
 
+    public Vector2 pos2tilePos(Vector2 pos) {
+        return tilePos(pos2tile(pos));
+    }
+
     // Find the starting position of a tile given the tile index
     public Vector2 tilePos(Vector2 tile) {
         return new Vector2((tile.x)*tileWidth, (tile.y)*tileHeight);

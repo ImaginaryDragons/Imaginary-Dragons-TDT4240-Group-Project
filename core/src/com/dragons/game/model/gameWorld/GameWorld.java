@@ -17,6 +17,7 @@ import com.dragons.game.model.players.PlayerType;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import static com.dragons.game.utilities.Constants.PPM;
 import static com.dragons.game.utilities.Constants.VIRTUAL_HEIGHT;
@@ -34,19 +35,20 @@ import static com.dragons.game.utilities.Constants.VIRTUAL_WIDTH;
 public class GameWorld {
     private ArrayList<GameObject> staticGameObjects;
     private ArrayList<GameObject> dynamicGameObjects;
+    private ArrayList<IGameObjectController> actionControllers;
 
     // Factories
     private final PlayerFactory playerFactory = PlayerFactory.getInstance();
     private final BombFactory bombFactory = BombFactory.getInstance();
     private final FireFactory fireFactory = FireFactory.getInstance();
 
-
     private final World world;
     private final GameMap map;
     private final AnnotationAssetManager assetManager;
-
     private final Box2DDebugRenderer b2dr;
     private final OrthographicCamera b2drCam;
+
+    private int cleanupCounter;
 
 
     // https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_hello.html#autotoc_md21
@@ -59,12 +61,15 @@ public class GameWorld {
         world.setContactListener(new WorldContactListener());
         staticGameObjects = new ArrayList<GameObject>();
         dynamicGameObjects = new ArrayList<GameObject>();
+        actionControllers = new ArrayList<IGameObjectController>();
         this.map = map;
 
         b2dr = new Box2DDebugRenderer();
         b2drCam = new OrthographicCamera(VIRTUAL_WIDTH / PPM, VIRTUAL_HEIGHT / PPM);
         b2drCam.position.set(map.getMapWidthInPixels() / 2f / PPM, map.getMapHeightInPixels() / 2f / PPM, 0);
         b2drCam.update();
+
+        this.cleanupCounter = 0;
     }
 
     // Update GameWorld with one time-step
@@ -75,31 +80,22 @@ public class GameWorld {
         updateGameObjects(delta);
         b2dr.render(world, b2drCam.combined);
 
-
-        // Make sure that the positions are automatically synchronized
-        // Maybe put observers on the gameobjects that get updates when the objects in the world are updated?
+        // Cleanup unused objects in some iterations
+        if (cleanupCounter > 20) {
+            cleanupDestroyedObjects();
+            this.cleanupCounter = 0;
+        }
+        this.cleanupCounter++;
     }
 
-
-    private void addGameObject(IModel model){
+    public void addGameObject(IModel model){
+        GameObject newObject = new GameObject(model, world, assetManager);
         if (model.isStatic()) {
-            addStaticObject(model);
+            staticGameObjects.add(newObject);
         } else {
-            addDynamicObject(model);
+            dynamicGameObjects.add(newObject);
         }
     }
-
-    // Add static object to GameObjects
-    private void addStaticObject(IModel model) {
-        GameObject newObject = new GameObject(model, world, assetManager);
-        staticGameObjects.add(newObject);
-    }
-
-    private void addDynamicObject(IModel model) {
-        GameObject newObject = new GameObject(model, world, assetManager);
-        dynamicGameObjects.add(newObject);
-    }
-
 
     public void generateMapBlocks() {
         Gdx.app.log("GameWorld", "Adding map blocks");
@@ -117,19 +113,24 @@ public class GameWorld {
         Vector2 p1StartPos = map.tilePos(new Vector2(1,1));
         // TODO: why doesnt player get centered if scaled down?
         IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER,
-                                            Color.RED, map.getTileWidth() * 0.9f, map.getTileHeight() * 0.9f);
+                                            Color.RED, map.getTileWidth() * 0.9f, map.getTileHeight() * 0.9f); // TODO: Remove magic numbers
         this.addGameObject(p1);
     }
 
 
     public void placeBomb(Vector2 position, BombType type, float range) {
         // TODO: why doesnt bomb get centered if scaled down?
-        IModel bomb = bombFactory.createBomb(position, type, map.getTileWidth() * 0.8f, map.getTileHeight() * 0.8f, range);
-        addGameObject(bomb);
+        IModel bomb = bombFactory.createBomb(position, type, map.getTileWidth() * 0.8f, map.getTileHeight() * 0.8f, range); // TODO: Remove magic numbers
+        GameObject newBomb = new GameObject(bomb, world, assetManager);
+        BombController newBombCtr = new BombController(newBomb);
+        this.dynamicGameObjects.add(newBomb);
+        this.actionControllers.add(newBombCtr);
     }
 
     public void spawnFire(ArrayList<Vector2> fireTiles, BombType type) {
+        System.out.println("Spawning fire!");
         for (Vector2 firePos : fireTiles) {
+            System.out.println("Fire Spawned");
             IModel newFire = fireFactory.createFire(firePos, type, map.getTileWidth(), map.getTileHeight());
             addGameObject(newFire);
         }
@@ -139,7 +140,6 @@ public class GameWorld {
         for(GameObject dynamicGameObject : dynamicGameObjects) {
             dynamicGameObject.syncPosition();
             dynamicGameObject.update(delta);
-
             // TODO: remove this, only for testing velocity
             dynamicGameObject.getBody().setLinearVelocity(-5, 20);
         }
@@ -147,6 +147,17 @@ public class GameWorld {
             staticObject.update(delta);
         }
 
+        // Iterate through the controllers and perform actions
+        // We have to use an iterator to remove them correctly
+        // REMOVING FIX: https://stackoverflow.com/questions/10033025/crash-when-trying-to-remove-object-from-arraylist
+        Iterator<IGameObjectController> i = actionControllers.iterator();
+        while(i.hasNext()){
+            IGameObjectController ctr = i.next();
+            ctr.controllerAction(this);
+            if (ctr.remove()) {
+                i.remove();
+            }
+        }
     }
 
     public ArrayList<GameObject> getStaticGameObjects() {
@@ -172,5 +183,13 @@ public class GameWorld {
                 Runtime.getRuntime().gc(); // Call the garbage collector
             }
         }
+    }
+
+    public ArrayList<IGameObjectController> getActionControllers() {
+        return actionControllers;
+    }
+
+    public GameMap getMap() {
+        return map;
     }
 }

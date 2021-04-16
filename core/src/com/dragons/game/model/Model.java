@@ -37,6 +37,11 @@ public abstract class Model implements IModel {
         return isSensor;
     }
 
+    @Override
+    public void update(float timestep) {
+
+    }
+
     /**
      * Sets the destroyModel value to true => this tells the world to destroy the model
      */
