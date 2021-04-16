@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.gameWorld.GameObject;
+import com.dragons.game.model.players.NormalPlayer;
 import com.dragons.game.utilities.Constants;
 
 import static com.dragons.game.utilities.Constants.JOYSTICK_ORIGIN_Y;
@@ -19,12 +20,17 @@ import static com.dragons.game.utilities.Constants.JOYSTICK_PERIMETER_RADIUS;
 import static com.dragons.game.utilities.Constants.JOYSTICK_ORIGIN_X;
 import static com.dragons.game.utilities.Constants.JOYSTICK_RADIUS;
 import static com.dragons.game.utilities.Constants.PlayerSpeed;
+import static com.dragons.game.utilities.Direction.DOWN;
+import static com.dragons.game.utilities.Direction.LEFT;
+import static com.dragons.game.utilities.Direction.RIGHT;
+import static com.dragons.game.utilities.Direction.UP;
 
 public class Joystick implements InputProcessor {
 
-    private Circle joystick;
+    private final Circle joystick;
     private final Circle perimeter;
-    private GameObject player; // body and player
+    private GameObject player;
+    private NormalPlayer normalPlayer;
 
     OrthographicCamera cam;
 
@@ -36,6 +42,7 @@ public class Joystick implements InputProcessor {
 
     public void addPlayer(GameObject player){
         this.player = player;
+        this.normalPlayer = (NormalPlayer) player.getObject();
     }
 
     @Override
@@ -67,17 +74,17 @@ public class Joystick implements InputProcessor {
             float relativeY = touch.y - JOYSTICK_ORIGIN_Y;
 
             if (relativeX < relativeY && -relativeX < relativeY) {  // UP
-                Gdx.app.log("Touch down", String.format("UP\t\ttouch.x: %.1f\trelativeX: %.1f\n\t\t\t\t\ttouch.y: %.1f\trelativeY: %.1f", touch.x, relativeX, touch.y, relativeY));
-//                player.getBody().setLinearVelocity(0f, PlayerSpeed);
+                player.getBody().setLinearVelocity(0f, PlayerSpeed);
+                normalPlayer.setOrientation(UP);
             } else if (relativeX > relativeY && -relativeX < relativeY) {  // RIGHT
-                Gdx.app.log("Touch down", String.format("RIGHT\ttouch.x: %.1f\trelativeX: %.1f\n\t\t\t\t\ttouch.y: %.1f\trelativeY: %.1f", touch.x, relativeX, touch.y, relativeY));
-//                player.getBody().setLinearVelocity(PlayerSpeed, 0f);
+                player.getBody().setLinearVelocity(PlayerSpeed, 0f);
+                normalPlayer.setOrientation(RIGHT);
             } else if (relativeX < relativeY && -relativeX > relativeY) {  // LEFT
-                Gdx.app.log("Touch down", String.format("LEFT\ttouch.x: %.1f\trelativeX: %.1f\n\t\t\t\t\ttouch.y: %.1f\trelativeY: %.1f", touch.x, relativeX, touch.y, relativeY));
-//                player.getBody().setLinearVelocity(-PlayerSpeed, 0f);
+                player.getBody().setLinearVelocity(-PlayerSpeed, 0f);
+                normalPlayer.setOrientation(LEFT);
             } else {                                            // DOWN
-                Gdx.app.log("Touch down", String.format("DOWN\ttouch.x: %.1f\trelativeX: %.1f\n\t\t\t\t\ttouch.y: %.1f\trelativeY: %.1f", touch.x, relativeX, touch.y, relativeY));
-//                player.getBody().setLinearVelocity(0f, -PlayerSpeed);
+                player.getBody().setLinearVelocity(0f, -PlayerSpeed);
+                normalPlayer.setOrientation(DOWN);
             }
         }
         return false;
@@ -87,7 +94,7 @@ public class Joystick implements InputProcessor {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         joystick.x = JOYSTICK_ORIGIN_X;
         joystick.y = JOYSTICK_ORIGIN_Y;
-//        player.getBody().setLinearVelocity(0f, 0f);
+        player.getBody().setLinearVelocity(0f, 0f);
         return false;
     }
 
@@ -107,17 +114,17 @@ public class Joystick implements InputProcessor {
         float relativeY = touch.y - JOYSTICK_ORIGIN_Y;
 
         if (relativeX < relativeY && -relativeX < relativeY) {  // UP
-            Gdx.app.log("Touch dragged", "UP");
-//            player.getBody().setLinearVelocity(0f, PlayerSpeed);
+            player.getBody().setLinearVelocity(0f, PlayerSpeed);
+            normalPlayer.setOrientation(UP);
         } else if (relativeX > relativeY && -relativeX < relativeY) {  // RIGHT
-            Gdx.app.log("Touch dragged", "RIGHT");
-//            player.getBody().setLinearVelocity(PlayerSpeed, 0f);
+            player.getBody().setLinearVelocity(PlayerSpeed, 0f);
+            normalPlayer.setOrientation(RIGHT);
         } else if (relativeX < relativeY && -relativeX > relativeY) {  // LEFT
-            Gdx.app.log("Touch dragged", "LEFT");
-//            player.getBody().setLinearVelocity(-PlayerSpeed, 0f);
+            player.getBody().setLinearVelocity(-PlayerSpeed, 0f);
+            normalPlayer.setOrientation(LEFT);
         } else {                                                    // DOWN
-            Gdx.app.log("Touch dragged", "DOWN");
-//            player.getBody().setLinearVelocity(0f, -PlayerSpeed);
+            player.getBody().setLinearVelocity(0f, -PlayerSpeed);
+            normalPlayer.setOrientation(DOWN);
         }
         return false;
     }

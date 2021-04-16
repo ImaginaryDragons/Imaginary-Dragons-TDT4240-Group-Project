@@ -101,7 +101,7 @@ public class GameWorld {
             dynamicGameObjects.add(newObject);
         }
 
-        // If NORMALPLAYER -> playerController.addPlayer(newObject)
+        // If newObject is NORMALPLAYER and main player -> playerController.addPlayer(newObject)
     }
 
     public void generateMapBlocks() {
@@ -122,7 +122,10 @@ public class GameWorld {
         IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER,
                                             Color.RED, map.getTileWidth() * 0.9f, map.getTileHeight() * 0.9f); // TODO: Remove magic numbers
         this.addGameObject(p1);
-//        playerController.addPlayer(p1);  // playerController has to take a GameObject not IModel to access body
+
+        GameObject p1Model = new GameObject(p1, world, assetManager);
+        dynamicGameObjects.add(p1Model);
+        playerController.addPlayer(p1Model);  // playerController has to take a GameObject not IModel to access body
     }
 
 
@@ -149,7 +152,7 @@ public class GameWorld {
             dynamicGameObject.syncPosition();
             dynamicGameObject.update(delta);
             // TODO: remove this, only for testing velocity
-            dynamicGameObject.getBody().setLinearVelocity(-5, 20);
+//            dynamicGameObject.getBody().setLinearVelocity(-5, 20);
         }
         for (GameObject staticObject : staticGameObjects){
             staticObject.update(delta);

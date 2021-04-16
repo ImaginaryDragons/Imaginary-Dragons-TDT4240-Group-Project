@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dragons.game.model.IModel;
 import com.dragons.game.model.gameWorld.GameObject;
 import com.dragons.game.view.modelViews.DropBombButtonView;
 import com.dragons.game.view.modelViews.ExitButtonView;
