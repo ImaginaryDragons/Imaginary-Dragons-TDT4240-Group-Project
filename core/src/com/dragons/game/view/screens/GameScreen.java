@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.view.GameRenderer;
@@ -50,7 +51,7 @@ public class GameScreen extends ScreenAdapter {
         OrthographicCamera camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         camera.position.set(gameMap.getMapWidthInPixels() / 2f, gameMap.getMapHeightInPixels() / 2f, 0);
         camera.update();
-        gameRenderer = new GameRenderer(gameWorld, manager, camera); // Initialize world renderer
+        gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
         tiledMapRenderer.setView(camera);
@@ -64,13 +65,13 @@ public class GameScreen extends ScreenAdapter {
 
         // BOMB TEST!!
         // TODO: get right tile position
-        gameWorld.placeBomb(new Vector2(40,300), 2, 2);
+        gameWorld.placeBomb(new Vector2(45,300), BombType.NORMALBOMB, 2);
 
         // FIRE TEST
         ArrayList<Vector2> fireTileList = new ArrayList<>();
         fireTileList.add(gameMap.tilePos(new Vector2(5,5)));
         fireTileList.add(gameMap.tilePos(new Vector2(5,6)));
-        gameWorld.spawnFire(fireTileList);
+        gameWorld.spawnFire(fireTileList, BombType.NORMALBOMB);
 
 
     }
@@ -93,7 +94,7 @@ public class GameScreen extends ScreenAdapter {
 
         // Render game objects
         batch.begin();
-        gameRenderer.render(batch, delta);
+        gameRenderer.render(batch);
         batch.end();
 
         // Update game world

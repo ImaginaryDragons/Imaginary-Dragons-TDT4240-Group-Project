@@ -9,8 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.components.Tiled;
 import com.dragons.game.model.IModel;
 
-import com.dragons.game.model.factories.BlockFactory;
-import com.dragons.game.model.factories.PowerUpFactory;
+import com.dragons.game.model.modelFactories.BlockFactory;
+import com.dragons.game.model.modelFactories.PowerUpFactory;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
@@ -31,8 +31,10 @@ public class GameMap {
             mapWidthInPixels, mapHeightInPixels;
 
     private TiledMap tiledMap;
-    private final BlockFactory blockFactory;
-    private final PowerUpFactory powerUpFactory;
+
+    // Factories
+    private final BlockFactory blockFactory = BlockFactory.getInstance();;
+    private final PowerUpFactory powerUpFactory = PowerUpFactory.getInstance();;
 
     public GameMap(String mapName) {
         Gdx.app.log("GameMap", "Constructing game map");
@@ -46,8 +48,6 @@ public class GameMap {
         mapWidthInPixels  = mapWidthInTiles  * tileWidth;
         mapHeightInPixels = mapHeightInTiles * tileHeight;
 
-        blockFactory = BlockFactory.getInstance();
-        powerUpFactory = PowerUpFactory.getInstance();
         tileContainers = HashBasedTable.create();
 
         // Initialize tileContainers with tiles

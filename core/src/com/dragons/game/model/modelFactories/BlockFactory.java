@@ -1,4 +1,4 @@
-package com.dragons.game.model.factories;
+package com.dragons.game.model.modelFactories;
 
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.IModel;
@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class BlockFactory{
 
-    private static BlockFactory INSTANCE = new BlockFactory();
+    private static final BlockFactory INSTANCE = new BlockFactory();
 
     public static BlockFactory getInstance() {
         return INSTANCE;
@@ -28,9 +28,9 @@ public final class BlockFactory{
     public IModel createBlock(Vector2 position, @NotNull BlockType type, float width, float height){
         switch (type){
             case DESTRUCTIBLEBlOCK:
-                return new DestructibleBlock(position, type, width, height);
+                return new DestructibleBlock(position, width, height);
             case WALLBLOCK:
-                return new WallBlock(position, type, width, height);
+                return new WallBlock(position, width, height);
             default:
                 throw new IllegalArgumentException();
         }

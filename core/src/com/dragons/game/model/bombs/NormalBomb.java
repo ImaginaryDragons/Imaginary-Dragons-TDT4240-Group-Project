@@ -1,44 +1,29 @@
-package com.dragons.game.model.bomb;
+package com.dragons.game.model.bombs;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.Shape;
-import com.dragons.game.model.IModelType;
-import com.dragons.game.model.gameWorld.GameWorld;
-import com.dragons.game.model.IModel;
+
 import com.dragons.game.model.Model;
 import com.dragons.game.model.gameWorld.GameMap;
-import com.dragons.game.model.player.Player;
 import com.dragons.game.utilities.Constants;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import static com.dragons.game.utilities.Constants.PPM;
-
-enum BombType implements IModelType {
-    NORMALBOMB
-}
 
 
-public class Bomb extends Model {
+public class NormalBomb extends Model implements IBomb {
 
-    // TODO: FIX SHAPE (private Circle circleBounds;)
     private float loadingTime;
-    public boolean bombExploded;
+    private boolean bombExploded;
     private float bombRange;
+    private static final boolean isStatic = false;
+    private static final boolean isSensor = false;
 
     private ArrayList<Vector2> fireTiles;
 
-    public Bomb(Vector2 pos, float radius, float bombRange){
-        super(pos, BombType.NORMALBOMB,radius * 2,radius * 2);
+    public NormalBomb(Vector2 pos, float width, float height, float bombRange){
+        super(pos, width, height, isStatic, isSensor);
         this.bombRange = bombRange;
 
         bombExploded = false;
         loadingTime = Constants.BombExplodeTime;
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(radius / PPM, radius /  PPM);
-        super.setShape(shape);
 
     }
 

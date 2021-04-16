@@ -1,10 +1,11 @@
 package com.dragons.game.view.modelViews;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public interface IModelView {
 
-    public void update(float delta);
+    void update(float delta);
 
-    public void render(SpriteBatch sb);
+    void render(SpriteBatch sb);
 }
