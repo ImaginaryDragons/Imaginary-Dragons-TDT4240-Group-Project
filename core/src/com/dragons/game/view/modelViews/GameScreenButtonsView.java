@@ -1,15 +1,16 @@
-package com.dragons.game.playerController;
+package com.dragons.game.view.modelViews;
 
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.dragons.game.utilities.Constants;
+import com.dragons.game.view.modelViews.IModelView;
 
 import static com.dragons.game.utilities.Constants.BOMB_BUTTON_SCALING;
 import static com.dragons.game.utilities.Constants.EXIT_BUTTON_SCALING;
 
-public class GameScreenButtonsView {
+public class GameScreenButtonsView implements IModelView {
     private final Texture exitButton;
     private final Texture dropBombTexture;
 
@@ -37,9 +38,10 @@ public class GameScreenButtonsView {
         exitButtonBounds = new Rectangle(exitButtonPosX, exitButtonPosY, exitButtonWidth, exitButtonHeight);
     }
 
-    public void render(SpriteBatch batch) {
-        batch.draw(dropBombTexture, dropBombPosX, dropBombPosY, dropBombWidth, dropBombHeight);
-        batch.draw(exitButton, exitButtonPosX, exitButtonPosY, exitButtonWidth, exitButtonHeight);
+    @Override
+    public void render(SpriteBatch sb) {
+        sb.draw(dropBombTexture, dropBombPosX, dropBombPosY, dropBombWidth, dropBombHeight);
+        sb.draw(exitButton, exitButtonPosX, exitButtonPosY, exitButtonWidth, exitButtonHeight);
     }
 
     public Rectangle getExitButtonBounds() {
