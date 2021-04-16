@@ -6,7 +6,6 @@ import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.bombs.IBomb;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class BombController implements IGameObjectController {
 
@@ -23,7 +22,6 @@ public class BombController implements IGameObjectController {
     @Override
     public void controllerAction(GameWorld gameWorld) {
         if (bomb.isExploded()) {
-            System.out.println("Hei mofo");
 
             ArrayList<Vector2> fireTiles = bomb.getFireTiles(gameWorld.getMap());
             gameWorld.spawnFire(fireTiles, BombType.NORMALBOMB);

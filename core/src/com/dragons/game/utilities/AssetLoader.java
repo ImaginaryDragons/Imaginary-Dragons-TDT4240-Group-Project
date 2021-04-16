@@ -67,10 +67,16 @@ public class AssetLoader {
             EXPLOSION4= "explosion4.png",
             EXPLOSION5= "explosion5.png",
 
-            /***************** PLAYER CONTROLLER BUTTONS ************************/
 
+            /***************** PLAYER CONTROLLER BUTTONS ************************/
+  
             EXIT_BTN = "exitBtn_small.png",
-            BOMB_BTN = "bombBtn_small.png";
+            BOMB_BTN = "bombBtn_small.png",
+
+
+            /*********** HEALTH *************/
+            FULL_HEALTH = "fullhealth.png",
+            EMPTY_HEALTH = "emptyhealth.png";
 
             // LAST ELEMENT MUST HAVE ';'!!
 

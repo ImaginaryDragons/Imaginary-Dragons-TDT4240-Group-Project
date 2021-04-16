@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragons.game.model.gameWorld.GameObject;
 import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.utilities.AssetLoader;
+import com.dragons.game.view.modelViews.LifeDisplayView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -38,6 +39,10 @@ public class GameRenderer {
             }
         }
         gameWorld.getPlayerController().render(batch);
+      
+        for (LifeDisplayView life : gameWorld.getLifeDisplay()){
+            life.render(batch);
+        }
     }
 
     private void loadAssets() {

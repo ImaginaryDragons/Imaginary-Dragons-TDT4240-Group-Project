@@ -12,13 +12,19 @@ import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.modelFactories.BombFactory;
 import com.dragons.game.model.modelFactories.FireFactory;
 import com.dragons.game.model.modelFactories.PlayerFactory;
+import com.dragons.game.model.players.NormalPlayer;
 import com.dragons.game.model.players.PlayerType;
 import com.dragons.game.model.playerController.PlayerController;
+import com.dragons.game.utilities.Constants;
+import com.dragons.game.view.modelViews.LifeDisplayView;
+import com.dragons.game.view.modelViews.PlayerView;
+
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
 import static com.dragons.game.utilities.Constants.PPM;
 import static com.dragons.game.utilities.Constants.VIRTUAL_HEIGHT;
@@ -37,6 +43,8 @@ public class GameWorld {
     private ArrayList<GameObject> staticGameObjects;
     private ArrayList<GameObject> dynamicGameObjects;
     private ArrayList<IGameObjectController> actionControllers;
+    private ArrayList<IGameObjectController> tempControllerContainer; // This is a workaround from a problem with adding to actionControllers while iterating through it!
+    private ArrayList<LifeDisplayView> lifeDisplay;
 
     // Factories
     private final PlayerFactory playerFactory = PlayerFactory.getInstance();
@@ -65,6 +73,8 @@ public class GameWorld {
         staticGameObjects = new ArrayList<GameObject>();
         dynamicGameObjects = new ArrayList<GameObject>();
         actionControllers = new ArrayList<IGameObjectController>();
+        tempControllerContainer = new ArrayList<IGameObjectController>();
+        lifeDisplay = new ArrayList<LifeDisplayView>();
         this.map = map;
 
         b2dr = new Box2DDebugRenderer();
@@ -117,21 +127,25 @@ public class GameWorld {
 
     public void initializePlayers() {
         Gdx.app.log("GameWorld", "Initializing main player");
-        Vector2 p1StartPos = map.tilePos(new Vector2(1,1));
-        // TODO: why doesnt player get centered if scaled down?
-        IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER,
-                                            Color.RED, map.getTileWidth() * 0.9f, map.getTileHeight() * 0.9f); // TODO: Remove magic numbers
-        this.addGameObject(p1);
+      
+        Vector2 p1StartPos = map.tilePosCenter(new Vector2(1,1));
+        IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER, Color.RED, map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor); // TODO: Remove magic numbers
+        GameObject player1 = new GameObject(p1, world, assetManager);
+        playerController.addPlayer(player1);
+        dynamicGameObjects.add(player1);
+        LifeDisplayView healthView = new LifeDisplayView((NormalPlayer)p1, assetManager, map, map.tilePosCenter(new Vector2(1,10)));
+        lifeDisplay.add(healthView);
 
-        GameObject p1Model = new GameObject(p1, world, assetManager);
-        dynamicGameObjects.add(p1Model);
-        playerController.addPlayer(p1Model);  // playerController has to take a GameObject not IModel to access body
+        Gdx.app.log("GameWorld", "Initializing secondary player");
+        Vector2 p2StartPos = map.tilePosCenter(new Vector2(13,9));
+        IModel p2 = playerFactory.createPlayer(2, p2StartPos, PlayerType.NORMALPLAYER, Color.BLUE, map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
+        GameObject player2 = new GameObject(p2, world, assetManager);
+        dynamicGameObjects.add(player2);
     }
 
 
-    public void placeBomb(Vector2 position, BombType type, float range) {
-        // TODO: why doesnt bomb get centered if scaled down?
-        IModel bomb = bombFactory.createBomb(position, type, map.getTileWidth() * 0.8f, map.getTileHeight() * 0.8f, range); // TODO: Remove magic numbers
+    public void placeBomb(Vector2 centerPos, BombType type, float range) {
+        IModel bomb = bombFactory.createBomb(centerPos, type, map.getTileWidth() * Constants.BombScaleFactor, map.getTileHeight() * Constants.BombScaleFactor, range); // TODO: Remove magic numbers
         GameObject newBomb = new GameObject(bomb, world, assetManager);
         BombController newBombCtr = new BombController(newBomb);
         this.dynamicGameObjects.add(newBomb);
@@ -139,11 +153,13 @@ public class GameWorld {
     }
 
     public void spawnFire(ArrayList<Vector2> fireTiles, BombType type) {
-        System.out.println("Spawning fire!");
+        Gdx.app.log("GameWorld", "Spawning fire");
         for (Vector2 firePos : fireTiles) {
-            System.out.println("Fire Spawned");
-            IModel newFire = fireFactory.createFire(firePos, type, map.getTileWidth(), map.getTileHeight());
-            addGameObject(newFire);
+            IModel fire = fireFactory.createFire(firePos, type, map.getTileWidth() * Constants.FireScaleFactor, map.getTileHeight() * Constants.FireScaleFactor);
+            GameObject newFire = new GameObject(fire,world,assetManager);
+            FireController newFireCtr = new FireController(newFire);
+            this.staticGameObjects.add(newFire);
+            this.tempControllerContainer.add(newFireCtr);
         }
     }
 
@@ -151,8 +167,6 @@ public class GameWorld {
         for(GameObject dynamicGameObject : dynamicGameObjects) {
             dynamicGameObject.syncPosition();
             dynamicGameObject.update(delta);
-            // TODO: remove this, only for testing velocity
-//            dynamicGameObject.getBody().setLinearVelocity(-5, 20);
         }
         for (GameObject staticObject : staticGameObjects){
             staticObject.update(delta);
@@ -161,14 +175,21 @@ public class GameWorld {
         // Iterate through the controllers and perform actions
         // We have to use an iterator to remove them correctly
         // REMOVING FIX: https://stackoverflow.com/questions/10033025/crash-when-trying-to-remove-object-from-arraylist
-        Iterator<IGameObjectController> i = actionControllers.iterator();
-        while(i.hasNext()){
-            IGameObjectController ctr = i.next();
+        Iterator<IGameObjectController> it = actionControllers.iterator();
+        IGameObjectController ctr;
+        while(it.hasNext()){
+            ctr = it.next();
             ctr.controllerAction(this);
             if (ctr.remove()) {
-                i.remove();
+                System.out.println(actionControllers.toString());
+                System.out.println(it.toString());
+                it.remove();
             }
         }
+        // This step has to be performed due to limitations on how iterators work. We can't add to the same list we try to iterate through.
+        // Therefore we store new controllers in a temporary list and add them afterwards
+        actionControllers.addAll(tempControllerContainer);
+        tempControllerContainer.clear();
     }
 
     public ArrayList<GameObject> getStaticGameObjects() {
@@ -206,5 +227,10 @@ public class GameWorld {
 
     public PlayerController getPlayerController() {
         return playerController;
+    }
+
+    public ArrayList<LifeDisplayView> getLifeDisplay() {
+        return lifeDisplay;
+
     }
 }

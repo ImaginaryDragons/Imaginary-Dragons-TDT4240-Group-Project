@@ -9,6 +9,9 @@ import com.dragons.game.model.powerUps.IncreaseSpeed;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 
 /**
  * To extend the factory with a new powerup, create the new powerup class, add its corresponding
@@ -18,6 +21,8 @@ import org.jetbrains.annotations.NotNull;
 public final class PowerUpFactory {
 
     private static final PowerUpFactory INSTANCE = new PowerUpFactory();
+    private PowerUpType[] powerUps=PowerUpType.values();
+    private Random random = new Random();
 
     public static PowerUpFactory getInstance() {
         return INSTANCE;
@@ -33,17 +38,20 @@ public final class PowerUpFactory {
      * @throws IllegalArgumentException if type doesn't exist
      */
 
-        @NotNull
-        public IModel createPowerUp(Vector2 position, @NotNull PowerUpType type, float width, float height){
-            switch (type) {
-                case BOMBCAPACITY:
-                    return new BombCapacity(position, width, height);
-                case INCREASERANGE:
-                    return new IncreaseRange(position, width, height);
-                case INCREASESPEED:
-                    return new IncreaseSpeed(position, width, height);
-                default:
-                    throw new IllegalArgumentException();
-            }
+    @NotNull
+    public IModel createPowerUp(Vector2 position, @NotNull PowerUpType type, float width, float height) {
+        if (type == PowerUpType.RANDOM){
+            type = powerUps[random.nextInt(powerUps.length-1)];
+        }
+        switch (type) {
+            case BOMBCAPACITY:
+                return new BombCapacity(position, width, height);
+            case INCREASERANGE:
+                return new IncreaseRange(position, width, height);
+            case INCREASESPEED:
+                return new IncreaseSpeed(position, width, height);
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 }
