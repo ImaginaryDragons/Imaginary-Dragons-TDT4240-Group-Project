@@ -6,6 +6,7 @@ import com.dragons.game.model.Model;
 import com.dragons.game.model.players.NormalPlayer;
 
 
+
 public class BombCapacity extends Model implements IPowerUp {
 
     // TODO: take from constants?

@@ -24,7 +24,6 @@ public class GameRenderer {
         loadAssets();
     }
 
-
     public void render(SpriteBatch batch){
         ArrayList<GameObject> dynamicGameObjects = gameWorld.getDynamicGameObjects();
         for (GameObject object : dynamicGameObjects){
@@ -38,7 +37,6 @@ public class GameRenderer {
                 object.getModelView().render(batch);
             }
         }
-
     }
 
     private void loadAssets() {
@@ -47,4 +45,4 @@ public class GameRenderer {
         manager.finishLoading();
         Gdx.app.log("Asset loader", "Loading assets finished");
     }
-    }
+}

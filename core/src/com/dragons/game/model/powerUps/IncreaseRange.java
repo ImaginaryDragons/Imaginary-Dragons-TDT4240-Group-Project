@@ -7,6 +7,7 @@ import com.dragons.game.model.players.NormalPlayer;
 
 
 
+
 public class IncreaseRange extends Model implements IPowerUp {
 
     // TODO: take from constants?

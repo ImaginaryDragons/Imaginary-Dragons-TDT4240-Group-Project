@@ -16,12 +16,11 @@ public class GameObject {
 
     // https://gamedev.stackexchange.com/questions/88455/how-can-i-attach-a-libgdx-actor-to-a-box2d-body
 
-    private final IModel model;
-    private final IModelView modelView;
+    private IModel model;
+    private IModelView modelView;
     private final Body body;
     private final World world;
-
-
+    public boolean destroyObject;
 
     public GameObject(IModel model, World world, AnnotationAssetManager assetManager) {
         Gdx.app.log("GameObject", "Creating game object");
@@ -29,7 +28,7 @@ public class GameObject {
         this.world = world;
         this.modelView = ModelViewFactory.getInstance().createModelView(model, assetManager);
         this.body = BodyBuilder.createBody(world, this);
-
+        this.destroyObject = false;
     }
 
 
@@ -52,21 +51,23 @@ public class GameObject {
             float x = body.getPosition().x * PPM;
             float y = body.getPosition().y * PPM;
 
+
+
             model.getPosition().set(x, y);
 
         }
     }
+
     // TODO: remove need for position as argument, encapsulate in controller instead
     public void update(float delta){
+
+        model.update(delta);
         if (modelView != null) modelView.update(delta);
     }
 
-
-
-
-    private void dispose() {
+    public void dispose() {
         world.destroyBody(body);
-
-
+        this.model = null;
+        this.modelView = null;
     }
 }

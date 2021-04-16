@@ -10,18 +10,15 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.Model;
-import com.dragons.game.model.blocks.BlockType;
 import com.dragons.game.model.blocks.IBlock;
-import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.bombs.IBomb;
-import com.dragons.game.model.bombs.NormalBomb;
 import com.dragons.game.model.bombs.fires.IFire;
-import com.dragons.game.model.bombs.fires.NormalFire;
 import com.dragons.game.model.players.IPlayer;
+import com.dragons.game.model.bombs.NormalBomb;
+import com.dragons.game.model.bombs.fires.NormalFire;
 import com.dragons.game.model.players.NormalPlayer;
-import com.dragons.game.model.players.PlayerType;
 import com.dragons.game.model.powerUps.IPowerUp;
-import com.dragons.game.model.powerUps.PowerUpType;
+
 
 import org.jetbrains.annotations.NotNull;
 

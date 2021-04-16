@@ -56,7 +56,6 @@ public class GameMap {
                 tileContainers.put(x, y, new ArrayList<IModel>());
             }
         }
-
     }
 
     // Find the associated tile given a coordinate position
@@ -64,6 +63,10 @@ public class GameMap {
         int resX = (int) ((pos.x-(pos.x % tileWidth)) / tileWidth) - 1;
         int resY = (int) ((pos.y-(pos.y % tileHeight)) / tileHeight) - 1;
         return new Vector2(resX, resY);
+    }
+
+    public Vector2 pos2tilePos(Vector2 pos) {
+        return tilePos(pos2tile(pos));
     }
 
     // Find the starting position of a tile given the tile index
