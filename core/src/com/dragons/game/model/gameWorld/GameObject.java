@@ -1,50 +1,43 @@
 package com.dragons.game.model.gameWorld;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
-import com.dragons.game.view.modelViews.ModelView;
+import com.dragons.game.view.modelViews.IModelView;
+import com.dragons.game.view.modelViews.modelViewFactories.ModelViewFactory;
+
+import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import static com.dragons.game.utilities.Constants.PPM;
-import static java.util.Objects.isNull;
 
 
 public class GameObject {
 
     // https://gamedev.stackexchange.com/questions/88455/how-can-i-attach-a-libgdx-actor-to-a-box2d-body
 
-    private final IModel obj;
-    private ModelView objView;
-    private Body body;
+    private IModel model;
+    private IModelView modelView;
+    private final Body body;
     private final World world;
-    public boolean isStatic;
-    public boolean isSensor;
+    public boolean destroyObject;
 
-    // TODO: Pass ModelView as a parameter?
-    public GameObject(IModel obj, ModelView objView, World world) {
+    public GameObject(IModel model, World world, AnnotationAssetManager assetManager) {
         Gdx.app.log("GameObject", "Creating game object");
-        this.obj = obj;
+        this.model = model;
         this.world = world;
-        this.objView = objView;
-        this.isStatic = false;
-        this.isSensor = false;
-        this.body = null;
-    }
-
-
-
-    public void createBody() {
+        this.modelView = ModelViewFactory.getInstance().createModelView(model, assetManager);
         this.body = BodyBuilder.createBody(world, this);
+        this.destroyObject = false;
     }
 
-    public ModelView getModelView() {
-        return objView;
+
+    public IModelView getModelView() {
+        return modelView;
     }
 
     public IModel getObject() {
-        return obj;
+        return model;
     }
 
     public Body getBody() {
@@ -53,15 +46,28 @@ public class GameObject {
 
     public void syncPosition() {
         if (body != null) {
-            Vector2 bodyPosition = body.getPosition();
+
             // Multiply by PPM since world position is in meters
-            Vector2 newPos = new Vector2(bodyPosition.x, bodyPosition.y);
-            obj.setPosition(newPos);
+            float x = body.getPosition().x * PPM;
+            float y = body.getPosition().y * PPM;
+
+
+
+            model.getPosition().set(x, y);
+
         }
     }
 
-    private void dispose() {
-        world.destroyBody(body);
+    // TODO: remove need for position as argument, encapsulate in controller instead
+    public void update(float delta){
 
+        model.update(delta);
+        if (modelView != null) modelView.update(delta);
+    }
+
+    public void dispose() {
+        world.destroyBody(body);
+        this.model = null;
+        this.modelView = null;
     }
 }

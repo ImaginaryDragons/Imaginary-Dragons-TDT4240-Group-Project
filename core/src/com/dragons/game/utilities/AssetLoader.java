@@ -48,7 +48,7 @@ public class AssetLoader {
 
 
 
-            //RANGE_POWERUP = "",
+            RANGE_POWERUP = "bomb_range_powerup.png",
             BOMB_CAP_POWERUP = "bomb_cap_powerup.png",
             SPEED_POWERUP = "dragon_wings-1.png",
 
@@ -56,9 +56,20 @@ public class AssetLoader {
 
             /***************** BOMB AND FIRE ************************/
 
-            BOMB = "FireEgg.png",
+            BOMB1 = "bomb1.png",
+            BOMB2 = "bomb2.png",
+            BOMB3 = "bomb3.png",
+            BOMB4 = "bomb4.png",
+            /*BOMB = "FireEgg.png",
             FIREBALL ="fireball1.png",
-            EXPLOSION="Explosion.png";
+            EXPLOSION="Explosion.png";*/
+            EXPLOSION1= "explosion1.png",
+            EXPLOSION2= "explosion2.png",
+            EXPLOSION3= "explosion3.png",
+            EXPLOSION4= "explosion4.png",
+            EXPLOSION5= "explosion5.png";
+
+
 
             // LAST ELEMENT MUST HAVE ';'!!
 
