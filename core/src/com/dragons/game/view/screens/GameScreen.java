@@ -45,21 +45,17 @@ public class GameScreen extends ScreenAdapter {
         //super();
         Gdx.app.log("GameScreen", "Attached");
 
+        OrthographicCamera camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+
         gameMap = new GameMap("TileMapMobile.tmx");
         manager = new AnnotationAssetManager();
-        gameWorld = new GameWorld(gameMap, manager);
+        gameWorld = new GameWorld(gameMap, manager, camera);
         batch = new SpriteBatch();
 
-        OrthographicCamera camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         camera.position.set(gameMap.getMapWidthInPixels() / 2f, gameMap.getMapHeightInPixels() / 2f, 0);
         camera.update();
-//<<<<<<< HEAD
-//        gameRenderer = new GameRenderer(gameWorld, manager, camera); // Initialize world renderer
-        gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
 
-//=======
-//        gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
-//>>>>>>> dev
+        gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
         tiledMapRenderer.setView(camera);

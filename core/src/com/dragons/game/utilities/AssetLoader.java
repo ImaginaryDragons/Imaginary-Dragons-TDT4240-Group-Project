@@ -72,9 +72,6 @@ public class AssetLoader {
             EXIT_BTN = "exitBtn_small.png",
             BOMB_BTN = "bombBtn_small.png";
 
-
-
-
             // LAST ELEMENT MUST HAVE ';'!!
 
     private AssetLoader(){}

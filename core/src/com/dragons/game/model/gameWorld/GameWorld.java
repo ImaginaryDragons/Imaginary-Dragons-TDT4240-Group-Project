@@ -58,7 +58,7 @@ public class GameWorld {
     // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
 
-    public GameWorld(GameMap map, AnnotationAssetManager manager) {
+    public GameWorld(GameMap map, AnnotationAssetManager manager, OrthographicCamera camera) {
         world = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         this.assetManager = manager;
         world.setContactListener(new WorldContactListener());
@@ -72,7 +72,7 @@ public class GameWorld {
         b2drCam.position.set(map.getMapWidthInPixels() / 2f / PPM, map.getMapHeightInPixels() / 2f / PPM, 0);
         b2drCam.update();
 
-        playerController = new PlayerController();
+        playerController = new PlayerController(camera, manager);
 
         this.cleanupCounter = 0;
     }
@@ -100,6 +100,8 @@ public class GameWorld {
         } else {
             dynamicGameObjects.add(newObject);
         }
+
+        // If NORMALPLAYER -> playerController.addPlayer(newObject)
     }
 
     public void generateMapBlocks() {
@@ -120,6 +122,7 @@ public class GameWorld {
         IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER,
                                             Color.RED, map.getTileWidth() * 0.9f, map.getTileHeight() * 0.9f); // TODO: Remove magic numbers
         this.addGameObject(p1);
+//        playerController.addPlayer(p1);  // playerController has to take a GameObject not IModel to access body
     }
 
 
@@ -196,5 +199,9 @@ public class GameWorld {
 
     public GameMap getMap() {
         return map;
+    }
+
+    public PlayerController getPlayerController() {
+        return playerController;
     }
 }
