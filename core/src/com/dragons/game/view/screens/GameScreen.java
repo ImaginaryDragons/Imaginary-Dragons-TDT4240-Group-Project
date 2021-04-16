@@ -65,8 +65,6 @@ public class GameScreen extends ScreenAdapter {
 
         // BOMB TEST!!
         gameWorld.placeBomb(new Vector2(48,300), BombType.NORMALBOMB, 5);
-
-
     }
 
     public GameMap getGameMap() {
