@@ -11,6 +11,8 @@ import com.dragons.game.model.IModel;
 
 import com.dragons.game.model.modelFactories.BlockFactory;
 import com.dragons.game.model.modelFactories.PowerUpFactory;
+import com.dragons.game.model.powerUps.PowerUpType;
+import com.dragons.game.utilities.Constants;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
@@ -110,10 +112,10 @@ public class GameMap {
                     x++;
                     break;
                 case "3":
-                    IModel desPowerupBlock = blockFactory.createBlock(tilePosCenter(tile), BlockType.DESTRUCTIBLEBlOCK, tileWidth, tileHeight);
-                    //IObject powerup = powerUpFactory.createPowerUp(PowerUpType.INCREASESPEED); lager en random powerup
-                    tileContainers.get(x, y).add(desPowerupBlock);
-                    //tileContainers.get(x, y).add(powerup);
+                    IModel desBlock = blockFactory.createBlock(tilePosCenter(tile), BlockType.DESTRUCTIBLEBlOCK, tileWidth, tileHeight);
+                    IModel powerup = powerUpFactory.createPowerUp(tilePosCenter(tile), PowerUpType.RANDOM, tileWidth * Constants.PowerUpScaleFactor, tileHeight * Constants.PowerUpScaleFactor);
+                    tileContainers.get(x, y).add(desBlock);
+                    tileContainers.get(x, y).add(powerup);
                     x++;
                     break;
                 case " ":
