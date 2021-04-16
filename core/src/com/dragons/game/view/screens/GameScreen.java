@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.playerController.Joystick;
+import com.dragons.game.playerController.PlayerController;
 import com.dragons.game.view.GameRenderer;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -29,7 +30,8 @@ public class GameScreen extends ScreenAdapter {
 
     private GameWorld gameWorld;
     private GameRenderer gameRenderer;
-    private Joystick joystick;
+//    private Joystick joystick;
+    private PlayerController playerController;
     private AnnotationAssetManager manager;
 
     public GameMap gameMap;
@@ -65,7 +67,7 @@ public class GameScreen extends ScreenAdapter {
         camera.position.set(gameMap.getMapWidthInPixels() / 2f, gameMap.getMapHeightInPixels() / 2f, 0);
         camera.update();
         gameRenderer = new GameRenderer(gameWorld, manager, camera); // Initialize world renderer
-        joystick = new Joystick(camera);
+        playerController = new PlayerController(camera);
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
         tiledMapRenderer.setView(camera);
@@ -114,7 +116,8 @@ public class GameScreen extends ScreenAdapter {
         // Render game objects
         batch.begin();
         gameRenderer.render(batch);
-        joystick.render(batch);
+//        joystick.render(batch);
+        playerController.render(batch);
         batch.end();
 
         b2dr.render(b2dWorld, b2drCam.combined);

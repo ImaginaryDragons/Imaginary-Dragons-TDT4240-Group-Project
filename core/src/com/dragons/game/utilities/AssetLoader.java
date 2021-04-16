@@ -56,7 +56,14 @@ public class AssetLoader {
 
             BOMB = "FireEgg.png",
             FIREBALL ="fireball1.png",
-            EXPLOSION="Explosion.png";
+            EXPLOSION="Explosion.png",
+
+
+            /***************** PLAYER CONTROLLER BUTTONS ************************/
+
+            EXIT_BTN = "exitBtn_small.png",
+            BOMB_BTN = "bombBtn_small.png";
+
 
             // LAST ELEMENT MUST HAVE ';'!!
 

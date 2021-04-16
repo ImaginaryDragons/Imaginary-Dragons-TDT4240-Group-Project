@@ -28,6 +28,6 @@ public class Constants {
     public static final float JOYSTICK_ORIGIN_Y = JOYSTICK_PERIMETER_RADIUS;
     public static final int JOYSTICK_RADIUS = 15;
 
-
-
+    public static final float EXIT_BUTTON_SCALING = 2;
+    public static final float BOMB_BUTTON_SCALING = 2.5f;
 }

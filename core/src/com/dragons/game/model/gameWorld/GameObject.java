@@ -15,13 +15,8 @@ public class GameObject {
     // https://gamedev.stackexchange.com/questions/88455/how-can-i-attach-a-libgdx-actor-to-a-box2d-body
 
     private final IModel obj;
-<<<<<<< HEAD
-    private ModelView objView;
-    public Body body;
-=======
     private IModelView objView;
     private Body body;
->>>>>>> origin/dev
     private final World world;
     public boolean isStatic;
     public boolean isSensor;

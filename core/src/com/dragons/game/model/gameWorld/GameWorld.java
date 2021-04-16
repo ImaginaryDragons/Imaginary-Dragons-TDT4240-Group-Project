@@ -86,7 +86,7 @@ public class GameWorld {
         }
     }
 
-    public void initializePlayers(PlayerController ctr) {
+    public void initializePlayers() {
         Gdx.app.log("GameWorld", "Initializing main player");
         Vector2 p1StartPos = map.tilePos(new Vector2(1,1));
         Player newPlayer = new Player(1, p1StartPos, Color.RED, map.getTileWidth(), map.getTileHeight());
