@@ -55,53 +55,35 @@ public class NormalBomb extends Model implements IBomb {
     }
 
     private ArrayList<Vector2> checkForWall(String direction, GameMap gameMap) {
-        Vector2 checkTile = new Vector2(0, 0);
+        Vector2 checkTile = gameMap.pos2tile(super.getPosition());
         ArrayList<Vector2> fireTiles = new ArrayList<Vector2>();
-        int startPos;
+
         int increment;
-        switch (direction) {
-            case "up":
-                startPos = (int) super.getPosition().y;
-                checkTile.x = (int) super.getPosition().x;
-                increment = 32;
-                break;
-            case "down":
-                startPos = (int) super.getPosition().y;
-                checkTile.x = (int) super.getPosition().x;
-                increment = -32;
-                break;
-            case "left":
-                startPos = (int) super.getPosition().x;
-                checkTile.y = (int) super.getPosition().y;
-                increment = -32;
-                break;
-            case "right":
-                startPos = (int) super.getPosition().x;
-                checkTile.y = (int) super.getPosition().y;
-                increment = 32;
-                break;
-            default:
-                startPos = 0;
-                increment = 0;
+        if (direction == "up" || direction == "right") {
+            increment = 1;
+        } else if (direction == "down" || direction == "left") {
+            increment = -1;
+        } else {
+            increment = 0;
         }
 
         System.out.println("Ready to check for wall");
 
         for (int i = 0; i < bombRange; i++) {
             if (direction == "up" || direction == "down") {
-                checkTile.y = startPos + increment;
+                checkTile.y += increment;
             } else if (direction == "left" || direction == "right") {
-                checkTile.x = startPos + increment;
+                checkTile.x += increment;
             }
-            Vector2 tile = gameMap.pos2tile(checkTile);
-            System.out.println(tile.toString());
-            ArrayList<IModel> tileContainer = gameMap.tileContainers.get((int)tile.x, (int)tile.y);
+            System.out.println(checkTile.toString());
+            ArrayList<IModel> tileContainer = gameMap.tileContainers.get((int)checkTile.x, (int)checkTile.y);
             if (tileContainer == null){
                 System.out.println("Breaking stuff here");
                 break;
             }
             if (tileContainer.isEmpty()) {
                 System.out.println("Is empty here");
+                fireTiles.add(gameMap.tilePosCenter(checkTile));
                 break;
             }
 
@@ -124,7 +106,7 @@ public class NormalBomb extends Model implements IBomb {
 
             if (addCurrentTile == true) {
                 System.out.println("Tile added");
-                fireTiles.add(tile);
+                fireTiles.add(new Vector2(gameMap.tilePosCenter(checkTile)));
             }
 
             if (stopExpanding == true) {

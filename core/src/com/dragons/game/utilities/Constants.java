@@ -17,8 +17,8 @@ public class Constants {
 
     public static final int InitBombRange = 1; //Number of tiles range?? Would be nice and intuitive to use
     public static final float BombRangeBoostInc = 1.5f; // Number of tiles increased range
-    public static final float BombExplodeTime = 2.5f; // Seconds before bomb is done exploding
-    public static final float FireDisplayTime = 1.5f; // Seconds fire displays after bomb explodes
+    public static final float BombExplodeTime = 5f; // Seconds before bomb is done exploding
+    public static final float FireDisplayTime = 5f; // Seconds fire displays after bomb explodes
     public static final float BombReloadTime = BombExplodeTime + FireDisplayTime;
 
 

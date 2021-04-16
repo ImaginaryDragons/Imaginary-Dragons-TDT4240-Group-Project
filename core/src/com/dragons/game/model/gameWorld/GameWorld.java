@@ -118,9 +118,9 @@ public class GameWorld {
     }
 
 
-    public void placeBomb(Vector2 position, BombType type, float range) {
+    public void placeBomb(Vector2 centerPos, BombType type, float range) {
         // TODO: why doesnt bomb get centered if scaled down?
-        IModel bomb = bombFactory.createBomb(position, type, map.getTileWidth() * 0.8f, map.getTileHeight() * 0.8f, range); // TODO: Remove magic numbers
+        IModel bomb = bombFactory.createBomb(centerPos, type, map.getTileWidth() * 0.8f, map.getTileHeight() * 0.8f, range); // TODO: Remove magic numbers
         GameObject newBomb = new GameObject(bomb, world, assetManager);
         BombController newBombCtr = new BombController(newBomb);
         this.dynamicGameObjects.add(newBomb);
@@ -145,7 +145,7 @@ public class GameWorld {
             dynamicGameObject.syncPosition();
             dynamicGameObject.update(delta);
             // TODO: remove this, only for testing velocity
-            dynamicGameObject.getBody().setLinearVelocity(-5, 20);
+            //dynamicGameObject.getBody().setLinearVelocity(-5, 20);
         }
         for (GameObject staticObject : staticGameObjects){
             staticObject.update(delta);

@@ -33,7 +33,5 @@ public final class BombFactory {
                 throw new IllegalArgumentException();
         }
     }
-
-
     
 }
