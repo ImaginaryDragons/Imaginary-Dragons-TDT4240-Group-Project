@@ -131,8 +131,12 @@ public class GameWorld {
         System.out.println("Spawning fire!");
         for (Vector2 firePos : fireTiles) {
             System.out.println("Fire Spawned");
-            IModel newFire = fireFactory.createFire(firePos, type, map.getTileWidth(), map.getTileHeight());
-            addGameObject(newFire);
+            IModel fire = fireFactory.createFire(firePos, type, map.getTileWidth(), map.getTileHeight());
+            GameObject newFire = new GameObject(fire,world,assetManager);
+            FireController newFireCtr = new FireController(newFire);
+            this.staticGameObjects.add(newFire);
+            this.actionControllers.add(newFireCtr);
+
         }
     }
 
