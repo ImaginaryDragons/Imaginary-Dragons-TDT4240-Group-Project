@@ -39,6 +39,11 @@ public class GameScreenButtonsView implements IModelView {
     }
 
     @Override
+    public void update(float delta) {
+
+    }
+
+    @Override
     public void render(SpriteBatch sb) {
         sb.draw(dropBombTexture, dropBombPosX, dropBombPosY, dropBombWidth, dropBombHeight);
         sb.draw(exitButton, exitButtonPosX, exitButtonPosY, exitButtonWidth, exitButtonHeight);

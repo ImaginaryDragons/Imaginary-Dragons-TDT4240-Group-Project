@@ -9,8 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.components.Tiled;
 import com.dragons.game.model.IModel;
 
-import com.dragons.game.model.factories.BlockFactory;
-import com.dragons.game.model.factories.PowerUpFactory;
+import com.dragons.game.model.modelFactories.BlockFactory;
+import com.dragons.game.model.modelFactories.PowerUpFactory;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
@@ -18,7 +18,6 @@ import com.dragons.game.model.blocks.BlockType;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -32,8 +31,10 @@ public class GameMap {
             mapWidthInPixels, mapHeightInPixels;
 
     private TiledMap tiledMap;
-    private final BlockFactory blockFactory;
-    private final PowerUpFactory powerUpFactory;
+
+    // Factories
+    private final BlockFactory blockFactory = BlockFactory.getInstance();;
+    private final PowerUpFactory powerUpFactory = PowerUpFactory.getInstance();;
 
     public GameMap(String mapName) {
         Gdx.app.log("GameMap", "Constructing game map");
@@ -47,8 +48,6 @@ public class GameMap {
         mapWidthInPixels  = mapWidthInTiles  * tileWidth;
         mapHeightInPixels = mapHeightInTiles * tileHeight;
 
-        blockFactory = BlockFactory.getInstance();
-        powerUpFactory = PowerUpFactory.getInstance();
         tileContainers = HashBasedTable.create();
 
         // Initialize tileContainers with tiles
@@ -57,7 +56,6 @@ public class GameMap {
                 tileContainers.put(x, y, new ArrayList<IModel>());
             }
         }
-
     }
 
     // Find the associated tile given a coordinate position
@@ -65,6 +63,10 @@ public class GameMap {
         int resX = (int) ((pos.x-(pos.x % tileWidth)) / tileWidth) - 1;
         int resY = (int) ((pos.y-(pos.y % tileHeight)) / tileHeight) - 1;
         return new Vector2(resX, resY);
+    }
+
+    public Vector2 pos2tilePos(Vector2 pos) {
+        return tilePos(pos2tile(pos));
     }
 
     // Find the starting position of a tile given the tile index
@@ -93,18 +95,18 @@ public class GameMap {
                     x++;
                     break;
                 case "1":
-                    IModel desblock = blockFactory.createBlock(tilePosCenter(tile), BlockType.DESTRUCTIBLE, tileWidth, tileHeight);
+                    IModel desblock = blockFactory.createBlock(tilePosCenter(tile), BlockType.DESTRUCTIBLEBlOCK, tileWidth, tileHeight);
                     tileContainers.get(x, y).add(desblock);
                     x++;
                     break;
                 case "2":
                     System.out.print(tilePos(tile).toString());
-                    IModel wallblock = blockFactory.createBlock(tilePosCenter(tile), BlockType.WALL, tileWidth, tileHeight);
+                    IModel wallblock = blockFactory.createBlock(tilePosCenter(tile), BlockType.WALLBLOCK, tileWidth, tileHeight);
                     tileContainers.get(x, y).add(wallblock);
                     x++;
                     break;
                 case "3":
-                    IModel desPowerupBlock = blockFactory.createBlock(tilePosCenter(tile), BlockType.DESTRUCTIBLE, tileWidth, tileHeight);
+                    IModel desPowerupBlock = blockFactory.createBlock(tilePosCenter(tile), BlockType.DESTRUCTIBLEBlOCK, tileWidth, tileHeight);
                     //IObject powerup = powerUpFactory.createPowerUp(PowerUpType.INCREASESPEED); lager en random powerup
                     tileContainers.get(x, y).add(desPowerupBlock);
                     //tileContainers.get(x, y).add(powerup);

@@ -9,8 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
+import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.playerController.Joystick;
@@ -22,28 +21,18 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static com.dragons.game.utilities.Constants.PPM;
 import static com.dragons.game.utilities.Constants.VIRTUAL_HEIGHT;
 import static com.dragons.game.utilities.Constants.VIRTUAL_WIDTH;
 
 public class GameScreen extends ScreenAdapter {
 
-    private GameWorld gameWorld;
-    private GameRenderer gameRenderer;
-//    private Joystick joystick;
-    private PlayerController playerController;
-    private AnnotationAssetManager manager;
+    private final GameWorld gameWorld;
+    private final GameRenderer gameRenderer;
+    private final AnnotationAssetManager manager;
 
-    public GameMap gameMap;
-    private SpriteBatch batch;
-
-
-    private OrthographicCamera camera;
-
-    private TiledMapRenderer tiledMapRenderer;
-    private World b2dWorld;
-    private Box2DDebugRenderer b2dr;
-    private OrthographicCamera b2drCam;
+    private final GameMap gameMap;
+    private final SpriteBatch batch;
+    private final TiledMapRenderer tiledMapRenderer;
 
     // TODO: Integrating the gameWorld onto the firebase server
     /*Right now the gameWorld is statically defined within our gamescreen. However, we need
@@ -57,17 +46,20 @@ public class GameScreen extends ScreenAdapter {
         Gdx.app.log("GameScreen", "Attached");
 
         gameMap = new GameMap("TileMapMobile.tmx");
-        b2dWorld = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         manager = new AnnotationAssetManager();
-        gameWorld = new GameWorld(b2dWorld, gameMap, manager);
+        gameWorld = new GameWorld(gameMap, manager);
         batch = new SpriteBatch();
 
-        //TODO: Change viewPortWidth and height to variables
-        camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+        OrthographicCamera camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         camera.position.set(gameMap.getMapWidthInPixels() / 2f, gameMap.getMapHeightInPixels() / 2f, 0);
         camera.update();
-        gameRenderer = new GameRenderer(gameWorld, manager, camera); // Initialize world renderer
-        playerController = new PlayerController(camera);
+//<<<<<<< HEAD
+//        gameRenderer = new GameRenderer(gameWorld, manager, camera); // Initialize world renderer
+        gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
+
+//=======
+//        gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
+//>>>>>>> dev
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
         tiledMapRenderer.setView(camera);
@@ -81,22 +73,19 @@ public class GameScreen extends ScreenAdapter {
 
         // BOMB TEST!!
         // TODO: get right tile position
-        gameWorld.placeBomb(new Vector2(40,300), 2, 2);
+        gameWorld.placeBomb(new Vector2(65,300), BombType.NORMALBOMB, 5);
 
         // FIRE TEST
-        ArrayList<Vector2> fireTileList = new ArrayList<Vector2>();
-        fireTileList.add(gameMap.tilePos(new Vector2(5,5)));
-        fireTileList.add(gameMap.tilePos(new Vector2(5,6)));
-        gameWorld.spawnFire(fireTileList);
-
-        b2dr = new Box2DDebugRenderer();
-        b2drCam = new OrthographicCamera(VIRTUAL_WIDTH / PPM, VIRTUAL_HEIGHT / PPM);
-        b2drCam.position.set(gameMap.getMapWidthInPixels() / 2f / PPM, gameMap.getMapHeightInPixels() / 2f / PPM, 0);
-        b2drCam.update();
+        ArrayList<Vector2> fireTileList = new ArrayList<>();
+        fireTileList.add(gameMap.tilePosCenter(new Vector2(5,5)));
+        fireTileList.add(gameMap.tilePosCenter(new Vector2(5,6)));
+        gameWorld.spawnFire(fireTileList, BombType.NORMALBOMB);
 
 
+    }
 
-
+    public GameMap getGameMap() {
+        return gameMap;
     }
 
     @Override
@@ -106,9 +95,8 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // Update game world
-        gameWorld.update(delta);
-        // gameWorld.updatePlayerPositions(); TODO: Implement this so that it always follows its body!
+
+        //gameWorld.updatePlayerPositions();// TODO: Implement this so that it always follows its body!
 
         //Render map
         tiledMapRenderer.render();
@@ -116,12 +104,12 @@ public class GameScreen extends ScreenAdapter {
         // Render game objects
         batch.begin();
         gameRenderer.render(batch);
-//        joystick.render(batch);
-        playerController.render(batch);
         batch.end();
 
-        b2dr.render(b2dWorld, b2drCam.combined);
-//        Gdx.app.log("GameScreen FPS", (1/delta) + "");
+        // Update game world
+        gameWorld.update(delta);
+
+        //Gdx.app.log("GameScreen FPS", (1/delta) + "");
     }
 
     @Override
