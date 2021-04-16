@@ -65,7 +65,7 @@ public class GameScreen extends ScreenAdapter {
 
         // BOMB TEST!!
         // TODO: get right tile position
-        gameWorld.placeBomb(new Vector2(65,300), BombType.NORMALBOMB, 5);
+        gameWorld.placeBomb(new Vector2(48,300), BombType.NORMALBOMB, 5);
 
         // FIRE TEST
         ArrayList<Vector2> fireTileList = new ArrayList<>();
