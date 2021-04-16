@@ -38,6 +38,8 @@ public class GameRenderer {
                 object.getModelView().render(batch);
             }
         }
+        gameWorld.getPlayerController().render(batch);
+      
         for (LifeDisplayView life : gameWorld.getLifeDisplay()){
             life.render(batch);
         }
