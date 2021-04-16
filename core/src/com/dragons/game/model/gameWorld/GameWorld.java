@@ -13,6 +13,7 @@ import com.dragons.game.model.modelFactories.BombFactory;
 import com.dragons.game.model.modelFactories.FireFactory;
 import com.dragons.game.model.modelFactories.PlayerFactory;
 import com.dragons.game.model.players.PlayerType;
+import com.dragons.game.model.playerController.PlayerController;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -48,6 +49,8 @@ public class GameWorld {
     private final Box2DDebugRenderer b2dr;
     private final OrthographicCamera b2drCam;
 
+    private final PlayerController playerController;
+
     private int cleanupCounter;
 
 
@@ -55,7 +58,7 @@ public class GameWorld {
     // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
 
-    public GameWorld(GameMap map, AnnotationAssetManager manager) {
+    public GameWorld(GameMap map, AnnotationAssetManager manager, OrthographicCamera camera) {
         world = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         this.assetManager = manager;
         world.setContactListener(new WorldContactListener());
@@ -68,6 +71,8 @@ public class GameWorld {
         b2drCam = new OrthographicCamera(VIRTUAL_WIDTH / PPM, VIRTUAL_HEIGHT / PPM);
         b2drCam.position.set(map.getMapWidthInPixels() / 2f / PPM, map.getMapHeightInPixels() / 2f / PPM, 0);
         b2drCam.update();
+
+        playerController = new PlayerController(camera, manager, this);
 
         this.cleanupCounter = 0;
     }
@@ -95,6 +100,8 @@ public class GameWorld {
         } else {
             dynamicGameObjects.add(newObject);
         }
+
+        // If newObject is NORMALPLAYER and main player -> playerController.addPlayer(newObject)
     }
 
     public void generateMapBlocks() {
@@ -115,6 +122,10 @@ public class GameWorld {
         IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER,
                                             Color.RED, map.getTileWidth() * 0.9f, map.getTileHeight() * 0.9f); // TODO: Remove magic numbers
         this.addGameObject(p1);
+
+        GameObject p1Model = new GameObject(p1, world, assetManager);
+        dynamicGameObjects.add(p1Model);
+        playerController.addPlayer(p1Model);  // playerController has to take a GameObject not IModel to access body
     }
 
 
@@ -141,7 +152,7 @@ public class GameWorld {
             dynamicGameObject.syncPosition();
             dynamicGameObject.update(delta);
             // TODO: remove this, only for testing velocity
-            dynamicGameObject.getBody().setLinearVelocity(-5, 20);
+//            dynamicGameObject.getBody().setLinearVelocity(-5, 20);
         }
         for (GameObject staticObject : staticGameObjects){
             staticObject.update(delta);
@@ -191,5 +202,9 @@ public class GameWorld {
 
     public GameMap getMap() {
         return map;
+    }
+
+    public PlayerController getPlayerController() {
+        return playerController;
     }
 }

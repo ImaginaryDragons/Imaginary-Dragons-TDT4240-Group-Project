@@ -37,6 +37,7 @@ public class GameRenderer {
                 object.getModelView().render(batch);
             }
         }
+        gameWorld.getPlayerController().render(batch);
     }
 
     private void loadAssets() {
