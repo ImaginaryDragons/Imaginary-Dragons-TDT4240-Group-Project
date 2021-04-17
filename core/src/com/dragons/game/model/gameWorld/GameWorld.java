@@ -14,9 +14,11 @@ import com.dragons.game.model.modelFactories.FireFactory;
 import com.dragons.game.model.modelFactories.PlayerFactory;
 import com.dragons.game.model.players.NormalPlayer;
 import com.dragons.game.model.players.PlayerType;
+import com.dragons.game.model.playerController.PlayerController;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.modelViews.LifeDisplayView;
 import com.dragons.game.view.modelViews.PlayerView;
+
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -55,6 +57,8 @@ public class GameWorld {
     private final Box2DDebugRenderer b2dr;
     private final OrthographicCamera b2drCam;
 
+    private final PlayerController playerController;
+
     private int cleanupCounter;
 
 
@@ -62,7 +66,7 @@ public class GameWorld {
     // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
 
-    public GameWorld(GameMap map, AnnotationAssetManager manager) {
+    public GameWorld(GameMap map, AnnotationAssetManager manager, OrthographicCamera camera) {
         world = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         this.assetManager = manager;
         world.setContactListener(new WorldContactListener());
@@ -77,6 +81,8 @@ public class GameWorld {
         b2drCam = new OrthographicCamera(VIRTUAL_WIDTH / PPM, VIRTUAL_HEIGHT / PPM);
         b2drCam.position.set(map.getMapWidthInPixels() / 2f / PPM, map.getMapHeightInPixels() / 2f / PPM, 0);
         b2drCam.update();
+
+        playerController = new PlayerController(camera, manager, this);
 
         this.cleanupCounter = 0;
     }
@@ -104,6 +110,8 @@ public class GameWorld {
         } else {
             dynamicGameObjects.add(newObject);
         }
+
+        // If newObject is NORMALPLAYER and main player -> playerController.addPlayer(newObject)
     }
 
     public void generateMapBlocks() {
@@ -119,11 +127,11 @@ public class GameWorld {
 
     public void initializePlayers() {
         Gdx.app.log("GameWorld", "Initializing main player");
+      
         Vector2 p1StartPos = map.tilePosCenter(new Vector2(1,1));
         IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER, Color.RED, map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor); // TODO: Remove magic numbers
-        //this.addGameObject(p1);
         GameObject player1 = new GameObject(p1, world, assetManager);
-        // TODO: Add player to controller
+        playerController.addPlayer(player1);
         dynamicGameObjects.add(player1);
         LifeDisplayView healthView = new LifeDisplayView((NormalPlayer)p1, assetManager, map, map.tilePosCenter(new Vector2(1,10)));
         lifeDisplay.add(healthView);
@@ -217,8 +225,12 @@ public class GameWorld {
         return map;
     }
 
+    public PlayerController getPlayerController() {
+        return playerController;
+    }
 
     public ArrayList<LifeDisplayView> getLifeDisplay() {
         return lifeDisplay;
+
     }
 }

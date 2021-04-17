@@ -43,14 +43,16 @@ public class GameScreen extends ScreenAdapter {
         //super();
         Gdx.app.log("GameScreen", "Attached");
 
+        OrthographicCamera camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+
         gameMap = new GameMap("TileMapMobile.tmx");
         manager = new AnnotationAssetManager();
-        gameWorld = new GameWorld(gameMap, manager);
+        gameWorld = new GameWorld(gameMap, manager, camera);
         batch = new SpriteBatch();
 
-        OrthographicCamera camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         camera.position.set(gameMap.getMapWidthInPixels() / 2f, gameMap.getMapHeightInPixels() / 2f, 0);
         camera.update();
+
         gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
@@ -73,6 +75,7 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+
         //Gdx.app.log("GameScreen", "Rendering");
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
