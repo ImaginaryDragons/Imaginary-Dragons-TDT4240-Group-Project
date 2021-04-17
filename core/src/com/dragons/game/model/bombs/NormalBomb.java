@@ -49,7 +49,6 @@ public class NormalBomb extends Model implements IBomb {
         fireTiles.addAll(checkForWall("left", gameMap));
         fireTiles.addAll(checkForWall("right", gameMap));
         fireTiles.add(gameMap.tilePosCenter(gameMap.pos2tile(super.getPosition())));
-        System.out.println(fireTiles.toString());
         return fireTiles;
     }
 
@@ -66,22 +65,18 @@ public class NormalBomb extends Model implements IBomb {
             increment = 0;
         }
 
-        System.out.println("Ready to check for wall");
-
-        for (int i = 0; i < bombRange-1; i++) {
+        for (int i = 0; i < bombRange; i++) {
             if (direction == "up" || direction == "down") {
                 checkTile.y += increment;
             } else if (direction == "left" || direction == "right") {
                 checkTile.x += increment;
             }
-            System.out.println(checkTile.toString());
             ArrayList<IModel> tileContainer = gameMap.tileContainers.get((int)checkTile.x, (int)checkTile.y);
             if (tileContainer == null){
                 // Stop checking in this direction
                 break;
             }
 
-            System.out.println("Checking stuff here");
             boolean stopExpanding = false;
             boolean addCurrentTile = true;
             for (IModel obj : tileContainer) {
@@ -98,12 +93,9 @@ public class NormalBomb extends Model implements IBomb {
             }
 
             if (addCurrentTile == true) {
-                System.out.println("Tile added");
                 fireTiles.add(new Vector2(gameMap.tilePosCenter(checkTile)));
             }
             if (stopExpanding == true) {
-                // TODO: Check that this has the desired behavior
-                System.out.println("Is the loop cut off entirely??");
                 break;
             }
         }
