@@ -10,6 +10,7 @@ import com.dragons.game.utilities.Constants;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
+import static com.dragons.game.utilities.AssetLoader.EMPTY_HEALTH;
 import static com.dragons.game.utilities.AssetLoader.FULL_HEALTH;
 
 public class LifeDisplayView implements IModelView{
@@ -17,6 +18,7 @@ public class LifeDisplayView implements IModelView{
     private NormalPlayer player;
     private AnnotationAssetManager manager;
     private Texture lifeDisplay;
+    private Texture emptyLife;
     private GameMap map;
     private float posx;
     private float posy;
@@ -26,6 +28,7 @@ public class LifeDisplayView implements IModelView{
         this.player = player;
         this.manager = manager;
         lifeDisplay = manager.get(FULL_HEALTH, Texture.class);
+        emptyLife = manager.get(EMPTY_HEALTH, Texture.class);
         this.map = map;
         this.posx = tile.x;
         this.posy = tile.y;
@@ -36,10 +39,33 @@ public class LifeDisplayView implements IModelView{
     @Override
     public void update(float delta) {
 
+
     }
 
     @Override
     public void render(SpriteBatch sb) {
-        sb.draw(lifeDisplay, posx - map.getTileWidth()*Constants.HealthScaleFactor/2f, posy - map.getTileHeight()*Constants.HealthScaleFactor/2f, map.getTileWidth()* Constants.HealthScaleFactor, map.getTileHeight() *Constants.HealthScaleFactor);
+        if(player.getLives() == 3){
+            for (int i = 0; i < 3; i++){
+                sb.draw(lifeDisplay, posx - map.getTileWidth()*Constants.HealthScaleFactor/2f, posy - map.getTileHeight()*Constants.HealthScaleFactor/2f, map.getTileWidth()* Constants.HealthScaleFactor, map.getTileHeight() *Constants.HealthScaleFactor);
+                posx++;
+            }
+        } else if (player.getLives() == 2){
+            for (int i = 0; i < 2; i++){
+                sb.draw(lifeDisplay, posx - map.getTileWidth()*Constants.HealthScaleFactor/2f, posy - map.getTileHeight()*Constants.HealthScaleFactor/2f, map.getTileWidth()* Constants.HealthScaleFactor, map.getTileHeight() *Constants.HealthScaleFactor);
+                posx++;
+            }
+            sb.draw(emptyLife, posx - map.getTileWidth()*Constants.HealthScaleFactor/2f, posy - map.getTileHeight()*Constants.HealthScaleFactor/2f, map.getTileWidth()* Constants.HealthScaleFactor, map.getTileHeight() *Constants.HealthScaleFactor);
+
+
+        } else if (player.getLives() == 1){
+            sb.draw(lifeDisplay, posx - map.getTileWidth()*Constants.HealthScaleFactor/2f, posy - map.getTileHeight()*Constants.HealthScaleFactor/2f, map.getTileWidth()* Constants.HealthScaleFactor, map.getTileHeight() *Constants.HealthScaleFactor);
+            posx++;
+            for (int i = 0; i < 2; i++){
+                sb.draw(emptyLife, posx - map.getTileWidth()*Constants.HealthScaleFactor/2f, posy - map.getTileHeight()*Constants.HealthScaleFactor/2f, map.getTileWidth()* Constants.HealthScaleFactor, map.getTileHeight() *Constants.HealthScaleFactor);
+                posx++;
+            }
+
+        }
+
     }
 }
