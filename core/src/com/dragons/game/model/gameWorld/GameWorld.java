@@ -65,7 +65,6 @@ public class GameWorld {
     // https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_hello.html#autotoc_md21
     // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
-
     public GameWorld(GameMap map, AnnotationAssetManager manager, OrthographicCamera camera) {
         world = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         this.assetManager = manager;
@@ -231,6 +230,5 @@ public class GameWorld {
 
     public ArrayList<LifeDisplayView> getLifeDisplay() {
         return lifeDisplay;
-
     }
 }

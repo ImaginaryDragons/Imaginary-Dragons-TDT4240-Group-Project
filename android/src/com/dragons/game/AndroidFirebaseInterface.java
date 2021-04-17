@@ -1,5 +1,6 @@
 package com.dragons.game;
 
+
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -116,7 +117,5 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
         mPlayerReference.addValueEventListener(playerListener);
     }
 */
-
-
 
 }

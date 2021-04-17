@@ -93,6 +93,7 @@ public class GameMap {
 
         int x = 0;
         int y = mapHeightInTiles-1; // We start in the top left corner iterating through our recipe!
+
         while(scanner.hasNext()) {
             tile.x = x;
             tile.y = y;
@@ -131,7 +132,6 @@ public class GameMap {
                         x = 0;
                     break;*/
             }
-
         }
     }
 

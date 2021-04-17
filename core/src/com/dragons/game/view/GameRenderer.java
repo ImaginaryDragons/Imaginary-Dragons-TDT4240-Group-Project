@@ -1,6 +1,7 @@
 package com.dragons.game.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragons.game.model.gameWorld.GameObject;
 import com.dragons.game.model.gameWorld.GameWorld;

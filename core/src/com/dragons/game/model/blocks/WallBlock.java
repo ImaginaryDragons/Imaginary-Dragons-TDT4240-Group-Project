@@ -14,7 +14,6 @@ public class WallBlock extends Model implements IBlock {
 
     }
 
-
     @Override
     public void handleHitByBomb() {
         // TODO: Implement or do nothing somehow (Strategy pattern maybe?)
