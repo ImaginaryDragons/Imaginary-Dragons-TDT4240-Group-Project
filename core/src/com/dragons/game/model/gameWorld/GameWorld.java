@@ -133,14 +133,16 @@ public class GameWorld {
         GameObject player1 = new GameObject(p1, world, assetManager);
         playerController.addPlayer(player1);
         dynamicGameObjects.add(player1);
-        LifeDisplayView healthView = new LifeDisplayView((NormalPlayer)p1, assetManager, map, map.tilePosCenter(new Vector2(1,10)));
-        lifeDisplay.add(healthView);
+        LifeDisplayView healthView1 = new LifeDisplayView((NormalPlayer)p1, assetManager, map, map.tilePosCenter(new Vector2(1,10)));
+        lifeDisplay.add(healthView1);
 
         Gdx.app.log("GameWorld", "Initializing secondary player");
         Vector2 p2StartPos = map.tilePosCenter(new Vector2(13,9));
         IModel p2 = playerFactory.createPlayer(2, p2StartPos, PlayerType.NORMALPLAYER, Color.BLUE, map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
         GameObject player2 = new GameObject(p2, world, assetManager);
         dynamicGameObjects.add(player2);
+        LifeDisplayView healthView2 = new LifeDisplayView((NormalPlayer)p1, assetManager, map, map.tilePosCenter(new Vector2(9,10)));
+        lifeDisplay.add(healthView2);
     }
 
 
