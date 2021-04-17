@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.gameWorld.GameWorld;
 import com.dragons.game.view.GameRenderer;
@@ -24,26 +25,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.dragons.game.utilities.Constants.PPM;
 import static com.dragons.game.utilities.Constants.VIRTUAL_HEIGHT;
 import static com.dragons.game.utilities.Constants.VIRTUAL_WIDTH;
 
 
 public class GameScreen extends ScreenAdapter {
 
-    private GameWorld gameWorld;
-    private GameRenderer gameRenderer;
-    private AnnotationAssetManager manager;
-
-    public GameMap gameMap;
-    private SpriteBatch batch;
-
+    private final GameWorld gameWorld;
+    private final GameRenderer gameRenderer;
+    private final AnnotationAssetManager manager;
     private OrthographicCamera camera;
 
-    private TiledMapRenderer tiledMapRenderer;
     private World b2dWorld;
     private Box2DDebugRenderer b2dr;
     private OrthographicCamera b2drCam;
+    private final GameMap gameMap;
+    private final SpriteBatch batch;
+    private final TiledMapRenderer tiledMapRenderer;
+
 
     //InputStream txt = getAssets().open("map.txt");
 
@@ -61,18 +60,21 @@ public class GameScreen extends ScreenAdapter {
         //super();
         Gdx.app.log("GameScreen", "Attached");
 
+        OrthographicCamera camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+
         gameMap = new GameMap("TileMapMobile.tmx");
-        b2dWorld = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         manager = new AnnotationAssetManager();
-        gameWorld = new GameWorld(b2dWorld, gameMap, manager);
+        gameWorld = new GameWorld(gameMap, manager, camera);
         batch = new SpriteBatch();
-        //TODO: Change viewPortWidth and height to variables
-        camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+
         camera.position.set(gameMap.getMapWidthInPixels() / 2f, gameMap.getMapHeightInPixels() / 2f, 0);
         camera.update();
-        gameRenderer = new GameRenderer(gameWorld, manager, camera); // Initialize world renderer
+
+        gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
+
         tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
         tiledMapRenderer.setView(camera);
+
         batch.setProjectionMatrix(camera.combined);
         // TODO: Create functionality for spawning game world
         gameMap.generateBlocks(0, "map.txt");
@@ -80,11 +82,12 @@ public class GameScreen extends ScreenAdapter {
         gameWorld.initializePlayers();
         // BOMB TEST!!
 
-        gameWorld.placeBomb(new Vector2(100,100), 2, 2);
+        gameWorld.placeBomb(new Vector2(100,100), BombType.NORMALBOMB, 2);
+
 
         // TODO: get right tile position
-        gameWorld.placeBomb(new Vector2(40,300), 2, 2);
-
+        gameWorld.placeBomb(new Vector2(40,300), BombType.NORMALBOMB, 2);
+/*
         // FIRE TEST
         ArrayList<Vector2> fireTileList = new ArrayList<Vector2>();
         fireTileList.add(gameMap.tilePos(new Vector2(5,5)));
@@ -94,21 +97,24 @@ public class GameScreen extends ScreenAdapter {
         b2drCam = new OrthographicCamera(VIRTUAL_WIDTH / PPM, VIRTUAL_HEIGHT / PPM);
         b2drCam.position.set(gameMap.getMapWidthInPixels() / 2f / PPM, gameMap.getMapHeightInPixels() / 2f / PPM, 0);
         b2drCam.update();
+        gameWorld.placeBomb(new Vector2(48,300), BombType.NORMALBOMB, 5);
+        */
 
+    }
 
-
-
+    public GameMap getGameMap() {
+        return gameMap;
     }
 
     @Override
     public void render(float delta) {
+
         //Gdx.app.log("GameScreen", "Rendering");
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // Update game world
-        gameWorld.update(delta);
-        // gameWorld.updatePlayerPositions(); TODO: Implement this so that it always follows its body!
+
+        //gameWorld.updatePlayerPositions();// TODO: Implement this so that it always follows its body!
 
         //Render map
         tiledMapRenderer.render();
@@ -118,7 +124,9 @@ public class GameScreen extends ScreenAdapter {
         gameRenderer.render(batch);
         batch.end();
 
-        b2dr.render(b2dWorld, b2drCam.combined);
+        // Update game world
+        gameWorld.update(delta);
+
         //Gdx.app.log("GameScreen FPS", (1/delta) + "");
     }
 

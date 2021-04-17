@@ -1,9 +1,9 @@
 package com.dragons.game.desktop;
 
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.FireBaseInterface;
-import com.dragons.game.model.player.PlayerColor;
 //import com.google.firebase.database.DatabaseReference;
 
 public class DesktopFirebaseInterface implements FireBaseInterface {

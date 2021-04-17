@@ -14,10 +14,6 @@ public final class BlockFactory{
     public static BlockFactory getInstance() {
         return INSTANCE;
     }
-
-    private BlockFactory() {
-    }
-
     /**
      * Returns a block object
      * @param type Block enum, Vector 2 position, width and height of block.
@@ -27,9 +23,9 @@ public final class BlockFactory{
      */
     public IModel createBlock(Vector2 position, @NotNull BlockType type, float width, float height){
         switch (type){
-            case DESTRUCTIBLE:
-                return new DestructibleBlock(position, type, width, height);
-            case WALL:
+            case DESTRUCTIBLEBlOCK:
+                return new DestructibleBlock(position, width, height);
+            case WALLBLOCK:
                 return new WallBlock(position, type, width, height);
             default:
                 throw new IllegalArgumentException();

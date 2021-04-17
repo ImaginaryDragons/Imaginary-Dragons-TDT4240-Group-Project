@@ -3,24 +3,32 @@ package com.dragons.game.model.gameWorld;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
-import com.dragons.game.model.PowerUps.IPowerUp;
-import com.dragons.game.model.blocks.DestructibleBlock;
-import com.dragons.game.model.bomb.Bomb;
-import com.dragons.game.model.bomb.Fire;
-import com.dragons.game.model.bomb.FireType;
-import com.dragons.game.model.player.Player;
-import com.dragons.game.view.modelViews.BombView;
-import com.dragons.game.view.modelViews.DestructibleBlockView;
-import com.dragons.game.view.modelViews.FireView;
-import com.dragons.game.view.modelViews.IModelView;
+import com.dragons.game.model.bombs.BombType;
+import com.dragons.game.model.modelFactories.BombFactory;
+import com.dragons.game.model.modelFactories.FireFactory;
+import com.dragons.game.model.modelFactories.PlayerFactory;
+import com.dragons.game.model.players.NormalPlayer;
+import com.dragons.game.model.players.PlayerType;
+import com.dragons.game.model.playerController.PlayerController;
+import com.dragons.game.utilities.Constants;
+import com.dragons.game.view.modelViews.LifeDisplayView;
 import com.dragons.game.view.modelViews.PlayerView;
+
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
+
+import static com.dragons.game.utilities.Constants.PPM;
+import static com.dragons.game.utilities.Constants.VIRTUAL_HEIGHT;
+import static com.dragons.game.utilities.Constants.VIRTUAL_WIDTH;
 
 /**
  * The GameWorld class instantiates the world in which a single game will be played. The
@@ -32,55 +40,85 @@ import java.util.ArrayList;
  * */
 
 public class GameWorld {
-    private ArrayList<GameObject> gameObjects;
-    private ArrayList<GameObject> players;
-    private ArrayList<GameBomb> bombs;
-    private ArrayList<GameObject> fires;
-    private World world;
-    private GameMap map;
-    private Player player;
-    private AnnotationAssetManager assetManager;
+    private ArrayList<GameObject> staticGameObjects;
+    private ArrayList<GameObject> dynamicGameObjects;
+    private ArrayList<IGameObjectController> actionControllers;
+    private ArrayList<IGameObjectController> tempControllerContainer; // This is a workaround from a problem with adding to actionControllers while iterating through it!
+    private ArrayList<LifeDisplayView> lifeDisplay;
+
+    // Factories
+    private final PlayerFactory playerFactory = PlayerFactory.getInstance();
+    private final BombFactory bombFactory = BombFactory.getInstance();
+    private final FireFactory fireFactory = FireFactory.getInstance();
+
+    private final World world;
+    private final GameMap map;
+    private final AnnotationAssetManager assetManager;
+    private final Box2DDebugRenderer b2dr;
+    private final OrthographicCamera b2drCam;
+
+    private final PlayerController playerController;
+
+    private int cleanupCounter;
 
 
     // https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_hello.html#autotoc_md21
     // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
-
-    public GameWorld(World world, GameMap map, AnnotationAssetManager manager) {
-        this.world = world;
+    public GameWorld(GameMap map, AnnotationAssetManager manager, OrthographicCamera camera) {
+        world = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         this.assetManager = manager;
         world.setContactListener(new WorldContactListener());
-        gameObjects = new ArrayList<GameObject>();
-        players = new ArrayList<GameObject>();
-        bombs = new ArrayList<GameBomb>();
-        fires = new ArrayList<GameObject>();
+        staticGameObjects = new ArrayList<GameObject>();
+        dynamicGameObjects = new ArrayList<GameObject>();
+        actionControllers = new ArrayList<IGameObjectController>();
+        tempControllerContainer = new ArrayList<IGameObjectController>();
+        lifeDisplay = new ArrayList<LifeDisplayView>();
         this.map = map;
+
+        b2dr = new Box2DDebugRenderer();
+        b2drCam = new OrthographicCamera(VIRTUAL_WIDTH / PPM, VIRTUAL_HEIGHT / PPM);
+        b2drCam.position.set(map.getMapWidthInPixels() / 2f / PPM, map.getMapHeightInPixels() / 2f / PPM, 0);
+        b2drCam.update();
+
+        playerController = new PlayerController(camera, manager, this);
+
+        this.cleanupCounter = 0;
     }
 
-    // Add object to GameObjects
-    public void addObject(IModel obj, IModelView objView, boolean isStatic, boolean isSensor) {
-        GameObject newObject = new GameObject(obj, objView, world);
-        newObject.isStatic = isStatic;
-        newObject.isSensor = isSensor;
-        newObject.createBody();
-        gameObjects.add(newObject);
+    // Update GameWorld with one time-step
+    public void update(float delta) {
+        // In step, VelocityIteration and PositionIteration values are just 'recommended'
+        // Explanation gameWorld step: http://www.iforce2d.net/b2dtut/worlds
+        world.step(delta, 6, 2);
+        updateGameObjects(delta);
+        b2dr.render(world, b2drCam.combined);
+
+        // Cleanup unused objects in some iterations
+        if (cleanupCounter > 20) {
+            cleanupDestroyedObjects();
+            this.cleanupCounter = 0;
+        }
+        this.cleanupCounter++;
     }
 
+    public void addGameObject(IModel model){
+        GameObject newObject = new GameObject(model, world, assetManager);
+        if (model.isStatic()) {
+            staticGameObjects.add(newObject);
+        } else {
+            dynamicGameObjects.add(newObject);
+        }
+
+        // If newObject is NORMALPLAYER and main player -> playerController.addPlayer(newObject)
+    }
 
     public void generateMapBlocks() {
         Gdx.app.log("GameWorld", "Adding map blocks");
         for (int x = 0; x < map.getMapWidthInTiles(); x++){
             for (int y = 0; y < map.getMapHeightInTiles(); y++){
-                for (IModel obj : map.tileContainers.get(x,y)){
-                    if (obj instanceof IPowerUp) {
-                        Gdx.app.log("GameWorld/GenerateMapBlocks", "Generating power-up");
-                    } else if (obj instanceof DestructibleBlock){
-                        Gdx.app.log("GameWorld/GenerateMapBlocks", "Generating destructible block");
-                        DestructibleBlockView view = new DestructibleBlockView((DestructibleBlock) obj, assetManager);
-                        this.addObject(obj, view, true, false);
-                    }else {
-                        this.addObject(obj, null, true, false);
-                    }
+                for (IModel model : map.tileContainers.get(x,y)){
+                    addGameObject(model);
                 }
             }
         }
@@ -88,88 +126,109 @@ public class GameWorld {
 
     public void initializePlayers() {
         Gdx.app.log("GameWorld", "Initializing main player");
-        Vector2 p1StartPos = map.tilePos(new Vector2(1,1));
-        Player newPlayer = new Player(1, p1StartPos, Color.RED, map.getTileWidth(), map.getTileHeight());
-        PlayerView newPlayerView = new PlayerView(newPlayer, assetManager);
-        GameObject newObject = new GameObject(newPlayer, newPlayerView, world);
-        newObject.isSensor = false;
-        newObject.isStatic = false;
-        newObject.createBody();
-        // ctr.addPlayer(newObject);
-        players.add(newObject);
+      
+        Vector2 p1StartPos = map.tilePosCenter(new Vector2(1,1));
+        IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER, Color.RED, map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor); // TODO: Remove magic numbers
+        GameObject player1 = new GameObject(p1, world, assetManager);
+        playerController.addPlayer(player1);
+        dynamicGameObjects.add(player1);
+        LifeDisplayView healthView = new LifeDisplayView((NormalPlayer)p1, assetManager, map, map.tilePosCenter(new Vector2(1,10)));
+        lifeDisplay.add(healthView);
 
-        Gdx.app.log("GameWorld", "Initializing secondary players");
-            // TODO: Initialize guest players
+        Gdx.app.log("GameWorld", "Initializing secondary player");
+        Vector2 p2StartPos = map.tilePosCenter(new Vector2(13,9));
+        IModel p2 = playerFactory.createPlayer(2, p2StartPos, PlayerType.NORMALPLAYER, Color.BLUE, map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
+        GameObject player2 = new GameObject(p2, world, assetManager);
+        dynamicGameObjects.add(player2);
     }
 
-    // Update GameWorld with one time-step
-    public void update(float delta) {
-        // In step, VelocityIteration and PositionIteration values are just 'recommended'
-        // Explanation gameWorld step: http://www.iforce2d.net/b2dtut/worlds
-        updateBombs(delta);
-        world.step(delta, 6, 2);
-        updatePlayerPositions();
 
-
-        // Make sure that the positions are automatically synchronized
-        // Maybe put observers on the gameobjects that get updates when the objects in the world are updated?
+    public void placeBomb(Vector2 centerPos, BombType type, float range) {
+        IModel bomb = bombFactory.createBomb(centerPos, type, map.getTileWidth() * Constants.BombScaleFactor, map.getTileHeight() * Constants.BombScaleFactor, range); // TODO: Remove magic numbers
+        GameObject newBomb = new GameObject(bomb, world, assetManager);
+        BombController newBombCtr = new BombController(newBomb);
+        this.dynamicGameObjects.add(newBomb);
+        this.actionControllers.add(newBombCtr);
     }
 
-    public void placeBomb(Vector2 position, float timer, float range) {
-        Bomb bomb = new Bomb(position, map.getTileWidth() / 2, range);
-        BombView bombView = new BombView(bomb, assetManager, position);
-        GameBomb newBomb = new GameBomb(bomb, bombView, world);
-        newBomb.isSensor = false;
-        newBomb.isStatic = false;
-        newBomb.createBody();
-        bombs.add(newBomb);
-        gameObjects.add(newBomb);
-    }
-
-    public void spawnFire(ArrayList<Vector2> fireTiles) {
+    public void spawnFire(ArrayList<Vector2> fireTiles, BombType type) {
+        Gdx.app.log("GameWorld", "Spawning fire");
         for (Vector2 firePos : fireTiles) {
-            Fire newFire = new Fire(firePos, FireType.NORMALFIRE, map.getTileWidth(), map.getTileHeight());
-            FireView newFireView = new FireView(newFire, assetManager);
-            this.addObject(newFire, newFireView, true, true);
+            IModel fire = fireFactory.createFire(firePos, type, map.getTileWidth() * Constants.FireScaleFactor, map.getTileHeight() * Constants.FireScaleFactor);
+            GameObject newFire = new GameObject(fire,world,assetManager);
+            FireController newFireCtr = new FireController(newFire);
+            this.staticGameObjects.add(newFire);
+            this.tempControllerContainer.add(newFireCtr);
         }
     }
 
-    /*Due to the players always moving, it is beneficial to always check for positional updates
-    * for every frame iteration*/
-    // TODO: players not moving are vibrating
-    public void updatePlayerPositions() {
-        for(GameObject obj : players)
-        {
-            obj.syncPosition();
-            //TODO: remove, this is only to test
-            obj.getBody().setLinearVelocity(0, 10);
+    public void updateGameObjects(float delta) {
+        for(GameObject dynamicGameObject : dynamicGameObjects) {
+            dynamicGameObject.syncPosition();
+            dynamicGameObject.update(delta);
+        }
+        for (GameObject staticObject : staticGameObjects){
+            staticObject.update(delta);
+        }
+
+        // Iterate through the controllers and perform actions
+        // We have to use an iterator to remove them correctly
+        // REMOVING FIX: https://stackoverflow.com/questions/10033025/crash-when-trying-to-remove-object-from-arraylist
+        Iterator<IGameObjectController> it = actionControllers.iterator();
+        IGameObjectController ctr;
+        while(it.hasNext()){
+            ctr = it.next();
+            ctr.controllerAction(this);
+            if (ctr.remove()) {
+                System.out.println(actionControllers.toString());
+                System.out.println(it.toString());
+                it.remove();
+            }
+        }
+        // This step has to be performed due to limitations on how iterators work. We can't add to the same list we try to iterate through.
+        // Therefore we store new controllers in a temporary list and add them afterwards
+        actionControllers.addAll(tempControllerContainer);
+        tempControllerContainer.clear();
+    }
+
+    public ArrayList<GameObject> getStaticGameObjects() {
+        return staticGameObjects;
+    }
+
+    public ArrayList<GameObject> getDynamicGameObjects() {
+        return dynamicGameObjects;
+    }
+
+    public void cleanupDestroyedObjects(){
+        for (GameObject obj : staticGameObjects) {
+            if (obj.destroyObject == true) {
+                obj.dispose();
+                staticGameObjects.remove(obj);
+                Runtime.getRuntime().gc(); // Call the garbage collector
+            }
+        }
+        for (GameObject obj : dynamicGameObjects) {
+            if (obj.destroyObject == true) {
+                obj.dispose();
+                dynamicGameObjects.remove(obj);
+                Runtime.getRuntime().gc(); // Call the garbage collector
+            }
         }
     }
 
-    // TODO: Update player with timestep delta to simulate the correct velocity
-
-    // Update the bomb time-step to ensure countdown
-    public void updateBombs(float delta) {
-        for(GameBomb bomb : bombs)
-        {
-            bomb.update(delta);
-            bomb.syncPosition();
-        }
+    public ArrayList<IGameObjectController> getActionControllers() {
+        return actionControllers;
     }
 
-    public ArrayList<GameObject> getGameObjects() {
-        return gameObjects;
+    public GameMap getMap() {
+        return map;
     }
 
-    public ArrayList<GameObject> getPlayers() {
-        return players;
+    public PlayerController getPlayerController() {
+        return playerController;
     }
 
-    public ArrayList<GameObject> getFires() {
-        return fires;
-    }
-
-    public ArrayList<GameBomb> getBombs() {
-        return bombs;
+    public ArrayList<LifeDisplayView> getLifeDisplay() {
+        return lifeDisplay;
     }
 }

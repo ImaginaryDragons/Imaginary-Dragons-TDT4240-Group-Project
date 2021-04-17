@@ -1,14 +1,14 @@
 package com.dragons.game;
 
-import android.provider.ContactsContract;
+
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import com.dragons.game.model.player.Player;
-import com.dragons.game.model.player.PlayerColor;
+import com.dragons.game.model.players.NormalPlayer;
+import com.dragons.game.model.players.PlayerColor;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,7 +23,7 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
     FirebaseDatabase database;
     DatabaseReference playerRef;
     DatabaseReference gameRef;
-    private Player player;
+    private NormalPlayer player;
     DatabaseReference playerName;
     DatabaseReference check;
 
@@ -53,7 +53,8 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
     @Override
     public void writePlayerToFB(int ID, Vector2 position, Color color, int width, int height) {
 
-        Player firebasePlayer = new Player(ID, position, color, width, height); //Lage en unik Id der vi kaller funksjonen
+
+        NormalPlayer firebasePlayer = new NormalPlayer(ID, position, color, width, height); //Lage en unik Id der vi kaller funksjonen
         playerRef.child(String.valueOf(ID)).setValue(firebasePlayer);
 
     }
@@ -65,15 +66,23 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+            /*
             ArrayList<Player> playerFromDB = (ArrayList<Player>) snapshot.getValue(); //Henter player objektet fra firebase for å bruke i UI
 
+                //følge med på når player oppdateres
+                //når gamemap oppdateres
+
+                if (snapshot.exists()) {
+
+                       NormalPlayer playerFromDB = snapshot.getValue(NormalPlayer.class); //Henter player objektet fra firebase for å bruke i UI
+*/
                 /*Funker ikke
             Player player1 = playerFromDB.get(1);
             Player player2 = playerFromDB.get(2);
             Player player3 = playerFromDB.get(3);
             Player player4 = playerFromDB.get(4);
 */
-            System.out.println(playerFromDB);
+            //System.out.println(playerFromDB);
 
                         /*
                         String nameFromDB = snapshot.child(userId).child("name").getValue(String.class);
@@ -114,7 +123,5 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
         mPlayerReference.addValueEventListener(playerListener);
     }
 */
-
-
 
 }
