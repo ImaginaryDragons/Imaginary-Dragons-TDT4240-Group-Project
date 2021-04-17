@@ -7,10 +7,12 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
 import com.dragons.game.components.Tiled;
-import com.dragons.game.model.IObject;
+import com.dragons.game.model.IModel;
 
-import com.dragons.game.model.factories.BlockFactory;
-import com.dragons.game.model.factories.PowerUpFactory;
+import com.dragons.game.model.modelFactories.BlockFactory;
+import com.dragons.game.model.modelFactories.PowerUpFactory;
+import com.dragons.game.model.powerUps.PowerUpType;
+import com.dragons.game.utilities.Constants;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
@@ -20,20 +22,21 @@ import com.dragons.game.model.blocks.BlockType;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class GameMap {
 
     private Tiled tileRenderer;
-    public Table<Integer, Integer, ArrayList<IObject>> tileContainers;
+    public Table<Integer, Integer, ArrayList<IModel>> tileContainers;
     private int tileWidth, tileHeight,
             mapWidthInTiles, mapHeightInTiles,
             mapWidthInPixels, mapHeightInPixels;
 
     private TiledMap tiledMap;
-    private final BlockFactory blockFactory;
-    private final PowerUpFactory powerUpFactory;
+
+    // Factories
+    private final BlockFactory blockFactory = BlockFactory.getInstance();;
+    private final PowerUpFactory powerUpFactory = PowerUpFactory.getInstance();;
 
     public GameMap(String mapName) {
         Gdx.app.log("GameMap", "Constructing game map");
@@ -46,28 +49,30 @@ public class GameMap {
         mapHeightInTiles  = properties.get("height", Integer.class);
         mapWidthInPixels  = mapWidthInTiles  * tileWidth;
         mapHeightInPixels = mapHeightInTiles * tileHeight;
-        float w = Gdx.graphics.getWidth(); // TODO: SE PÅ HVA DETTE ER!!!
-        float h = Gdx.graphics.getHeight();
-        //camera = new OrthographicCamera();
-        //camera.setToOrtho(false,w,h);
-        //camera.update();
-        blockFactory = new BlockFactory();
-        powerUpFactory = new PowerUpFactory();
+
         tileContainers = HashBasedTable.create();
+
         // Initialize tileContainers with tiles
         for (int x = 0; x < mapWidthInTiles; x++) {
             for (int y = 0; y < mapHeightInTiles; y++) {
-                tileContainers.put(x, y, new ArrayList<IObject>());
+                tileContainers.put(x, y, new ArrayList<IModel>());
             }
         }
-
     }
 
     // Find the associated tile given a coordinate position
     public Vector2 pos2tile(Vector2 pos) {
-        int resX = (int) ((pos.x-(pos.x % tileWidth)) / tileWidth) - 1;
-        int resY = (int) ((pos.y-(pos.y % tileHeight)) / tileHeight) - 1;
+        int resX = (int) ((pos.x-(pos.x % tileWidth)) / tileWidth);
+        int resY = (int) ((pos.y-(pos.y % tileHeight)) / tileHeight);
         return new Vector2(resX, resY);
+    }
+
+    public Vector2 pos2tilePos(Vector2 pos) {
+        return tilePos(pos2tile(pos));
+    }
+
+    public Vector2 pos2tilePosCenter(Vector2 pos) {
+        return tilePosCenter(pos2tile(pos));
     }
 
     // Find the starting position of a tile given the tile index
@@ -88,7 +93,6 @@ public class GameMap {
 
         int x = 0;
         int y = mapHeightInTiles-1; // We start in the top left corner iterating through our recipe!
-        // TODO: Check that the initial indexes are correct in case of placement mistake!!
 
         while(scanner.hasNext()) {
             tile.x = x;
@@ -98,39 +102,44 @@ public class GameMap {
                     x++;
                     break;
                 case "1":
-                    IObject desblock = blockFactory.createBlock(tilePosCenter(tile), BlockType.DESTRUCTIBLE, tileWidth, tileHeight);
+                    IModel desblock = blockFactory.createBlock(tilePosCenter(tile), BlockType.DESTRUCTIBLEBlOCK, tileWidth, tileHeight);
                     tileContainers.get(x, y).add(desblock);
                     x++;
                     break;
                 case "2":
                     System.out.print(tilePos(tile).toString());
-                    IObject wallblock = blockFactory.createBlock(tilePosCenter(tile), BlockType.WALL, tileWidth, tileHeight);
+                    IModel wallblock = blockFactory.createBlock(tilePosCenter(tile), BlockType.WALLBLOCK, tileWidth, tileHeight);
                     tileContainers.get(x, y).add(wallblock);
                     x++;
                     break;
                 case "3":
-                    IObject desPowerupBlock = blockFactory.createBlock(tilePosCenter(tile), BlockType.DESTRUCTIBLE, tileWidth, tileHeight);
-                    //IObject powerup = powerUpFactory.createPowerUp(PowerUpType.INCREASESPEED); lager en random powerup
-                    tileContainers.get(x, y).add(desPowerupBlock);
-                    //tileContainers.get(x, y).add(powerup);
+                    IModel desBlock = blockFactory.createBlock(tilePosCenter(tile), BlockType.DESTRUCTIBLEBlOCK, tileWidth, tileHeight);
+                    IModel powerup = powerUpFactory.createPowerUp(tilePosCenter(tile), PowerUpType.RANDOM, tileWidth * Constants.PowerUpScaleFactor, tileHeight * Constants.PowerUpScaleFactor);
+                    tileContainers.get(x, y).add(desBlock);
+                    tileContainers.get(x, y).add(powerup);
                     x++;
                     break;
                 case " ":
                     break;
-                default:
-                    // Basically when we reach the end of the line!
+                case "\r\n":
+                case "\n":
                     y = y - 1;
                     x = 0;
                     break;
+                    /*default:
+                    // Basically when we reach the end of the line!
+                        y = y - 1;
+                        x = 0;
+                    break;*/
             }
         }
     }
 
-    public ArrayList<IObject> getTileContent(int xKey, int yKey) {
+    public ArrayList<IModel> getTileContent(int xKey, int yKey) {
         return tileContainers.get(xKey,yKey);
     }
 
-    public void setTileContent(int xKey, int yKey, ArrayList<IObject> list) {
+    public void setTileContent(int xKey, int yKey, ArrayList<IModel> list) {
         tileContainers.put(xKey, yKey, list);
     }
 
