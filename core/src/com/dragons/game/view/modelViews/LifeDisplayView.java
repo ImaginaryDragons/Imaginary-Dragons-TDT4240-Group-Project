@@ -41,8 +41,9 @@ public class LifeDisplayView implements IModelView{
         this.map = map;
         this.posx1 = tile.x;
         this.posy = tile.y;
-        posx2 = posx1++;
-        posx3 = posx2++;
+        posx2 = posx1 + 32;
+        posx3 = posx2 + 32;
+
 
 
     }
