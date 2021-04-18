@@ -8,7 +8,7 @@ import com.dragons.game.utilities.Constants;
 
 public class NormalFire extends Model implements IFire {
 
-    private static final boolean isStatic = true;
+    private static final boolean isStatic = false;
     private static final boolean isSensor = true;
     private boolean fireExpired;
     private float loadingTime;

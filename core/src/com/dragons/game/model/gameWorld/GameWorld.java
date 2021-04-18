@@ -167,27 +167,27 @@ public class GameWorld {
     }
 
     public void updateGameObjects(float delta) {
-        for(GameObject obj : dynamicGameObjects) {
-            obj.syncPosition();
-            obj.update(delta);
-            if (obj.getObject().isDisposed()){
-                obj.dispose();
-                tempObjectContainer.add(obj);
+        Iterator<GameObject> it1 = dynamicGameObjects.iterator();
+        GameObject dObj;
+        while(it1.hasNext()) {
+            dObj = it1.next();
+            dObj.syncPosition();
+            dObj.update(delta);
+            if (dObj.getObject().isDisposed()){
+                dObj.dispose();
+                it1.remove();
             }
         }
-        for (GameObject obj : staticGameObjects){
-            obj.update(delta);
-            if (obj.getObject().isDisposed()){
-                obj.dispose();
-                tempObjectContainer.add(obj);
+        Iterator<GameObject> it2 = staticGameObjects.iterator();
+        GameObject sObj;
+        while(it2.hasNext()){
+            sObj = it2.next();
+            sObj.update(delta);
+            if (sObj.getObject().isDisposed()){
+                sObj.dispose();
+                it2.remove();
             }
         }
-        // We have to remove them separately because we can't do it while iterating through the lists initially!
-        for (GameObject obj : tempObjectContainer){
-            dynamicGameObjects.remove(obj);
-            staticGameObjects.remove(obj);
-        }
-        tempObjectContainer.clear();
     }
 
     public void updateActionControllers(){
