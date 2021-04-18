@@ -15,6 +15,7 @@ public class JoystickView implements IModelView {
 
     private final Joystick joystick;
     private Circle pos;
+    private final Circle perimeter;
 
     private final Texture joystickTexture;
     private final Texture joystickBG;
@@ -23,7 +24,7 @@ public class JoystickView implements IModelView {
         this.joystick = joystick;
 
         pos = joystick.getCircle();
-        Circle perimeter = joystick.getPerimeter();
+        perimeter = joystick.getPerimeter();
 
         Pixmap pixmapJoystick = new Pixmap((int) (2 * pos.radius + 1), (int) (2 * pos.radius + 1), Pixmap.Format.RGBA8888);
         pixmapJoystick.setBlending(Pixmap.Blending.None);
@@ -49,7 +50,6 @@ public class JoystickView implements IModelView {
         pos = joystick.getCircle();
 
         sb.draw(joystickTexture, pos.x-pos.radius, pos.y-pos.radius);
-        sb.draw(joystickBG, JOYSTICK_ORIGIN_X - JOYSTICK_PERIMETER_RADIUS,JOYSTICK_ORIGIN_Y - JOYSTICK_PERIMETER_RADIUS);
+        sb.draw(joystickBG, perimeter.x - JOYSTICK_PERIMETER_RADIUS, perimeter.y - JOYSTICK_PERIMETER_RADIUS);
     }
-
 }
