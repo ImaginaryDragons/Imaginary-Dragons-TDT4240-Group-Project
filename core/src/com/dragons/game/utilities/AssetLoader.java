@@ -4,9 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
-public class AssetLoader {
-
-
+public class AssetLoader<BACKGROUND, STARTGAME_BTN, JOINGAME_BTN> {
+    private static final AssetLoader ourInstance = new AssetLoader();
 
 
     /** ENTER ALL TEXTURE PATHS HERE
@@ -14,11 +13,15 @@ public class AssetLoader {
      * https://man.sr.ht/~dermetfan/libgdx-utils/net.dermetfan.gdx.assets.AnnotationAssetManager.md
      * */
 
+    public static AssetLoader getInstance() {
+        return ourInstance;
+    }
+
     @AnnotationAssetManager.Asset(Texture.class)
     public static final String
             DRAGON_SLIM_RED = "red_dragon_slim-1.png",
-            DRAGON_MIDDLE_RED = "r2.png",
-            DRAGON_WIDE_RED = "r1.png",
+            DRAGON_MIDDLE_RED = "red_dragon_middle-1.png",
+            DRAGON_WIDE_RED = "red_dragon_wide-1.png",
 
 
             DRAGON_SLIM_BLUE = "b3.png",
@@ -34,8 +37,6 @@ public class AssetLoader {
             DRAGON_WIDE_YELLOW = "y1.png",
 
 
-
-
             /****************** BLOCKS *******************/
 
 
@@ -45,6 +46,25 @@ public class AssetLoader {
 
 
             /****************** POWER-UPS *******************/
+
+            /*
+
+            RANGE_POWERUP = "",
+            BOMB_CAP_POWERUP = "",
+            SPEED_POWERUP = "",
+
+             */
+
+            /***************** FIRE ************************/
+
+            FIREBALL ="fireball.png",
+            EXPLOSION="Explosion.png",
+
+            /***************** MENU SCREEN ************************/
+
+            BACKGROUND = "grey_background.jpeg",
+            STARTGAME_BTN = "start_game.jpeg",
+            JOINGAME_BTN = "join_game.jpeg",
 
             RANGE_POWERUP = "bomb_range_powerup.png",
             BOMB_CAP_POWERUP = "bomb_cap_powerup.png",
@@ -81,4 +101,6 @@ public class AssetLoader {
             // LAST ELEMENT MUST HAVE ';'!!
 
     private AssetLoader(){}
+
+
 }

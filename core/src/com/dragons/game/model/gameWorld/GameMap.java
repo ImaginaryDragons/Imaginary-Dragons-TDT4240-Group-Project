@@ -1,4 +1,4 @@
-package com.dragons.game.model.gameWorld;
+    package com.dragons.game.model.gameWorld;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapProperties;
@@ -22,6 +22,7 @@ import com.dragons.game.model.blocks.BlockType;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class GameMap {
@@ -88,11 +89,12 @@ public class GameMap {
     public void generateBlocks(int numberOfPowerups, String recipeFile) throws IOException {
         Gdx.app.log("GameMap", "Generating blocks from recipe");
         Vector2 tile = new Vector2(0, 0);
-        Scanner scanner = new Scanner(new File(recipeFile));
-        scanner.useDelimiter("");
 
+        Scanner scanner = new Scanner(Gdx.files.internal(recipeFile).read());
+        scanner.useDelimiter("");
         int x = 0;
         int y = mapHeightInTiles-1; // We start in the top left corner iterating through our recipe!
+
         while(scanner.hasNext()) {
             tile.x = x;
             tile.y = y;
@@ -131,7 +133,6 @@ public class GameMap {
                         x = 0;
                     break;*/
             }
-
         }
     }
 

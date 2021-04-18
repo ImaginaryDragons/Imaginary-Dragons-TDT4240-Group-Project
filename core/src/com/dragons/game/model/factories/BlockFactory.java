@@ -1,4 +1,4 @@
-package com.dragons.game.model.modelFactories;
+package com.dragons.game.model.factories;
 
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.IModel;
@@ -9,15 +9,11 @@ import org.jetbrains.annotations.NotNull;
 
 public final class BlockFactory{
 
-    private static final BlockFactory INSTANCE = new BlockFactory();
+    private static BlockFactory INSTANCE = new BlockFactory();
 
     public static BlockFactory getInstance() {
         return INSTANCE;
     }
-
-    private BlockFactory() {
-    }
-
     /**
      * Returns a block object
      * @param type Block enum, Vector 2 position, width and height of block.

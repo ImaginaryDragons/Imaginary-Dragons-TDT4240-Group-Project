@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 
 public class Constants {
 
+    public static final int WorldWidth = 800;
+    public static final int WorldHeight = 480;
+
     //TODO: fix bodyjitter on higher PPM
     public static final float PPM = 1f;
     public static final int FPS = 30;
