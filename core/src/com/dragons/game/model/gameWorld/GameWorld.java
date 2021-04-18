@@ -45,7 +45,6 @@ public class GameWorld {
     private ArrayList<GameObject> dynamicGameObjects;
     private ArrayList<IGameObjectController> actionControllers;
     private ArrayList<IGameObjectController> tempControllerContainer; // This is a workaround from a problem with adding to actionControllers while iterating through it!
-    private ArrayList<GameObject> tempObjectContainer;
     private ArrayList<LifeDisplayView> lifeDisplay;
 
     // Factories
@@ -75,7 +74,6 @@ public class GameWorld {
         dynamicGameObjects = new ArrayList<GameObject>();
         actionControllers = new ArrayList<IGameObjectController>();
         tempControllerContainer = new ArrayList<IGameObjectController>();
-        tempObjectContainer = new ArrayList<GameObject>();
         lifeDisplay = new ArrayList<LifeDisplayView>();
         this.map = map;
 
