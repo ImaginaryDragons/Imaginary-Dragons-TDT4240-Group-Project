@@ -81,7 +81,6 @@ public class NormalPlayer extends Model implements IPlayer {
 
     public void setOrientation(Direction orientation) {
         this.orientation = orientation;
-        Gdx.app.log("Orientation", this.orientation.toString());
     }
 
 
