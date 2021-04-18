@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 
 public class Constants {
 
+    public static final int WorldWidth = 800;
+    public static final int WorldHeight = 480;
+
     //TODO: fix bodyjitter on higher PPM
     public static final float PPM = 1f;
     public static final int FPS = 30;
@@ -13,7 +16,7 @@ public class Constants {
     public static final float PlayerScaleFactor = 0.9f;
     public static final float FireScaleFactor = 0.99f;
     public static final float BombScaleFactor = 0.8f;
-    public static final float PowerUpScaleFactor = 0.9f;
+    public static final float PowerUpScaleFactor = 0.85f;
 
     public static final float HealthScaleFactor = 0.7f;
 
@@ -26,8 +29,8 @@ public class Constants {
 
     public static final int InitBombRange = 1; //Number of tiles range?? Would be nice and intuitive to use
     public static final float BombRangeBoostInc = 1.5f; // Number of tiles increased range
-    public static final float BombExplodeTime = 5f; // Seconds before bomb is done exploding
-    public static final float FireDisplayTime = 5f; // Seconds fire displays after bomb explodes
+    public static final float BombExplodeTime = 3f; // Seconds before bomb is done exploding
+    public static final float FireDisplayTime = 1f; // Seconds fire displays after bomb explodes
     public static final float BombReloadTime = BombExplodeTime + FireDisplayTime;
 
     public static final int JOYSTICK_PERIMETER_RADIUS = 50;
@@ -37,4 +40,6 @@ public class Constants {
 
     public static final float EXIT_BUTTON_SCALING = 2;
     public static final float BOMB_BUTTON_SCALING = 2.5f;
+
+    public static final int CleanupCounterLimit = 20;
 }

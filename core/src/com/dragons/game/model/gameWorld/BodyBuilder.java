@@ -44,7 +44,7 @@ public final class BodyBuilder {
 
         // World units = meters
         // From world to screen -> Divide by Pixel Per Meter
-        bodyDef.position.set(position.x / PPM, position.y / PPM);
+        bodyDef.position.set(position.x, position.y);
         Body body = world.createBody(bodyDef);
 
         // TODO: FIX FILTERING FOR THE BODIES, EXAMPLE => players shouldnt collide with eachother
@@ -91,8 +91,6 @@ public final class BodyBuilder {
             return normalPlayerShape;
         }
         else throw new IllegalArgumentException("Wrong Player instance");
-
-
     }
 
     private static Shape getBombShape(Model model){
