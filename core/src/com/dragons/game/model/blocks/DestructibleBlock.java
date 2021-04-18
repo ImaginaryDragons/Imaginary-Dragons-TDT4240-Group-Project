@@ -6,7 +6,7 @@ import com.dragons.game.model.Model;
 public class DestructibleBlock extends Model implements IBlock {
 
     private static final boolean isStatic = true;
-    private static final boolean isSensor = false;
+    private static final boolean isSensor = true;
 
     public DestructibleBlock(Vector2 position, float width, float height) {
         super(position, width, height, isStatic, isSensor);

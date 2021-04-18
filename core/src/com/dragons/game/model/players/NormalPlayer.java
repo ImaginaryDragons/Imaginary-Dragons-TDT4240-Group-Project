@@ -62,6 +62,14 @@ public class NormalPlayer extends Model implements IPlayer {
         return col;
     }
 
+    @Override
+    public void handleHitByBomb() {
+
+        // TODO: Check that the player is not hit several times at once
+        // Maybe put in a timestamp that check when the player was hit last
+        lives -= 1;
+    }
+
     public void increaseSpeed(int amount){
         speed += amount;
     }

@@ -1,6 +1,7 @@
 package com.dragons.game.model.gameWorld;
 
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -44,6 +45,7 @@ public class GameWorld {
     private ArrayList<GameObject> dynamicGameObjects;
     private ArrayList<IGameObjectController> actionControllers;
     private ArrayList<IGameObjectController> tempControllerContainer; // This is a workaround from a problem with adding to actionControllers while iterating through it!
+    private ArrayList<GameObject> tempObjectContainer;
     private ArrayList<LifeDisplayView> lifeDisplay;
 
     // Factories
@@ -73,6 +75,7 @@ public class GameWorld {
         dynamicGameObjects = new ArrayList<GameObject>();
         actionControllers = new ArrayList<IGameObjectController>();
         tempControllerContainer = new ArrayList<IGameObjectController>();
+        tempObjectContainer = new ArrayList<GameObject>();
         lifeDisplay = new ArrayList<LifeDisplayView>();
         this.map = map;
 
@@ -95,7 +98,7 @@ public class GameWorld {
         b2dr.render(world, b2drCam.combined);
 
         // Cleanup unused objects in some iterations
-        if (cleanupCounter > 20) {
+        if (cleanupCounter > Constants.CleanupCounterLimit) {
             cleanupDestroyedObjects();
             this.cleanupCounter = 0;
         }
@@ -128,7 +131,7 @@ public class GameWorld {
         Gdx.app.log("GameWorld", "Initializing main player");
       
         Vector2 p1StartPos = map.tilePosCenter(new Vector2(1,1));
-        IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER, Color.RED, map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor); // TODO: Remove magic numbers
+        IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER, Color.RED, map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
         GameObject player1 = new GameObject(p1, world, assetManager);
         playerController.addPlayer(player1);
         dynamicGameObjects.add(player1);
@@ -142,9 +145,8 @@ public class GameWorld {
         dynamicGameObjects.add(player2);
     }
 
-
     public void placeBomb(Vector2 centerPos, BombType type, float range) {
-        IModel bomb = bombFactory.createBomb(centerPos, type, map.getTileWidth() * Constants.BombScaleFactor, map.getTileHeight() * Constants.BombScaleFactor, range); // TODO: Remove magic numbers
+        IModel bomb = bombFactory.createBomb(centerPos, type, map.getTileWidth() * Constants.BombScaleFactor, map.getTileHeight() * Constants.BombScaleFactor, range);
         GameObject newBomb = new GameObject(bomb, world, assetManager);
         BombController newBombCtr = new BombController(newBomb);
         this.dynamicGameObjects.add(newBomb);
@@ -159,16 +161,30 @@ public class GameWorld {
             FireController newFireCtr = new FireController(newFire);
             this.staticGameObjects.add(newFire);
             this.tempControllerContainer.add(newFireCtr);
+
         }
     }
 
     public void updateGameObjects(float delta) {
-        for(GameObject dynamicGameObject : dynamicGameObjects) {
-            dynamicGameObject.syncPosition();
-            dynamicGameObject.update(delta);
+        for(GameObject obj : dynamicGameObjects) {
+            obj.syncPosition();
+            obj.update(delta);
+            if (obj.getObject().isDisposed()){
+                obj.dispose();
+                tempObjectContainer.add(obj);
+            }
         }
-        for (GameObject staticObject : staticGameObjects){
-            staticObject.update(delta);
+        for (GameObject obj : staticGameObjects){
+            obj.update(delta);
+            if (obj.getObject().isDisposed()){
+                obj.dispose();
+                tempObjectContainer.add(obj);
+            }
+        }
+        // We have to remove them separately because we can't do it while iterating through the lists initially!
+        for (GameObject obj : tempObjectContainer){
+            dynamicGameObjects.remove(obj);
+            staticGameObjects.remove(obj);
         }
 
         // Iterate through the controllers and perform actions
@@ -180,8 +196,6 @@ public class GameWorld {
             ctr = it.next();
             ctr.controllerAction(this);
             if (ctr.remove()) {
-                System.out.println(actionControllers.toString());
-                System.out.println(it.toString());
                 it.remove();
             }
         }
@@ -200,20 +214,7 @@ public class GameWorld {
     }
 
     public void cleanupDestroyedObjects(){
-        for (GameObject obj : staticGameObjects) {
-            if (obj.destroyObject == true) {
-                obj.dispose();
-                staticGameObjects.remove(obj);
-                Runtime.getRuntime().gc(); // Call the garbage collector
-            }
-        }
-        for (GameObject obj : dynamicGameObjects) {
-            if (obj.destroyObject == true) {
-                obj.dispose();
-                dynamicGameObjects.remove(obj);
-                Runtime.getRuntime().gc(); // Call the garbage collector
-            }
-        }
+        Runtime.getRuntime().gc();
     }
 
     public ArrayList<IGameObjectController> getActionControllers() {
