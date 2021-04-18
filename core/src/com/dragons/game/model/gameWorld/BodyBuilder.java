@@ -84,6 +84,7 @@ public final class BodyBuilder {
         return shape;
     }
 
+    // TODO: Generalise the shapes such that NormalPlayer = IPlayer and NormalBomb = IBomb? This might increase modifiability
     private static Shape getPlayerShape(Model model){
         if (model instanceof NormalPlayer){
             final PolygonShape normalPlayerShape = new PolygonShape();

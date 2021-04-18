@@ -20,6 +20,7 @@ public class ContactController {
         boolean oneIsBomb = objA instanceof IBomb || objB instanceof IBomb;
         boolean oneIsFire = objA instanceof IFire || objB instanceof IFire;
 
+
         // Call the objects action based on interaction type
 
         if (oneIsPlayer && oneIsPowerUp){
@@ -32,6 +33,8 @@ public class ContactController {
 
         if (oneIsBomb && oneIsPlayer){
             System.out.println("Collision Player and Bomb");
+
+            // TODO: Control the player to move away from the bombtile instantly
         }
 
         if (oneIsPlayer && oneIsFire){

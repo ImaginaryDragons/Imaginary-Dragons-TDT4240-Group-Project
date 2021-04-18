@@ -12,14 +12,10 @@ public class WallBlock extends Model implements IBlock {
 
     public WallBlock(Vector2 position, BlockType type, float width, float height) {
         super(position, width, height, isStatic, isSensor);
-
-
-
     }
 
     @Override
     public void handleHitByBomb() {
-        // TODO: Implement or do nothing somehow (Strategy pattern maybe?)
+        // Do nothing
     }
-
 }

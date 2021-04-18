@@ -27,7 +27,7 @@ import java.util.Scanner;
 
 public class GameMap {
 
-    public Table<Integer, Integer, ArrayList<IModel>> tileContainers;
+    private Table<Integer, Integer, ArrayList<IModel>> tileContainers;
     private int tileWidth, tileHeight,
             mapWidthInTiles, mapHeightInTiles,
             mapWidthInPixels, mapHeightInPixels;

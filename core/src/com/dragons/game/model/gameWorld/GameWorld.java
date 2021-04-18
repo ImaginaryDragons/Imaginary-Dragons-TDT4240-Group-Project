@@ -117,7 +117,7 @@ public class GameWorld {
         Gdx.app.log("GameWorld", "Adding map blocks");
         for (int x = 0; x < map.getMapWidthInTiles(); x++){
             for (int y = 0; y < map.getMapHeightInTiles(); y++){
-                for (IModel model : map.tileContainers.get(x,y)){
+                for (IModel model : map.getTileContent(x,y)){
                     addGameObject(model);
                 }
             }
