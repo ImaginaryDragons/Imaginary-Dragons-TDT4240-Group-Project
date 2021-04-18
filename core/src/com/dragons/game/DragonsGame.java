@@ -15,21 +15,29 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.dragons.game.FireBaseInterface;
+import com.dragons.game.model.gameWorld.GameMap;
+import com.dragons.game.model.gameWorld.GameWorld;
+import com.dragons.game.model.players.NormalPlayer;
+import com.dragons.game.model.players.PlayerColor;
+
 import com.dragons.game.view.screens.GameScreen;
 
 import java.io.IOException;
 
 public class DragonsGame extends Game {
+    SpriteBatch batch;
+    Texture img;
+    FireBaseInterface _FBIC;
+    NormalPlayer player;
+    GameMap map;
+    GameScreen gameScreen;
+    GameWorld gameWorld;
 
 	public AssetManager assets;
 	public BitmapFont font;
 
 	public OrthographicCamera camera;
-	public SpriteBatch batch;
-
-    public Texture img;
-    public FireBaseInterface _FBIC;
-    public GameScreen gameScreen;
 
 	//public LoadingScreen loadingScreen;
 	//public TestMenuScreen testMenuScreen;
@@ -53,6 +61,11 @@ public class DragonsGame extends Game {
 		camera.setToOrtho(false, Constants.WorldWidth, Constants.WorldHeight);
 		batch = new SpriteBatch();
 
+     // _FBIC.writePlayerToFB();
+
+        _FBIC.SetOnValueChangedListener();
+        Vector2 p1StartPos = new Vector2(1,1); //gjør om til tilPos senere
+        _FBIC.writePlayerToFB(10, p1StartPos , Color.RED, 32, 32);
 
 		/*testMenuScreen = new TestMenuScreen(this);
 		loadingScreen = new LoadingScreen(this);
@@ -101,11 +114,6 @@ public class DragonsGame extends Game {
 		font = generator.generateFont(params);
 	}
 
-
-
-    public void randomID() {
-
-    }
 
 
 
