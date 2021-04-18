@@ -53,6 +53,11 @@ public class WorldContactListener implements ContactListener {
 
         if (oneIsPlayer && oneIsFire){
             System.out.println("Collision player and NormalFire");
+            if (objA instanceof IPlayer){
+                ((IPlayer) objA).handleHitByBomb();
+            } else {
+                ((IPlayer) objB).handleHitByBomb();
+            }
         }
 
         if (oneIsFire && oneIsDesBlock){

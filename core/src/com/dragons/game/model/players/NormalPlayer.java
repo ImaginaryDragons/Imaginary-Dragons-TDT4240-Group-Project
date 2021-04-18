@@ -31,6 +31,9 @@ public class NormalPlayer extends Model implements IPlayer {
     private int bombRange;
     private float bombReloadTime;
 
+    private float hitProtectionTime;
+    private boolean hitProtectionMode;
+
     private static final boolean isStatic = false;
     private static final boolean isSensor = false;
 
@@ -50,8 +53,19 @@ public class NormalPlayer extends Model implements IPlayer {
         bombsAvailable = bombCapacity; // Whats the difference between this and bombCapacity?
         bombRange = Constants.InitBombRange;
         bombReloadTime = Constants.BombReloadTime;
+        hitProtectionTime = Constants.FireDisplayTime + 0.1f;
+        hitProtectionMode = false;
     }
 
+    @Override
+    public void update(float timestep) {
+        if (hitProtectionMode) {
+            hitProtectionTime -= timestep;
+            if (hitProtectionTime < 0){
+                hitProtectionMode = false;
+            }
+        }
+    }
 
     public int getID() {
         return ID;
@@ -64,10 +78,10 @@ public class NormalPlayer extends Model implements IPlayer {
 
     @Override
     public void handleHitByBomb() {
-
-        // TODO: Check that the player is not hit several times at once
-        // Maybe put in a timestamp that check when the player was hit last
-        lives -= 1;
+        if (hitProtectionMode == false){
+            lives -= 1;
+            hitProtectionMode = true;
+        }
     }
 
     public void increaseSpeed(int amount){
