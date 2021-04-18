@@ -148,7 +148,7 @@ public class GameWorld {
         lifeDisplay.add(healthView2);
     }
 
-    public void placeBomb(Vector2 centerPos, BombType type, float range) {
+    public void placeBomb(Vector2 centerPos, BombType type, int range) {
         IModel bomb = bombFactory.createBomb(centerPos, type, map.getTileWidth() * Constants.BombScaleFactor, map.getTileHeight() * Constants.BombScaleFactor, range);
         GameObject newBomb = new GameObject(bomb, world, assetManager);
         BombController newBombCtr = new BombController(newBomb);

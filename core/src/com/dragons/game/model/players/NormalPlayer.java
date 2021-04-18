@@ -139,7 +139,7 @@ public class NormalPlayer extends Model implements IPlayer {
         this.bombsAvailable = bombsAvailable;
     }
 
-    public float getBombRange() {
+    public int getBombRange() {
         return bombRange;
     }
 

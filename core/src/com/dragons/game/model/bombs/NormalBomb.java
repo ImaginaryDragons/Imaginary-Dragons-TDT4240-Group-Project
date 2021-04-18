@@ -17,12 +17,12 @@ public class NormalBomb extends Model implements IBomb {
 
     private float loadingTime;
     private boolean bombExploded;
-    private float bombRange;
+    private int bombRange;
     private static final boolean isStatic = false;
     private static final boolean isSensor = false;
 
 
-    public NormalBomb(Vector2 pos, float width, float height, float bombRange){
+    public NormalBomb(Vector2 pos, float width, float height, int bombRange){
         super(pos, width, height, isStatic, isSensor);
         this.bombRange = bombRange;
         this.bombExploded = false;
