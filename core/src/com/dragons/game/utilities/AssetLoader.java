@@ -37,8 +37,6 @@ public class AssetLoader<BACKGROUND, STARTGAME_BTN, JOINGAME_BTN> {
             DRAGON_WIDE_YELLOW = "y1.png",
 
 
-
-
             /****************** BLOCKS *******************/
 
 

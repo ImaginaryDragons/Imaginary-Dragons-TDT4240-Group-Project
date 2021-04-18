@@ -26,7 +26,5 @@ public class BombCapacity extends Model implements IPowerUp {
         else throw new IllegalArgumentException("Model is not of type NormalPlayer");
 
         super.disposeModel();
-
-
     }
 }

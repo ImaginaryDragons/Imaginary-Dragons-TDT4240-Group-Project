@@ -16,6 +16,7 @@ import static com.dragons.game.utilities.AssetLoader.DRAGON_MIDDLE_YELLOW;
 import static com.dragons.game.utilities.AssetLoader.DRAGON_SLIM_BLUE;
 import static com.dragons.game.utilities.AssetLoader.DRAGON_SLIM_GREEN;
 import static com.dragons.game.utilities.AssetLoader.DRAGON_SLIM_RED;
+
 import static com.dragons.game.utilities.AssetLoader.DRAGON_SLIM_YELLOW;
 import static com.dragons.game.utilities.AssetLoader.DRAGON_WIDE_BLUE;
 import static com.dragons.game.utilities.AssetLoader.DRAGON_WIDE_GREEN;

@@ -1,6 +1,7 @@
 package com.dragons.game.model;
 
 import com.badlogic.gdx.math.Vector2;
+import com.dragons.game.model.blocks.BlockType;
 
 public abstract class Model implements IModel {
     private Vector2 position;

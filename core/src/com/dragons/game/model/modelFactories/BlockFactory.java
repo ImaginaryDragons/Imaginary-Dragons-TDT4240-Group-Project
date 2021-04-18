@@ -30,7 +30,7 @@ public final class BlockFactory{
             case DESTRUCTIBLEBlOCK:
                 return new DestructibleBlock(position, width, height);
             case WALLBLOCK:
-                return new WallBlock(position, width, height);
+                return new WallBlock(position, type, width, height);
             default:
                 throw new IllegalArgumentException();
         }
