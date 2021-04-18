@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.dragons.game.model.IModel;
+import com.dragons.game.model.blocks.DestructibleBlock;
 import com.dragons.game.model.blocks.IBlock;
 import com.dragons.game.model.bombs.IBomb;
 import com.dragons.game.model.bombs.fires.IFire;
@@ -32,9 +33,11 @@ public class WorldContactListener implements ContactListener {
         boolean oneIsPlayer = objA instanceof IPlayer || objB instanceof NormalPlayer;
         boolean oneIsBomb = objA instanceof IBomb || objB instanceof IBomb;
         boolean oneIsFire = objA instanceof IFire || objB instanceof IFire;
+        boolean oneIsDesBlock = objA instanceof DestructibleBlock || objB instanceof DestructibleBlock;
 
         if (oneIsBlock && oneIsPowerUp) System.out.println("Collision block and powerup");
         if (oneIsBlock && oneIsPlayer) System.out.println("Collision block and player");
+        if (oneIsBlock && oneIsFire) System.out.println("Collision fire and block");
 
         if (oneIsPlayer && oneIsPowerUp){
             System.out.println("Collision PowerUp and NormalPlayer");
@@ -50,6 +53,15 @@ public class WorldContactListener implements ContactListener {
 
         if (oneIsPlayer && oneIsFire){
             System.out.println("Collision player and NormalFire");
+        }
+
+        if (oneIsFire && oneIsDesBlock){
+            System.out.println("Collision fire and destructible block");
+            if(objA instanceof DestructibleBlock){
+                ((IBlock) objA).handleHitByBomb();
+            } else {
+                ((IBlock) objB).handleHitByBomb();
+            }
         }
 
     }
