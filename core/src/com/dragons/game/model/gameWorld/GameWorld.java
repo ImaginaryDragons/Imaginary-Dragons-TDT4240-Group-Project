@@ -95,6 +95,7 @@ public class GameWorld {
         // Explanation gameWorld step: http://www.iforce2d.net/b2dtut/worlds
         world.step(delta, 6, 2);
         updateGameObjects(delta);
+        updateActionControllers();;
         b2dr.render(world, b2drCam.combined);
 
         // Cleanup unused objects in some iterations
@@ -186,7 +187,10 @@ public class GameWorld {
             dynamicGameObjects.remove(obj);
             staticGameObjects.remove(obj);
         }
+        tempObjectContainer.clear();
+    }
 
+    public void updateActionControllers(){
         // Iterate through the controllers and perform actions
         // We have to use an iterator to remove them correctly
         // REMOVING FIX: https://stackoverflow.com/questions/10033025/crash-when-trying-to-remove-object-from-arraylist
