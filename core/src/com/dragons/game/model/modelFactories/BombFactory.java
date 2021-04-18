@@ -25,7 +25,7 @@ public final class BombFactory {
      * @throws IllegalArgumentException if type doesn't exist
      *
      */
-    public IModel createBomb(Vector2 position, @NotNull BombType type, float width, float height, float bombRange){
+    public IModel createBomb(Vector2 position, @NotNull BombType type, float width, float height, int bombRange){
         switch (type){
             case NORMALBOMB:
                 return new NormalBomb(position, width, height, bombRange);

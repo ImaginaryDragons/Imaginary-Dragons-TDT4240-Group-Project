@@ -144,11 +144,11 @@ public class GameWorld {
         IModel p2 = playerFactory.createPlayer(2, p2StartPos, PlayerType.NORMALPLAYER, Color.BLUE, map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
         GameObject player2 = new GameObject(p2, world, assetManager);
         dynamicGameObjects.add(player2);
-        LifeDisplayView healthView2 = new LifeDisplayView((NormalPlayer)p1, assetManager, map, map.tilePosCenter(new Vector2(9,10)));
+        LifeDisplayView healthView2 = new LifeDisplayView((NormalPlayer)p2, assetManager, map, map.tilePosCenter(new Vector2(9,10)));
         lifeDisplay.add(healthView2);
     }
 
-    public void placeBomb(Vector2 centerPos, BombType type, float range) {
+    public void placeBomb(Vector2 centerPos, BombType type, int range) {
         IModel bomb = bombFactory.createBomb(centerPos, type, map.getTileWidth() * Constants.BombScaleFactor, map.getTileHeight() * Constants.BombScaleFactor, range);
         GameObject newBomb = new GameObject(bomb, world, assetManager);
         BombController newBombCtr = new BombController(newBomb);
