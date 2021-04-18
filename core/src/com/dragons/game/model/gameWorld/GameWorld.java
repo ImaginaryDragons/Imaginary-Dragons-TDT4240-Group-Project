@@ -96,9 +96,9 @@ public class GameWorld {
         updateActionControllers();;
         b2dr.render(world, b2drCam.combined);
 
-        // Cleanup unused objects in some iterations
+        // Cleanup unused objects in some iterations using garbage collector
         if (cleanupCounter > Constants.CleanupCounterLimit) {
-            cleanupDestroyedObjects();
+            Runtime.getRuntime().gc();
             this.cleanupCounter = 0;
         }
         this.cleanupCounter++;
@@ -111,8 +111,6 @@ public class GameWorld {
         } else {
             dynamicGameObjects.add(newObject);
         }
-
-        // If newObject is NORMALPLAYER and main player -> playerController.addPlayer(newObject)
     }
 
     public void generateMapBlocks() {
@@ -162,7 +160,6 @@ public class GameWorld {
             FireController newFireCtr = new FireController(newFire);
             this.staticGameObjects.add(newFire);
             this.tempControllerContainer.add(newFireCtr);
-
         }
     }
 
@@ -215,10 +212,6 @@ public class GameWorld {
 
     public ArrayList<GameObject> getDynamicGameObjects() {
         return dynamicGameObjects;
-    }
-
-    public void cleanupDestroyedObjects(){
-        Runtime.getRuntime().gc();
     }
 
     public ArrayList<IGameObjectController> getActionControllers() {

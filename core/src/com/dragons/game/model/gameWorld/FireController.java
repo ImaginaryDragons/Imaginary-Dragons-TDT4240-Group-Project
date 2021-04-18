@@ -12,8 +12,6 @@ public class FireController implements IGameObjectController{
         this.fireObject = fireObject;
         this.fire = (IFire) fireObject.getObject();
         this.removeController = false;
-
-
     }
 
     @Override
