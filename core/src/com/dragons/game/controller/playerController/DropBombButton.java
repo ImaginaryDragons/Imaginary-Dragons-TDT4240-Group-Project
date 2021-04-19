@@ -5,19 +5,18 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.controller.gameWorld.GameObject;
 import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.model.players.IPlayer;
-import com.dragons.game.model.players.NormalPlayer;
 
 public class DropBombButton implements InputProcessor {
 
     private final OrthographicCamera cam;
     private IPlayer player;
     private final Rectangle dropBombBounds;
-    private GameWorld gameWorld;
+    private final GameWorld gameWorld;
 
     public DropBombButton(OrthographicCamera cam, Rectangle dropBombBounds, GameWorld gameWorld) {
         this.cam = cam;
@@ -31,10 +30,13 @@ public class DropBombButton implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {  // For keyboard testing purposes
+        Vector2 bombPosition;
         if (player.getID() == 1 && keycode == Input.Keys.Q) {
-            gameWorld.placeBomb(player.getPosition(), player.getBombType(), player.getBombRange());
+            bombPosition = new Vector2(player.getPosition());
+            gameWorld.placeBomb(bombPosition, player.getBombType(), player.getBombRange());
         } else if (player.getID() == 2 && keycode == Input.Keys.M) {
-            gameWorld.placeBomb(player.getPosition(), player.getBombType(), player.getBombRange());
+            bombPosition = new Vector2(player.getPosition());
+            gameWorld.placeBomb(bombPosition, player.getBombType(), player.getBombRange());
         }
         return false;
     }
@@ -55,8 +57,8 @@ public class DropBombButton implements InputProcessor {
         cam.unproject(touch);
 
         if (dropBombBounds.contains(touch.x, touch.y) && player.getBombsAvailable() > 0) {  // Does bombsAvailable increase
-
-            gameWorld.placeBomb(player.getPosition(), player.getBombType(), player.getBombRange());
+            Vector2 bombPosition = new Vector2(player.getPosition());
+            gameWorld.placeBomb(bombPosition, player.getBombType(), player.getBombRange());
 
             Gdx.app.log("Game button", "DROP BOMB");
         }

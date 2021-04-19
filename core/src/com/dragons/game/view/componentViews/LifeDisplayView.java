@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.controller.gameWorld.GameMap;
 import com.dragons.game.model.players.IPlayer;
 import com.dragons.game.utilities.Constants;
-import com.dragons.game.view.modelViews.IModelView;
+import com.dragons.game.view.IView;
 
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -14,7 +14,7 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
 import static com.dragons.game.utilities.AssetLoader.EMPTY_HEALTH;
 import static com.dragons.game.utilities.AssetLoader.FULL_HEALTH;
 
-public class LifeDisplayView implements IModelView{
+public class LifeDisplayView implements IView {
 
     private IPlayer player;
     private AnnotationAssetManager manager;

@@ -5,14 +5,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.dragons.game.utilities.Constants;
-import com.dragons.game.view.modelViews.IModelView;
+import com.dragons.game.view.IView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import static com.dragons.game.utilities.Constants.BOMB_BUTTON_SCALING;
 import static com.dragons.game.utilities.Constants.EDGE_MARGIN;
 
-public class DropBombButtonView implements IModelView {
+public class DropBombButtonView implements IView {
     private final AnnotationAssetManager manager;
     private final Texture dropBombTexture;
     private final Rectangle dropBombBounds;

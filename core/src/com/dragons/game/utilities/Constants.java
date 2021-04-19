@@ -13,6 +13,8 @@ public class Constants {
     public static final float VIRTUAL_WIDTH = 480f;
     public static final float VIRTUAL_HEIGHT = 350f;
 
+    public static final float FRAME_DURATION = 0.2f;
+
     public static final float PlayerScaleFactor = 0.9f;
     public static final float FireScaleFactor = 0.99f;
     public static final float BombScaleFactor = 0.8f;

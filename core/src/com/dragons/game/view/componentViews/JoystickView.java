@@ -6,11 +6,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.dragons.game.controller.playerController.Joystick;
-import com.dragons.game.view.modelViews.IModelView;
+import com.dragons.game.view.IView;
 
 import static com.dragons.game.utilities.Constants.JOYSTICK_PERIMETER_RADIUS;
 
-public class JoystickView implements IModelView {
+public class JoystickView implements IView {
 
     private final Joystick joystick;
     private Circle pos;

@@ -8,6 +8,7 @@ import com.dragons.game.model.blocks.IBlock;
 import com.dragons.game.model.bombs.IBomb;
 import com.dragons.game.model.bombs.NormalBomb;
 import com.dragons.game.view.modelViews.IModelView;
+import com.dragons.game.view.modelViews.ModelView;
 import com.dragons.game.view.modelViews.modelViewFactories.BombViewFactory;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -19,7 +20,7 @@ import static com.dragons.game.utilities.AssetLoader.BOMB4;
 
 
 
-public class NormalBombView extends BombView{
+public class NormalBombView extends ModelView {
 
     public NormalBombView(IModel model, AnnotationAssetManager manager) {
         super(model);
@@ -32,7 +33,7 @@ public class NormalBombView extends BombView{
 
         Animation<Texture> animation = new Animation<>(FRAME_DURATION, bombTextures);
         animation.setPlayMode(Animation.PlayMode.LOOP);
-        super.setBombAnimation(animation);
+        super.setAnimation(animation);
 
 
 
