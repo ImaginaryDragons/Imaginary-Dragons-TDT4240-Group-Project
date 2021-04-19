@@ -26,6 +26,7 @@ public class BombController implements IGameObjectController {
             ArrayList<Vector2> fireTiles = bomb.getFireTiles(gameWorld.getMap());
             gameWorld.spawnFire(fireTiles, BombType.NORMALBOMB);
 
+            // Dispose of everything related to this bomb
             bomb = null;
             gameWorld.getDynamicGameObjects().remove(bombObject);
             bombObject.dispose();

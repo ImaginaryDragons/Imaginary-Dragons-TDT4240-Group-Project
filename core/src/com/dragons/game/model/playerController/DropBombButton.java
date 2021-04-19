@@ -22,7 +22,6 @@ public class DropBombButton implements InputProcessor {
     private GameWorld gameWorld;
 
     public DropBombButton(OrthographicCamera cam, Rectangle dropBombBounds, GameWorld gameWorld) {
-//    public DropBombButton(OrthographicCamera cam) {
         this.cam = cam;
         this.dropBombBounds = dropBombBounds;
         this.gameWorld = gameWorld;

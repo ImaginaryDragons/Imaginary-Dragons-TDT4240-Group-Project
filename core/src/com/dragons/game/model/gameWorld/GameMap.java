@@ -27,8 +27,7 @@ import java.util.Scanner;
 
 public class GameMap {
 
-    private Tiled tileRenderer;
-    public Table<Integer, Integer, ArrayList<IModel>> tileContainers;
+    private Table<Integer, Integer, ArrayList<IModel>> tileContainers;
     private int tileWidth, tileHeight,
             mapWidthInTiles, mapHeightInTiles,
             mapWidthInPixels, mapHeightInPixels;
@@ -86,7 +85,7 @@ public class GameMap {
     }
 
     // Generate block instances in the tile containers given a recipe
-    public void generateBlocks(int numberOfPowerups, String recipeFile) throws IOException {
+    public void generateBlocks(String recipeFile) throws IOException {
         Gdx.app.log("GameMap", "Generating blocks from recipe");
         Vector2 tile = new Vector2(0, 0);
 
@@ -127,11 +126,6 @@ public class GameMap {
                     y = y - 1;
                     x = 0;
                     break;
-                    /*default:
-                    // Basically when we reach the end of the line!
-                        y = y - 1;
-                        x = 0;
-                    break;*/
             }
         }
     }
@@ -142,10 +136,6 @@ public class GameMap {
 
     public void setTileContent(int xKey, int yKey, ArrayList<IModel> list) {
         tileContainers.put(xKey, yKey, list);
-    }
-
-    public Tiled getTileRenderer() {
-        return tileRenderer;
     }
 
     public int getTileWidth() {

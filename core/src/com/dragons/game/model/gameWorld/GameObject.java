@@ -50,9 +50,7 @@ public class GameObject {
             // Multiply by PPM since world position is in meters
             float x = body.getPosition().x * PPM;
             float y = body.getPosition().y * PPM;
-
             model.getPosition().set(x, y);
-
         }
     }
 

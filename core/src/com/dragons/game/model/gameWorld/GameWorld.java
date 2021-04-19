@@ -43,7 +43,6 @@ public class GameWorld {
     private ArrayList<GameObject> dynamicGameObjects;
     private ArrayList<IGameObjectController> actionControllers;
     private ArrayList<IGameObjectController> tempControllerContainer; // This is a workaround from a problem with adding to actionControllers while iterating through it!
-    private ArrayList<GameObject> tempObjectContainer;
     private ArrayList<LifeDisplayView> lifeDisplay;
 
     // Factories
@@ -75,7 +74,6 @@ public class GameWorld {
         dynamicGameObjects = new ArrayList<GameObject>();
         actionControllers = new ArrayList<IGameObjectController>();
         tempControllerContainer = new ArrayList<IGameObjectController>();
-        tempObjectContainer = new ArrayList<GameObject>();
         lifeDisplay = new ArrayList<LifeDisplayView>();
         this.map = map;
 
@@ -100,9 +98,9 @@ public class GameWorld {
         updateActionControllers();;
         b2dr.render(world, b2drCam.combined);
 
-        // Cleanup unused objects in some iterations
+        // Cleanup unused objects in some iterations using garbage collector
         if (cleanupCounter > Constants.CleanupCounterLimit) {
-            cleanupDestroyedObjects();
+            Runtime.getRuntime().gc();
             this.cleanupCounter = 0;
         }
         this.cleanupCounter++;
@@ -115,15 +113,13 @@ public class GameWorld {
         } else {
             dynamicGameObjects.add(newObject);
         }
-
-        // If newObject is NORMALPLAYER and main player -> playerController.addPlayer(newObject)
     }
 
     public void generateMapBlocks() {
         Gdx.app.log("GameWorld", "Adding map blocks");
         for (int x = 0; x < map.getMapWidthInTiles(); x++){
             for (int y = 0; y < map.getMapHeightInTiles(); y++){
-                for (IModel model : map.tileContainers.get(x,y)){
+                for (IModel model : map.getTileContent(x,y)){
                     addGameObject(model);
                 }
             }
@@ -167,7 +163,6 @@ public class GameWorld {
             FireController newFireCtr = new FireController(newFire);
             this.staticGameObjects.add(newFire);
             this.tempControllerContainer.add(newFireCtr);
-
         }
     }
 
@@ -220,10 +215,6 @@ public class GameWorld {
 
     public ArrayList<GameObject> getDynamicGameObjects() {
         return dynamicGameObjects;
-    }
-
-    public void cleanupDestroyedObjects(){
-        Runtime.getRuntime().gc();
     }
 
     public ArrayList<IGameObjectController> getActionControllers() {

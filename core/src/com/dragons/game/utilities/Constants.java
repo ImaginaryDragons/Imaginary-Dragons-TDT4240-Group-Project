@@ -17,7 +17,6 @@ public class Constants {
     public static final float FireScaleFactor = 0.99f;
     public static final float BombScaleFactor = 0.8f;
     public static final float PowerUpScaleFactor = 0.85f;
-
     public static final float HealthScaleFactor = 0.7f;
 
     public static final int InitPlayerHealth = 3; // Number of lives

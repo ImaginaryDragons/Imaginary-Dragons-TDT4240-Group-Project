@@ -7,10 +7,12 @@ import com.dragons.game.model.Model;
 import com.dragons.game.model.blocks.DestructibleBlock;
 import com.dragons.game.model.blocks.WallBlock;
 import com.dragons.game.model.gameWorld.GameMap;
+import com.dragons.game.model.gameWorld.GameObject;
 import com.dragons.game.utilities.Constants;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class NormalBomb extends Model implements IBomb {
@@ -42,17 +44,19 @@ public class NormalBomb extends Model implements IBomb {
     }
 
     @Override
+    // Return which tiles we want to add fires to
     public ArrayList<Vector2> getFireTiles(GameMap gameMap) {
         ArrayList<Vector2> fireTiles = new ArrayList<Vector2>();
-        fireTiles.addAll(checkForWall("up", gameMap));
-        fireTiles.addAll(checkForWall("down", gameMap));
-        fireTiles.addAll(checkForWall("left", gameMap));
-        fireTiles.addAll(checkForWall("right", gameMap));
+        fireTiles.addAll(addFireInDirection("up", gameMap));
+        fireTiles.addAll(addFireInDirection("down", gameMap));
+        fireTiles.addAll(addFireInDirection("left", gameMap));
+        fireTiles.addAll(addFireInDirection("right", gameMap));
         fireTiles.add(gameMap.tilePosCenter(gameMap.pos2tile(super.getPosition())));
         return fireTiles;
     }
 
-    private ArrayList<Vector2> checkForWall(String direction, GameMap gameMap) {
+    // Returns the tiles we want fire to in a given direction
+    private ArrayList<Vector2> addFireInDirection(String direction, GameMap gameMap) {
         Vector2 checkTile = gameMap.pos2tile(super.getPosition());
         ArrayList<Vector2> fireTiles = new ArrayList<Vector2>();
 
@@ -65,21 +69,26 @@ public class NormalBomb extends Model implements IBomb {
             increment = 0;
         }
 
+        // Checks how many tiles the fire should expand to
         for (int i = 0; i < bombRange; i++) {
             if (direction == "up" || direction == "down") {
                 checkTile.y += increment;
             } else if (direction == "left" || direction == "right") {
                 checkTile.x += increment;
             }
-            ArrayList<IModel> tileContainer = gameMap.tileContainers.get((int)checkTile.x, (int)checkTile.y);
+            ArrayList<IModel> tileContainer = gameMap.getTileContent((int)checkTile.x, (int)checkTile.y);
             if (tileContainer == null){
-                // Stop checking in this direction
+                // Indicates outside map boundaries. Stop checking in this direction
                 break;
             }
 
             boolean stopExpanding = false;
             boolean addCurrentTile = true;
-            for (IModel obj : tileContainer) {
+
+            Iterator<IModel> it = tileContainer.iterator();
+            IModel obj;
+            while(it.hasNext()){
+                obj = it.next();
                 if (obj instanceof WallBlock) {
                     stopExpanding = true;
                     addCurrentTile = false;
@@ -87,11 +96,11 @@ public class NormalBomb extends Model implements IBomb {
                 else if(obj instanceof DestructibleBlock) {
                     stopExpanding = true;
                     addCurrentTile = true;
+                    it.remove();
                 } else {
-                    // Do nothing??
+                    // Do nothing
                 }
             }
-
             if (addCurrentTile == true) {
                 fireTiles.add(new Vector2(gameMap.tilePosCenter(checkTile)));
             }
@@ -99,6 +108,7 @@ public class NormalBomb extends Model implements IBomb {
                 break;
             }
         }
+
         return fireTiles;
     }
 }

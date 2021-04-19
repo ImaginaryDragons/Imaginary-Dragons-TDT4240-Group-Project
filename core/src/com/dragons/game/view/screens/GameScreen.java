@@ -35,19 +35,11 @@ public class GameScreen extends ScreenAdapter {
     private final AnnotationAssetManager manager;
     private OrthographicCamera camera;
 
-    private World b2dWorld;
-    private Box2DDebugRenderer b2dr;
-    private OrthographicCamera b2drCam;
     private final GameMap gameMap;
     private final SpriteBatch batch;
     private final TiledMapRenderer tiledMapRenderer;
 
     private TimerView timerView;
-
-
-    //InputStream txt = getAssets().open("map.txt");
-
-   // private String MapTxt = manager.get(MAP, String.class);
 
     // TODO: Integrating the gameWorld onto the firebase server
     /*Right now the gameWorld is statically defined within our gamescreen. However, we need
@@ -62,7 +54,7 @@ public class GameScreen extends ScreenAdapter {
         //super();
         Gdx.app.log("GameScreen", "Attached");
 
-        OrthographicCamera camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+        camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 
         gameMap = new GameMap("TileMapMobile.tmx");
         manager = new AnnotationAssetManager();
@@ -80,7 +72,8 @@ public class GameScreen extends ScreenAdapter {
         batch.setProjectionMatrix(camera.combined);
         // TODO: Create functionality for spawning game world
         timerView = new TimerView(dragonsGame.assets, camera);
-        gameMap.generateBlocks(0, "map.txt");
+      
+        gameMap.generateBlocks( "map.txt");
         gameWorld.generateMapBlocks();
         gameWorld.initializePlayers();
 
