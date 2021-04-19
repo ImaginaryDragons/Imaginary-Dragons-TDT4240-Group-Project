@@ -2,6 +2,7 @@ package com.dragons.game.model.playerController;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
@@ -32,7 +33,12 @@ public class DropBombButton implements InputProcessor {
     }
 
     @Override
-    public boolean keyDown(int keycode) {
+    public boolean keyDown(int keycode) {  // For keyboard testing purposes
+        if (normalPlayer.getID() == 1 && keycode == Input.Keys.Q) {
+            gameWorld.placeBomb(player.getBody().getPosition(), BombType.NORMALBOMB, normalPlayer.getBombRange());
+        } else if (normalPlayer.getID() == 2 && keycode == Input.Keys.M) {
+            gameWorld.placeBomb(player.getBody().getPosition(), BombType.NORMALBOMB, normalPlayer.getBombRange());
+        }
         return false;
     }
 

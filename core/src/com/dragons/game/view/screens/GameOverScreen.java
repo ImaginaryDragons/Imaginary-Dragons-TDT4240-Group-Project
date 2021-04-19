@@ -33,10 +33,10 @@ public class GameOverScreen implements Screen {
     private TextButton saveScoreBtn, exitBtn;
 
 
-    private int score;
+    private float score;
 
 
-    public GameOverScreen(DragonsGame dragonsGame, int score) {
+    public GameOverScreen(DragonsGame dragonsGame, float score) {
         this.dragonsGame = dragonsGame;
         this.score = score;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, dragonsGame.camera));
@@ -131,7 +131,7 @@ public class GameOverScreen implements Screen {
         saveScoreBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                dragonsGame.setScreen(new HighScoreScreen());
+                dragonsGame.setScreen(new HighScoreScreen(dragonsGame, score));
             }
         });
         exitBtn.addListener(new ClickListener() {

@@ -13,19 +13,17 @@ import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.modelFactories.BombFactory;
 import com.dragons.game.model.modelFactories.FireFactory;
 import com.dragons.game.model.modelFactories.PlayerFactory;
+import com.dragons.game.model.playerController.InputHandler;
 import com.dragons.game.model.players.NormalPlayer;
 import com.dragons.game.model.players.PlayerType;
-import com.dragons.game.model.playerController.PlayerController;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.modelViews.LifeDisplayView;
-import com.dragons.game.view.modelViews.PlayerView;
 
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.concurrent.TimeUnit;
 
 import static com.dragons.game.utilities.Constants.PPM;
 import static com.dragons.game.utilities.Constants.VIRTUAL_HEIGHT;
@@ -58,7 +56,9 @@ public class GameWorld {
     private final Box2DDebugRenderer b2dr;
     private final OrthographicCamera b2drCam;
 
-    private final PlayerController playerController;
+//    private final PlayerController playerController1;
+//    private final PlayerController playerController2;
+    private final InputHandler inputHandler;
 
     private int cleanupCounter;
 
@@ -82,7 +82,9 @@ public class GameWorld {
         b2drCam.position.set(map.getMapWidthInPixels() / 2f / PPM, map.getMapHeightInPixels() / 2f / PPM, 0);
         b2drCam.update();
 
-        playerController = new PlayerController(camera, manager, this);
+//        playerController1 = new PlayerController(camera, manager, this, true);
+//        playerController2 = new PlayerController(camera, manager, this, false);
+        inputHandler = new InputHandler(camera, manager, this);
 
         this.cleanupCounter = 0;
     }
@@ -130,7 +132,7 @@ public class GameWorld {
         Vector2 p1StartPos = map.tilePosCenter(new Vector2(1,1));
         IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER, Color.RED, map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
         GameObject player1 = new GameObject(p1, world, assetManager);
-        playerController.addPlayer(player1);
+        inputHandler.addPlayer(player1, true);
         dynamicGameObjects.add(player1);
         LifeDisplayView healthView1 = new LifeDisplayView((NormalPlayer)p1, assetManager, map, map.tilePosCenter(new Vector2(1,10)));
         lifeDisplay.add(healthView1);
@@ -139,6 +141,7 @@ public class GameWorld {
         Vector2 p2StartPos = map.tilePosCenter(new Vector2(13,9));
         IModel p2 = playerFactory.createPlayer(2, p2StartPos, PlayerType.NORMALPLAYER, Color.BLUE, map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
         GameObject player2 = new GameObject(p2, world, assetManager);
+        inputHandler.addPlayer(player2, false);
         dynamicGameObjects.add(player2);
         LifeDisplayView healthView2 = new LifeDisplayView((NormalPlayer)p2, assetManager, map, map.tilePosCenter(new Vector2(9,10)));
         lifeDisplay.add(healthView2);
@@ -222,8 +225,16 @@ public class GameWorld {
         return map;
     }
 
-    public PlayerController getPlayerController() {
-        return playerController;
+//    public PlayerController getPlayerController1() {
+//        return playerController1;
+//    }
+//
+//    public PlayerController getPlayerController2() {
+//        return playerController2;
+//    }
+
+    public InputHandler getInputHandler() {
+        return inputHandler;
     }
 
     public ArrayList<LifeDisplayView> getLifeDisplay() {
