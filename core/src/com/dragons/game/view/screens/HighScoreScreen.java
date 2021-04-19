@@ -19,10 +19,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.DragonsGame;
+import com.dragons.game.FirebasePlayer;
 import com.dragons.game.utilities.Constants;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class HighScoreScreen implements Screen {
     private final DragonsGame dragonsGame;
+    private final FirebasePlayer firebasePlayer;
     private ShapeRenderer shapeRenderer;
 
     private Stage stage;
@@ -36,10 +43,12 @@ public class HighScoreScreen implements Screen {
 
     private float score;
 
+    private Map<String, Double> scores = new LinkedHashMap<>();
 
-    public HighScoreScreen(DragonsGame dragonsGame, float score) {
+    public HighScoreScreen(DragonsGame dragonsGame, FirebasePlayer firebasePlayer) {
         this.dragonsGame = dragonsGame;
-        this.score = score;
+        this.firebasePlayer = firebasePlayer;
+        //this.score = score;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, dragonsGame.camera));
         this.shapeRenderer = new ShapeRenderer();
 
@@ -105,7 +114,7 @@ public class HighScoreScreen implements Screen {
     }
 
     private void initScreen() {
-
+        scores = FirebasePlayer.getScores();
 
         Texture gameOverTex = dragonsGame.assets.get("highscores.png", Texture.class);
         highscoreImg = new Image(gameOverTex);
@@ -135,9 +144,18 @@ public class HighScoreScreen implements Screen {
         table.add(score).expandX().fillX();
         table.row().expandX().fillX();
 
-        /*for (int i = 0; i < players.size(); i++) {
-            table.add(new Label(players.get(i).getName(), skin)).uniform();
+        for (int i = 0; i < scores.size(); i++) {
+            table.add(new Label(firebasePlayer.getName(), skin)).uniform();
+        }
+        table.row();
+
+        /*for (int i = 0; i < scores.size(); i++) {
+            //for (int j = 0; j < scores.size(); j++) {
+               table.add(new Label(firebasePlayer.getScore(), skin));
+            //}
+            table.row();
         }*/
+
 
         tableContainer.setActor(table);
         stage.addActor(highscoreImg);

@@ -16,11 +16,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.DragonsGame;
+import com.dragons.game.FirebasePlayer;
 import com.dragons.game.utilities.Constants;
 
 
 public class GameOverScreen implements Screen {
     private final DragonsGame dragonsGame;
+    private final FirebasePlayer firebasePlayer;
     private ShapeRenderer shapeRenderer;
 
     private Stage stage;
@@ -33,11 +35,12 @@ public class GameOverScreen implements Screen {
     private TextButton saveScoreBtn, exitBtn;
 
 
-    private float score;
+    private double score;
 
 
-    public GameOverScreen(DragonsGame dragonsGame, float score) {
+    public GameOverScreen(DragonsGame dragonsGame, FirebasePlayer firebasePlayer, float score) {
         this.dragonsGame = dragonsGame;
+        this.firebasePlayer = firebasePlayer;
         this.score = score;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, dragonsGame.camera));
         this.shapeRenderer = new ShapeRenderer();
@@ -131,7 +134,7 @@ public class GameOverScreen implements Screen {
         saveScoreBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                dragonsGame.setScreen(new HighScoreScreen(dragonsGame, score));
+                dragonsGame.setScreen(new HighScoreScreen(dragonsGame, firebasePlayer));
             }
         });
         exitBtn.addListener(new ClickListener() {
@@ -148,5 +151,9 @@ public class GameOverScreen implements Screen {
         stage.addActor(saveScoreBtn);
         stage.addActor(exitBtn);
 
+    }
+
+    public String getName(){
+        return nameField.getText();
     }
 }

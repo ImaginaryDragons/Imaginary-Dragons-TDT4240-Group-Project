@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragons.game.utilities.Constants;
+import com.dragons.game.view.screens.GameOverScreen;
 import com.dragons.game.view.screens.LoadingScreen;
 
 import com.badlogic.gdx.graphics.Color;
@@ -63,10 +64,10 @@ public class DragonsGame extends Game {
 
         _FBIC.SetOnValueChangedListener();
         Vector2 p1StartPos = new Vector2(1,1); //gjør om til tilPos senere
-        _FBIC.writeHighscoreToFB("Mads", 2.9, 22);
-		_FBIC.writeHighscoreToFB("Nora", 2.5, 21);
-		_FBIC.writeHighscoreToFB("Eldar", 6.5, 28);
-		_FBIC.writeHighscoreToFB("Jakob", 2.7, 1);
+        _FBIC.writeHighscoreToFB( 2.9);
+		_FBIC.writeHighscoreToFB("Nora", 2.5);
+		_FBIC.writeHighscoreToFB("Eldar", 6.5);
+		_FBIC.writeHighscoreToFB("Jakob", 2.7);
 
 		Gdx.app.log("DragonsGame", "created");
 		initFonts();
