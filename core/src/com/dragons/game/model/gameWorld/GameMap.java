@@ -116,8 +116,8 @@ public class GameMap {
                 case "3":
                     IModel desBlock = blockFactory.createBlock(tilePosCenter(tile), BlockType.DESTRUCTIBLEBlOCK, tileWidth, tileHeight);
                     IModel powerup = powerUpFactory.createPowerUp(tilePosCenter(tile), PowerUpType.RANDOM, tileWidth * Constants.PowerUpScaleFactor, tileHeight * Constants.PowerUpScaleFactor);
-                    tileContainers.get(x, y).add(desBlock);
                     tileContainers.get(x, y).add(powerup);
+                    tileContainers.get(x, y).add(desBlock);
                     x++;
                     break;
                 case " ":
