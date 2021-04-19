@@ -36,7 +36,7 @@ public class NormalPlayerView implements IModelView {
 
     public NormalPlayerView(IModel model, AnnotationAssetManager manager) {
         player = (NormalPlayer) model;
-        final Color col = this.player.getColor();
+        final Color col = player.getColor();
         Texture[] dragonTextures;
         if (Color.RED.equals(col)) {
             dragonTextures = new Texture[]{
@@ -94,15 +94,16 @@ public class NormalPlayerView implements IModelView {
         float width = player.getWidth();
         float height = player.getHeight();
         final int rotation;
+
         switch (player.getOrientation()){
             case UP:
                 rotation = 0;
                 break;
-            case DOWN:
-                rotation = 180;
-                break;
             case LEFT:
                 rotation = 90;
+                break;
+            case DOWN:
+                rotation = 180;
                 break;
             case RIGHT:
                 rotation = 270;

@@ -1,6 +1,5 @@
-package com.dragons.game.model.playerController;
+package com.dragons.game.controller.playerController;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
@@ -8,10 +7,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.dragons.game.model.bombs.BombType;
-import com.dragons.game.model.gameWorld.GameObject;
-import com.dragons.game.model.gameWorld.GameWorld;
+import com.dragons.game.controller.gameWorld.GameObject;
+import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.model.players.NormalPlayer;
-import com.dragons.game.view.modelViews.DropBombButtonView;
 
 public class DropBombButton implements InputProcessor {
 

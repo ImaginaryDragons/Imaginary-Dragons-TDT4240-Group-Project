@@ -1,4 +1,4 @@
-package com.dragons.game.view.modelViews;
+package com.dragons.game.view.componentViews;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;

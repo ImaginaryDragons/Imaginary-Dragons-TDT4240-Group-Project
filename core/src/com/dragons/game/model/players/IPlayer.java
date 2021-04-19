@@ -1,8 +1,11 @@
 package com.dragons.game.model.players;
 
 import com.badlogic.gdx.graphics.Color;
+import com.dragons.game.model.IModel;
 
-public interface IPlayer {
+public interface IPlayer extends IModel {
+    int getID();
     Color getColor();
-    public void handleHitByBomb();
+    int getLives();
+    void handleHitByBomb();
 }

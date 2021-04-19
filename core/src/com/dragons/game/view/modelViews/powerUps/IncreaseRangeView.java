@@ -2,7 +2,6 @@ package com.dragons.game.view.modelViews.powerUps;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.powerUps.IncreaseRange;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.modelViews.IModelView;

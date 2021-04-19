@@ -1,18 +1,14 @@
 package com.dragons.game.model.players;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.Model;
-import com.dragons.game.model.Observable;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.utilities.Direction;
-import com.dragons.game.view.Observer;
+import com.dragons.game.view.IModelObserver;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.dragons.game.model.players.PlayerType.NORMALPLAYER;
 
 
 /**
@@ -24,7 +20,7 @@ import static com.dragons.game.model.players.PlayerType.NORMALPLAYER;
 
 
 
-public class NormalPlayer extends Model implements IPlayer, Observable {
+public class NormalPlayer extends Model implements IPlayer{
 
     private int ID;
     private Color col;
@@ -42,7 +38,7 @@ public class NormalPlayer extends Model implements IPlayer, Observable {
     private static final boolean isStatic = false;
     private static final boolean isSensor = false;
 
-    private List<Observer> observers;
+    private List<IModelObserver> observers;
 
 
     // TODO: Consider if it is necessary to implement a decorator for color, ID etc..
@@ -90,7 +86,6 @@ public class NormalPlayer extends Model implements IPlayer, Observable {
         if (!hitProtectionMode){
             lives -= 1;
             hitProtectionMode = true;
-            notifyObservers();
         }
     }
 
@@ -115,7 +110,7 @@ public class NormalPlayer extends Model implements IPlayer, Observable {
         this.orientation = orientation;
     }
 
-
+    @Override
     public int getLives() {
         return lives;
     }
@@ -156,21 +151,5 @@ public class NormalPlayer extends Model implements IPlayer, Observable {
         this.bombRange = bombRange;
     }
 
-    @Override
-    public void registerObserver(Observer o) {
-        observers.add(o);
-    }
 
-    @Override
-    public void removeObserver(Observer o) {
-        if (observers.contains(o)) observers.remove(o);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (Observer o : observers){
-            o.update();
-
-        }
-    }
 }

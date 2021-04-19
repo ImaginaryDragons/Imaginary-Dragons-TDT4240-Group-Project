@@ -1,17 +1,10 @@
-package com.dragons.game.model.gameWorld;
+package com.dragons.game.controller.gameWorld;
 
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.dragons.game.model.IModel;
-import com.dragons.game.model.blocks.DestructibleBlock;
-import com.dragons.game.model.blocks.IBlock;
-import com.dragons.game.model.bombs.IBomb;
-import com.dragons.game.model.bombs.fires.IFire;
-import com.dragons.game.model.players.IPlayer;
-import com.dragons.game.model.powerUps.IPowerUp;
-import com.dragons.game.model.players.NormalPlayer;
+import com.dragons.game.controller.ContactController;
 
 public class WorldContactListener implements ContactListener {
 

@@ -2,10 +2,10 @@ package com.dragons.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dragons.game.model.gameWorld.GameObject;
-import com.dragons.game.model.gameWorld.GameWorld;
+import com.dragons.game.controller.gameWorld.GameObject;
+import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.utilities.AssetLoader;
-import com.dragons.game.view.modelViews.LifeDisplayView;
+import com.dragons.game.view.componentViews.LifeDisplayView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 

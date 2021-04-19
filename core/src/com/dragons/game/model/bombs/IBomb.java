@@ -2,7 +2,7 @@ package com.dragons.game.model.bombs;
 
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.IModel;
-import com.dragons.game.model.gameWorld.GameMap;
+import com.dragons.game.controller.gameWorld.GameMap;
 
 import java.util.ArrayList;
 

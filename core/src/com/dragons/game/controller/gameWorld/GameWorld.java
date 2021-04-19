@@ -1,23 +1,25 @@
-package com.dragons.game.model.gameWorld;
+package com.dragons.game.controller.gameWorld;
 
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.dragons.game.controller.bombController.BombController;
+import com.dragons.game.controller.bombController.FireController;
+import com.dragons.game.controller.IGameObjectController;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.modelFactories.BombFactory;
 import com.dragons.game.model.modelFactories.FireFactory;
 import com.dragons.game.model.modelFactories.PlayerFactory;
-import com.dragons.game.model.playerController.InputHandler;
+import com.dragons.game.controller.playerController.InputHandler;
 import com.dragons.game.model.players.NormalPlayer;
 import com.dragons.game.model.players.PlayerType;
 import com.dragons.game.utilities.Constants;
-import com.dragons.game.view.modelViews.LifeDisplayView;
+import com.dragons.game.view.componentViews.LifeDisplayView;
 
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;

@@ -1,7 +1,6 @@
-package com.dragons.game.model.gameWorld;
+package com.dragons.game.controller;
 
 import com.dragons.game.model.IModel;
-import com.dragons.game.model.blocks.DestructibleBlock;
 import com.dragons.game.model.blocks.IBlock;
 import com.dragons.game.model.bombs.IBomb;
 import com.dragons.game.model.bombs.fires.IFire;

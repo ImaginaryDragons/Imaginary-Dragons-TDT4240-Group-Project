@@ -1,4 +1,4 @@
-package com.dragons.game.view.modelViews.timer;
+package com.dragons.game.view.componentViews;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;

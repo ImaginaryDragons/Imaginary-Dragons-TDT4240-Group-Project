@@ -1,12 +1,12 @@
-package com.dragons.game.model.playerController;
+package com.dragons.game.controller.playerController;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dragons.game.model.gameWorld.GameObject;
-import com.dragons.game.model.gameWorld.GameWorld;
-import com.dragons.game.view.modelViews.ExitButtonView;
+import com.dragons.game.controller.gameWorld.GameObject;
+import com.dragons.game.controller.gameWorld.GameWorld;
+import com.dragons.game.view.componentViews.ExitButtonView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 

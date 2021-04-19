@@ -10,14 +10,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.DragonsGame;
 import com.dragons.game.model.bombs.BombType;
-import com.dragons.game.model.gameWorld.GameMap;
-import com.dragons.game.model.gameWorld.GameWorld;
+import com.dragons.game.controller.gameWorld.GameMap;
+import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.view.GameRenderer;
-import com.dragons.game.view.modelViews.timer.TimerView;
+import com.dragons.game.view.componentViews.TimerView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 

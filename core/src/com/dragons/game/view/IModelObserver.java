@@ -1,8 +1,8 @@
-package com.dragons.game.view.modelViews;
+package com.dragons.game.view;
 
 import com.dragons.game.model.IModel;
 
 public interface IModelObserver {
-    void update(IModel subject);
+    void update(IModel model);
 
 }

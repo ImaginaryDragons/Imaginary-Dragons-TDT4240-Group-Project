@@ -1,14 +1,13 @@
-package com.dragons.game.view.modelViews;
+package com.dragons.game.view.componentViews;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
-import com.dragons.game.model.playerController.Joystick;
+import com.dragons.game.controller.playerController.Joystick;
+import com.dragons.game.view.modelViews.IModelView;
 
-import static com.dragons.game.utilities.Constants.JOYSTICK_ORIGIN_X;
-import static com.dragons.game.utilities.Constants.JOYSTICK_ORIGIN_Y;
 import static com.dragons.game.utilities.Constants.JOYSTICK_PERIMETER_RADIUS;
 
 public class JoystickView implements IModelView {

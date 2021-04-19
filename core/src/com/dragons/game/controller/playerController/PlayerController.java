@@ -1,22 +1,18 @@
-package com.dragons.game.model.playerController;
+package com.dragons.game.controller.playerController;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dragons.game.model.gameWorld.GameObject;
-import com.dragons.game.model.gameWorld.GameWorld;
-import com.dragons.game.view.modelViews.DropBombButtonView;
-import com.dragons.game.view.modelViews.ExitButtonView;
-import com.dragons.game.view.modelViews.JoystickView;
+import com.dragons.game.controller.gameWorld.GameObject;
+import com.dragons.game.controller.gameWorld.GameWorld;
+import com.dragons.game.view.componentViews.DropBombButtonView;
+import com.dragons.game.view.componentViews.JoystickView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 public class PlayerController {
     private final Joystick joystick;
     private final JoystickView joystickView;
-    private final com.dragons.game.model.playerController.DropBombButton dropBombButton;
+    private final com.dragons.game.controller.playerController.DropBombButton dropBombButton;
     private final DropBombButtonView dropBombButtonView;
 
     public PlayerController(OrthographicCamera camera, AnnotationAssetManager manager, GameWorld gameWorld, boolean isPlayerOne) {

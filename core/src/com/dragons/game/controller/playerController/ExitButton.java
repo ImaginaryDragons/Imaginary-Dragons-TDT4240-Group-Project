@@ -1,11 +1,10 @@
-package com.dragons.game.model.playerController;
+package com.dragons.game.controller.playerController;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.dragons.game.view.screens.MenuScreen;
 
 public class ExitButton implements InputProcessor {
     private final Rectangle exitButtonBounds;

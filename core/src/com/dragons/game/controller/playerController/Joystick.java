@@ -1,15 +1,12 @@
-package com.dragons.game.model.playerController;
+package com.dragons.game.controller.playerController;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.dragons.game.model.bombs.BombType;
-import com.dragons.game.model.gameWorld.GameObject;
-import com.dragons.game.model.gameWorld.GameWorld;
+import com.dragons.game.controller.gameWorld.GameObject;
 import com.dragons.game.model.players.NormalPlayer;
 
 import static com.dragons.game.utilities.Constants.JOYSTICK_ORIGIN_Y;

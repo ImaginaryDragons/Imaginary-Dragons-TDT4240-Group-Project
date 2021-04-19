@@ -1,12 +1,12 @@
-package com.dragons.game.view.modelViews;
+package com.dragons.game.view.componentViews;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.dragons.game.model.gameWorld.GameMap;
-import com.dragons.game.model.players.NormalPlayer;
+import com.dragons.game.controller.gameWorld.GameMap;
+import com.dragons.game.model.players.IPlayer;
 import com.dragons.game.utilities.Constants;
-import com.dragons.game.view.Observer;
+import com.dragons.game.view.modelViews.IModelView;
 
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -14,30 +14,26 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
 import static com.dragons.game.utilities.AssetLoader.EMPTY_HEALTH;
 import static com.dragons.game.utilities.AssetLoader.FULL_HEALTH;
 
-public class LifeDisplayView implements IModelView, Observer {
+public class LifeDisplayView implements IModelView{
 
-    private NormalPlayer player;
+    private IPlayer player;
     private AnnotationAssetManager manager;
     private Texture lifeDisplay;
     private Texture emptyLife;
     private GameMap map;
     private Vector2 position;
     private int initialPlayerLives;
-    private int lives;
 
 
 
-    public LifeDisplayView(NormalPlayer player, AnnotationAssetManager manager, GameMap map, Vector2 position) {
+    public LifeDisplayView(IPlayer player, AnnotationAssetManager manager, GameMap map, Vector2 position) {
         this.player = player;
-        player.registerObserver(this);
         initialPlayerLives = player.getLives();
-        lives = player.getLives();
         this.manager = manager;
         lifeDisplay = manager.get(FULL_HEALTH, Texture.class);
         emptyLife = manager.get(EMPTY_HEALTH, Texture.class);
         this.map = map;
         this.position = position;
-
 
     }
 
@@ -56,7 +52,7 @@ public class LifeDisplayView implements IModelView, Observer {
         float width = map.getTileWidth()* Constants.HealthScaleFactor;
 
         for (int i = 0; i < initialPlayerLives; i++) {
-            if (i < lives){
+            if (i < player.getLives()){
                 sb.draw(lifeDisplay, x - width / 2f, y - height / 2f, width, height);
             }
             else sb.draw(emptyLife, x - width / 2f, y - height / 2f, width, height);
@@ -66,8 +62,6 @@ public class LifeDisplayView implements IModelView, Observer {
 
     }
 
-    @Override
-    public void update() {
-        if (lives > 0) lives -= 1;
-    }
+
+
 }

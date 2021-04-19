@@ -1,8 +1,11 @@
-package com.dragons.game.model.gameWorld;
+package com.dragons.game.controller.bombController;
 
+import com.dragons.game.controller.IGameObjectController;
+import com.dragons.game.controller.gameWorld.GameObject;
+import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.model.bombs.fires.IFire;
 
-public class FireController implements IGameObjectController{
+public class FireController implements IGameObjectController {
 
     private GameObject fireObject;
     public boolean removeController;

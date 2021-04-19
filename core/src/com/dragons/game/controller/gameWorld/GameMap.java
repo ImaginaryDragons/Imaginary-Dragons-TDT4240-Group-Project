@@ -1,4 +1,4 @@
-    package com.dragons.game.model.gameWorld;
+    package com.dragons.game.controller.gameWorld;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapProperties;
@@ -6,7 +6,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
-import com.dragons.game.components.Tiled;
 import com.dragons.game.model.IModel;
 
 import com.dragons.game.model.modelFactories.BlockFactory;
@@ -19,10 +18,8 @@ import com.google.common.collect.Table;
 import com.dragons.game.model.blocks.BlockType;
 
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class GameMap {

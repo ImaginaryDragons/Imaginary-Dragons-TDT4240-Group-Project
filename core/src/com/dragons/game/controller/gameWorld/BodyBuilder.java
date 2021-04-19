@@ -1,4 +1,4 @@
-package com.dragons.game.model.gameWorld;
+package com.dragons.game.controller.gameWorld;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -87,8 +87,8 @@ public final class BodyBuilder {
     // TODO: Generalise the shapes such that NormalPlayer = IPlayer and NormalBomb = IBomb? This might increase modifiability
     private static Shape getPlayerShape(Model model){
         if (model instanceof NormalPlayer){
-            final PolygonShape normalPlayerShape = new PolygonShape();
-            normalPlayerShape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
+            final CircleShape normalPlayerShape = new CircleShape();
+            normalPlayerShape.setRadius(model.getHeight() / 2 / PPM);
             return normalPlayerShape;
         }
         else throw new IllegalArgumentException("Wrong Player instance");
