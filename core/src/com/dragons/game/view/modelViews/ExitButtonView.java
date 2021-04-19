@@ -9,6 +9,7 @@ import com.dragons.game.utilities.Constants;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import static com.dragons.game.utilities.AssetLoader.EXIT_BTN;
+import static com.dragons.game.utilities.Constants.EDGE_MARGIN;
 import static com.dragons.game.utilities.Constants.EXIT_BUTTON_SCALING;
 
 public class ExitButtonView {
@@ -22,8 +23,9 @@ public class ExitButtonView {
 //        exitButton = manager.get(EXIT_BTN, Texture.class);
         exitButton = new Texture("exitBtn_small.png");
 
-        exitButtonPosX = (int) (Constants.VIRTUAL_WIDTH - exitButton.getWidth()*EXIT_BUTTON_SCALING - exitButton.getHeight());
-        exitButtonPosY = (int) (Constants.VIRTUAL_HEIGHT - exitButton.getHeight()*EXIT_BUTTON_SCALING - exitButton.getHeight()/4);
+//        exitButtonPosX = (int) (Constants.VIRTUAL_WIDTH - exitButton.getWidth()*EXIT_BUTTON_SCALING - exitButton.getHeight());
+        exitButtonPosX = (int) (Constants.VIRTUAL_WIDTH/2 - exitButton.getWidth()*EXIT_BUTTON_SCALING/2);
+        exitButtonPosY = (int) (Constants.VIRTUAL_HEIGHT - exitButton.getHeight()*EXIT_BUTTON_SCALING - EDGE_MARGIN);
         exitButtonWidth = (int) (exitButton.getWidth()*EXIT_BUTTON_SCALING);
         exitButtonHeight = (int) (exitButton.getHeight()*EXIT_BUTTON_SCALING);
 

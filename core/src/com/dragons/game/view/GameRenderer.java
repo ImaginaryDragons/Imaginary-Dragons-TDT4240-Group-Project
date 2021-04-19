@@ -1,7 +1,6 @@
 package com.dragons.game.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragons.game.model.gameWorld.GameObject;
 import com.dragons.game.model.gameWorld.GameWorld;
@@ -39,8 +38,10 @@ public class GameRenderer {
                 object.getModelView().render(batch);
             }
         }
-        gameWorld.getPlayerController().render(batch);
-      
+//        gameWorld.getPlayerController1().render(batch);
+//        gameWorld.getPlayerController2().render(batch);
+        gameWorld.getInputHandler().render(batch);
+
         for (LifeDisplayView life : gameWorld.getLifeDisplay()){
             life.render(batch);
         }
