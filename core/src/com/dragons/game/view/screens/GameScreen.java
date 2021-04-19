@@ -83,25 +83,12 @@ public class GameScreen extends ScreenAdapter {
         gameMap.generateBlocks(0, "map.txt");
         gameWorld.generateMapBlocks();
         gameWorld.initializePlayers();
+
+
+
         // BOMB TEST!!
-
-        gameWorld.placeBomb(new Vector2(100,100), BombType.NORMALBOMB, 2);
-
-
         // TODO: get right tile position
         gameWorld.placeBomb(new Vector2(40,300), BombType.NORMALBOMB, 2);
-/*
-        // FIRE TEST
-        ArrayList<Vector2> fireTileList = new ArrayList<Vector2>();
-        fireTileList.add(gameMap.tilePos(new Vector2(5,5)));
-        fireTileList.add(gameMap.tilePos(new Vector2(5,6)));
-        gameWorld.spawnFire(fireTileList);
-        b2dr = new Box2DDebugRenderer();
-        b2drCam = new OrthographicCamera(VIRTUAL_WIDTH / PPM, VIRTUAL_HEIGHT / PPM);
-        b2drCam.position.set(gameMap.getMapWidthInPixels() / 2f / PPM, gameMap.getMapHeightInPixels() / 2f / PPM, 0);
-        b2drCam.update();
-        gameWorld.placeBomb(new Vector2(48,300), BombType.NORMALBOMB, 5);
-        */
 
     }
 
@@ -115,9 +102,6 @@ public class GameScreen extends ScreenAdapter {
         //Gdx.app.log("GameScreen", "Rendering");
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-
-        //gameWorld.updatePlayerPositions();// TODO: Implement this so that it always follows its body!
 
         //Render map
         tiledMapRenderer.render();

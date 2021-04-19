@@ -91,8 +91,6 @@ public final class BodyBuilder {
             return normalPlayerShape;
         }
         else throw new IllegalArgumentException("Wrong Player instance");
-
-
     }
 
     private static Shape getBombShape(Model model){
