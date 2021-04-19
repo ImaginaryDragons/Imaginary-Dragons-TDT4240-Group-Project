@@ -1,10 +1,11 @@
-package com.dragons.game.view.modelViews.bombs;
+package com.dragons.game.view.modelViews.bombs.fires;
 
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragons.game.model.IModel;
+import com.dragons.game.model.bombs.fires.IFire;
 import com.dragons.game.model.bombs.fires.NormalFire;
 import com.dragons.game.view.modelViews.IModelView;
 
@@ -21,11 +22,11 @@ public class NormalFireView implements IModelView {
     private static final float FRAME_DURATION = 0.1f;
     private final Animation<Texture> explosion;
     private static float state_time;
-    private final NormalFire fire;
+    private final IFire fire;
 
 
     public NormalFireView(IModel model, AnnotationAssetManager manager) {
-        fire = (NormalFire) model;
+        fire = (IFire) model;
         Texture[] explosionTextures = new Texture[]{
                 manager.get(EXPLOSION1, Texture.class),
                 manager.get(EXPLOSION2, Texture.class),

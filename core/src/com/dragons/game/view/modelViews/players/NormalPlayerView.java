@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragons.game.model.IModel;
+import com.dragons.game.model.players.IPlayer;
 import com.dragons.game.model.players.NormalPlayer;
 import com.dragons.game.utilities.Direction;
 import com.dragons.game.view.modelViews.IModelView;
@@ -31,7 +32,7 @@ public class NormalPlayerView implements IModelView {
     private static final float FRAME_DURATION = 0.1f;
     private final Animation<Texture> dragon;
     private static float state_time;
-    private final NormalPlayer player;
+    private final IPlayer player;
 
 
     public NormalPlayerView(IModel model, AnnotationAssetManager manager) {

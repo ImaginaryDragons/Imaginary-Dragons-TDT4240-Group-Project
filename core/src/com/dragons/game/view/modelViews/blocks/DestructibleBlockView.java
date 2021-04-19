@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.blocks.DestructibleBlock;
+import com.dragons.game.model.blocks.IBlock;
 import com.dragons.game.view.modelViews.IModelView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -14,10 +15,10 @@ import static com.dragons.game.utilities.AssetLoader.DESTRUCTIBLE_BLOCK;
 public class DestructibleBlockView implements IModelView {
 
     private final Texture texture;
-    private final DestructibleBlock block;
+    private final IBlock block;
 
-    public DestructibleBlockView(IModel block, AnnotationAssetManager manager) {
-        this.block = (DestructibleBlock) block;
+    public DestructibleBlockView(IModel model, AnnotationAssetManager manager) {
+        this.block = (IBlock) model;
 
         texture = manager.get(DESTRUCTIBLE_BLOCK, Texture.class);
     }

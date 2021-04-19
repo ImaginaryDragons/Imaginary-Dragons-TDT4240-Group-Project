@@ -4,13 +4,9 @@ import com.dragons.game.model.IModel;
 import com.dragons.game.model.blocks.IBlock;
 import com.dragons.game.model.bombs.IBomb;
 import com.dragons.game.model.bombs.fires.IFire;
-import com.dragons.game.model.bombs.fires.NormalFire;
 import com.dragons.game.model.players.IPlayer;
-import com.dragons.game.model.players.NormalPlayer;
 import com.dragons.game.model.powerUps.IPowerUp;
 import com.dragons.game.view.modelViews.IModelView;
-import com.dragons.game.view.modelViews.bombs.NormalFireView;
-import com.dragons.game.view.modelViews.players.NormalPlayerView;
 
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;

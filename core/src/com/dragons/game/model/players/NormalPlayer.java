@@ -3,6 +3,8 @@ package com.dragons.game.model.players;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.Model;
+import com.dragons.game.model.bombs.BombType;
+import com.dragons.game.model.bombs.NormalBomb;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.utilities.Direction;
 import com.dragons.game.view.IModelObserver;
@@ -31,14 +33,12 @@ public class NormalPlayer extends Model implements IPlayer{
     private int bombsAvailable;
     private int bombRange;
     private float bombReloadTime;
-
+    private final BombType bombType = BombType.NORMALBOMB;
     private float hitProtectionTime;
     private boolean hitProtectionMode;
 
     private static final boolean isStatic = false;
     private static final boolean isSensor = false;
-
-    private List<IModelObserver> observers;
 
 
     // TODO: Consider if it is necessary to implement a decorator for color, ID etc..
@@ -49,16 +49,15 @@ public class NormalPlayer extends Model implements IPlayer{
         this.ID = ID;
         this.col = col;
 
-        observers = new ArrayList<>();
 
         orientation = Direction.UP;
         lives = Constants.InitPlayerHealth;
         speed = Constants.PlayerSpeed;
         bombCapacity = Constants.InitBombCap;
-        bombsAvailable = bombCapacity; // Whats the difference between this and bombCapacity?
+        bombsAvailable = bombCapacity;
         bombRange = Constants.InitBombRange;
         bombReloadTime = Constants.BombReloadTime;
-        hitProtectionTime = Constants.FireDisplayTime + 0.1f;
+        hitProtectionTime = Constants.FireDisplayTime + 1f;
         hitProtectionMode = false;
     }
 
@@ -101,20 +100,39 @@ public class NormalPlayer extends Model implements IPlayer{
         bombCapacity += amount;
     }
 
-
+    @Override
     public Direction getOrientation() {
         return orientation;
     }
 
-    public void setOrientation(Direction orientation) {
-        this.orientation = orientation;
-    }
 
     @Override
     public int getLives() {
         return lives;
     }
 
+    @Override
+    public int getBombsAvailable() {
+        return bombsAvailable;
+    }
+
+    @Override
+    public int getBombRange() {
+        return bombRange;
+    }
+
+    @Override
+    public BombType getBombType() {
+        return bombType;
+    }
+
+    public void setOrientation(Direction orientation) {
+        this.orientation = orientation;
+    }
+
+    public void setBombRange(int bombRange) {
+        this.bombRange = bombRange;
+    }
     public void setLives(int lives) {
         this.lives = lives;
     }
@@ -135,21 +153,9 @@ public class NormalPlayer extends Model implements IPlayer{
         this.bombCapacity = bombCapacity;
     }
 
-    public int getBombsAvailable() {
-        return bombsAvailable;
-    }
 
     public void setBombsAvailable(int bombsAvailable) {
         this.bombsAvailable = bombsAvailable;
     }
-
-    public int getBombRange() {
-        return bombRange;
-    }
-
-    public void setBombRange(int bombRange) {
-        this.bombRange = bombRange;
-    }
-
 
 }

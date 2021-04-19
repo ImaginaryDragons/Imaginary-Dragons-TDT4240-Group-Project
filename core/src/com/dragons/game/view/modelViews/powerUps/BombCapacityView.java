@@ -12,8 +12,8 @@ import static com.dragons.game.utilities.AssetLoader.BOMB_CAP_POWERUP;
 
 public class BombCapacityView implements IModelView {
 
-    private Texture capacity;
-    private BombCapacity bombCap;
+    private final Texture capacity;
+    private final BombCapacity bombCap;
 
     public BombCapacityView(AnnotationAssetManager manager, BombCapacity bombCap) {
         capacity = manager.get(BOMB_CAP_POWERUP, Texture.class);
@@ -26,7 +26,7 @@ public class BombCapacityView implements IModelView {
     }
 
     @Override
-    public void render(SpriteBatch sb) {
-        sb.draw(capacity, bombCap.getPosition().x - bombCap.getWidth()* Constants.PowerUpScaleFactor/2f, bombCap.getPosition().y - bombCap.getHeight()*Constants.PowerUpScaleFactor/2f, bombCap.getWidth()* Constants.PowerUpScaleFactor, bombCap.getHeight()*Constants.PowerUpScaleFactor);
+    public void render(SpriteBatch batch) {
+        batch.draw(capacity, bombCap.getPosition().x - bombCap.getWidth()* Constants.PowerUpScaleFactor/2f, bombCap.getPosition().y - bombCap.getHeight()*Constants.PowerUpScaleFactor/2f, bombCap.getWidth()* Constants.PowerUpScaleFactor, bombCap.getHeight()*Constants.PowerUpScaleFactor);
     }
 }
