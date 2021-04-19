@@ -31,13 +31,11 @@ public class NormalPlayerView implements IModelView {
     private static final float FRAME_DURATION = 0.1f;
     private final Animation<Texture> dragon;
     private static float state_time;
-    private Direction direction;
     private final NormalPlayer player;
 
 
     public NormalPlayerView(IModel model, AnnotationAssetManager manager) {
         player = (NormalPlayer) model;
-        this.direction = Direction.UP;
         final Color col = this.player.getColor();
         Texture[] dragonTextures;
         if (Color.RED.equals(col)) {
@@ -95,32 +93,27 @@ public class NormalPlayerView implements IModelView {
         float y = player.getPosition().y;
         float width = player.getWidth();
         float height = player.getHeight();
-
-        switch (direction){
+        final int rotation;
+        switch (player.getOrientation()){
             case UP:
-                batch.draw(current_frame, x - width / 2f, y - height / 2f, width * 0.5f,
-                        height * 0.5f, width, height, 1, 1, 0, 1,
-                        1, current_frame.getWidth(), current_frame.getHeight(), false, false);
+                rotation = 0;
                 break;
             case DOWN:
-                batch.draw(current_frame, x - width / 2f, y - height / 2f, width * 0.5f,
-                        height * 0.5f, width, height, 1, 1, 180, 1,
-                        1, current_frame.getWidth(), current_frame.getHeight(), false, false);
+                rotation = 180;
                 break;
             case LEFT:
-                batch.draw(current_frame, x - width / 2f, y - height / 2f, width * 0.5f,
-                        height * 0.5f, width, height, 1, 1, 90, 1,
-                        1, current_frame.getWidth(), current_frame.getHeight(), false, false);
+                rotation = 90;
                 break;
             case RIGHT:
-                batch.draw(current_frame, x - width / 2f, y - height / 2f, width * 0.5f,
-                        height * 0.5f, width, height, 1, 1, 270, 1,
-                        1, current_frame.getWidth(), current_frame.getHeight(), false, false);
+                rotation = 270;
                 break;
             default:
                 throw new IllegalArgumentException("Wrong direction in NormalPlayerView");
-
         }
+
+        batch.draw(current_frame, x - width / 2f, y - height / 2f, width / 2f,
+                height / 2f, width, height, 1, 1, rotation, 1,
+                1, current_frame.getWidth(), current_frame.getHeight(), false, false);
 
     }
 }

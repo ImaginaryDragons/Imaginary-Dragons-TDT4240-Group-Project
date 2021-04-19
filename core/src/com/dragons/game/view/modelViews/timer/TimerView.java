@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -13,13 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.dragons.game.DragonsGame;
-import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.modelViews.IModelView;
-import com.dragons.game.view.screens.GameScreen;
 
 public class TimerView implements IModelView {
     public AssetManager assets;
@@ -39,7 +33,7 @@ public class TimerView implements IModelView {
     private Label timeLabel;
 
     public TimerView(AssetManager assets, OrthographicCamera camera) {
-        worldTimer = 10;
+        worldTimer = 600;
         timeCount = 0;
         scoreCount = 0;
 

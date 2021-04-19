@@ -4,8 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.Model;
+import com.dragons.game.model.Observable;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.utilities.Direction;
+import com.dragons.game.view.Observer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.dragons.game.model.players.PlayerType.NORMALPLAYER;
 
@@ -19,7 +24,7 @@ import static com.dragons.game.model.players.PlayerType.NORMALPLAYER;
 
 
 
-public class NormalPlayer extends Model implements IPlayer {
+public class NormalPlayer extends Model implements IPlayer, Observable {
 
     private int ID;
     private Color col;
@@ -37,6 +42,8 @@ public class NormalPlayer extends Model implements IPlayer {
     private static final boolean isStatic = false;
     private static final boolean isSensor = false;
 
+    private List<Observer> observers;
+
 
     // TODO: Consider if it is necessary to implement a decorator for color, ID etc..
     // I suspect the answer is no, but there might be a good reason for it
@@ -45,6 +52,8 @@ public class NormalPlayer extends Model implements IPlayer {
         super(startPos, width, height, isStatic, isSensor);
         this.ID = ID;
         this.col = col;
+
+        observers = new ArrayList<>();
 
         orientation = Direction.UP;
         lives = Constants.InitPlayerHealth;
@@ -78,9 +87,10 @@ public class NormalPlayer extends Model implements IPlayer {
 
     @Override
     public void handleHitByBomb() {
-        if (hitProtectionMode == false){
+        if (!hitProtectionMode){
             lives -= 1;
             hitProtectionMode = true;
+            notifyObservers();
         }
     }
 
@@ -146,4 +156,21 @@ public class NormalPlayer extends Model implements IPlayer {
         this.bombRange = bombRange;
     }
 
+    @Override
+    public void registerObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        if (observers.contains(o)) observers.remove(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer o : observers){
+            o.update();
+
+        }
+    }
 }
