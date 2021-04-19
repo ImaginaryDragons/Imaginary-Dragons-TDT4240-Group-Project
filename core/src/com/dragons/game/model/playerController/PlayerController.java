@@ -18,23 +18,13 @@ public class PlayerController {
     private final JoystickView joystickView;
     private final com.dragons.game.model.playerController.DropBombButton dropBombButton;
     private final DropBombButtonView dropBombButtonView;
-    private final ExitButton exitButton;
-    private final ExitButtonView exitButtonView;
 
-    public InputMultiplexer multiplexer;
-
-    public PlayerController(OrthographicCamera camera, AnnotationAssetManager manager, GameWorld gameWorld) {
-        joystick = new Joystick(camera);
+    public PlayerController(OrthographicCamera camera, AnnotationAssetManager manager, GameWorld gameWorld, boolean isPlayerOne) {
+        joystick = new Joystick(camera, isPlayerOne);
         joystickView = new JoystickView(joystick);  // TODO: Should probably decouple joystick from view, but unsure how
 
-        dropBombButtonView = new DropBombButtonView(manager);
+        dropBombButtonView = new DropBombButtonView(manager, isPlayerOne);
         dropBombButton = new DropBombButton(camera, dropBombButtonView.getBounds(), gameWorld);  // TODO: Find way to get bounds of button without passing dropBombButtonView
-
-        exitButtonView = new ExitButtonView(manager);
-        exitButton = new ExitButton(camera, exitButtonView.getBounds());  // TODO: Find way to get bounds of button without passing exitButtonView
-
-        multiplexer = new InputMultiplexer(joystick, dropBombButton, exitButton);
-        Gdx.input.setInputProcessor(multiplexer);
     }
 
     public void addPlayer(GameObject player) {
@@ -45,6 +35,13 @@ public class PlayerController {
     public void render(SpriteBatch sb) {
         joystickView.render(sb);
         dropBombButtonView.render(sb);
-        exitButtonView.render(sb);
+    }
+
+    public Joystick getJoystick() {
+        return joystick;
+    }
+
+    public DropBombButton getDropBombButton() {
+        return dropBombButton;
     }
 }
