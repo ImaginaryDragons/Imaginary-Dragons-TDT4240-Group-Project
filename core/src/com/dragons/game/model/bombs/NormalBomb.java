@@ -7,10 +7,12 @@ import com.dragons.game.model.Model;
 import com.dragons.game.model.blocks.DestructibleBlock;
 import com.dragons.game.model.blocks.WallBlock;
 import com.dragons.game.model.gameWorld.GameMap;
+import com.dragons.game.model.gameWorld.GameObject;
 import com.dragons.game.utilities.Constants;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class NormalBomb extends Model implements IBomb {
@@ -82,7 +84,11 @@ public class NormalBomb extends Model implements IBomb {
 
             boolean stopExpanding = false;
             boolean addCurrentTile = true;
-            for (IModel obj : tileContainer) {
+
+            Iterator<IModel> it = tileContainer.iterator();
+            IModel obj;
+            while(it.hasNext()){
+                obj = it.next();
                 if (obj instanceof WallBlock) {
                     stopExpanding = true;
                     addCurrentTile = false;
@@ -90,11 +96,11 @@ public class NormalBomb extends Model implements IBomb {
                 else if(obj instanceof DestructibleBlock) {
                     stopExpanding = true;
                     addCurrentTile = true;
+                    it.remove();
                 } else {
                     // Do nothing
                 }
             }
-
             if (addCurrentTile == true) {
                 fireTiles.add(new Vector2(gameMap.tilePosCenter(checkTile)));
             }
