@@ -12,7 +12,7 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
 public class PlayerController {
     private final Joystick joystick;
     private final JoystickView joystickView;
-    private final com.dragons.game.controller.playerController.DropBombButton dropBombButton;
+    private final DropBombButton dropBombButton;
     private final DropBombButtonView dropBombButtonView;
 
     public PlayerController(OrthographicCamera camera, AnnotationAssetManager manager, GameWorld gameWorld, boolean isPlayerOne) {
