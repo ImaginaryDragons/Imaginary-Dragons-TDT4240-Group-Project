@@ -25,7 +25,7 @@ public class LevelScreen extends ScreenAdapter {
     private Stage stage;
     private Skin skin;
 
-    private TextButton lvl1, lvl2;
+    private TextButton lvl1, lvl2, lvl3, backBtn;
 
     private Image logo;
 
@@ -98,12 +98,22 @@ public class LevelScreen extends ScreenAdapter {
 
         lvl2 = new TextButton("Level 2", skin, "default");
         lvl2.setSize(250, 50);
-        lvl2.setPosition(dragonsGame.camera.position.x - lvl1.getWidth() / 2, dragonsGame.camera.position.y - lvl1.getHeight() - 70);
+        lvl2.setPosition(dragonsGame.camera.position.x - lvl2.getWidth() / 2, dragonsGame.camera.position.y - lvl2.getHeight() - 70);
+
+
+        lvl3 = new TextButton("Level 3", skin, "default");
+        lvl3.setSize(250, 50);
+        lvl3.setPosition(dragonsGame.camera.position.x - lvl3.getWidth() / 2, dragonsGame.camera.position.y - lvl3.getHeight() - 140);
+
+        backBtn = new TextButton("Back", skin, "default");
+        backBtn.setSize(100, 30);
+        backBtn.setPosition(dragonsGame.camera.position.x / 7 , 2 * dragonsGame.camera.position.y - 2*backBtn.getHeight());
 
 
         lvl1.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+
                 try {
                     dragonsGame.setScreen(new GameScreen(dragonsGame));
                 } catch (IOException e) {
@@ -111,21 +121,22 @@ public class LevelScreen extends ScreenAdapter {
                 }
             }
         });
-        lvl2.addListener(new ClickListener(){
+
+        backBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                try {
-                    dragonsGame.setScreen(new GameScreen(dragonsGame));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                dragonsGame.setScreen(new MenuScreen(dragonsGame));
             }
         });
+
+
 
 
         stage.addActor(logo);
         stage.addActor(lvl1);
         stage.addActor(lvl2);
+        stage.addActor(lvl3);
+        stage.addActor(backBtn);
 
     }
 }

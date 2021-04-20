@@ -17,6 +17,7 @@ public class LoadingScreen extends ScreenAdapter {
     private ShapeRenderer shapeRenderer;
 
 
+
     private float progress;
 
     public LoadingScreen(final DragonsGame dragonsGame) {

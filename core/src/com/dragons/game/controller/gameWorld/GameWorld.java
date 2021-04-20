@@ -98,7 +98,7 @@ public class GameWorld {
         world.step(delta, 6, 2);
         updateGameObjects(delta);
         updateActionControllers();;
-        b2dr.render(world, b2drCam.combined);
+        //b2dr.render(world, b2drCam.combined);
 
         // Cleanup unused objects in some iterations using garbage collector
         if (cleanupCounter > Constants.CleanupCounterLimit) {

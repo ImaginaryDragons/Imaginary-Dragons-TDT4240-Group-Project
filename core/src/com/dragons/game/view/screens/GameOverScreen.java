@@ -102,7 +102,7 @@ public class GameOverScreen extends ScreenAdapter {
     }
 
     private void initScreen() {
-        Texture gameOverTex = dragonsGame.assets.get("over.png", Texture.class);
+        Texture gameOverTex = dragonsGame.assets.get("components/over.png", Texture.class);
         gameOver = new Image(gameOverTex);
         gameOver.setSize(250, 70);
         gameOver.setPosition(dragonsGame.camera.position.x - gameOver.getWidth() / 2, dragonsGame.camera.position.y + 70);

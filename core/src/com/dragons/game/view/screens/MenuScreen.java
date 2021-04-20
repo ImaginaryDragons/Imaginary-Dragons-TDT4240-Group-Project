@@ -99,6 +99,7 @@ public class MenuScreen implements Screen {
     public void dispose() {
         stage.dispose();
         shapeRenderer.dispose();
+        skin.dispose();
 
     }
 
@@ -121,6 +122,7 @@ public class MenuScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 dragonsGame.setScreen(new LevelScreen(dragonsGame));
+
             }
         });
         joinButton.addListener(new ClickListener(){
