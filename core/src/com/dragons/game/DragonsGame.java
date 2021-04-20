@@ -13,7 +13,7 @@ import com.dragons.game.view.screens.LoadingScreen;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.dragons.game.controller.gameWorld.GameMap;
+import com.dragons.game.model.maps.GameMap;
 import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.model.players.NormalPlayer;
 

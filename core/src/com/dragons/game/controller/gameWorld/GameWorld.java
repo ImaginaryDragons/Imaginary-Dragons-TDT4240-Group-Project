@@ -12,6 +12,7 @@ import com.dragons.game.controller.bombController.FireController;
 import com.dragons.game.controller.IGameObjectController;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.bombs.BombType;
+import com.dragons.game.model.maps.GameMap;
 import com.dragons.game.model.modelFactories.BombFactory;
 import com.dragons.game.model.modelFactories.FireFactory;
 import com.dragons.game.model.modelFactories.PlayerFactory;
@@ -37,7 +38,6 @@ import static com.dragons.game.utilities.Constants.VIEWPORT_WIDTH;
  * the proper actions and interactions performed on and in between objects. After an object is
  * created, it therefore has to be added to the game-world.
  *
- * @author Eldar Sandanger
  * */
 
 public class GameWorld {
@@ -53,7 +53,7 @@ public class GameWorld {
     private final FireFactory fireFactory = FireFactory.getInstance();
 
     private final World world;
-    private final GameMap map;
+    private final com.dragons.game.model.maps.GameMap map;
     private final AnnotationAssetManager assetManager;
     private final Box2DDebugRenderer b2dr;
     private final OrthographicCamera b2drCam;
@@ -68,7 +68,7 @@ public class GameWorld {
     // https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_hello.html#autotoc_md21
     // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
-    public GameWorld(GameMap map, AnnotationAssetManager manager, OrthographicCamera camera) {
+    public GameWorld(com.dragons.game.model.maps.GameMap map, AnnotationAssetManager manager, OrthographicCamera camera) {
         world = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         this.assetManager = manager;
         world.setContactListener(new WorldContactListener());

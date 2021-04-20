@@ -6,7 +6,7 @@ import com.dragons.game.model.IModel;
 import com.dragons.game.model.Model;
 import com.dragons.game.model.blocks.DestructibleBlock;
 import com.dragons.game.model.blocks.WallBlock;
-import com.dragons.game.controller.gameWorld.GameMap;
+import com.dragons.game.model.maps.GameMap;
 import com.dragons.game.utilities.Constants;
 
 import java.util.ArrayList;

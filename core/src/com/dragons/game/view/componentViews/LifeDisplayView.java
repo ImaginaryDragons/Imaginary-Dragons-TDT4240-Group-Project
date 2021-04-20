@@ -3,7 +3,7 @@ package com.dragons.game.view.componentViews;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.dragons.game.controller.gameWorld.GameMap;
+import com.dragons.game.model.maps.GameMap;
 import com.dragons.game.model.players.IPlayer;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.IView;

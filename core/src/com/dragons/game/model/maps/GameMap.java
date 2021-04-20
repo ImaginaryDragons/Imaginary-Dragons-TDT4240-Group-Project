@@ -1,4 +1,4 @@
-    package com.dragons.game.controller.gameWorld;
+package com.dragons.game.model.maps;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapProperties;
@@ -24,12 +24,12 @@ import java.util.Scanner;
 
 public class GameMap {
 
-    private Table<Integer, Integer, ArrayList<IModel>> tileContainers;
+    private final Table<Integer, Integer, ArrayList<IModel>> tileContainers;
     private int tileWidth, tileHeight,
             mapWidthInTiles, mapHeightInTiles,
             mapWidthInPixels, mapHeightInPixels;
 
-    private TiledMap tiledMap;
+    private final TiledMap tiledMap;
 
     // Factories
     private final BlockFactory blockFactory = BlockFactory.getInstance();;
@@ -99,21 +99,20 @@ public class GameMap {
                     x++;
                     break;
                 case "1":
-                    IModel desblock = blockFactory.createBlock(tilePosCenter(tile), BlockType.DESTRUCTIBLEBlOCK, tileWidth, tileHeight);
-                    tileContainers.get(x, y).add(desblock);
+                    if (Math.random() < 0.75){
+                        IModel desblock = blockFactory.createBlock(tilePosCenter(tile), BlockType.DESTRUCTIBLEBlOCK, tileWidth, tileHeight);
+                        if (Math.random() < 0.4){
+                            IModel powerUp = powerUpFactory.createPowerUp(tilePosCenter(tile), PowerUpType.RANDOM, tileWidth * Constants.PowerUpScaleFactor, tileHeight * Constants.PowerUpScaleFactor);
+                            tileContainers.get(x, y).add(powerUp);
+                        }
+                        tileContainers.get(x, y).add(desblock);
+                    }
                     x++;
                     break;
                 case "2":
                     System.out.print(tilePos(tile).toString());
                     IModel wallblock = blockFactory.createBlock(tilePosCenter(tile), BlockType.WALLBLOCK, tileWidth, tileHeight);
                     tileContainers.get(x, y).add(wallblock);
-                    x++;
-                    break;
-                case "3":
-                    IModel desBlock = blockFactory.createBlock(tilePosCenter(tile), BlockType.DESTRUCTIBLEBlOCK, tileWidth, tileHeight);
-                    IModel powerup = powerUpFactory.createPowerUp(tilePosCenter(tile), PowerUpType.RANDOM, tileWidth * Constants.PowerUpScaleFactor, tileHeight * Constants.PowerUpScaleFactor);
-                    tileContainers.get(x, y).add(powerup);
-                    tileContainers.get(x, y).add(desBlock);
                     x++;
                     break;
                 case " ":
