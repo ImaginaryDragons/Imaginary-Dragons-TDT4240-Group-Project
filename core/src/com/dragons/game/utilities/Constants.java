@@ -9,7 +9,7 @@ public class Constants {
 
     //TODO: fix bodyjitter on higher PPM
     public static final float PPM = 1f;
-    public static final int FPS = 60;
+    public static final int FPS = 30;
     public static final float VIEWPORT_WIDTH = 480f;
     public static final float VIEWPORT_HEIGHT = 350f;
 

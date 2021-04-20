@@ -78,11 +78,6 @@ public class GameScreen extends ScreenAdapter {
         gameWorld.initializePlayers();
 
 
-
-        // BOMB TEST!!
-        // TODO: get right tile position
-        gameWorld.placeBomb(new Vector2(40,300), BombType.NORMALBOMB, 2);
-
     }
 
     public GameMap getGameMap() {
