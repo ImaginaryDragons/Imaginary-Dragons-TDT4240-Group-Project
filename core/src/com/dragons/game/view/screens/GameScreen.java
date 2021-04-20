@@ -10,22 +10,21 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.DragonsGame;
 import com.dragons.game.FirebasePlayer;
 import com.dragons.game.model.bombs.BombType;
-import com.dragons.game.model.gameWorld.GameMap;
-import com.dragons.game.model.gameWorld.GameWorld;
+import com.dragons.game.controller.gameWorld.GameWorld;
+import com.dragons.game.model.maps.GameMap;
+import com.dragons.game.utilities.AssetLoader;
 import com.dragons.game.view.GameRenderer;
-import com.dragons.game.view.modelViews.timer.TimerView;
+import com.dragons.game.view.componentViews.TimerView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.io.IOException;
 
-import static com.dragons.game.utilities.Constants.VIRTUAL_HEIGHT;
-import static com.dragons.game.utilities.Constants.VIRTUAL_WIDTH;
+import static com.dragons.game.utilities.Constants.VIEWPORT_HEIGHT;
+import static com.dragons.game.utilities.Constants.VIEWPORT_WIDTH;
 
 
 public class GameScreen extends ScreenAdapter {
@@ -36,20 +35,12 @@ public class GameScreen extends ScreenAdapter {
     private final AnnotationAssetManager manager;
     private OrthographicCamera camera;
 
-    private World b2dWorld;
-    private Box2DDebugRenderer b2dr;
-    private OrthographicCamera b2drCam;
     private final GameMap gameMap;
     private final SpriteBatch batch;
     private final TiledMapRenderer tiledMapRenderer;
 
     private TimerView timerView;
     private FirebasePlayer firebasePlayer;
-
-
-    //InputStream txt = getAssets().open("map.txt");
-
-   // private String MapTxt = manager.get(MAP, String.class);
 
     // TODO: Integrating the gameWorld onto the firebase server
     /*Right now the gameWorld is statically defined within our gamescreen. However, we need
@@ -64,10 +55,11 @@ public class GameScreen extends ScreenAdapter {
         //super();
         Gdx.app.log("GameScreen", "Attached");
 
-        OrthographicCamera camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
-
+        camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         gameMap = new GameMap("TileMapMobile.tmx");
         manager = new AnnotationAssetManager();
+        loadAssets();
+
         gameWorld = new GameWorld(gameMap, manager, camera);
         batch = new SpriteBatch();
 
@@ -82,7 +74,8 @@ public class GameScreen extends ScreenAdapter {
         batch.setProjectionMatrix(camera.combined);
         // TODO: Create functionality for spawning game world
         timerView = new TimerView(dragonsGame.assets, camera);
-        gameMap.generateBlocks(0, "map.txt");
+      
+        gameMap.generateBlocks( "map.txt");
         gameWorld.generateMapBlocks();
         gameWorld.initializePlayers();
 
@@ -159,6 +152,13 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void dispose() {
         super.dispose();
+    }
+
+    private void loadAssets() {
+        Gdx.app.log("Asset loader", "Loading assets");
+        manager.load(AssetLoader.class);
+        manager.finishLoading();
+        Gdx.app.log("Asset loader", "Loading assets finished");
     }
 
 }

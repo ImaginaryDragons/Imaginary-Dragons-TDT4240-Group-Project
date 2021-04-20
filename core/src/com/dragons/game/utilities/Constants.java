@@ -9,15 +9,16 @@ public class Constants {
 
     //TODO: fix bodyjitter on higher PPM
     public static final float PPM = 1f;
-    public static final int FPS = 30;
-    public static final float VIRTUAL_WIDTH = 480f;
-    public static final float VIRTUAL_HEIGHT = 350f;
+    public static final int FPS = 60;
+    public static final float VIEWPORT_WIDTH = 480f;
+    public static final float VIEWPORT_HEIGHT = 350f;
+
+    public static final float FRAME_DURATION = 0.2f;
 
     public static final float PlayerScaleFactor = 0.9f;
     public static final float FireScaleFactor = 0.99f;
     public static final float BombScaleFactor = 0.8f;
     public static final float PowerUpScaleFactor = 0.85f;
-
     public static final float HealthScaleFactor = 0.7f;
 
     public static final int InitPlayerHealth = 3; // Number of lives

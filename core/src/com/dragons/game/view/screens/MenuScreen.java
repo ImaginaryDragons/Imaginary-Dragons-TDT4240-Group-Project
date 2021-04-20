@@ -107,7 +107,7 @@ public class MenuScreen implements Screen {
 
 
     private void initMenu(){
-        Texture logoTex = dragonsGame.assets.get("logo.png", Texture.class);
+        Texture logoTex = dragonsGame.assets.get("components/logo.png", Texture.class);
         logo = new Image(logoTex);
         logo.setPosition(dragonsGame.camera.position.x - logo.getWidth() / 2, dragonsGame.camera.position.y - 70);
 
