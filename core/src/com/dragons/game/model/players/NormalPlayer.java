@@ -30,7 +30,7 @@ public class NormalPlayer extends Model implements IPlayer{
     private final Color col;
     private Direction orientation; // The direction the player is looking
     private int lives;
-    private int speed;
+    private float speed;
     private int bombCapacity;
     private int bombsAvailable;
     private int bombRange;
@@ -89,7 +89,7 @@ public class NormalPlayer extends Model implements IPlayer{
 
         }
     }
-
+    @Override
     public int getID() {
         return ID;
     }
@@ -140,11 +140,18 @@ public class NormalPlayer extends Model implements IPlayer{
         newBombTimeCounters.add(0f);
     }
 
-    private void addNewBomb(){
-        if (bombsAvailable < bombCapacity) bombsAvailable += 1;
+    @Override
+    public void setOrientation(Direction orientation) {
+        this.orientation = orientation;
     }
 
-    public void increaseSpeed(int amount){
+    @Override
+    public float getSpeed() {
+        return speed;
+    }
+
+
+    public void increaseSpeed(float amount){
         speed += amount;
     }
 
@@ -157,9 +164,8 @@ public class NormalPlayer extends Model implements IPlayer{
         addNewBomb();
     }
 
-
-    public void setOrientation(Direction orientation) {
-        this.orientation = orientation;
+    private void addNewBomb(){
+        if (bombsAvailable < bombCapacity) bombsAvailable += 1;
     }
 
     public void setBombRange(int bombRange) {
@@ -167,10 +173,6 @@ public class NormalPlayer extends Model implements IPlayer{
     }
     public void setLives(int lives) {
         this.lives = lives;
-    }
-
-    public int getSpeed() {
-        return speed;
     }
 
     public void setSpeed(int speed) {

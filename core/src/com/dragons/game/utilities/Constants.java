@@ -8,7 +8,7 @@ public class Constants {
     public static final int WorldHeight = 480;
 
     //TODO: fix bodyjitter on higher PPM
-    public static final float PPM = 1f;
+    public static final float PPM = 7f;
     public static final int FPS = 30;
     public static final float VIEWPORT_WIDTH = 480f;
     public static final float VIEWPORT_HEIGHT = 350f;
@@ -22,7 +22,7 @@ public class Constants {
     public static final float HealthScaleFactor = 0.7f;
 
     public static final int InitPlayerHealth = 3; // Number of lives
-    public static final int PlayerSpeed = 125; // RANDOM NUMBER FOR NOW
+    public static final float PlayerSpeed = 100 /  PPM; // RANDOM NUMBER FOR NOW
     public static final int PlayerSpeedBoostInc = 5;
     public static final float PlayerHeight = 10; // Has to be precalculated from a tile ratio!!
     public static final float PlayerWidth = 10; // Has to be precalculated from a tile ratio!!
