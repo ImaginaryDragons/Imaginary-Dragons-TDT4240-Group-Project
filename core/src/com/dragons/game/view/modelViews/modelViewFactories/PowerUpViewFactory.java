@@ -33,6 +33,5 @@ public final class PowerUpViewFactory implements IModelViewFactory {
         else if (model instanceof IncreaseSpeed)    return new IncreaseSpeedView(model, assetManager);
         else                                        return null;
 
-        // TODO: Create PowerUpViewClasses
     }
 }

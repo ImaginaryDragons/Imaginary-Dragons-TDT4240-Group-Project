@@ -53,7 +53,7 @@ public class GameWorld {
     private final FireFactory fireFactory = FireFactory.getInstance();
 
     private final World world;
-    private final com.dragons.game.model.maps.GameMap map;
+    private final GameMap map;
     private final AnnotationAssetManager assetManager;
     private final Box2DDebugRenderer b2dr;
     private final OrthographicCamera b2drCam;
@@ -68,7 +68,7 @@ public class GameWorld {
     // https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_hello.html#autotoc_md21
     // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
-    public GameWorld(com.dragons.game.model.maps.GameMap map, AnnotationAssetManager manager, OrthographicCamera camera) {
+    public GameWorld(GameMap map, AnnotationAssetManager manager, OrthographicCamera camera) {
         world = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         this.assetManager = manager;
         world.setContactListener(new WorldContactListener());
@@ -132,7 +132,8 @@ public class GameWorld {
         Gdx.app.log("GameWorld", "Initializing main player");
       
         Vector2 p1StartPos = map.tilePosCenter(new Vector2(1,1));
-        IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER, Color.RED, map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
+        IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER, Color.RED,
+                map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
 
         GameObject player1 = new GameObject(p1, world, assetManager);
         inputHandler.addPlayer(player1, true);
@@ -143,7 +144,8 @@ public class GameWorld {
 
         Gdx.app.log("GameWorld", "Initializing secondary player");
         Vector2 p2StartPos = map.tilePosCenter(new Vector2(13,9));
-        IModel p2 = playerFactory.createPlayer(2, p2StartPos, PlayerType.NORMALPLAYER, Color.BLUE, map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
+        IModel p2 = playerFactory.createPlayer(2, p2StartPos, PlayerType.NORMALPLAYER, Color.BLUE,
+                map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
 
         GameObject player2 = new GameObject(p2, world, assetManager);
         inputHandler.addPlayer(player2, false);
@@ -173,25 +175,25 @@ public class GameWorld {
     }
 
     public void updateGameObjects(float delta) {
-        Iterator<GameObject> it1 = dynamicGameObjects.iterator();
-        GameObject dObj;
-        while(it1.hasNext()) {
-            dObj = it1.next();
-            dObj.syncPosition();
-            dObj.update(delta);
-            if (dObj.getObject().isDisposed()){
-                dObj.dispose();
-                it1.remove();
+        Iterator<GameObject> iterator = dynamicGameObjects.iterator();
+        GameObject dynamicObj;
+        while(iterator.hasNext()) {
+            dynamicObj = iterator.next();
+            dynamicObj.syncPosition();
+            dynamicObj.update(delta);
+            if (dynamicObj.getObject().isDisposed()){
+                dynamicObj.dispose();
+                iterator.remove();
             }
         }
-        Iterator<GameObject> it2 = staticGameObjects.iterator();
-        GameObject sObj;
-        while(it2.hasNext()){
-            sObj = it2.next();
-            sObj.update(delta);
-            if (sObj.getObject().isDisposed()){
-                sObj.dispose();
-                it2.remove();
+        iterator = staticGameObjects.iterator();
+        GameObject staticObj;
+        while(iterator.hasNext()){
+            staticObj = iterator.next();
+            staticObj.update(delta);
+            if (staticObj.getObject().isDisposed()){
+                staticObj.dispose();
+                iterator.remove();
             }
         }
     }
@@ -200,13 +202,13 @@ public class GameWorld {
         // Iterate through the controllers and perform actions
         // We have to use an iterator to remove them correctly
         // REMOVING FIX: https://stackoverflow.com/questions/10033025/crash-when-trying-to-remove-object-from-arraylist
-        Iterator<IGameObjectController> it = actionControllers.iterator();
-        IGameObjectController ctr;
-        while(it.hasNext()){
-            ctr = it.next();
-            ctr.controllerAction(this);
-            if (ctr.remove()) {
-                it.remove();
+        Iterator<IGameObjectController> iterator = actionControllers.iterator();
+        IGameObjectController controller;
+        while(iterator.hasNext()){
+            controller = iterator.next();
+            controller.controllerAction(this);
+            if (controller.remove()) {
+                iterator.remove();
             }
         }
         // This step has to be performed due to limitations on how iterators work. We can't add to the same list we try to iterate through.

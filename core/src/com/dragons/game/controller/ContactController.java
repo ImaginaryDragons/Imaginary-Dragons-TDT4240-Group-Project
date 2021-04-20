@@ -33,7 +33,6 @@ public class ContactController {
         if (oneIsBomb && oneIsPlayer){
             System.out.println("Collision Player and Bomb");
 
-            // TODO: Control the player to move away from the bombtile instantly
         }
 
         if (oneIsPlayer && oneIsFire){

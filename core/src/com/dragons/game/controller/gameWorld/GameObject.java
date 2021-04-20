@@ -54,7 +54,6 @@ public class GameObject {
         }
     }
 
-    // TODO: remove need for position as argument, encapsulate in controller instead
     public void update(float delta){
         model.update(delta);
         if (modelView != null) modelView.update(delta);

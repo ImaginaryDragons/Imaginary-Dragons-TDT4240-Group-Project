@@ -70,7 +70,7 @@ public class GameScreen extends ScreenAdapter {
         tiledMapRenderer.setView(camera);
 
         batch.setProjectionMatrix(camera.combined);
-        // TODO: Create functionality for spawning game world
+
         timerView = new TimerView(dragonsGame.assets, camera);
       
         gameMap.generateBlocks( "map.txt");

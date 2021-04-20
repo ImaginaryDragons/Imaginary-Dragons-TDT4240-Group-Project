@@ -7,7 +7,6 @@ public class Constants {
     public static final int WorldWidth = 800;
     public static final int WorldHeight = 480;
 
-    //TODO: fix bodyjitter on higher PPM
     public static final float PPM = 7f;
     public static final int FPS = 30;
     public static final float VIEWPORT_WIDTH = 480f;
