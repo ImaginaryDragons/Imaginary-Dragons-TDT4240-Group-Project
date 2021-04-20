@@ -25,9 +25,9 @@ public class LoadingScreen implements Screen {
     }
 
     private void queueAssets() {
-        dragonsGame.assets.load("logo.png", Texture.class);
-        dragonsGame.assets.load("over.png", Texture.class);
-        dragonsGame.assets.load("highscores.png", Texture.class);
+        dragonsGame.assets.load("components/logo.png", Texture.class);
+        dragonsGame.assets.load("components/over.png", Texture.class);
+        dragonsGame.assets.load("components/highscores.png", Texture.class);
         dragonsGame.assets.load("uiskin.atlas", TextureAtlas.class);
     }
 

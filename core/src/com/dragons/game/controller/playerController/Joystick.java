@@ -14,7 +14,7 @@ import static com.dragons.game.utilities.Constants.JOYSTICK_PERIMETER_RADIUS;
 import static com.dragons.game.utilities.Constants.JOYSTICK_ORIGIN_X;
 import static com.dragons.game.utilities.Constants.JOYSTICK_RADIUS;
 import static com.dragons.game.utilities.Constants.PlayerSpeed;
-import static com.dragons.game.utilities.Constants.VIRTUAL_WIDTH;
+import static com.dragons.game.utilities.Constants.VIEWPORT_WIDTH;
 import static com.dragons.game.utilities.Direction.DOWN;
 import static com.dragons.game.utilities.Direction.LEFT;
 import static com.dragons.game.utilities.Direction.RIGHT;
@@ -40,8 +40,8 @@ public class Joystick implements InputProcessor {
             joystickOrigin = new Vector2(JOYSTICK_ORIGIN_X, JOYSTICK_ORIGIN_Y);
             perimeter = new Circle(JOYSTICK_ORIGIN_X, JOYSTICK_ORIGIN_Y, JOYSTICK_PERIMETER_RADIUS);
         } else {
-            joystickOrigin = new Vector2(VIRTUAL_WIDTH - JOYSTICK_ORIGIN_X, JOYSTICK_ORIGIN_Y);
-            perimeter = new Circle(VIRTUAL_WIDTH - JOYSTICK_PERIMETER_RADIUS, JOYSTICK_ORIGIN_Y, JOYSTICK_PERIMETER_RADIUS);
+            joystickOrigin = new Vector2(VIEWPORT_WIDTH - JOYSTICK_ORIGIN_X, JOYSTICK_ORIGIN_Y);
+            perimeter = new Circle(VIEWPORT_WIDTH - JOYSTICK_PERIMETER_RADIUS, JOYSTICK_ORIGIN_Y, JOYSTICK_PERIMETER_RADIUS);
         }
         joystick = new Circle(joystickOrigin.x, joystickOrigin.y, JOYSTICK_RADIUS);
 
@@ -157,9 +157,9 @@ public class Joystick implements InputProcessor {
         Vector3 touch = new Vector3(screenX, screenY, 0);
         cam.unproject(touch);
 
-        if (isPlayerOne && touch.x > VIRTUAL_WIDTH/2) {
+        if (isPlayerOne && touch.x > VIEWPORT_WIDTH /2) {
             return false;
-        } else if (!isPlayerOne && touch.x < VIRTUAL_WIDTH/2) {
+        } else if (!isPlayerOne && touch.x < VIEWPORT_WIDTH /2) {
             return false;
         }
 

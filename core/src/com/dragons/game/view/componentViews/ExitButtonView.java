@@ -1,6 +1,5 @@
 package com.dragons.game.view.componentViews;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -13,19 +12,16 @@ import static com.dragons.game.utilities.Constants.EDGE_MARGIN;
 import static com.dragons.game.utilities.Constants.EXIT_BUTTON_SCALING;
 
 public class ExitButtonView {
-    private final AnnotationAssetManager manager;
     private final Texture exitButton;
     private final Rectangle exitButtonBounds;
     private final int exitButtonPosX, exitButtonPosY, exitButtonHeight, exitButtonWidth;
 
     public ExitButtonView(AnnotationAssetManager manager) {
-        this.manager = manager;
-//        exitButton = manager.get(EXIT_BTN, Texture.class);
-        exitButton = new Texture("exitBtn_small.png");
+        exitButton = manager.get(EXIT_BTN, Texture.class);
 
 //        exitButtonPosX = (int) (Constants.VIRTUAL_WIDTH - exitButton.getWidth()*EXIT_BUTTON_SCALING - exitButton.getHeight());
-        exitButtonPosX = (int) (Constants.VIRTUAL_WIDTH/2 - exitButton.getWidth()*EXIT_BUTTON_SCALING/2);
-        exitButtonPosY = (int) (Constants.VIRTUAL_HEIGHT - exitButton.getHeight()*EXIT_BUTTON_SCALING - EDGE_MARGIN);
+        exitButtonPosX = (int) (Constants.VIEWPORT_WIDTH /2 - exitButton.getWidth()*EXIT_BUTTON_SCALING/2);
+        exitButtonPosY = (int) (Constants.VIEWPORT_HEIGHT - exitButton.getHeight()*EXIT_BUTTON_SCALING - EDGE_MARGIN);
         exitButtonWidth = (int) (exitButton.getWidth()*EXIT_BUTTON_SCALING);
         exitButtonHeight = (int) (exitButton.getHeight()*EXIT_BUTTON_SCALING);
 

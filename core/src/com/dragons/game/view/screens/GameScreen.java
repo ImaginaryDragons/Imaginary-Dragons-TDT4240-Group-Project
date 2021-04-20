@@ -14,6 +14,7 @@ import com.dragons.game.DragonsGame;
 import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.controller.gameWorld.GameMap;
 import com.dragons.game.controller.gameWorld.GameWorld;
+import com.dragons.game.utilities.AssetLoader;
 import com.dragons.game.view.GameRenderer;
 import com.dragons.game.view.componentViews.TimerView;
 
@@ -21,8 +22,8 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.io.IOException;
 
-import static com.dragons.game.utilities.Constants.VIRTUAL_HEIGHT;
-import static com.dragons.game.utilities.Constants.VIRTUAL_WIDTH;
+import static com.dragons.game.utilities.Constants.VIEWPORT_HEIGHT;
+import static com.dragons.game.utilities.Constants.VIEWPORT_WIDTH;
 
 
 public class GameScreen extends ScreenAdapter {
@@ -52,10 +53,11 @@ public class GameScreen extends ScreenAdapter {
         //super();
         Gdx.app.log("GameScreen", "Attached");
 
-        camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
-
+        camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         gameMap = new GameMap("TileMapMobile.tmx");
         manager = new AnnotationAssetManager();
+        loadAssets();
+
         gameWorld = new GameWorld(gameMap, manager, camera);
         batch = new SpriteBatch();
 
@@ -148,6 +150,13 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void dispose() {
         super.dispose();
+    }
+
+    private void loadAssets() {
+        Gdx.app.log("Asset loader", "Loading assets");
+        manager.load(AssetLoader.class);
+        manager.finishLoading();
+        Gdx.app.log("Asset loader", "Loading assets finished");
     }
 
 }

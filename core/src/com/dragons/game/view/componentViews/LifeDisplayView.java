@@ -17,7 +17,6 @@ import static com.dragons.game.utilities.AssetLoader.FULL_HEALTH;
 public class LifeDisplayView implements IView {
 
     private IPlayer player;
-    private AnnotationAssetManager manager;
     private Texture lifeDisplay;
     private Texture emptyLife;
     private GameMap map;
@@ -29,7 +28,6 @@ public class LifeDisplayView implements IView {
     public LifeDisplayView(IPlayer player, AnnotationAssetManager manager, GameMap map, Vector2 position) {
         this.player = player;
         initialPlayerLives = player.getLives();
-        this.manager = manager;
         lifeDisplay = manager.get(FULL_HEALTH, Texture.class);
         emptyLife = manager.get(EMPTY_HEALTH, Texture.class);
         this.map = map;

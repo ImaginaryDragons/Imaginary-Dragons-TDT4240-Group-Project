@@ -28,8 +28,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import static com.dragons.game.utilities.Constants.PPM;
-import static com.dragons.game.utilities.Constants.VIRTUAL_HEIGHT;
-import static com.dragons.game.utilities.Constants.VIRTUAL_WIDTH;
+import static com.dragons.game.utilities.Constants.VIEWPORT_HEIGHT;
+import static com.dragons.game.utilities.Constants.VIEWPORT_WIDTH;
 
 /**
  * The GameWorld class instantiates the world in which a single game will be played. The
@@ -80,7 +80,7 @@ public class GameWorld {
         this.map = map;
 
         b2dr = new Box2DDebugRenderer();
-        b2drCam = new OrthographicCamera(VIRTUAL_WIDTH / PPM, VIRTUAL_HEIGHT / PPM);
+        b2drCam = new OrthographicCamera(VIEWPORT_WIDTH / PPM, VIEWPORT_HEIGHT / PPM);
         b2drCam.position.set(map.getMapWidthInPixels() / 2f / PPM, map.getMapHeightInPixels() / 2f / PPM, 0);
         b2drCam.update();
 

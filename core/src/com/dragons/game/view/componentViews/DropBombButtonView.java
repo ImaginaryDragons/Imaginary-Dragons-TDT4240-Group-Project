@@ -9,6 +9,7 @@ import com.dragons.game.view.IView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
+import static com.dragons.game.utilities.AssetLoader.BOMB_BTN;
 import static com.dragons.game.utilities.Constants.BOMB_BUTTON_SCALING;
 import static com.dragons.game.utilities.Constants.EDGE_MARGIN;
 
@@ -20,17 +21,16 @@ public class DropBombButtonView implements IView {
 
     public DropBombButtonView(AnnotationAssetManager manager, boolean left) {
         this.manager = manager;
-//        dropBombTexture = manager.get(BOMB_BTN, Texture.class);
-        dropBombTexture = new Texture("bombBtn_small.png");
+        dropBombTexture = manager.get(BOMB_BTN, Texture.class);
 
         if (left) {
             dropBombPosX = (int) (EDGE_MARGIN);
         } else {
-            dropBombPosX = (int) (Constants.VIRTUAL_WIDTH - dropBombTexture.getWidth()*BOMB_BUTTON_SCALING - EDGE_MARGIN);
+            dropBombPosX = (int) (Constants.VIEWPORT_WIDTH - dropBombTexture.getWidth()*BOMB_BUTTON_SCALING - EDGE_MARGIN);
 //            dropBombPosX = (int) (dropBombTexture.getWidth()/4 + dropBombTexture.getWidth()*BOMB_BUTTON_SCALING);
 
         }
-        dropBombPosY = (int) (Constants.VIRTUAL_HEIGHT - dropBombTexture.getHeight()*BOMB_BUTTON_SCALING - EDGE_MARGIN);
+        dropBombPosY = (int) (Constants.VIEWPORT_HEIGHT - dropBombTexture.getHeight()*BOMB_BUTTON_SCALING - EDGE_MARGIN);
 
         dropBombWidth = (int) (dropBombTexture.getWidth()*BOMB_BUTTON_SCALING);
         dropBombHeight = (int) (dropBombTexture.getHeight()*BOMB_BUTTON_SCALING);

@@ -22,7 +22,6 @@ public class GameRenderer {
     public GameRenderer(GameWorld world, AnnotationAssetManager manager) {
         this.gameWorld = world;
         this.manager = manager;
-        loadAssets();
     }
 
     public void render(SpriteBatch batch){
@@ -47,10 +46,5 @@ public class GameRenderer {
         }
     }
 
-    private void loadAssets() {
-        Gdx.app.log("Asset loader", "Loading assets");
-        manager.load(AssetLoader.class);
-        manager.finishLoading();
-        Gdx.app.log("Asset loader", "Loading assets finished");
-    }
+
 }
