@@ -41,9 +41,12 @@ public class GameOverScreen implements Screen {
 
     private double score;
 
-    private final FirebasePlayer firebasePlayer = new FirebasePlayer(getName(), score);
+    private FirebasePlayer firebasePlayer;
 
     public GameOverScreen(DragonsGame dragonsGame, double score) {
+        skin = new Skin();
+        nameField = new TextField(" ", skin);
+        firebasePlayer  = new FirebasePlayer(getName(), score);
         this.dragonsGame = dragonsGame;
         this.score = score;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, dragonsGame.camera));
@@ -120,7 +123,6 @@ public class GameOverScreen implements Screen {
         nameFieldLabel.setSize(250, 20);
         nameFieldLabel.setPosition(dragonsGame.camera.position.x - nameFieldLabel.getWidth() / 2, dragonsGame.camera.position.y - 10);
 
-        nameField = new TextField(" ", skin);
         nameField.setSize(250, 30);
         //nameField.setAlignment(Align.center);
         nameField.setPosition(dragonsGame.camera.position.x - nameField.getWidth() / 2, dragonsGame.camera.position.y - 40);
