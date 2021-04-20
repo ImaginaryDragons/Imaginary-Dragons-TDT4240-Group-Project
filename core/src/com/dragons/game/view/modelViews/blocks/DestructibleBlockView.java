@@ -1,39 +1,36 @@
 package com.dragons.game.view.modelViews.blocks;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.blocks.DestructibleBlock;
+import com.dragons.game.model.blocks.IBlock;
 import com.dragons.game.view.modelViews.IModelView;
+import com.dragons.game.view.modelViews.ModelView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import static com.dragons.game.utilities.AssetLoader.DESTRUCTIBLE_BLOCK;
+import static com.dragons.game.utilities.AssetLoader.EXPLOSION1;
+import static com.dragons.game.utilities.AssetLoader.EXPLOSION2;
+import static com.dragons.game.utilities.AssetLoader.EXPLOSION3;
+import static com.dragons.game.utilities.AssetLoader.EXPLOSION4;
+import static com.dragons.game.utilities.AssetLoader.EXPLOSION5;
 
-public class DestructibleBlockView implements IModelView {
+public class DestructibleBlockView extends ModelView {
 
-    private final Texture texture;
-    private final DestructibleBlock block;
 
-    public DestructibleBlockView(IModel block, AnnotationAssetManager manager) {
-        this.block = (DestructibleBlock) block;
-
-        texture = manager.get(DESTRUCTIBLE_BLOCK, Texture.class);
+    public DestructibleBlockView(IModel model, AnnotationAssetManager manager) {
+        super(model);
+        Texture[] textures = new Texture[]{
+                manager.get(DESTRUCTIBLE_BLOCK, Texture.class),
+        };
+        Animation<Texture> animation = new Animation<>(FRAME_DURATION, textures);
+        animation.setPlayMode(Animation.PlayMode.LOOP);
+        super.setAnimation(animation);
     }
 
-    @Override
-    public void update(float delta) {
 
-    }
-
-    @Override
-    public void render(SpriteBatch batch) {
-        float x = block.getPosition().x;
-        float y = block.getPosition().y;
-        float width = block.getWidth();
-        float height = block.getHeight();
-
-        batch.draw(texture, x - width / 2f, y - height / 2f , width, height);
-    }
 }

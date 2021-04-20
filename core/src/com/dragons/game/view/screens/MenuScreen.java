@@ -2,6 +2,7 @@ package com.dragons.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -26,7 +27,6 @@ public class MenuScreen implements Screen {
     private Stage stage;
     private Skin skin;
 
-    private TextField nameField;
     private TextButton startButton, joinButton;
 
     private Image logo;
@@ -99,12 +99,13 @@ public class MenuScreen implements Screen {
     public void dispose() {
         stage.dispose();
         shapeRenderer.dispose();
+        skin.dispose();
 
     }
 
 
     private void initMenu(){
-        Texture logoTex = dragonsGame.assets.get("logo.png", Texture.class);
+        Texture logoTex = dragonsGame.assets.get("components/logo.png", Texture.class);
         logo = new Image(logoTex);
         logo.setPosition(dragonsGame.camera.position.x - logo.getWidth() / 2, dragonsGame.camera.position.y - 70);
 
@@ -120,11 +121,8 @@ public class MenuScreen implements Screen {
         startButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                try {
-                    dragonsGame.setScreen(new GameScreen());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                dragonsGame.setScreen(new LevelScreen(dragonsGame));
+
             }
         });
         joinButton.addListener(new ClickListener(){

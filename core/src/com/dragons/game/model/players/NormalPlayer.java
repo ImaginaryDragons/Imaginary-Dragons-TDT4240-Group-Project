@@ -1,13 +1,18 @@
 package com.dragons.game.model.players;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.Model;
+import com.dragons.game.model.bombs.BombType;
+import com.dragons.game.model.bombs.NormalBomb;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.utilities.Direction;
+import com.dragons.game.view.IModelObserver;
 
-import static com.dragons.game.model.players.PlayerType.NORMALPLAYER;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -19,20 +24,22 @@ import static com.dragons.game.model.players.PlayerType.NORMALPLAYER;
 
 
 
-public class NormalPlayer extends Model implements IPlayer {
+public class NormalPlayer extends Model implements IPlayer{
 
-    private int ID;
-    private Color col;
+    private final int ID;
+    private final Color col;
     private Direction orientation; // The direction the player is looking
     private int lives;
-    private int speed;
+    private float speed;
     private int bombCapacity;
     private int bombsAvailable;
     private int bombRange;
-    private float bombReloadTime;
-
+    private final BombType bombType = BombType.NORMALBOMB;
     private float hitProtectionTime;
     private boolean hitProtectionMode;
+
+    private final static float timeToNewBomb = Constants.BombExplodeTime + Constants.FireDisplayTime;;
+    private List<Float> newBombTimeCounters = new ArrayList<>();
 
     private static final boolean isStatic = false;
     private static final boolean isSensor = false;
@@ -40,33 +47,49 @@ public class NormalPlayer extends Model implements IPlayer {
 
     // TODO: Consider if it is necessary to implement a decorator for color, ID etc..
     // I suspect the answer is no, but there might be a good reason for it
-    // TODO: change width and height to float
+
     public NormalPlayer(int ID, Vector2 startPos, Color col, float width, float height) {
         super(startPos, width, height, isStatic, isSensor);
         this.ID = ID;
         this.col = col;
 
+
         orientation = Direction.UP;
         lives = Constants.InitPlayerHealth;
         speed = Constants.PlayerSpeed;
         bombCapacity = Constants.InitBombCap;
-        bombsAvailable = bombCapacity; // Whats the difference between this and bombCapacity?
+        bombsAvailable = bombCapacity;
         bombRange = Constants.InitBombRange;
-        bombReloadTime = Constants.BombReloadTime;
-        hitProtectionTime = Constants.FireDisplayTime + 0.1f;
+        hitProtectionTime = Constants.FireDisplayTime + 1f; // TODO: magic number
         hitProtectionMode = false;
     }
 
     @Override
-    public void update(float timestep) {
+    public void update(final float timestep) {
         if (hitProtectionMode) {
             hitProtectionTime -= timestep;
             if (hitProtectionTime < 0){
                 hitProtectionMode = false;
             }
         }
-    }
 
+
+        if (bombsAvailable < bombCapacity){
+            List<Float> newCounterList = new ArrayList<>();
+            for (Float counter : newBombTimeCounters){
+                float newTime = counter + timestep;
+                if (newTime > timeToNewBomb) {
+                    addNewBomb();
+                }
+                else newCounterList.add(newTime);
+            }
+
+            newBombTimeCounters = newCounterList;
+
+
+        }
+    }
+    @Override
     public int getID() {
         return ID;
     }
@@ -78,13 +101,57 @@ public class NormalPlayer extends Model implements IPlayer {
 
     @Override
     public void handleHitByBomb() {
-        if (hitProtectionMode == false){
+        if (!hitProtectionMode){
             lives -= 1;
             hitProtectionMode = true;
         }
     }
 
-    public void increaseSpeed(int amount){
+    @Override
+    public Direction getOrientation() {
+        return orientation;
+    }
+
+
+    @Override
+    public int getLives() {
+        return lives;
+    }
+
+    @Override
+    public int getBombsAvailable() {
+        return bombsAvailable;
+    }
+
+    @Override
+    public int getBombRange() {
+        return bombRange;
+    }
+
+    @Override
+    public BombType getBombType() {
+        return bombType;
+    }
+
+    @Override
+    public void useBomb() {
+        bombsAvailable -= 1;
+        // add one counter for every bomb used;
+        newBombTimeCounters.add(0f);
+    }
+
+    @Override
+    public void setOrientation(Direction orientation) {
+        this.orientation = orientation;
+    }
+
+    @Override
+    public float getSpeed() {
+        return speed;
+    }
+
+
+    public void increaseSpeed(float amount){
         speed += amount;
     }
 
@@ -94,29 +161,18 @@ public class NormalPlayer extends Model implements IPlayer {
 
     public void increaseBombCapacity(int amount){
         bombCapacity += amount;
+        addNewBomb();
     }
 
-
-    public Direction getOrientation() {
-        return orientation;
+    private void addNewBomb(){
+        if (bombsAvailable < bombCapacity) bombsAvailable += 1;
     }
 
-    public void setOrientation(Direction orientation) {
-        this.orientation = orientation;
-        Gdx.app.log("Orientation", this.orientation.toString());
+    public void setBombRange(int bombRange) {
+        this.bombRange = bombRange;
     }
-
-
-    public int getLives() {
-        return lives;
-    }
-
     public void setLives(int lives) {
         this.lives = lives;
-    }
-
-    public int getSpeed() {
-        return speed;
     }
 
     public void setSpeed(int speed) {
@@ -131,20 +187,9 @@ public class NormalPlayer extends Model implements IPlayer {
         this.bombCapacity = bombCapacity;
     }
 
-    public int getBombsAvailable() {
-        return bombsAvailable;
-    }
 
     public void setBombsAvailable(int bombsAvailable) {
         this.bombsAvailable = bombsAvailable;
-    }
-
-    public int getBombRange() {
-        return bombRange;
-    }
-
-    public void setBombRange(int bombRange) {
-        this.bombRange = bombRange;
     }
 
 }

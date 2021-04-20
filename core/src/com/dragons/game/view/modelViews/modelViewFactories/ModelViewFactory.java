@@ -4,13 +4,9 @@ import com.dragons.game.model.IModel;
 import com.dragons.game.model.blocks.IBlock;
 import com.dragons.game.model.bombs.IBomb;
 import com.dragons.game.model.bombs.fires.IFire;
-import com.dragons.game.model.bombs.fires.NormalFire;
 import com.dragons.game.model.players.IPlayer;
-import com.dragons.game.model.players.NormalPlayer;
 import com.dragons.game.model.powerUps.IPowerUp;
 import com.dragons.game.view.modelViews.IModelView;
-import com.dragons.game.view.modelViews.bombs.NormalFireView;
-import com.dragons.game.view.modelViews.players.NormalPlayerView;
 
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -35,11 +31,11 @@ public class ModelViewFactory {
     }
 
     public IModelView createModelView(IModel model, AnnotationAssetManager assetManager){
-        if      (model instanceof IBlock)   return blockViewFactory.createModelView(    model, assetManager);
-        else if (model instanceof IPowerUp) return powerUpViewFactory.createModelView(  model, assetManager);
-        else if (model instanceof IPlayer)  return playerViewFactory.createModelView(   model, assetManager);
-        else if (model instanceof IBomb)    return bombViewFactory.createModelView(     model, assetManager);
-        else if (model instanceof IFire)    return fireViewFactory.createModelView(     model, assetManager);
+        if      (model instanceof IBlock)   return blockViewFactory.createModelView(model, assetManager);
+        else if (model instanceof IPowerUp) return powerUpViewFactory.createModelView(model, assetManager);
+        else if (model instanceof IPlayer)  return playerViewFactory.createModelView(model, assetManager);
+        else if (model instanceof IBomb)    return bombViewFactory.createModelView(model, assetManager);
+        else if (model instanceof IFire)    return fireViewFactory.createModelView(model, assetManager);
 
         else throw new IllegalArgumentException("Model instance doesn't exist");
     }

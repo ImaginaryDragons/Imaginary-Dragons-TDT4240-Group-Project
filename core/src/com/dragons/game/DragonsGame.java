@@ -11,15 +11,11 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.screens.LoadingScreen;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.dragons.game.FireBaseInterface;
-import com.dragons.game.model.gameWorld.GameMap;
-import com.dragons.game.model.gameWorld.GameWorld;
+import com.dragons.game.model.maps.GameMap;
+import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.model.players.NormalPlayer;
-import com.dragons.game.model.players.PlayerColor;
 
 import com.dragons.game.view.screens.GameScreen;
 
@@ -61,39 +57,19 @@ public class DragonsGame extends Game {
 		camera.setToOrtho(false, Constants.WorldWidth, Constants.WorldHeight);
 		batch = new SpriteBatch();
 
-     // _FBIC.writePlayerToFB();
-
         _FBIC.SetOnValueChangedListener();
         Vector2 p1StartPos = new Vector2(1,1); //gjør om til tilPos senere
-        _FBIC.writePlayerToFB(10, p1StartPos , Color.RED, 32, 32);
-
-		/*testMenuScreen = new TestMenuScreen(this);
-		loadingScreen = new LoadingScreen(this);
-		gameOverScreen = new GameOverScreen(this, ); */
-		/**try {
-			gameScreen = new GameScreen();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
-
+        _FBIC.writeHighscoreToFB("Mads", 2.9, 22);
+		_FBIC.writeHighscoreToFB("Nora", 2.5, 21);
+		_FBIC.writeHighscoreToFB("Eldar", 6.5, 28);
+		_FBIC.writeHighscoreToFB("Jakob", 2.7, 1);
 
 		Gdx.app.log("DragonsGame", "created");
-		/*try {
-			setScreen(new GameScreen());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
 		initFonts();
 		//this.setScreen(loadingScreen);
 		this.setScreen(new LoadingScreen(this));
 
-        _FBIC.SomeFunction();
         _FBIC.SetOnValueChangedListener();
-        Gdx.app.log("DragonGame", "Listener changed");
-        //Vector2 pStartPos = gameScreen.getGameMap().tilePos(new Vector2(1,1)); //gjør om til tilPos senere
-        //_FBIC.writePlayerToFB(4, pStartPos , Color.BLUE, 32, 32);
-        //Gdx.app.log("DragonGame", "Write to FB");
-
 		//setScreen(new MenuScreen(this));
 	}
 

@@ -2,6 +2,7 @@ package com.dragons.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -19,9 +20,9 @@ import com.dragons.game.DragonsGame;
 import com.dragons.game.utilities.Constants;
 
 
-public class GameOverScreen implements Screen {
+public class GameOverScreen extends ScreenAdapter {
     private final DragonsGame dragonsGame;
-    private ShapeRenderer shapeRenderer;
+    private final ShapeRenderer shapeRenderer;
 
     private Stage stage;
     private Skin skin;
@@ -33,10 +34,10 @@ public class GameOverScreen implements Screen {
     private TextButton saveScoreBtn, exitBtn;
 
 
-    private int score;
+    private float score;
 
 
-    public GameOverScreen(DragonsGame dragonsGame, int score) {
+    public GameOverScreen(DragonsGame dragonsGame, float score) {
         this.dragonsGame = dragonsGame;
         this.score = score;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, dragonsGame.camera));
@@ -101,7 +102,7 @@ public class GameOverScreen implements Screen {
     }
 
     private void initScreen() {
-        Texture gameOverTex = dragonsGame.assets.get("over.png", Texture.class);
+        Texture gameOverTex = dragonsGame.assets.get("components/over.png", Texture.class);
         gameOver = new Image(gameOverTex);
         gameOver.setSize(250, 70);
         gameOver.setPosition(dragonsGame.camera.position.x - gameOver.getWidth() / 2, dragonsGame.camera.position.y + 70);
@@ -131,7 +132,7 @@ public class GameOverScreen implements Screen {
         saveScoreBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                dragonsGame.setScreen(new HighScoreScreen());
+                dragonsGame.setScreen(new HighScoreScreen(dragonsGame, score));
             }
         });
         exitBtn.addListener(new ClickListener() {

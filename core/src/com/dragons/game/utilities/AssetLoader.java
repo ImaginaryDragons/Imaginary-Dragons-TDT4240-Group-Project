@@ -19,86 +19,80 @@ public class AssetLoader<BACKGROUND, STARTGAME_BTN, JOINGAME_BTN> {
 
     @AnnotationAssetManager.Asset(Texture.class)
     public static final String
-            DRAGON_SLIM_RED = "red_dragon_slim-1.png",
-            DRAGON_MIDDLE_RED = "red_dragon_middle-1.png",
-            DRAGON_WIDE_RED = "red_dragon_wide-1.png",
+            /****************** PLAYERS *******************/
+
+            DRAGON_SLIM_RED =   "dragons/red_dragon_slim-1.png",
+            DRAGON_MIDDLE_RED = "dragons/red_dragon_middle-1.png",
+            DRAGON_WIDE_RED =   "dragons/red_dragon_wide-1.png",
 
 
-            DRAGON_SLIM_BLUE = "b3.png",
-            DRAGON_MIDDLE_BLUE = "b2.png",
-            DRAGON_WIDE_BLUE = "b1.png",
+            DRAGON_SLIM_BLUE =      "dragons/b3.png",
+            DRAGON_MIDDLE_BLUE =    "dragons/b2.png",
+            DRAGON_WIDE_BLUE =      "dragons/b1.png",
 
-            DRAGON_SLIM_GREEN = "g3.png",
-            DRAGON_MIDDLE_GREEN = "g2.png",
-            DRAGON_WIDE_GREEN = "g1.png",
+            DRAGON_SLIM_GREEN =     "dragons/g3.png",
+            DRAGON_MIDDLE_GREEN =   "dragons/g2.png",
+            DRAGON_WIDE_GREEN =     "dragons/g1.png",
 
-            DRAGON_SLIM_YELLOW = "y3.png",
-            DRAGON_MIDDLE_YELLOW = "y2.png",
-            DRAGON_WIDE_YELLOW = "y1.png",
+            DRAGON_SLIM_YELLOW =    "dragons/y3.png",
+            DRAGON_MIDDLE_YELLOW =  "dragons/y2.png",
+            DRAGON_WIDE_YELLOW =    "dragons/y1.png",
 
 
-            /****************** BLOCKS *******************/
+            /****************** BLOCKS ********************/
 
 
             //INDESTRUCTIBLE_BLOCK = "",
-            DESTRUCTIBLE_BLOCK = "Rock.png",
+            DESTRUCTIBLE_BLOCK = "blocks/Rock.png",
 
 
 
             /****************** POWER-UPS *******************/
 
-            /*
+            RANGE_POWERUP =     "powerUps/bomb_range_powerup.png",
+            BOMB_CAP_POWERUP =  "powerUps/bomb_cap_powerup.png",
+            SPEED_POWERUP =     "powerUps/dragon_wings.png",
 
-            RANGE_POWERUP = "",
-            BOMB_CAP_POWERUP = "",
-            SPEED_POWERUP = "",
+            /***************** BOMB AND FIRE *****************/
 
-             */
+            BOMB1 = "bombs/bomb1.png",
+            BOMB2 = "bombs/bomb2.png",
+            BOMB3 = "bombs/bomb3.png",
+            BOMB4 = "bombs/bomb4.png",
 
-            /***************** FIRE ************************/
+            EXPLOSION1= "bombs/fires/explosion1.png",
+            EXPLOSION2= "bombs/fires/explosion2.png",
+            EXPLOSION3= "bombs/fires/explosion3.png",
+            EXPLOSION4= "bombs/fires/explosion4.png",
+            EXPLOSION5= "bombs/fires/explosion5.png",
 
-            FIREBALL ="fireball.png",
-            EXPLOSION="Explosion.png",
+
+
+
 
             /***************** MENU SCREEN ************************/
 
-            BACKGROUND = "grey_background.jpeg",
-            STARTGAME_BTN = "start_game.jpeg",
-            JOINGAME_BTN = "join_game.jpeg",
+            BACKGROUND =    "components/grey_background.jpeg",
+            STARTGAME_BTN = "components/start_game.jpeg",
+            JOINGAME_BTN =  "components/join_game.jpeg",
+            LOGO =          "components/logo.png",
 
-            RANGE_POWERUP = "bomb_range_powerup.png",
-            BOMB_CAP_POWERUP = "bomb_cap_powerup.png",
-            SPEED_POWERUP = "dragon_wings-1.png",
+            /***************** GAME OVER SCREEN ************************/
 
-
-
-            /***************** BOMB AND FIRE ************************/
-
-            BOMB1 = "bomb1.png",
-            BOMB2 = "bomb2.png",
-            BOMB3 = "bomb3.png",
-            BOMB4 = "bomb4.png",
-            /*BOMB = "FireEgg.png",
-            FIREBALL ="fireball1.png",
-            EXPLOSION="Explosion.png";*/
-            EXPLOSION1= "explosion1.png",
-            EXPLOSION2= "explosion2.png",
-            EXPLOSION3= "explosion3.png",
-            EXPLOSION4= "explosion4.png",
-            EXPLOSION5= "explosion5.png",
-
+            GAME_OVER = "components/over.png",
 
             /***************** PLAYER CONTROLLER BUTTONS ************************/
-  
-            EXIT_BTN = "exitBtn_small.png",
-            BOMB_BTN = "bombBtn_small.png",
 
+            EXIT_BTN = "components/buttons/exitBtn_small.png",
+            BOMB_BTN = "components/buttons/bombBtn_small.png",
 
             /*********** HEALTH *************/
-            FULL_HEALTH = "fullhealth.png",
-            EMPTY_HEALTH = "emptyhealth.png";
+            FULL_HEALTH = "components/fullhealth.png",
+            EMPTY_HEALTH = "components/emptyhealth.png";
 
-            // LAST ELEMENT MUST HAVE ';'!!
+
+
+    // LAST ELEMENT MUST HAVE ';'!!
 
     private AssetLoader(){}
 

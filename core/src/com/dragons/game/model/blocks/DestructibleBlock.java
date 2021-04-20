@@ -10,7 +10,6 @@ public class DestructibleBlock extends Model implements IBlock {
 
     public DestructibleBlock(Vector2 position, float width, float height) {
         super(position, width, height, isStatic, isSensor);
-
     }
 
     @Override
