@@ -1,8 +1,7 @@
 package com.dragons.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -12,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.DragonsGame;
@@ -20,20 +18,20 @@ import com.dragons.game.utilities.Constants;
 
 import java.io.IOException;
 
-public class MenuScreen implements Screen {
+public class LevelScreen extends ScreenAdapter {
     private final DragonsGame dragonsGame;
     private ShapeRenderer shapeRenderer;
 
     private Stage stage;
     private Skin skin;
 
-    private TextButton startButton, joinButton;
+    private TextButton lvl1, lvl2;
 
     private Image logo;
 
     int score;
 
-    public MenuScreen(final DragonsGame dragonsGame){
+    public LevelScreen(final DragonsGame dragonsGame){
         this.dragonsGame = dragonsGame;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, dragonsGame.camera));
         this.shapeRenderer = new ShapeRenderer();
@@ -55,7 +53,7 @@ public class MenuScreen implements Screen {
     }
 
     private void update(float delta) {
-      stage.act(delta);
+        stage.act(delta);
 
     }
 
@@ -80,20 +78,6 @@ public class MenuScreen implements Screen {
         stage.getViewport().update(width, height, true);
     }
 
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
 
     @Override
     public void dispose() {
@@ -108,32 +92,40 @@ public class MenuScreen implements Screen {
         logo = new Image(logoTex);
         logo.setPosition(dragonsGame.camera.position.x - logo.getWidth() / 2, dragonsGame.camera.position.y - 70);
 
-        startButton = new TextButton("Play", skin, "default");
-        startButton.setSize(250, 50);
-        startButton.setPosition(dragonsGame.camera.position.x - startButton.getWidth() / 2, dragonsGame.camera.position.y - startButton.getHeight());
+        lvl1 = new TextButton("Level 1", skin, "default");
+        lvl1.setSize(250, 50);
+        lvl1.setPosition(dragonsGame.camera.position.x - lvl1.getWidth() / 2, dragonsGame.camera.position.y - lvl1.getHeight());
 
-        joinButton = new TextButton("GAME OVER", skin, "default");
-        joinButton.setSize(250, 50);
-        joinButton.setPosition(dragonsGame.camera.position.x - startButton.getWidth() / 2, dragonsGame.camera.position.y - startButton.getHeight() - 70);
+        lvl2 = new TextButton("Level 2", skin, "default");
+        lvl2.setSize(250, 50);
+        lvl2.setPosition(dragonsGame.camera.position.x - lvl1.getWidth() / 2, dragonsGame.camera.position.y - lvl1.getHeight() - 70);
 
 
-        startButton.addListener(new ClickListener(){
+        lvl1.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                dragonsGame.setScreen(new LevelScreen(dragonsGame));
+                try {
+                    dragonsGame.setScreen(new GameScreen(dragonsGame));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
-        joinButton.addListener(new ClickListener(){
+        lvl2.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                dragonsGame.setScreen(new GameOverScreen(dragonsGame, score));
+                try {
+                    dragonsGame.setScreen(new GameScreen(dragonsGame));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
 
         stage.addActor(logo);
-        stage.addActor(startButton);
-        stage.addActor(joinButton);
+        stage.addActor(lvl1);
+        stage.addActor(lvl2);
 
     }
 }

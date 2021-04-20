@@ -2,6 +2,7 @@ package com.dragons.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -19,9 +20,9 @@ import com.dragons.game.DragonsGame;
 import com.dragons.game.utilities.Constants;
 
 
-public class GameOverScreen implements Screen {
+public class GameOverScreen extends ScreenAdapter {
     private final DragonsGame dragonsGame;
-    private ShapeRenderer shapeRenderer;
+    private final ShapeRenderer shapeRenderer;
 
     private Stage stage;
     private Skin skin;
