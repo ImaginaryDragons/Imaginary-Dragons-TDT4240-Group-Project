@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.DragonsGame;
+import com.dragons.game.FirebasePlayer;
 import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.gameWorld.GameMap;
 import com.dragons.game.model.gameWorld.GameWorld;
@@ -43,6 +44,7 @@ public class GameScreen extends ScreenAdapter {
     private final TiledMapRenderer tiledMapRenderer;
 
     private TimerView timerView;
+    private FirebasePlayer firebasePlayer;
 
 
     //InputStream txt = getAssets().open("map.txt");

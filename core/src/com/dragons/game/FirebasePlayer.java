@@ -1,5 +1,9 @@
 package com.dragons.game;
 
+import com.badlogic.gdx.Game;
+import com.dragons.game.view.modelViews.timer.TimerView;
+import com.dragons.game.view.screens.GameOverScreen;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -8,7 +12,12 @@ public class FirebasePlayer {
     public String name;
     public double score;
 
-    private Map<String, Double> scores = new LinkedHashMap<>();
+    private TimerView timerView;
+    private DragonsGame dragonsGame;
+
+    public static Map<String, Double> scores = new LinkedHashMap<>();
+
+    private GameOverScreen gameOver = new GameOverScreen(dragonsGame, score);
 
     public FirebasePlayer(String name, double score) {
         this.name = name;
@@ -16,19 +25,19 @@ public class FirebasePlayer {
     }
 
     public String getName() {
-        return name;
+        return gameOver.getName();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = gameOver.getName();
     }
 
     public double getScore() {
-        return score;
+        return timerView.getScoreCount();
     }
 
     public void setScore(double score) {
-        this.score = score;
+        this.score = timerView.getScoreCount();
     }
 
     public void setScores(String name, double score) {

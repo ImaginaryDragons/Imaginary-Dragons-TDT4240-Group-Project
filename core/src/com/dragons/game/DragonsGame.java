@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragons.game.utilities.Constants;
+import com.dragons.game.view.modelViews.timer.TimerView;
 import com.dragons.game.view.screens.GameOverScreen;
 import com.dragons.game.view.screens.LoadingScreen;
 
@@ -34,9 +35,14 @@ public class DragonsGame extends Game {
     GameMap map;
     GameScreen gameScreen;
     GameWorld gameWorld;
+    FirebasePlayer firebasePlayer;
+	private GameOverScreen gameOver; // = new GameOverScreen(firebasePlayer, float score);
+	private TimerView timerView;
 
 	public AssetManager assets;
 	public BitmapFont font;
+	String name;
+	double score;
 
 	public OrthographicCamera camera;
 
@@ -61,20 +67,19 @@ public class DragonsGame extends Game {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Constants.WorldWidth, Constants.WorldHeight);
 		batch = new SpriteBatch();
+		firebasePlayer = new FirebasePlayer(name, score);
 
-        _FBIC.SetOnValueChangedListener();
-        Vector2 p1StartPos = new Vector2(1,1); //gjør om til tilPos senere
-        _FBIC.writeHighscoreToFB( 2.9);
-		_FBIC.writeHighscoreToFB("Nora", 2.5);
-		_FBIC.writeHighscoreToFB("Eldar", 6.5);
-		_FBIC.writeHighscoreToFB("Jakob", 2.7);
+        _FBIC.SetOnValueChangedListener(firebasePlayer);
+		//_FBIC.writeHighscoreToFB("Nora", 1.5);
+		//_FBIC.writeHighscoreToFB("Eldar", 6.5);
+		//_FBIC.writeHighscoreToFB("Jakob", 2.7);
+		_FBIC.writeHighscoreToFB(firebasePlayer.getName(), firebasePlayer.getScore());
 
 		Gdx.app.log("DragonsGame", "created");
 		initFonts();
 		//this.setScreen(loadingScreen);
 		this.setScreen(new LoadingScreen(this));
-
-        _FBIC.SetOnValueChangedListener();
+		_FBIC.SetOnValueChangedListener(firebasePlayer);
 		//setScreen(new MenuScreen(this));
 	}
 

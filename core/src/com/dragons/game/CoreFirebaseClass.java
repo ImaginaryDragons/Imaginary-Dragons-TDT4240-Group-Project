@@ -7,13 +7,14 @@ import com.badlogic.gdx.math.Vector2;
 
 public class CoreFirebaseClass implements FireBaseInterface {
 
+
     @Override
-    public void writeHighscoreToFB(String name, double score, int id) {
+    public void writeHighscoreToFB(String name, double score) {
 
     }
 
     @Override
-    public void SetOnValueChangedListener() {
+    public void SetOnValueChangedListener(FirebasePlayer firebasePlayer) {
 
     }
 

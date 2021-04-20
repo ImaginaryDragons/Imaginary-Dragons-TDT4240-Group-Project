@@ -1,11 +1,13 @@
 package com.dragons.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -13,16 +15,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.DragonsGame;
 import com.dragons.game.FirebasePlayer;
 import com.dragons.game.utilities.Constants;
 
+import javax.swing.event.ChangeEvent;
+
 
 public class GameOverScreen implements Screen {
     private final DragonsGame dragonsGame;
-    private final FirebasePlayer firebasePlayer;
+
     private ShapeRenderer shapeRenderer;
 
     private Stage stage;
@@ -34,19 +39,17 @@ public class GameOverScreen implements Screen {
     private TextField nameField;
     private TextButton saveScoreBtn, exitBtn;
 
-
     private double score;
 
+    private final FirebasePlayer firebasePlayer = new FirebasePlayer(getName(), score);
 
-    public GameOverScreen(DragonsGame dragonsGame, FirebasePlayer firebasePlayer, float score) {
+    public GameOverScreen(DragonsGame dragonsGame, double score) {
         this.dragonsGame = dragonsGame;
-        this.firebasePlayer = firebasePlayer;
         this.score = score;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, dragonsGame.camera));
         this.shapeRenderer = new ShapeRenderer();
 
     }
-
 
     @Override
     public void show() {
@@ -117,7 +120,7 @@ public class GameOverScreen implements Screen {
         nameFieldLabel.setSize(250, 20);
         nameFieldLabel.setPosition(dragonsGame.camera.position.x - nameFieldLabel.getWidth() / 2, dragonsGame.camera.position.y - 10);
 
-        nameField = new TextField("", skin);
+        nameField = new TextField(" ", skin);
         nameField.setSize(250, 30);
         //nameField.setAlignment(Align.center);
         nameField.setPosition(dragonsGame.camera.position.x - nameField.getWidth() / 2, dragonsGame.camera.position.y - 40);
@@ -130,13 +133,32 @@ public class GameOverScreen implements Screen {
         exitBtn.setSize(150, 40);
         exitBtn.setPosition(dragonsGame.camera.position.x - exitBtn.getWidth() / 2, dragonsGame.camera.position.y - exitBtn.getHeight() - 130);
 
-
-        saveScoreBtn.addListener(new ClickListener() {
+        nameField.addListener(new ClickListener(){
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y){
+                Gdx.input.getTextInput(new Input.TextInputListener() {
+                    @Override
+                    public void input(String text) {
+                        gameOver.setName(text);
+                        nameField.setText(text);
+                    }
+
+                    @Override
+                    public void canceled() {
+
+                    }
+                }, "Name","", "");
+            }
+        });
+
+        saveScoreBtn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                gameOver.setName(nameField.getText());
                 dragonsGame.setScreen(new HighScoreScreen(dragonsGame, firebasePlayer));
             }
         });
+
         exitBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -152,8 +174,9 @@ public class GameOverScreen implements Screen {
         stage.addActor(exitBtn);
 
     }
-
     public String getName(){
         return nameField.getText();
     }
+
+
 }

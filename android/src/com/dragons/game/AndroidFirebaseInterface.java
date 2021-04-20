@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.players.NormalPlayer;
 import com.dragons.game.model.players.PlayerColor;
 import com.google.android.gms.common.data.DataHolder;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +30,7 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
     DatabaseReference scoreRef;
     private NormalPlayer player;
     DatabaseReference playerName;
-
+    FirebasePlayer firebasePlayer;
     DatabaseReference playerRef;
 
 
@@ -41,47 +42,45 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
     @Override
     public void writeHighscoreToFB(String name, double score) {
         FirebasePlayer firebasePlayer = new FirebasePlayer(name, score); //Lage en unik Id der vi kaller funksjonen
-        playerRef.setValue(firebasePlayer);
+        playerRef.child(name).setValue(firebasePlayer);
 
     }
+    /*
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                // Adds the values to the database
+                //double timeScore = snapshot.child("score").getValue(Double.class);
+                Log.d(TAG, "User: " + snapshot.getKey() + ". Score: ");
 
+                //firebasePlayer.setScores(snapshot.getKey(), timeScore);
+            }
+            */
 
     @Override
     public void SetOnValueChangedListener(FirebasePlayer firebasePlayer) {
         //scoreRef = playerRef.child("id");
         Query query = playerRef.orderByChild("score");
         ValueEventListener valueEventListener = new ValueEventListener() {
-            private final Log LOG = null;
+        private final Log LOG = null;
+          @Override
+          public void onDataChange(@NonNull DataSnapshot snapshot) {
+              if (snapshot.exists()) {
+                  for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                      String nameFromDB = childSnapshot.child("name").getValue(String.class);
+                      LOG.d("TAG", nameFromDB);
+                      double scoreFromDB = childSnapshot.child("score").getValue(Double.class);
+                      LOG.d("TAG", String.valueOf(scoreFromDB));
+                      firebasePlayer.scores.put(nameFromDB, scoreFromDB);
+                  }
 
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                // Adds the values to the database
-                Log.d(TAG, "User: " + snapshot.getKey() + ". Score: " + snapshot.getValue(Integer.class));
-                firebasePlayer.setScores(snapshot.getKey(), snapshot.getValue(Integer.class));
-            }
-
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                        FirebasePlayer scoreFromDB = childSnapshot.child("id").getValue(FirebasePlayer.class);
-                        String nameFromDB = childSnapshot.child("name").getValue(String.class);
-                        double score1FromDB = childSnapshot.child("score").getValue(Double.class);
-                        LOG.d("TAG", nameFromDB);
-                        LOG.d("TAG", String.valueOf(score1FromDB));
-                    }
-                }
-            }
-
+              }
+          }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("Funker ikke");
+
             }
         };
         query.addListenerForSingleValueEvent(valueEventListener);
     }
-
-
 
     /*
     @Override
