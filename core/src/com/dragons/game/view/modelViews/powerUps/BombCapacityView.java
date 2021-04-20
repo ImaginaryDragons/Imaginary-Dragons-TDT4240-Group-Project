@@ -1,32 +1,30 @@
 package com.dragons.game.view.modelViews.powerUps;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dragons.game.model.IModel;
 import com.dragons.game.model.powerUps.BombCapacity;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.modelViews.IModelView;
+import com.dragons.game.view.modelViews.ModelView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import static com.dragons.game.utilities.AssetLoader.BOMB_CAP_POWERUP;
+import static com.dragons.game.utilities.AssetLoader.DESTRUCTIBLE_BLOCK;
 
-public class BombCapacityView implements IModelView {
+public class BombCapacityView extends ModelView {
 
-    private Texture capacity;
-    private BombCapacity bombCap;
-
-    public BombCapacityView(AnnotationAssetManager manager, BombCapacity bombCap) {
-        capacity = manager.get(BOMB_CAP_POWERUP, Texture.class);
-        this.bombCap = bombCap;
+    public BombCapacityView(IModel model, AnnotationAssetManager manager) {
+        super(model);
+        Texture[] textures = new Texture[]{
+                manager.get(BOMB_CAP_POWERUP, Texture.class),
+        };
+        Animation<Texture> animation = new Animation<>(FRAME_DURATION, textures);
+        animation.setPlayMode(Animation.PlayMode.LOOP);
+        super.setAnimation(animation);
     }
 
-    @Override
-    public void update(float delta) {
 
-    }
-
-    @Override
-    public void render(SpriteBatch sb) {
-        sb.draw(capacity, bombCap.getPosition().x - bombCap.getWidth()* Constants.PowerUpScaleFactor/2f, bombCap.getPosition().y - bombCap.getHeight()*Constants.PowerUpScaleFactor/2f, bombCap.getWidth()* Constants.PowerUpScaleFactor, bombCap.getHeight()*Constants.PowerUpScaleFactor);
-    }
 }

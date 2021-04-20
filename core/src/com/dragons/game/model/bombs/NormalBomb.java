@@ -6,11 +6,9 @@ import com.dragons.game.model.IModel;
 import com.dragons.game.model.Model;
 import com.dragons.game.model.blocks.DestructibleBlock;
 import com.dragons.game.model.blocks.WallBlock;
-import com.dragons.game.model.gameWorld.GameMap;
-import com.dragons.game.model.gameWorld.GameObject;
+import com.dragons.game.model.maps.GameMap;
 import com.dragons.game.utilities.Constants;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -20,8 +18,8 @@ public class NormalBomb extends Model implements IBomb {
     private float loadingTime;
     private boolean bombExploded;
     private int bombRange;
-    private static final boolean isStatic = false;
-    private static final boolean isSensor = false;
+    private static final boolean isStatic = true;
+    private static final boolean isSensor = true;
 
 
     public NormalBomb(Vector2 pos, float width, float height, int bombRange){
