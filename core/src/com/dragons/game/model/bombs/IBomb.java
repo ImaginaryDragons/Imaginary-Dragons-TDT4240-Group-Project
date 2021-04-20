@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 public interface IBomb extends IModel {
 
-    public boolean isExploded();
-    public ArrayList<Vector2> getFireTiles(GameMap gameMap);
+    boolean isExploded();
+    ArrayList<Vector2> getFireTiles(GameMap gameMap);
+    void hitByFire();
 
 }

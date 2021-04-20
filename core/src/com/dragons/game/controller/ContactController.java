@@ -53,6 +53,16 @@ public class ContactController {
                 ((IBlock) objB).handleHitByBomb();
             }
         }
+
+        if (oneIsFire && oneIsBomb){
+            System.out.println("Collision fire and bomb");
+            if(objA instanceof IBomb){
+                ((IBomb) objA).hitByFire();
+            }
+            else {
+                ((IBomb) objB).hitByFire();
+            }
+        }
     }
 
 }
