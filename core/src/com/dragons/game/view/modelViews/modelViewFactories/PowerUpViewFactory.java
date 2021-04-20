@@ -28,10 +28,10 @@ public final class PowerUpViewFactory implements IModelViewFactory {
 
     @Override
     public IModelView createModelView(IModel model, AnnotationAssetManager assetManager) {
-        if      (model instanceof BombCapacity)    return new BombCapacityView(assetManager, (BombCapacity) model);
-        else if (model instanceof IncreaseRange)    return new IncreaseRangeView(assetManager, (IncreaseRange) model);
-        else if (model instanceof IncreaseSpeed)        return new IncreaseSpeedView(assetManager, (IncreaseSpeed) model);
-        else return null;
+        if      (model instanceof BombCapacity)     return new BombCapacityView(model, assetManager) ;
+        else if (model instanceof IncreaseRange)    return new IncreaseRangeView(model, assetManager);
+        else if (model instanceof IncreaseSpeed)    return new IncreaseSpeedView(model, assetManager);
+        else                                        return null;
 
         // TODO: Create PowerUpViewClasses
     }

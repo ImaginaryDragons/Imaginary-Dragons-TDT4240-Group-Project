@@ -13,6 +13,7 @@ public class AndroidLauncher extends AndroidApplication {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 
+
 		try {
 			initialize(new DragonsGame(new AndroidFirebaseInterface()), config);
 		} catch (IOException e) {

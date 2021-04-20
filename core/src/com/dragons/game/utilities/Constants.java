@@ -9,9 +9,11 @@ public class Constants {
 
     //TODO: fix bodyjitter on higher PPM
     public static final float PPM = 1f;
-    public static final int FPS = 30;
-    public static final float VIRTUAL_WIDTH = 480f;
-    public static final float VIRTUAL_HEIGHT = 350f;
+    public static final int FPS = 60;
+    public static final float VIEWPORT_WIDTH = 480f;
+    public static final float VIEWPORT_HEIGHT = 350f;
+
+    public static final float FRAME_DURATION = 0.2f;
 
     public static final float PlayerScaleFactor = 0.9f;
     public static final float FireScaleFactor = 0.99f;
