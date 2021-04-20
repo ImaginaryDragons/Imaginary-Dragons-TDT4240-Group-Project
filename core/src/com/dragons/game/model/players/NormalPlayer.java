@@ -10,6 +10,8 @@ import com.dragons.game.utilities.Direction;
 import com.dragons.game.view.IModelObserver;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -24,18 +26,20 @@ import java.util.List;
 
 public class NormalPlayer extends Model implements IPlayer{
 
-    private int ID;
-    private Color col;
+    private final int ID;
+    private final Color col;
     private Direction orientation; // The direction the player is looking
     private int lives;
-    private int speed;
+    private float speed;
     private int bombCapacity;
     private int bombsAvailable;
     private int bombRange;
-    private float bombReloadTime;
     private final BombType bombType = BombType.NORMALBOMB;
     private float hitProtectionTime;
     private boolean hitProtectionMode;
+
+    private final static float timeToNewBomb = Constants.BombExplodeTime + Constants.FireDisplayTime;;
+    private List<Float> newBombTimeCounters = new ArrayList<>();
 
     private static final boolean isStatic = false;
     private static final boolean isSensor = false;
@@ -56,21 +60,36 @@ public class NormalPlayer extends Model implements IPlayer{
         bombCapacity = Constants.InitBombCap;
         bombsAvailable = bombCapacity;
         bombRange = Constants.InitBombRange;
-        bombReloadTime = Constants.BombReloadTime;
-        hitProtectionTime = Constants.FireDisplayTime + 1f;
+        hitProtectionTime = Constants.FireDisplayTime + 1f; // TODO: magic number
         hitProtectionMode = false;
     }
 
     @Override
-    public void update(float timestep) {
+    public void update(final float timestep) {
         if (hitProtectionMode) {
             hitProtectionTime -= timestep;
             if (hitProtectionTime < 0){
                 hitProtectionMode = false;
             }
         }
-    }
 
+
+        if (bombsAvailable < bombCapacity){
+            List<Float> newCounterList = new ArrayList<>();
+            for (Float counter : newBombTimeCounters){
+                float newTime = counter + timestep;
+                if (newTime > timeToNewBomb) {
+                    addNewBomb();
+                }
+                else newCounterList.add(newTime);
+            }
+
+            newBombTimeCounters = newCounterList;
+
+
+        }
+    }
+    @Override
     public int getID() {
         return ID;
     }
@@ -86,18 +105,6 @@ public class NormalPlayer extends Model implements IPlayer{
             lives -= 1;
             hitProtectionMode = true;
         }
-    }
-
-    public void increaseSpeed(int amount){
-        speed += amount;
-    }
-
-    public void increaseBombRange(int amount){
-        bombRange += amount;
-    }
-
-    public void increaseBombCapacity(int amount){
-        bombCapacity += amount;
     }
 
     @Override
@@ -126,8 +133,39 @@ public class NormalPlayer extends Model implements IPlayer{
         return bombType;
     }
 
+    @Override
+    public void useBomb() {
+        bombsAvailable -= 1;
+        // add one counter for every bomb used;
+        newBombTimeCounters.add(0f);
+    }
+
+    @Override
     public void setOrientation(Direction orientation) {
         this.orientation = orientation;
+    }
+
+    @Override
+    public float getSpeed() {
+        return speed;
+    }
+
+
+    public void increaseSpeed(float amount){
+        speed += amount;
+    }
+
+    public void increaseBombRange(int amount){
+        bombRange += amount;
+    }
+
+    public void increaseBombCapacity(int amount){
+        bombCapacity += amount;
+        addNewBomb();
+    }
+
+    private void addNewBomb(){
+        if (bombsAvailable < bombCapacity) bombsAvailable += 1;
     }
 
     public void setBombRange(int bombRange) {
@@ -135,10 +173,6 @@ public class NormalPlayer extends Model implements IPlayer{
     }
     public void setLives(int lives) {
         this.lives = lives;
-    }
-
-    public int getSpeed() {
-        return speed;
     }
 
     public void setSpeed(int speed) {

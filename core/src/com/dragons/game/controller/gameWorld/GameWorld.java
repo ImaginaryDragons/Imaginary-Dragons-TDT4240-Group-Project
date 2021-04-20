@@ -98,7 +98,7 @@ public class GameWorld {
         world.step(delta, 6, 2);
         updateGameObjects(delta);
         updateActionControllers();;
-        b2dr.render(world, b2drCam.combined);
+        //b2dr.render(world, b2drCam.combined);
 
         // Cleanup unused objects in some iterations using garbage collector
         if (cleanupCounter > Constants.CleanupCounterLimit) {
@@ -133,18 +133,22 @@ public class GameWorld {
       
         Vector2 p1StartPos = map.tilePosCenter(new Vector2(1,1));
         IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER, Color.RED, map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
+
         GameObject player1 = new GameObject(p1, world, assetManager);
         inputHandler.addPlayer(player1, true);
         dynamicGameObjects.add(player1);
+
         LifeDisplayView healthView1 = new LifeDisplayView((NormalPlayer)p1, assetManager, map, map.tilePosCenter(new Vector2(1,10)));
         lifeDisplay.add(healthView1);
 
         Gdx.app.log("GameWorld", "Initializing secondary player");
         Vector2 p2StartPos = map.tilePosCenter(new Vector2(13,9));
         IModel p2 = playerFactory.createPlayer(2, p2StartPos, PlayerType.NORMALPLAYER, Color.BLUE, map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
+
         GameObject player2 = new GameObject(p2, world, assetManager);
         inputHandler.addPlayer(player2, false);
         dynamicGameObjects.add(player2);
+
         LifeDisplayView healthView2 = new LifeDisplayView((NormalPlayer)p2, assetManager, map, map.tilePosCenter(new Vector2(9,10)));
         lifeDisplay.add(healthView2);
     }

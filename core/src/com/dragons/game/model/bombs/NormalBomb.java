@@ -16,8 +16,8 @@ import java.util.Iterator;
 public class NormalBomb extends Model implements IBomb {
 
     private float loadingTime;
-    private boolean bombExploded;
-    private int bombRange;
+    private final int bombRange;
+    private boolean bombExploded = false;
     private static final boolean isStatic = true;
     private static final boolean isSensor = true;
 
@@ -25,7 +25,6 @@ public class NormalBomb extends Model implements IBomb {
     public NormalBomb(Vector2 pos, float width, float height, int bombRange){
         super(pos, width, height, isStatic, isSensor);
         this.bombRange = bombRange;
-        this.bombExploded = false;
         loadingTime = Constants.BombExplodeTime;
     }
 
@@ -33,10 +32,16 @@ public class NormalBomb extends Model implements IBomb {
     public void update(float timestep){
         loadingTime -= timestep;
         if (loadingTime < 0) {
-            this.bombExploded = true;
+            bombExploded = true;
         }
     }
 
+    @Override
+    public void hitByFire(){
+        bombExploded = true;
+    }
+
+    @Override
     public boolean isExploded() {
         return bombExploded;
     }

@@ -36,7 +36,6 @@ public abstract class ModelView implements IModelView{
         float y = model.getPosition().y;
         float width = model.getWidth();
         float height = model.getHeight();
-        System.out.println();
 
         batch.draw(current_frame, x - width / 2f, y - width / 2f, width, height);
     }

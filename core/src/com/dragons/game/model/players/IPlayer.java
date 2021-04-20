@@ -7,11 +7,17 @@ import com.dragons.game.utilities.Direction;
 
 public interface IPlayer extends IModel {
     int getID();
-    Color getColor();
     int getLives();
-    void handleHitByBomb();
-    Direction getOrientation();
     int getBombRange();
-    BombType getBombType();
     int getBombsAvailable();
+    float getSpeed();
+    Direction getOrientation();
+    Color getColor();
+    BombType getBombType();
+    void handleHitByBomb();
+    void useBomb();
+    void setOrientation(Direction orientation);
+    void increaseSpeed(float amount);
+    void increaseBombRange(int amount);
+    void increaseBombCapacity(int amount);
 }

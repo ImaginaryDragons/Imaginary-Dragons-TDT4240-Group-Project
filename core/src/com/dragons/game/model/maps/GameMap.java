@@ -110,7 +110,6 @@ public class GameMap {
                     x++;
                     break;
                 case "2":
-                    System.out.print(tilePos(tile).toString());
                     IModel wallblock = blockFactory.createBlock(tilePosCenter(tile), BlockType.WALLBLOCK, tileWidth, tileHeight);
                     tileContainers.get(x, y).add(wallblock);
                     x++;

@@ -30,13 +30,19 @@ public class DropBombButton implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {  // For keyboard testing purposes
-        Vector2 bombPosition;
-        if (player.getID() == 1 && keycode == Input.Keys.Q) {
-            bombPosition = new Vector2(player.getPosition());
-            gameWorld.placeBomb(bombPosition, player.getBombType(), player.getBombRange());
-        } else if (player.getID() == 2 && keycode == Input.Keys.M) {
-            bombPosition = new Vector2(player.getPosition());
-            gameWorld.placeBomb(bombPosition, player.getBombType(), player.getBombRange());
+        System.out.println(player.getBombsAvailable());
+        if (player.getBombsAvailable() > 0){
+            Vector2 bombPosition;
+            if (player.getID() == 1 && keycode == Input.Keys.Q) {
+                bombPosition = new Vector2(player.getPosition());
+                gameWorld.placeBomb(bombPosition, player.getBombType(), player.getBombRange());
+                player.useBomb();
+            } else if (player.getID() == 2 && keycode == Input.Keys.M) {
+                bombPosition = new Vector2(player.getPosition());
+                gameWorld.placeBomb(bombPosition, player.getBombType(), player.getBombRange());
+                player.useBomb();
+            }
+
         }
         return false;
     }
@@ -59,7 +65,7 @@ public class DropBombButton implements InputProcessor {
         if (dropBombBounds.contains(touch.x, touch.y) && player.getBombsAvailable() > 0) {  // Does bombsAvailable increase
             Vector2 bombPosition = new Vector2(player.getPosition());
             gameWorld.placeBomb(bombPosition, player.getBombType(), player.getBombRange());
-
+            player.useBomb();
             Gdx.app.log("Game button", "DROP BOMB");
         }
         return false;
