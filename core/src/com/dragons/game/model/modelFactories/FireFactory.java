@@ -29,7 +29,8 @@ public final class FireFactory {
             case NORMALBOMB:
                 return new NormalFire(position, width, height);
             default:
-                throw new IllegalArgumentException();
+                // The Fire model is very basic therefore most bombs can use this class
+                return new NormalFire(position, width, height);
         }
     }
 }

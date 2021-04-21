@@ -10,7 +10,7 @@ public class WallBlock extends Model implements IBlock {
     private static final boolean isSensor = false;
 
 
-    public WallBlock(Vector2 position, BlockType type, float width, float height) {
+    public WallBlock(Vector2 position, float width, float height) {
         super(position, width, height, isStatic, isSensor);
     }
 

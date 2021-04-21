@@ -3,7 +3,6 @@ package com.dragons.game.model.players;
 import com.badlogic.gdx.graphics.Color;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.bombs.BombType;
-import com.dragons.game.utilities.Direction;
 
 public interface IPlayer extends IModel {
     int getID();
@@ -19,5 +18,5 @@ public interface IPlayer extends IModel {
     void setOrientation(Direction orientation);
     void increaseSpeed(float amount);
     void increaseBombRange(int amount);
-    void increaseBombCapacity(int amount);
+    void increaseBombCapacity(int amount, BombType bombType);
 }

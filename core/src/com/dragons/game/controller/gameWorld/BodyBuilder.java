@@ -87,7 +87,7 @@ public final class BodyBuilder {
 
     // TODO: Generalise the shapes such that NormalPlayer = IPlayer and NormalBomb = IBomb? This might increase modifiability
     private static Shape getPlayerShape(Model model){
-        if (model instanceof NormalPlayer){
+        if (model instanceof IPlayer){
             final CircleShape normalPlayerShape = new CircleShape();
             normalPlayerShape.setRadius(model.getHeight() / 2 / PPM);
             return normalPlayerShape;
@@ -96,7 +96,7 @@ public final class BodyBuilder {
     }
 
     private static Shape getBombShape(Model model){
-        if (model instanceof NormalBomb){
+        if (model instanceof IBomb){
             final CircleShape normalBomb = new CircleShape();
             normalBomb.setRadius(model.getHeight() / 2 / PPM);
             return normalBomb;
@@ -105,7 +105,7 @@ public final class BodyBuilder {
     }
 
     private static Shape getFireShape(Model model){
-        if (model instanceof NormalFire){
+        if (model instanceof IFire){
             final PolygonShape normalFireShape = new PolygonShape();
             normalFireShape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
             return normalFireShape;

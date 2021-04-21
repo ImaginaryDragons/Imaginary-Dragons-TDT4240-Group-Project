@@ -8,17 +8,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.dragons.game.controller.gameWorld.GameObject;
 import com.dragons.game.model.players.IPlayer;
-import com.dragons.game.model.players.NormalPlayer;
 
 import static com.dragons.game.utilities.Constants.JOYSTICK_ORIGIN_Y;
 import static com.dragons.game.utilities.Constants.JOYSTICK_PERIMETER_RADIUS;
 import static com.dragons.game.utilities.Constants.JOYSTICK_ORIGIN_X;
 import static com.dragons.game.utilities.Constants.JOYSTICK_RADIUS;
 import static com.dragons.game.utilities.Constants.VIEWPORT_WIDTH;
-import static com.dragons.game.utilities.Direction.DOWN;
-import static com.dragons.game.utilities.Direction.LEFT;
-import static com.dragons.game.utilities.Direction.RIGHT;
-import static com.dragons.game.utilities.Direction.UP;
+import static com.dragons.game.model.players.Direction.DOWN;
+import static com.dragons.game.model.players.Direction.LEFT;
+import static com.dragons.game.model.players.Direction.RIGHT;
+import static com.dragons.game.model.players.Direction.UP;
 
 public class Joystick implements InputProcessor {
 

@@ -11,5 +11,6 @@ public interface IBomb extends IModel {
     boolean isExploded();
     ArrayList<Vector2> getFireTiles(GameMap gameMap);
     void hitByFire();
+    BombType getBombType();
 
 }

@@ -30,7 +30,6 @@ public class DropBombButton implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {  // For keyboard testing purposes
-        System.out.println(player.getBombsAvailable());
         if (player.getBombsAvailable() > 0){
             Vector2 bombPosition;
             if (player.getID() == 1 && keycode == Input.Keys.Q) {

@@ -4,22 +4,18 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.Model;
 import com.dragons.game.model.bombs.BombType;
-import com.dragons.game.model.bombs.NormalBomb;
 import com.dragons.game.utilities.Constants;
-import com.dragons.game.utilities.Direction;
-import com.dragons.game.view.IModelObserver;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 
 /**
  * Instantiates a player. Has to be tied to a controller to control.
  * int ID, Vector2 startPos, Color color
  *
- * @author Eldar Sandanger
  */
 
 
@@ -32,9 +28,9 @@ public class NormalPlayer extends Model implements IPlayer{
     private int lives;
     private float speed;
     private int bombCapacity;
-    private int bombsAvailable;
     private int bombRange;
-    private final BombType bombType = BombType.NORMALBOMB;
+    private final Queue<BombType> bombInventory;
+    private final Queue<BombType> placedBombs = new PriorityQueue<>();
     private float hitProtectionTime;
     private boolean hitProtectionMode;
 
@@ -43,6 +39,7 @@ public class NormalPlayer extends Model implements IPlayer{
 
     private static final boolean isStatic = false;
     private static final boolean isSensor = false;
+    private static final BombType startingBomb = BombType.NEW_TEST_BOMB;
 
 
     public NormalPlayer(int ID, Vector2 startPos, Color col, float width, float height) {
@@ -55,7 +52,11 @@ public class NormalPlayer extends Model implements IPlayer{
         lives = Constants.InitPlayerHealth;
         speed = Constants.PlayerSpeed;
         bombCapacity = Constants.InitBombCap;
-        bombsAvailable = bombCapacity;
+        bombInventory = new PriorityQueue<>();
+        for (int i = 0; i < bombCapacity; i++) {
+            bombInventory.add(startingBomb);
+        }
+
         bombRange = Constants.InitBombRange;
         hitProtectionTime = Constants.FireDisplayTime + 1f; // TODO: magic number
         hitProtectionMode = false;
@@ -71,12 +72,13 @@ public class NormalPlayer extends Model implements IPlayer{
         }
 
 
-        if (bombsAvailable < bombCapacity){
+        if (bombInventory.size() < bombCapacity){
             List<Float> newCounterList = new ArrayList<>();
             for (Float counter : newBombTimeCounters){
                 float newTime = counter + timestep;
                 if (newTime > timeToNewBomb) {
-                    addNewBomb();
+                    // Bomb is finished exploding => add it back to inventory
+                    addBombs(placedBombs.remove());
                 }
                 else newCounterList.add(newTime);
             }
@@ -117,7 +119,7 @@ public class NormalPlayer extends Model implements IPlayer{
 
     @Override
     public int getBombsAvailable() {
-        return bombsAvailable;
+        return bombInventory.size();
     }
 
     @Override
@@ -127,12 +129,12 @@ public class NormalPlayer extends Model implements IPlayer{
 
     @Override
     public BombType getBombType() {
-        return bombType;
+        return bombInventory.peek();
     }
 
     @Override
     public void useBomb() {
-        bombsAvailable -= 1;
+        placedBombs.add(bombInventory.remove());
         // add one counter for every bomb used;
         newBombTimeCounters.add(0f);
     }
@@ -156,37 +158,18 @@ public class NormalPlayer extends Model implements IPlayer{
         bombRange += amount;
     }
 
-    public void increaseBombCapacity(int amount){
+    public void increaseBombCapacity(int amount, BombType bombType){
         bombCapacity += amount;
-        addNewBomb();
+        for (int i = 0; i < amount; i++) {
+            addBombs(bombType);
+        }
     }
 
-    private void addNewBomb(){
-        if (bombsAvailable < bombCapacity) bombsAvailable += 1;
-    }
+    private void addBombs(BombType bomb){
+        if (this.bombInventory.size() < bombCapacity) this.bombInventory.add(bomb);
 
-    public void setBombRange(int bombRange) {
-        this.bombRange = bombRange;
-    }
-    public void setLives(int lives) {
-        this.lives = lives;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public int getBombCapacity() {
-        return bombCapacity;
-    }
-
-    public void setBombCapacity(int bombCapacity) {
-        this.bombCapacity = bombCapacity;
     }
 
 
-    public void setBombsAvailable(int bombsAvailable) {
-        this.bombsAvailable = bombsAvailable;
-    }
 
 }
