@@ -48,7 +48,7 @@ public class Joystick implements InputProcessor {
 
     public void addPlayer(GameObject gameObject){
         this.gameObject = gameObject;
-        player = (IPlayer) gameObject.getObject();
+        player = (IPlayer) gameObject.getModel();
     }
 
     @Override

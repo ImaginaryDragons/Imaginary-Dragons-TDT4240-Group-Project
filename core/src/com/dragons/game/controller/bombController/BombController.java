@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.controller.IGameObjectController;
 import com.dragons.game.controller.gameWorld.GameObject;
 import com.dragons.game.controller.gameWorld.GameWorld;
-import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.bombs.IBomb;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class BombController implements IGameObjectController {
 
     public BombController(GameObject bombObject) {
         this.bombObject = bombObject;
-        this.bomb = (IBomb) bombObject.getObject();
+        this.bomb = (IBomb) bombObject.getModel();
         this.removeController = false;
     }
 
@@ -30,7 +29,7 @@ public class BombController implements IGameObjectController {
 
             // Dispose of everything related to this bomb
             bomb = null;
-            gameWorld.getDynamicGameObjects().remove(bombObject);
+            gameWorld.getStaticGameObjects().remove(bombObject);
             bombObject.dispose();
             removeController = true;
         }

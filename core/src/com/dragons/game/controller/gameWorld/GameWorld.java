@@ -27,7 +27,9 @@ import com.dragons.game.view.componentViews.LifeDisplayView;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import static com.dragons.game.utilities.Constants.PPM;
 import static com.dragons.game.utilities.Constants.VIEWPORT_HEIGHT;
@@ -42,10 +44,11 @@ import static com.dragons.game.utilities.Constants.VIEWPORT_WIDTH;
  * */
 
 public class GameWorld {
-    private ArrayList<GameObject> staticGameObjects;
-    private ArrayList<GameObject> dynamicGameObjects;
-    private ArrayList<IGameObjectController> actionControllers;
-    private ArrayList<LifeDisplayView> lifeDisplay;
+    private final ArrayList<GameObject> staticGameObjects = new ArrayList<>();
+    private final ArrayList<GameObject> dynamicGameObjects = new ArrayList<>();
+    private final ArrayList<IGameObjectController> actionControllers = new ArrayList<>();
+    private final ArrayList<LifeDisplayView> lifeDisplay = new ArrayList<>();
+    private final Collection<IGameObjectController> tempControllerContainer = new LinkedList<>();
 
     // Factories
     private final PlayerFactory playerFactory = PlayerFactory.getInstance();
@@ -58,8 +61,6 @@ public class GameWorld {
     private final Box2DDebugRenderer b2dr;
     private final OrthographicCamera b2drCam;
 
-//    private final PlayerController playerController1;
-//    private final PlayerController playerController2;
     private final InputHandler inputHandler;
 
     private int cleanupCounter;
@@ -72,10 +73,6 @@ public class GameWorld {
         world = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         this.assetManager = manager;
         world.setContactListener(new WorldContactListener());
-        staticGameObjects = new ArrayList<GameObject>();
-        dynamicGameObjects = new ArrayList<GameObject>();
-        actionControllers = new ArrayList<IGameObjectController>();
-        lifeDisplay = new ArrayList<LifeDisplayView>();
         this.map = map;
 
         b2dr = new Box2DDebugRenderer();
@@ -83,8 +80,6 @@ public class GameWorld {
         b2drCam.position.set(map.getMapWidthInPixels() / 2f / PPM, map.getMapHeightInPixels() / 2f / PPM, 0);
         b2drCam.update();
 
-//        playerController1 = new PlayerController(camera, manager, this, true);
-//        playerController2 = new PlayerController(camera, manager, this, false);
         inputHandler = new InputHandler(camera, manager, this);
 
         this.cleanupCounter = 0;
@@ -97,7 +92,7 @@ public class GameWorld {
         world.step(delta, 6, 2);
         updateGameObjects(delta);
         updateActionControllers();;
-        //b2dr.render(world, b2drCam.combined);
+        b2dr.render(world, b2drCam.combined);
 
         // Cleanup unused objects in some iterations using garbage collector
         if (cleanupCounter > Constants.CleanupCounterLimit) {
@@ -107,9 +102,8 @@ public class GameWorld {
         this.cleanupCounter++;
     }
 
-    public void addGameObject(IModel model){
-        GameObject newObject = new GameObject(model, world, assetManager);
-        if (model.isStatic()) {
+    public void addGameObject(GameObject newObject){
+        if (newObject.getModel().isStatic()) {
             staticGameObjects.add(newObject);
         } else {
             dynamicGameObjects.add(newObject);
@@ -121,7 +115,8 @@ public class GameWorld {
         for (int x = 0; x < map.getMapWidthInTiles(); x++){
             for (int y = 0; y < map.getMapHeightInTiles(); y++){
                 for (IModel model : map.getTileContent(x,y)){
-                    addGameObject(model);
+                    GameObject newObject = new GameObject(model, world, assetManager);
+                    addGameObject(newObject);
                 }
             }
         }
@@ -136,7 +131,7 @@ public class GameWorld {
 
         GameObject player1 = new GameObject(p1, world, assetManager);
         inputHandler.addPlayer(player1, true);
-        dynamicGameObjects.add(player1);
+        addGameObject(player1);
 
         LifeDisplayView healthView1 = new LifeDisplayView((NormalPlayer)p1, assetManager, map, map.tilePosCenter(new Vector2(1,10)));
         lifeDisplay.add(healthView1);
@@ -148,7 +143,7 @@ public class GameWorld {
 
         GameObject player2 = new GameObject(p2, world, assetManager);
         inputHandler.addPlayer(player2, false);
-        dynamicGameObjects.add(player2);
+        addGameObject(player2);
 
         LifeDisplayView healthView2 = new LifeDisplayView((NormalPlayer)p2, assetManager, map, map.tilePosCenter(new Vector2(9,10)));
         lifeDisplay.add(healthView2);
@@ -158,7 +153,7 @@ public class GameWorld {
         IModel bomb = bombFactory.createBomb(centerPos, type, map.getTileWidth() * Constants.BombScaleFactor, map.getTileHeight() * Constants.BombScaleFactor, extraRange);
         GameObject newBomb = new GameObject(bomb, world, assetManager);
         BombController newBombCtr = new BombController(newBomb);
-        this.dynamicGameObjects.add(newBomb);
+        this.staticGameObjects.add(newBomb);
         this.actionControllers.add(newBombCtr);
     }
 
@@ -169,7 +164,7 @@ public class GameWorld {
             GameObject newFire = new GameObject(fire,world,assetManager);
             FireController newFireCtr = new FireController(newFire);
             this.staticGameObjects.add(newFire);
-            this.actionControllers.add(newFireCtr);
+            this.tempControllerContainer.add(newFireCtr);
         }
     }
 
@@ -181,7 +176,7 @@ public class GameWorld {
             dynamicObj = iterator.next();
             dynamicObj.syncPosition();
             dynamicObj.update(delta);
-            if (dynamicObj.getObject().isDisposed()){
+            if (dynamicObj.getModel().isDisposed()){
                 dynamicObj.dispose();
                 iterator.remove();
             }
@@ -191,7 +186,7 @@ public class GameWorld {
         while(iterator.hasNext()){
             staticObj = iterator.next();
             staticObj.update(delta);
-            if (staticObj.getObject().isDisposed()){
+            if (staticObj.getModel().isDisposed()){
                 staticObj.dispose();
                 iterator.remove();
             }
@@ -202,13 +197,22 @@ public class GameWorld {
      * Iterate through the controllers and perform actions
      */
     public void updateActionControllers(){
-        for (int i = 0; i < actionControllers.size(); i++) {
-            IGameObjectController controller = actionControllers.get(i);
+        // Iterate through the controllers and perform actions
+        // We have to use an iterator to remove them correctly
+        // REMOVING FIX: https://stackoverflow.com/questions/10033025/crash-when-trying-to-remove-object-from-arraylist
+        Iterator<IGameObjectController> iterator = actionControllers.iterator();
+        IGameObjectController controller;
+        while(iterator.hasNext()){
+            controller = iterator.next();
             controller.controllerAction(this);
-
-            if (controller.remove()) actionControllers.remove(controller);
+            if (controller.remove()) {
+                iterator.remove();
+            }
         }
-
+        // This step has to be performed due to limitations on how iterators work. We can't add to the same list we try to iterate through.
+        // Therefore we store new controllers in a temporary list and add them afterwards
+        actionControllers.addAll(tempControllerContainer);
+        tempControllerContainer.clear();
     }
 
     public ArrayList<GameObject> getStaticGameObjects() {
@@ -223,13 +227,7 @@ public class GameWorld {
         return map;
     }
 
-//    public PlayerController getPlayerController1() {
-//        return playerController1;
-//    }
-//
-//    public PlayerController getPlayerController2() {
-//        return playerController2;
-//    }
+
 
     public InputHandler getInputHandler() {
         return inputHandler;

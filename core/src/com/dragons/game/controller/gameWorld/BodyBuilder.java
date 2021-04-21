@@ -14,9 +14,6 @@ import com.dragons.game.model.blocks.IBlock;
 import com.dragons.game.model.bombs.IBomb;
 import com.dragons.game.model.bombs.fires.IFire;
 import com.dragons.game.model.players.IPlayer;
-import com.dragons.game.model.bombs.NormalBomb;
-import com.dragons.game.model.bombs.fires.NormalFire;
-import com.dragons.game.model.players.NormalPlayer;
 import com.dragons.game.model.powerUps.IPowerUp;
 
 
@@ -32,7 +29,7 @@ public final class BodyBuilder {
     // Create a body and a fixture for the object and place it in world!
 
     public static Body createBody(World world, GameObject gameObject) {
-        IModel model = gameObject.getObject();
+        IModel model = gameObject.getModel();
         Vector2 position = model.getPosition();
         Shape shape = getShape(model);
         boolean isStatic = model.isStatic();

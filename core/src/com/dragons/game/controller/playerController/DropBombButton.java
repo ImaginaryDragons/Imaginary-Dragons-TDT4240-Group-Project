@@ -1,6 +1,5 @@
 package com.dragons.game.controller.playerController;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -26,7 +25,7 @@ public class DropBombButton implements InputProcessor {
     }
 
     public void addPlayer(GameObject gameObject) {
-        player = (IPlayer) gameObject.getObject();
+        player = (IPlayer) gameObject.getModel();
     }
 
     @Override

@@ -36,7 +36,7 @@ public class GameObject {
         return modelView;
     }
 
-    public IModel getObject() {
+    public IModel getModel() {
         return model;
     }
 
