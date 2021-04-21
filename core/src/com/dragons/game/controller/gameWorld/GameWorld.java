@@ -44,7 +44,6 @@ public class GameWorld {
     private ArrayList<GameObject> staticGameObjects;
     private ArrayList<GameObject> dynamicGameObjects;
     private ArrayList<IGameObjectController> actionControllers;
-    private ArrayList<IGameObjectController> tempControllerContainer; // This is a workaround from a problem with adding to actionControllers while iterating through it!
     private ArrayList<LifeDisplayView> lifeDisplay;
 
     // Factories
@@ -75,7 +74,6 @@ public class GameWorld {
         staticGameObjects = new ArrayList<GameObject>();
         dynamicGameObjects = new ArrayList<GameObject>();
         actionControllers = new ArrayList<IGameObjectController>();
-        tempControllerContainer = new ArrayList<IGameObjectController>();
         lifeDisplay = new ArrayList<LifeDisplayView>();
         this.map = map;
 
@@ -170,7 +168,7 @@ public class GameWorld {
             GameObject newFire = new GameObject(fire,world,assetManager);
             FireController newFireCtr = new FireController(newFire);
             this.staticGameObjects.add(newFire);
-            this.tempControllerContainer.add(newFireCtr);
+            this.actionControllers.add(newFireCtr);
         }
     }
 
@@ -202,19 +200,13 @@ public class GameWorld {
         // Iterate through the controllers and perform actions
         // We have to use an iterator to remove them correctly
         // REMOVING FIX: https://stackoverflow.com/questions/10033025/crash-when-trying-to-remove-object-from-arraylist
-        Iterator<IGameObjectController> iterator = actionControllers.iterator();
-        IGameObjectController controller;
-        while(iterator.hasNext()){
-            controller = iterator.next();
+        for (int i = 0; i < actionControllers.size(); i++) {
+            IGameObjectController controller = actionControllers.get(i);
             controller.controllerAction(this);
-            if (controller.remove()) {
-                iterator.remove();
-            }
+
+            if (controller.remove()) actionControllers.remove(controller);
         }
-        // This step has to be performed due to limitations on how iterators work. We can't add to the same list we try to iterate through.
-        // Therefore we store new controllers in a temporary list and add them afterwards
-        actionControllers.addAll(tempControllerContainer);
-        tempControllerContainer.clear();
+
     }
 
     public ArrayList<GameObject> getStaticGameObjects() {
