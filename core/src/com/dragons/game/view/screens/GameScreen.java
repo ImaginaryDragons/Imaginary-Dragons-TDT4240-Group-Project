@@ -58,7 +58,7 @@ public class GameScreen extends ScreenAdapter {
         manager = new AnnotationAssetManager();
         loadAssets();
 
-        gameWorld = new GameWorld(gameMap, manager, camera);
+        gameWorld = new GameWorld(gameMap, manager, camera, dragonsGame);
         batch = new SpriteBatch();
 
         camera.position.set(gameMap.getMapWidthInPixels() / 2f, gameMap.getMapHeightInPixels() / 2f, 0);
