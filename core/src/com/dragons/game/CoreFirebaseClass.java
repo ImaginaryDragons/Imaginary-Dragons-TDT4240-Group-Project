@@ -9,7 +9,7 @@ public class CoreFirebaseClass implements FireBaseInterface {
 
 
     @Override
-    public void writeHighscoreToFB(String name, double score) {
+    public void writeHighscoreToFB(String name, int score, int id) {
 
     }
 

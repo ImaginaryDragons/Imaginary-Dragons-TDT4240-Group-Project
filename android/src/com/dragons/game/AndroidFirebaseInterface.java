@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.players.NormalPlayer;
 import com.dragons.game.model.players.PlayerColor;
+import com.dragons.game.view.screens.GameOverScreen;
 import com.google.android.gms.common.data.DataHolder;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -37,12 +38,14 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
     public AndroidFirebaseInterface() {
         database = FirebaseDatabase.getInstance("https://imaginary-dragons-default-rtdb.europe-west1.firebasedatabase.app/"); //rotnoden, hele databasen
         playerRef = database.getReference("Score"); //får tak i referansen Players, peker på alle players
+        //firebasePlayer = new FirebasePlayer();
+
     }
 
     @Override
-    public void writeHighscoreToFB(String name, double score) {
+    public void writeHighscoreToFB(String name, int score, int id) {
         FirebasePlayer firebasePlayer = new FirebasePlayer(name, score); //Lage en unik Id der vi kaller funksjonen
-        playerRef.child(name).setValue(firebasePlayer);
+        playerRef.child(String.valueOf(id)).setValue(firebasePlayer);
 
     }
     /*
@@ -57,8 +60,10 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
 
     @Override
     public void SetOnValueChangedListener(FirebasePlayer firebasePlayer) {
+        //firebasePlayer = new FirebasePlayer();
         //scoreRef = playerRef.child("id");
         Query query = playerRef.orderByChild("score");
+        FirebasePlayer finalFirebasePlayer = firebasePlayer;
         ValueEventListener valueEventListener = new ValueEventListener() {
         private final Log LOG = null;
           @Override
@@ -66,10 +71,13 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
               if (snapshot.exists()) {
                   for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                       String nameFromDB = childSnapshot.child("name").getValue(String.class);
-                      LOG.d("TAG", nameFromDB);
-                      double scoreFromDB = childSnapshot.child("score").getValue(Double.class);
-                      LOG.d("TAG", String.valueOf(scoreFromDB));
-                      firebasePlayer.scores.put(nameFromDB, scoreFromDB);
+                      //LOG.d("TAG", nameFromDB);
+                      int scoreFromDB = childSnapshot.child("score").getValue(Integer.class);
+                      //LOG.d("TAG", String.valueOf(scoreFromDB));
+                      //finalFirebasePlayer.setName(nameFromDB);
+                      //finalFirebasePlayer.setScore(scoreFromDB);
+                      finalFirebasePlayer.scores.put(nameFromDB, scoreFromDB);
+                      //LOG.d("TAG", finalFirebasePlayer.getName());
                   }
 
               }

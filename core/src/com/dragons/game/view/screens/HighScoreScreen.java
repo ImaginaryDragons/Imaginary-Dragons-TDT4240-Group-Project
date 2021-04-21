@@ -29,7 +29,7 @@ import java.util.Map;
 
 public class HighScoreScreen implements Screen {
     private final DragonsGame dragonsGame;
-    private final FirebasePlayer firebasePlayer;
+    private FirebasePlayer firebasePlayer;
     private ShapeRenderer shapeRenderer;
 
     private Stage stage;
@@ -40,17 +40,18 @@ public class HighScoreScreen implements Screen {
     private Label scoreLabel;
     private Label nameLabel;
     private TextButton exitBtn;
+    private String name;
 
-    private float score;
+    private int score;
 
-    private Map<String, Double> scores = new LinkedHashMap<>();
+    private Map<String, Integer> scores = new LinkedHashMap<>();
 
-    public HighScoreScreen(DragonsGame dragonsGame, FirebasePlayer firebasePlayer) {
+    public HighScoreScreen(DragonsGame dragonsGame, int score) {
         this.dragonsGame = dragonsGame;
-        this.firebasePlayer = firebasePlayer;
-        //this.score = score;
+        this.score = score;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, dragonsGame.camera));
         this.shapeRenderer = new ShapeRenderer();
+        firebasePlayer = new FirebasePlayer(name, score);
 
     }
 
@@ -116,7 +117,7 @@ public class HighScoreScreen implements Screen {
     private void initScreen() {
         scores = FirebasePlayer.getScores();
 
-        Texture gameOverTex = dragonsGame.assets.get("highscores.png", Texture.class);
+        Texture gameOverTex = dragonsGame.assets.get("components/highscores.png", Texture.class);
         highscoreImg = new Image(gameOverTex);
         highscoreImg.setPosition(dragonsGame.camera.position.x - highscoreImg.getWidth() / 2, dragonsGame.camera.position.y + 70);
 
@@ -145,16 +146,16 @@ public class HighScoreScreen implements Screen {
         table.row().expandX().fillX();
 
         for (int i = 0; i < scores.size(); i++) {
-            table.add(new Label(firebasePlayer.getName(), skin)).uniform();
+            table.add(new Label(firebasePlayer.getName(), skin)).uniform(); //firebasePlayer.scores.getKey()
         }
         table.row();
 
-        /*for (int i = 0; i < scores.size(); i++) {
+        for (int i = 0; i < scores.size(); i++) {
             //for (int j = 0; j < scores.size(); j++) {
-               table.add(new Label(firebasePlayer.getScore(), skin));
+               table.add(new Label(String.valueOf(firebasePlayer.getScore()), skin));
             //}
             table.row();
-        }*/
+        }
 
 
         tableContainer.setActor(table);
