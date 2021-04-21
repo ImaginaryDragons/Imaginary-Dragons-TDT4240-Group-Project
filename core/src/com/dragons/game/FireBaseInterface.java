@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 public interface FireBaseInterface {
 
 
-    public void writeHighscoreToFB(String name, int score, int id);
+    public void writeHighscoreToFB(FirebasePlayer firebasePlayer);
 
     public void SetOnValueChangedListener(FirebasePlayer firebasePlayer);
 

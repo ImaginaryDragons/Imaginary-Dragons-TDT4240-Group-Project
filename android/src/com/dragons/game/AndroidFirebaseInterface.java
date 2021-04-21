@@ -43,9 +43,10 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
     }
 
     @Override
-    public void writeHighscoreToFB(String name, int score, int id) {
-        FirebasePlayer firebasePlayer = new FirebasePlayer(name, score); //Lage en unik Id der vi kaller funksjonen
-        playerRef.child(String.valueOf(id)).setValue(firebasePlayer);
+    public void writeHighscoreToFB(FirebasePlayer firebasePlayer) {
+        String name = firebasePlayer.getName();
+       // FirebasePlayer firebasePlayer = new FirebasePlayer(); //Lage en unik Id der vi kaller funksjonen
+        playerRef.child(name).setValue(firebasePlayer);
 
     }
     /*

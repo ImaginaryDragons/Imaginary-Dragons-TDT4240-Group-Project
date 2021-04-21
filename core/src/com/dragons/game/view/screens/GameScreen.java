@@ -116,6 +116,7 @@ public class GameScreen extends ScreenAdapter {
 
         if (timerView.isTimeUp()) {
             dragonsGame.setScreen(new GameOverScreen(dragonsGame, timerView.getScoreCount()));
+            dragonsGame.firebasePlayer.setScore(timerView.getScoreCount());
         }
     }
 

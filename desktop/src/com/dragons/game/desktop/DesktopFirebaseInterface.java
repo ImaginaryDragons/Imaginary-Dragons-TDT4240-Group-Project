@@ -10,7 +10,7 @@ import com.dragons.game.FirebasePlayer;
 public class DesktopFirebaseInterface implements FireBaseInterface {
 
     @Override
-    public void writeHighscoreToFB(String name, int score, int id) {
+    public void writeHighscoreToFB(FirebasePlayer firebasePlayer) {
 
     }
 

@@ -13,9 +13,7 @@ public class FirebasePlayer {
     private int score;
     public static Map<String, Integer> scores = new LinkedHashMap<>();
 
-    public FirebasePlayer(String name, int score) {
-        this.name = name;
-        this.score = score;
+    public FirebasePlayer() {
     }
 
     public String getName() {

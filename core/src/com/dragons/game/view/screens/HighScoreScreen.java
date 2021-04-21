@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.DragonsGame;
 import com.dragons.game.FirebasePlayer;
 import com.dragons.game.utilities.Constants;
+import com.dragons.game.view.componentViews.TimerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,7 +52,7 @@ public class HighScoreScreen implements Screen {
         this.score = score;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, dragonsGame.camera));
         this.shapeRenderer = new ShapeRenderer();
-        firebasePlayer = new FirebasePlayer(name, score);
+        firebasePlayer = new FirebasePlayer();
 
     }
 
@@ -145,6 +146,15 @@ public class HighScoreScreen implements Screen {
         table.add(score).expandX().fillX();
         table.row().expandX().fillX();
 
+
+        for (Map.Entry<String, Integer> pair : firebasePlayer.getScores().entrySet()) {
+            table.add(new Label(pair.getKey(), skin)).uniform();
+            table.add(new Label(String.valueOf(pair.getValue()), skin));
+            table.row();
+        }
+
+        
+/*
         for (int i = 0; i < scores.size(); i++) {
             table.add(new Label(firebasePlayer.getName(), skin)).uniform(); //firebasePlayer.scores.getKey()
         }
@@ -156,7 +166,7 @@ public class HighScoreScreen implements Screen {
             //}
             table.row();
         }
-
+*/
 
         tableContainer.setActor(table);
         stage.addActor(highscoreImg);

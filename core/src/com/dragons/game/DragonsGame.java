@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragons.game.utilities.Constants;
+import com.dragons.game.view.componentViews.TimerView;
 import com.dragons.game.view.screens.LoadingScreen;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -24,18 +25,19 @@ import java.io.IOException;
 public class DragonsGame extends Game {
 	SpriteBatch batch;
 	Texture img;
-	FireBaseInterface _FBIC;
+	public FireBaseInterface _FBIC;
 	NormalPlayer player;
 	GameMap map;
 	GameScreen gameScreen;
 	GameWorld gameWorld;
 
+
 	public AssetManager assets;
 	public BitmapFont font;
 
 	public OrthographicCamera camera;
-	private FirebasePlayer firebasePlayer = new FirebasePlayer("mads", 13);
-
+	public FirebasePlayer firebasePlayer = new FirebasePlayer();
+	//public TimerView timerView;
 	//public LoadingScreen loadingScreen;
 	//public TestMenuScreen testMenuScreen;
 	//public GameScreen gameScreen;
@@ -57,6 +59,7 @@ public class DragonsGame extends Game {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Constants.WorldWidth, Constants.WorldHeight);
 		batch = new SpriteBatch();
+		//timerView = new TimerView(assets, camera);
 
 		_FBIC.SetOnValueChangedListener(firebasePlayer);
 
@@ -64,7 +67,7 @@ public class DragonsGame extends Game {
 		initFonts();
 		//this.setScreen(loadingScreen);
 		this.setScreen(new LoadingScreen(this));
-		_FBIC.writeHighscoreToFB(firebasePlayer.getName(), firebasePlayer.getScore(), 2);
+		//_FBIC.writeHighscoreToFB(firebasePlayer);
 
 		_FBIC.SetOnValueChangedListener(firebasePlayer);
 		//setScreen(new MenuScreen(this));

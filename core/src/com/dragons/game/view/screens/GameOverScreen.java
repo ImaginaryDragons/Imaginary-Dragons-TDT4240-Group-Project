@@ -136,11 +136,14 @@ public class GameOverScreen extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y) {
 
                 String nameString = nameField.getText();
-                FirebasePlayer firebasePlayer = new FirebasePlayer(nameString, score);
-                System.out.println(firebasePlayer.getName());
-                firebasePlayer.setName(nameString);
-                System.out.println(firebasePlayer.getName());
-                dragonsGame.setScreen(new HighScoreScreen(dragonsGame, firebasePlayer.getScore()));
+                //FirebasePlayer firebasePlayer = new FirebasePlayer();
+                //System.out.println(firebasePlayer.getName());
+                dragonsGame.firebasePlayer.setName(nameString);
+                //dragonsGame.firebasePlayer.setScore(dragonsGame.timerView.getScoreCount());
+                dragonsGame._FBIC.writeHighscoreToFB(dragonsGame.firebasePlayer);
+                dragonsGame._FBIC.SetOnValueChangedListener(dragonsGame.firebasePlayer);
+                System.out.println(dragonsGame.firebasePlayer.getScores());
+                dragonsGame.setScreen(new HighScoreScreen(dragonsGame, dragonsGame.firebasePlayer.getScore()));
 
             }
         });
