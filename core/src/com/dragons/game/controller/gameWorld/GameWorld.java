@@ -91,8 +91,10 @@ public class GameWorld {
         // Explanation gameWorld step: http://www.iforce2d.net/b2dtut/worlds
         world.step(delta, 6, 2);
         updateGameObjects(delta);
-        updateActionControllers();;
-        b2dr.render(world, b2drCam.combined);
+        updateActionControllers();
+
+        // Uncomment this for debugging
+        //b2dr.render(world, b2drCam.combined);
 
         // Cleanup unused objects in some iterations using garbage collector
         if (cleanupCounter > Constants.CleanupCounterLimit) {
@@ -153,17 +155,17 @@ public class GameWorld {
         IModel bomb = bombFactory.createBomb(centerPos, type, map.getTileWidth() * Constants.BombScaleFactor, map.getTileHeight() * Constants.BombScaleFactor, extraRange);
         GameObject newBomb = new GameObject(bomb, world, assetManager);
         BombController newBombCtr = new BombController(newBomb);
-        this.staticGameObjects.add(newBomb);
+        addGameObject(newBomb);
         this.actionControllers.add(newBombCtr);
     }
 
     public void spawnFire(ArrayList<Vector2> fireTiles, IBomb bomb) {
-        Gdx.app.log("GameWorld", "Spawning fire");
+        //Gdx.app.log("GameWorld", "Spawning fire");
         for (Vector2 firePos : fireTiles) {
             IModel fire = fireFactory.createFire(firePos, bomb.getType(), map.getTileWidth() * Constants.FireScaleFactor, map.getTileHeight() * Constants.FireScaleFactor);
             GameObject newFire = new GameObject(fire,world,assetManager);
             FireController newFireCtr = new FireController(newFire);
-            this.staticGameObjects.add(newFire);
+            this.staticGameObjects.add(newFire); // Add to staticObjects since the position is always static
             this.tempControllerContainer.add(newFireCtr);
         }
     }

@@ -7,7 +7,6 @@ public interface IFire extends IModel {
 
     boolean isExpired();
     BombType getBombType();
-    IFire clone();
     float getDisplayTime();
     void setDisplayTime(float time);
 

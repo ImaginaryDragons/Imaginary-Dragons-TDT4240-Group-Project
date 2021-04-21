@@ -9,6 +9,7 @@ import com.dragons.game.utilities.Constants;
 
 public class NormalFire extends Model implements IFire {
 
+    // Has to be false! Static objects dont collide with other static objects, in this case destructible block
     private static final boolean isStatic = false;
     private static final boolean isSensor = true;
     private float DisplayTime = Constants.FireDisplayTime;;
@@ -39,14 +40,7 @@ public class NormalFire extends Model implements IFire {
         return bombType;
     }
 
-    @Override
-    public IFire clone() {
-        try {
-            return (IFire) super.clone();
-        }catch (CloneNotSupportedException e){
-            throw new AssertionError();
-        }
-    }
+
 
     @Override
     public float getDisplayTime() {

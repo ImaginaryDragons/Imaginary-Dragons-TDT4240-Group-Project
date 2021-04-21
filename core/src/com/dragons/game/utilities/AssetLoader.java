@@ -49,9 +49,10 @@ public class AssetLoader<BACKGROUND, STARTGAME_BTN, JOINGAME_BTN> {
 
             /****************** POWER-UPS *******************/
 
-            RANGE_POWERUP =     "powerUps/bomb_range_powerup.png",
-            BOMB_CAP_POWERUP =  "powerUps/bomb_cap_powerup.png",
+            RANGE_POWERUP =     "powerUps/bomb_range_powerup_red.png",
+            BOMB_CAP_POWERUP =  "powerUps/bomb_cap_powerup_red.png",
             SPEED_POWERUP =     "powerUps/dragon_wings.png",
+
 
             /***************** BOMB AND FIRE *****************/
 
