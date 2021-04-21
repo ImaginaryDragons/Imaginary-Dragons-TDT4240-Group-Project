@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.dragons.game.DragonsGame;
 import com.dragons.game.controller.bombController.BombController;
 import com.dragons.game.controller.bombController.FireController;
 import com.dragons.game.controller.IGameObjectController;
@@ -58,8 +59,6 @@ public class GameWorld {
     private final Box2DDebugRenderer b2dr;
     private final OrthographicCamera b2drCam;
 
-//    private final PlayerController playerController1;
-//    private final PlayerController playerController2;
     private final InputHandler inputHandler;
 
     private int cleanupCounter;
@@ -68,7 +67,7 @@ public class GameWorld {
     // https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_hello.html#autotoc_md21
     // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
-    public GameWorld(com.dragons.game.model.maps.GameMap map, AnnotationAssetManager manager, OrthographicCamera camera) {
+    public GameWorld(com.dragons.game.model.maps.GameMap map, AnnotationAssetManager manager, OrthographicCamera camera, DragonsGame dragonsGame) {
         world = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         this.assetManager = manager;
         world.setContactListener(new WorldContactListener());
@@ -86,7 +85,7 @@ public class GameWorld {
 
 //        playerController1 = new PlayerController(camera, manager, this, true);
 //        playerController2 = new PlayerController(camera, manager, this, false);
-        inputHandler = new InputHandler(camera, manager, this);
+        inputHandler = new InputHandler(camera, manager, this, dragonsGame);
 
         this.cleanupCounter = 0;
     }
