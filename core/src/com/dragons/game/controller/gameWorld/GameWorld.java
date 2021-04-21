@@ -46,7 +46,7 @@ import static com.dragons.game.utilities.Constants.VIEWPORT_WIDTH;
 public class GameWorld {
     private final ArrayList<GameObject> staticGameObjects = new ArrayList<>();
     private final ArrayList<GameObject> dynamicGameObjects = new ArrayList<>();
-    private final ArrayList<IGameObjectController> actionControllers = new ArrayList<>();
+    private final Collection<IGameObjectController> actionControllers = new LinkedList<>();
     private final ArrayList<LifeDisplayView> lifeDisplay = new ArrayList<>();
     private final Collection<IGameObjectController> tempControllerContainer = new LinkedList<>();
 
