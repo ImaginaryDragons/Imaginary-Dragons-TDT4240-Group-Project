@@ -125,8 +125,8 @@ public class GameWorld {
     }
 
     public void initializePlayers() {
-        Gdx.app.log("GameWorld", "Initializing main player");
-      
+
+        // Initialize player 1
         Vector2 p1StartPos = map.tilePosCenter(new Vector2(1,1));
         IModel p1 = playerFactory.createPlayer(1, p1StartPos, PlayerType.NORMALPLAYER, Color.RED,
                 map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
@@ -138,7 +138,7 @@ public class GameWorld {
         LifeDisplayView healthView1 = new LifeDisplayView((NormalPlayer)p1, assetManager, map, map.tilePosCenter(new Vector2(1,10)));
         lifeDisplay.add(healthView1);
 
-        Gdx.app.log("GameWorld", "Initializing secondary player");
+        // Initialize player 2
         Vector2 p2StartPos = map.tilePosCenter(new Vector2(13,9));
         IModel p2 = playerFactory.createPlayer(2, p2StartPos, PlayerType.NORMALPLAYER, Color.BLUE,
                 map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
