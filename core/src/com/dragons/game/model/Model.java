@@ -23,6 +23,11 @@ public abstract class Model implements IModel {
         return position;
     }
 
+    @Override
+    public void setPosition(float x, float y){
+        position.set(x, y);
+    }
+
 
     @Override
     public boolean isDisposed() {

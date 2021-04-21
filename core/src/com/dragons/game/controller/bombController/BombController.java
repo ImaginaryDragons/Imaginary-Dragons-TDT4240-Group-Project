@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class BombController implements IGameObjectController {
 
-    private GameObject bombObject;
+    private final GameObject bombObject;
     private IBomb bomb;
     public boolean removeController;
 
@@ -26,7 +26,7 @@ public class BombController implements IGameObjectController {
         if (bomb.isExploded()) {
 
             ArrayList<Vector2> fireTiles = bomb.getFireTiles(gameWorld.getMap());
-            gameWorld.spawnFire(fireTiles, bomb.getBombType());
+            gameWorld.spawnFire(fireTiles, bomb);
 
             // Dispose of everything related to this bomb
             bomb = null;

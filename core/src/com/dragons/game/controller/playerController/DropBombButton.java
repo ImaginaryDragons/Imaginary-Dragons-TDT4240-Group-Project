@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.dragons.game.controller.gameWorld.GameObject;
 import com.dragons.game.controller.gameWorld.GameWorld;
+import com.dragons.game.model.bombs.IBomb;
 import com.dragons.game.model.players.IPlayer;
 
 public class DropBombButton implements InputProcessor {
@@ -31,14 +32,13 @@ public class DropBombButton implements InputProcessor {
     @Override
     public boolean keyDown(int keycode) {  // For keyboard testing purposes
         if (player.getBombsAvailable() > 0){
-            Vector2 bombPosition;
+            IBomb bomb = player.getBomb();
+            Vector2 newBombPos = new Vector2(bomb.getPosition());
             if (player.getID() == 1 && keycode == Input.Keys.Q) {
-                bombPosition = new Vector2(player.getPosition());
-                gameWorld.placeBomb(bombPosition, player.getBombType(), player.getBombRange());
+                gameWorld.placeBomb(newBombPos, bomb.getType(), bomb.getBombRange());
                 player.useBomb();
             } else if (player.getID() == 2 && keycode == Input.Keys.M) {
-                bombPosition = new Vector2(player.getPosition());
-                gameWorld.placeBomb(bombPosition, player.getBombType(), player.getBombRange());
+                gameWorld.placeBomb(newBombPos, bomb.getType(), bomb.getBombRange());
                 player.useBomb();
             }
 
@@ -62,8 +62,9 @@ public class DropBombButton implements InputProcessor {
         cam.unproject(touch);
 
         if (dropBombBounds.contains(touch.x, touch.y) && player.getBombsAvailable() > 0) {  // Does bombsAvailable increase
-            Vector2 bombPosition = new Vector2(player.getPosition());
-            gameWorld.placeBomb(bombPosition, player.getBombType(), player.getBombRange());
+            IBomb bomb = player.getBomb();
+            Vector2 newBombPos = new Vector2(bomb.getPosition());
+            gameWorld.placeBomb(newBombPos, bomb.getType(), bomb.getBombRange());
             player.useBomb();
             Gdx.app.log("Game button", "DROP BOMB");
         }

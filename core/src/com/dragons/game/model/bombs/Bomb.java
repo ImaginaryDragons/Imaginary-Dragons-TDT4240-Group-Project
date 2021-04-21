@@ -13,29 +13,38 @@ import java.util.Iterator;
 
 public abstract class Bomb extends Model implements IBomb {
 
-    private float loadingTime;
+    private float explodeTime;
     private final int bombRange;
     protected boolean bombExploded = false;
     private final BombType type;
+    private float fireDisplayTime = Constants.FireDisplayTime;
 
     public Bomb(Vector2 pos, float width, float height, int bombRange, final BombType type, boolean isStatic, boolean isSensor){
         super(pos, width, height, isStatic, isSensor);
         this.bombRange = bombRange;
         this.type = type;
-        this.loadingTime = Constants.BombExplodeTime;
+        this.explodeTime = Constants.DefaultBombExplodeTime;
     }
 
     @Override
     public void update(float timestep){
-        loadingTime -= timestep;
-        if (loadingTime < 0) {
+        explodeTime -= timestep;
+        if (explodeTime < 0) {
             bombExploded = true;
         }
     }
 
+    @Override
+    public float getFireDisplayTime() {
+        return fireDisplayTime;
+    }
+
+    protected void setFireDisplayTime(float fireDisplayTime) {
+        this.fireDisplayTime = fireDisplayTime;
+    }
 
     @Override
-    public BombType getBombType() {
+    public BombType getType() {
         return type;
     }
 
@@ -112,7 +121,16 @@ public abstract class Bomb extends Model implements IBomb {
         return fireTiles;
     }
 
-    protected void setLoadingTime(float loadingTime) {
-        this.loadingTime = loadingTime;
+    public float getExplodeTime(){
+        return explodeTime;
+    }
+
+    @Override
+    public int getBombRange() {
+        return bombRange;
+    }
+
+    protected void setExplodeTime(float explodeTime) {
+        this.explodeTime = explodeTime;
     }
 }

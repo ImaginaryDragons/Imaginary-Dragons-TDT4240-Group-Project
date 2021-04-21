@@ -19,6 +19,7 @@ public class NormalBomb extends Bomb {
     private static final boolean isSensor = true;
 
 
+
     public NormalBomb(Vector2 pos, float width, float height, int bombRange, BombType type){
         super(pos, width, height, bombRange, type, isStatic, isSensor);
     }

@@ -12,13 +12,14 @@ import com.dragons.game.controller.bombController.FireController;
 import com.dragons.game.controller.IGameObjectController;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.bombs.BombType;
+import com.dragons.game.model.bombs.IBomb;
 import com.dragons.game.model.maps.GameMap;
 import com.dragons.game.model.modelFactories.BombFactory;
 import com.dragons.game.model.modelFactories.FireFactory;
 import com.dragons.game.model.modelFactories.PlayerFactory;
 import com.dragons.game.controller.playerController.InputHandler;
 import com.dragons.game.model.players.NormalPlayer;
-import com.dragons.game.model.players.PlayerType;
+import com.dragons.game.model.players.playerEnums.PlayerType;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.componentViews.LifeDisplayView;
 
@@ -161,10 +162,10 @@ public class GameWorld {
         this.actionControllers.add(newBombCtr);
     }
 
-    public void spawnFire(ArrayList<Vector2> fireTiles, BombType type) {
+    public void spawnFire(ArrayList<Vector2> fireTiles, IBomb bomb) {
         Gdx.app.log("GameWorld", "Spawning fire");
         for (Vector2 firePos : fireTiles) {
-            IModel fire = fireFactory.createFire(firePos, type, map.getTileWidth() * Constants.FireScaleFactor, map.getTileHeight() * Constants.FireScaleFactor);
+            IModel fire = fireFactory.createFire(firePos, bomb.getType(), map.getTileWidth() * Constants.FireScaleFactor, map.getTileHeight() * Constants.FireScaleFactor);
             GameObject newFire = new GameObject(fire,world,assetManager);
             FireController newFireCtr = new FireController(newFire);
             this.staticGameObjects.add(newFire);
@@ -173,6 +174,7 @@ public class GameWorld {
     }
 
     public void updateGameObjects(float delta) {
+        // Have to use Iterator in this method since we're modifying the lists while iterating
         Iterator<GameObject> iterator = dynamicGameObjects.iterator();
         GameObject dynamicObj;
         while(iterator.hasNext()) {
@@ -196,10 +198,10 @@ public class GameWorld {
         }
     }
 
+    /**
+     * Iterate through the controllers and perform actions
+     */
     public void updateActionControllers(){
-        // Iterate through the controllers and perform actions
-        // We have to use an iterator to remove them correctly
-        // REMOVING FIX: https://stackoverflow.com/questions/10033025/crash-when-trying-to-remove-object-from-arraylist
         for (int i = 0; i < actionControllers.size(); i++) {
             IGameObjectController controller = actionControllers.get(i);
             controller.controllerAction(this);
@@ -215,10 +217,6 @@ public class GameWorld {
 
     public ArrayList<GameObject> getDynamicGameObjects() {
         return dynamicGameObjects;
-    }
-
-    public ArrayList<IGameObjectController> getActionControllers() {
-        return actionControllers;
     }
 
     public GameMap getMap() {

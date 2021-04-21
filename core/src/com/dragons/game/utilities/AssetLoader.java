@@ -60,6 +60,8 @@ public class AssetLoader<BACKGROUND, STARTGAME_BTN, JOINGAME_BTN> {
             BOMB3 = "bombs/bomb3.png",
             BOMB4 = "bombs/bomb4.png",
 
+            TESTBOMB = "bombs/FireEgg.png",
+
             EXPLOSION1= "bombs/fires/explosion1.png",
             EXPLOSION2= "bombs/fires/explosion2.png",
             EXPLOSION3= "bombs/fires/explosion3.png",

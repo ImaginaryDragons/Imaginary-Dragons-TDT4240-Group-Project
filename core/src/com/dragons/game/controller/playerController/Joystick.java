@@ -14,10 +14,10 @@ import static com.dragons.game.utilities.Constants.JOYSTICK_PERIMETER_RADIUS;
 import static com.dragons.game.utilities.Constants.JOYSTICK_ORIGIN_X;
 import static com.dragons.game.utilities.Constants.JOYSTICK_RADIUS;
 import static com.dragons.game.utilities.Constants.VIEWPORT_WIDTH;
-import static com.dragons.game.model.players.Direction.DOWN;
-import static com.dragons.game.model.players.Direction.LEFT;
-import static com.dragons.game.model.players.Direction.RIGHT;
-import static com.dragons.game.model.players.Direction.UP;
+import static com.dragons.game.model.players.playerEnums.Direction.DOWN;
+import static com.dragons.game.model.players.playerEnums.Direction.LEFT;
+import static com.dragons.game.model.players.playerEnums.Direction.RIGHT;
+import static com.dragons.game.model.players.playerEnums.Direction.UP;
 
 public class Joystick implements InputProcessor {
 

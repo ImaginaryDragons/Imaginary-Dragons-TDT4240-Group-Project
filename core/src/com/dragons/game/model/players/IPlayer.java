@@ -3,6 +3,8 @@ package com.dragons.game.model.players;
 import com.badlogic.gdx.graphics.Color;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.bombs.BombType;
+import com.dragons.game.model.bombs.IBomb;
+import com.dragons.game.model.players.playerEnums.Direction;
 
 public interface IPlayer extends IModel {
     int getID();
@@ -10,9 +12,9 @@ public interface IPlayer extends IModel {
     int getBombRange();
     int getBombsAvailable();
     float getSpeed();
-    Direction getOrientation();
+    com.dragons.game.model.players.playerEnums.Direction getOrientation();
     Color getColor();
-    BombType getBombType();
+    IBomb getBomb();
     void handleHitByBomb();
     void useBomb();
     void setOrientation(Direction orientation);
