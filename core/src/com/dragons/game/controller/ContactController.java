@@ -23,7 +23,7 @@ public class ContactController {
         // Call the objects action based on interaction type
 
         if (oneIsPlayer && oneIsPowerUp){
-            System.out.println("Collision PowerUp and Player");
+            //System.out.println("Collision PowerUp and Player");
             if (objA instanceof IPowerUp){
                 ((IPowerUp) objA).handlePickedUp(objB);
             }
@@ -31,12 +31,12 @@ public class ContactController {
         }
 
         if (oneIsBomb && oneIsPlayer){
-            System.out.println("Collision Player and Bomb");
+            //System.out.println("Collision Player and Bomb");
 
         }
 
         if (oneIsPlayer && oneIsFire){
-            System.out.println("Collision Player and Fire");
+            //System.out.println("Collision Player and Fire");
             if (objA instanceof IPlayer){
                 ((IPlayer) objA).handleHitByBomb();
             } else {
@@ -45,7 +45,7 @@ public class ContactController {
         }
 
         if (oneIsFire && oneIsBlock){
-            System.out.println("Collision fire and block");
+            //System.out.println("Collision fire and block");
             if(objA instanceof IBlock){
                 ((IBlock) objA).handleHitByBomb();
             } else {
@@ -54,7 +54,7 @@ public class ContactController {
         }
 
         if (oneIsFire && oneIsBomb){
-            System.out.println("Collision fire and bomb");
+            //System.out.println("Collision fire and bomb");
             if(objA instanceof IBomb){
                 ((IBomb) objA).hitByFire();
             }

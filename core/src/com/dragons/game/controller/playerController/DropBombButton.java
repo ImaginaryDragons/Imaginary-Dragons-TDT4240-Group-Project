@@ -35,10 +35,10 @@ public class DropBombButton implements InputProcessor {
             IBomb bomb = player.getBomb();
             Vector2 newBombPos = new Vector2(bomb.getPosition());
             if (player.getID() == 1 && keycode == Input.Keys.Q) {
-                gameWorld.placeBomb(newBombPos, bomb.getType(), bomb.getBombRange());
+                gameWorld.placeBomb(newBombPos, bomb.getType(), player.getExtraBombRange());
                 player.useBomb();
             } else if (player.getID() == 2 && keycode == Input.Keys.M) {
-                gameWorld.placeBomb(newBombPos, bomb.getType(), bomb.getBombRange());
+                gameWorld.placeBomb(newBombPos, bomb.getType(), player.getExtraBombRange());
                 player.useBomb();
             }
 
@@ -64,9 +64,9 @@ public class DropBombButton implements InputProcessor {
         if (dropBombBounds.contains(touch.x, touch.y) && player.getBombsAvailable() > 0) {  // Does bombsAvailable increase
             IBomb bomb = player.getBomb();
             Vector2 newBombPos = new Vector2(bomb.getPosition());
-            gameWorld.placeBomb(newBombPos, bomb.getType(), bomb.getBombRange());
+            gameWorld.placeBomb(newBombPos, bomb.getType(), player.getExtraBombRange());
             player.useBomb();
-            Gdx.app.log("Game button", "DROP BOMB");
+            //Gdx.app.log("Game button", "DROP BOMB");
         }
         return false;
     }

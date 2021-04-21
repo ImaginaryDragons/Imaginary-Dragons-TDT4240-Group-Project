@@ -7,12 +7,10 @@ import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.bombs.IBomb;
 import com.dragons.game.model.modelFactories.BombFactory;
 import com.dragons.game.model.players.playerEnums.Direction;
-import com.dragons.game.utilities.Constants;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.Queue;
 
 public abstract class Player extends Model implements IPlayer {
@@ -22,7 +20,7 @@ public abstract class Player extends Model implements IPlayer {
     protected int lives;
     protected float speed;
     protected int bombCapacity;
-    protected int bombRange;
+    protected int extraBombRange;
     protected Queue<IBomb> bombInventory;
     protected final Queue<IBomb> placedBombs = new LinkedList<>();
     protected float hitProtectionTime;
@@ -78,6 +76,47 @@ public abstract class Player extends Model implements IPlayer {
 
         }
     }
+
+    @Override
+    public void increaseSpeed(float amount){
+        speed += amount;
+    }
+
+    @Override
+    public void increaseBombRange(int amount){
+        extraBombRange += amount;
+        for (IBomb bomb : bombInventory){
+            bomb.increaseRange(amount);
+        }
+
+        for (IBomb bomb : placedBombs){
+            bomb.increaseRange(amount);
+        }
+
+    }
+
+    @Override
+    public void increaseBombCapacity(int amount, BombType bombType){
+        bombCapacity += amount;
+        for (int i = 0; i < amount; i++) {
+            addBombs(createBomb(getPosition(), bombType, getWidth(), getHeight(), extraBombRange));
+        }
+    }
+
+    protected IBomb createBomb(Vector2 pos, BombType bombType, float width, float height, int extraRange){
+        return (IBomb) BombFactory.getInstance().createBomb(pos, bombType, width, height, extraRange);
+    }
+
+    private void addBombs(IBomb bomb){
+        if (this.bombInventory.size() < bombCapacity) this.bombInventory.add(bomb);
+
+    }
+
+    @Override
+    public int getExtraBombRange(){
+        return extraBombRange;
+    }
+
     @Override
     public int getID() {
         return ID;
@@ -105,10 +144,6 @@ public abstract class Player extends Model implements IPlayer {
         return bombInventory.size();
     }
 
-    @Override
-    public int getBombRange() {
-        return bombRange;
-    }
 
     @Override
     public IBomb getBomb() {
@@ -120,7 +155,7 @@ public abstract class Player extends Model implements IPlayer {
         IBomb bomb = bombInventory.remove();
         placedBombs.add(bomb);
         // add one counter for every bomb used;
-        newBombTimeCounters.add(bomb.getExplodeTime() + bomb.getFireDisplayTime());
+        newBombTimeCounters.add(bomb.getExplodeTime() + bomb.getFire().getDisplayTime());
     }
 
     @Override
@@ -133,32 +168,6 @@ public abstract class Player extends Model implements IPlayer {
         return speed;
     }
 
-    @Override
-    public void increaseSpeed(float amount){
-        speed += amount;
-    }
-
-    @Override
-    public void increaseBombRange(int amount){
-        bombRange += amount;
-    }
-
-    @Override
-    public void increaseBombCapacity(int amount, BombType bombType){
-        bombCapacity += amount;
-        for (int i = 0; i < amount; i++) {
-            addBombs(createBomb(getPosition(), bombType, getWidth(), getHeight(), bombRange));
-        }
-    }
-
-    protected IBomb createBomb(Vector2 pos, BombType bombType, float width, float height, int range){
-        return (IBomb) BombFactory.getInstance().createBomb(pos, bombType, width, height, range);
-    }
-
-    private void addBombs(IBomb bomb){
-        if (this.bombInventory.size() < bombCapacity) this.bombInventory.add(bomb);
-
-    }
 
 
 

@@ -5,7 +5,9 @@ import com.dragons.game.model.IModel;
 import com.dragons.game.model.Model;
 import com.dragons.game.model.blocks.DestructibleBlock;
 import com.dragons.game.model.blocks.WallBlock;
+import com.dragons.game.model.bombs.fires.IFire;
 import com.dragons.game.model.maps.GameMap;
+import com.dragons.game.model.modelFactories.FireFactory;
 import com.dragons.game.utilities.Constants;
 
 import java.util.ArrayList;
@@ -14,16 +16,17 @@ import java.util.Iterator;
 public abstract class Bomb extends Model implements IBomb {
 
     private float explodeTime;
-    private final int bombRange;
+    private int bombRange;
     protected boolean bombExploded = false;
     private final BombType type;
-    private float fireDisplayTime = Constants.FireDisplayTime;
+    protected IFire fire;
 
     public Bomb(Vector2 pos, float width, float height, int bombRange, final BombType type, boolean isStatic, boolean isSensor){
         super(pos, width, height, isStatic, isSensor);
         this.bombRange = bombRange;
         this.type = type;
         this.explodeTime = Constants.DefaultBombExplodeTime;
+        fire = (IFire) FireFactory.getInstance().createFire(pos, type, width, height);
     }
 
     @Override
@@ -34,14 +37,6 @@ public abstract class Bomb extends Model implements IBomb {
         }
     }
 
-    @Override
-    public float getFireDisplayTime() {
-        return fireDisplayTime;
-    }
-
-    protected void setFireDisplayTime(float fireDisplayTime) {
-        this.fireDisplayTime = fireDisplayTime;
-    }
 
     @Override
     public BombType getType() {
@@ -51,6 +46,11 @@ public abstract class Bomb extends Model implements IBomb {
     @Override
     public boolean isExploded() {
         return bombExploded;
+    }
+
+    @Override
+    public void increaseRange(int amount){
+        bombRange += amount;
     }
 
     @Override
@@ -128,6 +128,11 @@ public abstract class Bomb extends Model implements IBomb {
     @Override
     public int getBombRange() {
         return bombRange;
+    }
+
+    @Override
+    public IFire getFire() {
+        return fire;
     }
 
     protected void setExplodeTime(float explodeTime) {

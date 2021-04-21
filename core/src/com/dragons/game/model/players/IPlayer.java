@@ -9,10 +9,10 @@ import com.dragons.game.model.players.playerEnums.Direction;
 public interface IPlayer extends IModel {
     int getID();
     int getLives();
-    int getBombRange();
     int getBombsAvailable();
+    int getExtraBombRange();
     float getSpeed();
-    com.dragons.game.model.players.playerEnums.Direction getOrientation();
+    Direction getOrientation();
     Color getColor();
     IBomb getBomb();
     void handleHitByBomb();

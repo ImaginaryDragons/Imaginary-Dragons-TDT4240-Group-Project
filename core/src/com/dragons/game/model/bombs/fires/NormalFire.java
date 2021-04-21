@@ -11,7 +11,7 @@ public class NormalFire extends Model implements IFire {
 
     private static final boolean isStatic = false;
     private static final boolean isSensor = true;
-    private float fireDisplayTime = Constants.FireDisplayTime;;
+    private float DisplayTime = Constants.FireDisplayTime;;
     private boolean fireExpired;
     private final BombType bombType;
 
@@ -23,8 +23,8 @@ public class NormalFire extends Model implements IFire {
 
     @Override
     public void update(float timestep) {
-        fireDisplayTime -= timestep;
-        if (fireDisplayTime < 0) {
+        DisplayTime -= timestep;
+        if (DisplayTime < 0) {
             this.fireExpired = true;
         }
     }
@@ -37,6 +37,25 @@ public class NormalFire extends Model implements IFire {
     @Override
     public BombType getBombType() {
         return bombType;
+    }
+
+    @Override
+    public IFire clone() {
+        try {
+            return (IFire) super.clone();
+        }catch (CloneNotSupportedException e){
+            throw new AssertionError();
+        }
+    }
+
+    @Override
+    public float getDisplayTime() {
+        return DisplayTime;
+    }
+
+    @Override
+    public void setDisplayTime(float time) {
+        DisplayTime = time;
     }
 
 

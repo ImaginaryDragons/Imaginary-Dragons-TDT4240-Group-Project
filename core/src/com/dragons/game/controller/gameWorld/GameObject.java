@@ -23,7 +23,7 @@ public class GameObject {
     public boolean destroyObject;
 
     public GameObject(IModel model, World world, AnnotationAssetManager assetManager) {
-        Gdx.app.log("GameObject", "Creating game object");
+        //Gdx.app.log("GameObject", "Creating game object");
         this.model = model;
         this.world = world;
         this.modelView = ModelViewFactory.getInstance().createModelView(model, assetManager);

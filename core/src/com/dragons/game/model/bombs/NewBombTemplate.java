@@ -12,7 +12,7 @@ public class NewBombTemplate extends Bomb{
     public NewBombTemplate(Vector2 pos, float width, float height, int bombRange, BombType type) {
         super(pos, width, height, bombRange, type, isStatic, isSensor);
         super.setExplodeTime(explodeTime); // Overrides the default value of the explodeTime
-        super.setFireDisplayTime(fireDisplayTime); // Overrides the default value of the fireDisplayTime
+        fire.setDisplayTime(fireDisplayTime);
     }
 
     @Override
