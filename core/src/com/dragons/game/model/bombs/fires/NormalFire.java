@@ -11,18 +11,18 @@ public class NormalFire extends Model implements IFire {
     private static final boolean isStatic = false;
     private static final boolean isSensor = true;
     private boolean fireExpired;
-    private float loadingTime;
+    private float fireDisplayTime;
 
     public NormalFire(Vector2 position, float width, float height) {
         super(position, width, height, isStatic, isSensor);
         this.fireExpired = false;
-        loadingTime = Constants.FireDisplayTime;
+        fireDisplayTime = Constants.FireDisplayTime;
     }
 
     @Override
     public void update(float timestep) {
-        loadingTime -= timestep;
-        if (loadingTime < 0) {
+        fireDisplayTime -= timestep;
+        if (fireDisplayTime < 0) {
             this.fireExpired = true;
         }
     }

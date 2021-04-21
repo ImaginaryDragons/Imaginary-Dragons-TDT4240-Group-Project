@@ -9,14 +9,8 @@ import com.dragons.game.FireBaseInterface;
 public class DesktopFirebaseInterface implements FireBaseInterface {
 
 
-
     @Override
-    public void SomeFunction() {
-
-    }
-
-    @Override
-    public void writePlayerToFB(int ID, Vector2 position, Color color, int width, int height) {
+    public void writeHighscoreToFB(String name, double score, int id) {
 
     }
 

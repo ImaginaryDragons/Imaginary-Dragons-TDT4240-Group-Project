@@ -2,6 +2,7 @@ package com.dragons.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,10 +11,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.dragons.game.DragonsGame;
 
-public class LoadingScreen implements Screen {
+public class LoadingScreen extends ScreenAdapter {
 
     private final DragonsGame dragonsGame;
     private ShapeRenderer shapeRenderer;
+
 
 
     private float progress;
@@ -25,8 +27,9 @@ public class LoadingScreen implements Screen {
     }
 
     private void queueAssets() {
-        dragonsGame.assets.load("logo.png", Texture.class);
-        dragonsGame.assets.load("over.png", Texture.class);
+        dragonsGame.assets.load("components/logo.png", Texture.class);
+        dragonsGame.assets.load("components/over.png", Texture.class);
+        dragonsGame.assets.load("components/highscores.png", Texture.class);
         dragonsGame.assets.load("uiskin.atlas", TextureAtlas.class);
     }
 
@@ -61,25 +64,7 @@ public class LoadingScreen implements Screen {
         shapeRenderer.end();
     }
 
-    @Override
-    public void resize(int width, int height) {
 
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
 
     @Override
     public void dispose() {
