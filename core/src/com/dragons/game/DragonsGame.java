@@ -11,24 +11,13 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.screens.LoadingScreen;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.dragons.game.model.maps.GameMap;
-import com.dragons.game.controller.gameWorld.GameWorld;
-import com.dragons.game.model.players.NormalPlayer;
-
-import com.dragons.game.view.screens.GameScreen;
 
 import java.io.IOException;
 
 public class DragonsGame extends Game {
     SpriteBatch batch;
-    Texture img;
     FireBaseInterface _FBIC;
-    NormalPlayer player;
-    GameMap map;
-    GameScreen gameScreen;
-    GameWorld gameWorld;
 
 	public AssetManager assets;
 	public BitmapFont font;
@@ -66,11 +55,9 @@ public class DragonsGame extends Game {
 
 		Gdx.app.log("DragonsGame", "created");
 		initFonts();
-		//this.setScreen(loadingScreen);
-		this.setScreen(new LoadingScreen(this));
+		setScreen(new LoadingScreen(this));
 
         _FBIC.SetOnValueChangedListener();
-		//setScreen(new MenuScreen(this));
 	}
 
 
