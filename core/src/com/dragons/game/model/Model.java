@@ -9,7 +9,6 @@ public abstract class Model implements IModel {
     private boolean disposeModel = false;
     private final boolean isStatic, isSensor;
 
-    // TODO: might remove ModelType but keep it for the moment
     public Model(Vector2 position, float width, float height, boolean isStatic, boolean isSensor) {
         this.position = position;
         this.width = width;
@@ -22,6 +21,11 @@ public abstract class Model implements IModel {
     @Override
     public Vector2 getPosition() {
         return position;
+    }
+
+    @Override
+    public void setPosition(float x, float y){
+        position.set(x, y);
     }
 
 

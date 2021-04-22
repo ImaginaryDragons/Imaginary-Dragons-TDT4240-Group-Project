@@ -4,12 +4,8 @@ package com.dragons.game.view.modelViews.players;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.players.IPlayer;
-import com.dragons.game.model.players.NormalPlayer;
-import com.dragons.game.utilities.Direction;
-import com.dragons.game.view.modelViews.IModelView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 

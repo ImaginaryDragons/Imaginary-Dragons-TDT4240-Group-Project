@@ -43,7 +43,7 @@ public class LifeDisplayView implements IView {
     }
 
     @Override
-    public void render(SpriteBatch sb) {
+    public void render(SpriteBatch batch) {
         float x = position.x;
         float y = position.y;
         float height = map.getTileHeight()*Constants.HealthScaleFactor;
@@ -51,9 +51,9 @@ public class LifeDisplayView implements IView {
 
         for (int i = 0; i < initialPlayerLives; i++) {
             if (i < player.getLives()){
-                sb.draw(lifeDisplay, x - width / 2f, y - height / 2f, width, height);
+                batch.draw(lifeDisplay, x - width / 2f, y - height / 2f, width, height);
             }
-            else sb.draw(emptyLife, x - width / 2f, y - height / 2f, width, height);
+            else batch.draw(emptyLife, x - width / 2f, y - height / 2f, width, height);
 
             x += 32f;
         }

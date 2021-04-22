@@ -13,7 +13,7 @@ public class FireController implements IGameObjectController {
 
     public FireController(GameObject fireObject) {
         this.fireObject = fireObject;
-        this.fire = (IFire) fireObject.getObject();
+        this.fire = (IFire) fireObject.getModel();
         this.removeController = false;
     }
 
