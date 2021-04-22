@@ -21,8 +21,8 @@ public abstract class Player extends Model implements IPlayer {
     protected float speed;
     protected int bombCapacity;
     protected int extraBombRange;
-    protected Queue<IBomb> bombInventory;
-    protected final Queue<IBomb> placedBombs = new LinkedList<>();
+    protected LinkedList<IBomb> bombInventory;
+    protected final LinkedList<IBomb> placedBombs = new LinkedList<>();
     protected float hitProtectionTime;
     protected boolean hitProtectionMode = false;
     private Direction orientation = Direction.UP; // The direction the player is looking
@@ -66,7 +66,7 @@ public abstract class Player extends Model implements IPlayer {
                 float newTime = timeToNewBomb - timestep;
                 if (newTime < 0) {
                     // Bomb is finished exploding => add it back to inventory
-                    addBombs(placedBombs.remove());
+                    addBombs(placedBombs.removeLast());
                 }
                 else newCounterList.add(newTime);
             }
@@ -108,7 +108,7 @@ public abstract class Player extends Model implements IPlayer {
     }
 
     private void addBombs(IBomb bomb){
-        if (this.bombInventory.size() < bombCapacity) this.bombInventory.add(bomb);
+        if (this.bombInventory.size() < bombCapacity) this.bombInventory.addFirst(bomb);
 
     }
 
@@ -152,8 +152,8 @@ public abstract class Player extends Model implements IPlayer {
 
     @Override
     public void useBomb() {
-        IBomb bomb = bombInventory.remove();
-        placedBombs.add(bomb);
+        IBomb bomb = bombInventory.removeLast();
+        placedBombs.addFirst(bomb);
         // add one counter for every bomb used;
         newBombTimeCounters.add(bomb.getExplodeTime() + bomb.getFire().getDisplayTime());
     }

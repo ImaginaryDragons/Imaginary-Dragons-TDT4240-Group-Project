@@ -71,7 +71,7 @@ public class GameWorld {
     // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
 
-    public GameWorld(com.dragons.game.model.maps.GameMap map, AnnotationAssetManager manager, OrthographicCamera camera, DragonsGame dragonsGame) {
+    public GameWorld(GameMap map, AnnotationAssetManager manager, OrthographicCamera camera, DragonsGame dragonsGame) {
         world = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         this.assetManager = manager;
         world.setContactListener(new WorldContactListener());
