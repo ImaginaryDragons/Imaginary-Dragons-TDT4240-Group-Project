@@ -37,6 +37,11 @@ public abstract class Bomb extends Model implements IBomb {
         }
     }
 
+    @Override
+    public int getBombRange() {
+        return bombRange;
+    }
+
 
     @Override
     public BombType getType() {
@@ -53,73 +58,6 @@ public abstract class Bomb extends Model implements IBomb {
         bombRange += amount;
     }
 
-    @Override
-    // Return which tiles we want to add fires to
-    public ArrayList<Vector2> getFireTiles(GameMap gameMap) {
-        ArrayList<Vector2> fireTiles = new ArrayList<Vector2>();
-        fireTiles.addAll(addFireInDirection("up", gameMap));
-        fireTiles.addAll(addFireInDirection("down", gameMap));
-        fireTiles.addAll(addFireInDirection("left", gameMap));
-        fireTiles.addAll(addFireInDirection("right", gameMap));
-        fireTiles.add(gameMap.tilePosCenter(gameMap.pos2tile(super.getPosition())));
-        return fireTiles;
-    }
-
-    // Returns the tiles we want fire to in a given direction
-    private ArrayList<Vector2> addFireInDirection(String direction, GameMap gameMap) {
-        Vector2 checkTile = gameMap.pos2tile(super.getPosition());
-        ArrayList<Vector2> fireTiles = new ArrayList<Vector2>();
-
-        int increment;
-        if (direction.equals("up") || direction.equals("right")) {
-            increment = 1;
-        } else if (direction.equals("down") || direction.equals("left")) {
-            increment = -1;
-        } else {
-            increment = 0;
-        }
-
-        // Checks how many tiles the fire should expand to
-        for (int i = 0; i < bombRange; i++) {
-            if (direction.equals("up") || direction.equals("down")) {
-                checkTile.y += increment;
-            } else if (direction.equals("left") || direction.equals("right")) {
-                checkTile.x += increment;
-            }
-            ArrayList<IModel> tileContainer = gameMap.getTileContent((int)checkTile.x, (int)checkTile.y);
-            if (tileContainer == null){
-                // Indicates outside map boundaries. Stop checking in this direction
-                break;
-            }
-
-            boolean stopExpanding = false;
-            boolean addCurrentTile = true;
-
-            Iterator<IModel> it = tileContainer.iterator();
-            IModel obj;
-            while(it.hasNext()){
-                obj = it.next();
-                if (obj instanceof WallBlock) {
-                    stopExpanding = true;
-                    addCurrentTile = false;
-                }
-                else if(obj instanceof DestructibleBlock) {
-                    stopExpanding = true;
-                    addCurrentTile = true;
-                    it.remove();
-                }
-
-            }
-            if (addCurrentTile) {
-                fireTiles.add(new Vector2(gameMap.tilePosCenter(checkTile)));
-            }
-            if (stopExpanding) {
-                break;
-            }
-        }
-
-        return fireTiles;
-    }
 
     public float getExplodeTime(){
         return explodeTime;
