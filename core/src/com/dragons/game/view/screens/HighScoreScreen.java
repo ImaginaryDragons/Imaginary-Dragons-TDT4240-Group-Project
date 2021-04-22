@@ -107,7 +107,7 @@ public class HighScoreScreen implements Screen {
     private void initScreen() {
 
 
-        Texture gameOverTex = dragonsGame.assets.get("highscores.png", Texture.class);
+        Texture gameOverTex = dragonsGame.assets.get("components/highscores.png", Texture.class);
         highscoreImg = new Image(gameOverTex);
         highscoreImg.setPosition(dragonsGame.camera.position.x - highscoreImg.getWidth() / 2, dragonsGame.camera.position.y + 70);
 

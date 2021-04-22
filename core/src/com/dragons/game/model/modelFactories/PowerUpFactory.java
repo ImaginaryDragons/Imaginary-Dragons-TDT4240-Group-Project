@@ -21,8 +21,8 @@ import java.util.Random;
 public final class PowerUpFactory {
 
     private static final PowerUpFactory INSTANCE = new PowerUpFactory();
-    private PowerUpType[] powerUps=PowerUpType.values();
-    private Random random = new Random();
+    private final PowerUpType[] powerUps=PowerUpType.values();
+    private final Random random = new Random();
 
     public static PowerUpFactory getInstance() {
         return INSTANCE;

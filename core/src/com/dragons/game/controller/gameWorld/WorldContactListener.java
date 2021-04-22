@@ -20,7 +20,7 @@ public class WorldContactListener implements ContactListener {
         GameObject gameObjectA = (GameObject) contact.getFixtureA().getUserData();
         GameObject gameObjectB = (GameObject) contact.getFixtureB().getUserData();
 
-        contactController.handleContact(gameObjectA.getObject(), gameObjectB.getObject());
+        contactController.handleContact(gameObjectA.getModel(), gameObjectB.getModel());
     }
 
     @Override

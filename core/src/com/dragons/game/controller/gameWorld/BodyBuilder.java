@@ -14,9 +14,6 @@ import com.dragons.game.model.blocks.IBlock;
 import com.dragons.game.model.bombs.IBomb;
 import com.dragons.game.model.bombs.fires.IFire;
 import com.dragons.game.model.players.IPlayer;
-import com.dragons.game.model.bombs.NormalBomb;
-import com.dragons.game.model.bombs.fires.NormalFire;
-import com.dragons.game.model.players.NormalPlayer;
 import com.dragons.game.model.powerUps.IPowerUp;
 
 
@@ -32,7 +29,7 @@ public final class BodyBuilder {
     // Create a body and a fixture for the object and place it in world!
 
     public static Body createBody(World world, GameObject gameObject) {
-        IModel model = gameObject.getObject();
+        IModel model = gameObject.getModel();
         Vector2 position = model.getPosition();
         Shape shape = getShape(model);
         boolean isStatic = model.isStatic();
@@ -87,7 +84,7 @@ public final class BodyBuilder {
 
     // TODO: Generalise the shapes such that NormalPlayer = IPlayer and NormalBomb = IBomb? This might increase modifiability
     private static Shape getPlayerShape(Model model){
-        if (model instanceof NormalPlayer){
+        if (model instanceof IPlayer){
             final CircleShape normalPlayerShape = new CircleShape();
             normalPlayerShape.setRadius(model.getHeight() / 2 / PPM);
             return normalPlayerShape;
@@ -96,7 +93,7 @@ public final class BodyBuilder {
     }
 
     private static Shape getBombShape(Model model){
-        if (model instanceof NormalBomb){
+        if (model instanceof IBomb){
             final CircleShape normalBomb = new CircleShape();
             normalBomb.setRadius(model.getHeight() / 2 / PPM);
             return normalBomb;
@@ -105,7 +102,7 @@ public final class BodyBuilder {
     }
 
     private static Shape getFireShape(Model model){
-        if (model instanceof NormalFire){
+        if (model instanceof IFire){
             final PolygonShape normalFireShape = new PolygonShape();
             normalFireShape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
             return normalFireShape;

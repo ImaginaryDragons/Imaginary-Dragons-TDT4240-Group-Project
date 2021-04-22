@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragons.game.model.IModel;
 import com.dragons.game.utilities.Constants;
+import com.google.errorprone.annotations.RequiredModifiers;
 
 public abstract class ModelView implements IModelView{
     protected static final float FRAME_DURATION = Constants.FRAME_DURATION;
