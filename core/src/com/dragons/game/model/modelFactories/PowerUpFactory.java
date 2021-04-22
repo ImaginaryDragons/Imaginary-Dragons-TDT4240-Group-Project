@@ -2,6 +2,7 @@ package com.dragons.game.model.modelFactories;
 
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.IModel;
+import com.dragons.game.model.powerUps.NewPowerUpTemplate;
 import com.dragons.game.model.powerUps.PowerUpType;
 import com.dragons.game.model.powerUps.BombCapacity;
 import com.dragons.game.model.powerUps.IncreaseRange;
@@ -50,6 +51,8 @@ public final class PowerUpFactory {
                 return new IncreaseRange(position, width, height);
             case INCREASESPEED:
                 return new IncreaseSpeed(position, width, height);
+            case NEWPOWERUPTEMPLATE:
+                return new NewPowerUpTemplate(position, width, height);
             default:
                 throw new IllegalArgumentException();
         }

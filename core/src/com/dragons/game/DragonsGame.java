@@ -8,10 +8,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.dragons.game.networking.FireBaseInterface;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.screens.LoadingScreen;
-
-import com.badlogic.gdx.math.Vector2;
 
 import java.io.IOException;
 

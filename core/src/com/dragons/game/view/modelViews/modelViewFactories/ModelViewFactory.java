@@ -31,6 +31,7 @@ public class ModelViewFactory {
     }
 
     public IModelView createModelView(IModel model, AnnotationAssetManager assetManager){
+        // Add different viewFactories if needed here
         if      (model instanceof IBlock)   return blockViewFactory.createModelView(model, assetManager);
         else if (model instanceof IPowerUp) return powerUpViewFactory.createModelView(model, assetManager);
         else if (model instanceof IPlayer)  return playerViewFactory.createModelView(model, assetManager);

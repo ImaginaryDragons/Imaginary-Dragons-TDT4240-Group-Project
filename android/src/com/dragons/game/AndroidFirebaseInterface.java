@@ -6,6 +6,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.dragons.game.model.players.NormalPlayer;
+import com.dragons.game.networking.FireBaseInterface;
+import com.dragons.game.networking.FirebasePlayer;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

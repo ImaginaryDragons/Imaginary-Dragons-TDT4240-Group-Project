@@ -14,7 +14,6 @@ public interface IBomb extends IModel {
     void hitByFire();
     BombType getType();
     float getExplodeTime();
-    int getBombRange();
     IFire getFire();
     void increaseRange(int amount);
 

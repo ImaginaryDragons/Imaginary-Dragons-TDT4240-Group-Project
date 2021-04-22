@@ -4,9 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.Model;
 import com.dragons.game.model.players.IPlayer;
-import com.dragons.game.model.players.NormalPlayer;
-
-
 
 
 public class IncreaseRange extends Model implements IPowerUp {
@@ -27,6 +24,6 @@ public class IncreaseRange extends Model implements IPowerUp {
         // for debugging
         else throw new IllegalArgumentException("Model is not of type NormalPlayer");
 
-        super.disposeModel();
+        super.dispose();
     }
 }

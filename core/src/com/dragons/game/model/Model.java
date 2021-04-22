@@ -34,6 +34,7 @@ public abstract class Model implements IModel {
         return disposeModel;
     }
 
+
     public boolean isStatic() {
         return isStatic;
     }
@@ -50,7 +51,7 @@ public abstract class Model implements IModel {
     /**
      * Sets the destroyModel value to true => this tells the world to destroy the model
      */
-    protected void disposeModel(){
+    public void dispose(){
         disposeModel = true;
     }
 
