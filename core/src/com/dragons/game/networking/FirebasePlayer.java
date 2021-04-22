@@ -1,4 +1,4 @@
-package com.dragons.game;
+package com.dragons.game.networking;
 
 public class FirebasePlayer {
 
