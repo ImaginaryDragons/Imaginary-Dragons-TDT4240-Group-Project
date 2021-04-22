@@ -6,7 +6,6 @@ import com.dragons.game.model.bombs.BombType;
 public interface IFire extends IModel {
 
     boolean isExpired();
-    BombType getBombType();
     float getDisplayTime();
     void setDisplayTime(float time);
 

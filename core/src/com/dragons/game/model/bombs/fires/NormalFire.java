@@ -35,10 +35,6 @@ public class NormalFire extends Model implements IFire {
         return fireExpired;
     }
 
-    @Override
-    public BombType getBombType() {
-        return bombType;
-    }
 
 
 
