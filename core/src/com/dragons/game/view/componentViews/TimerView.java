@@ -37,9 +37,9 @@ public class TimerView implements IView {
     private Label timeLabel;
 
     public TimerView(AssetManager assets, OrthographicCamera camera) {
-        worldTimer = 10;
+        worldTimer = 1;
         timeCount = 0;
-        scoreCount = 0;
+        scoreCount = 1;
 
         firebasePlayer = new FirebasePlayer();
         stage = new Stage(new StretchViewport(camera.viewportWidth, camera.viewportHeight, camera));

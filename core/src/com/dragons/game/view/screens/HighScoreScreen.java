@@ -154,19 +154,7 @@ public class HighScoreScreen implements Screen {
         }
 
         
-/*
-        for (int i = 0; i < scores.size(); i++) {
-            table.add(new Label(firebasePlayer.getName(), skin)).uniform(); //firebasePlayer.scores.getKey()
-        }
-        table.row();
 
-        for (int i = 0; i < scores.size(); i++) {
-            //for (int j = 0; j < scores.size(); j++) {
-               table.add(new Label(String.valueOf(firebasePlayer.getScore()), skin));
-            //}
-            table.row();
-        }
-*/
 
         tableContainer.setActor(table);
         stage.addActor(highscoreImg);

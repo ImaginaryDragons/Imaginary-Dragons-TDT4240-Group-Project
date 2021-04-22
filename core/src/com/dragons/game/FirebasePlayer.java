@@ -32,10 +32,6 @@ public class FirebasePlayer {
         this.score = score;
     }
 
-    public void setScores(String name, int score) {
-        scores.put(name, score);
-    }
-
     public static Map<String, Integer> getScores(){
         return scores;
     }

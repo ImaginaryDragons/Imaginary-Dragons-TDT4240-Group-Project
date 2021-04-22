@@ -24,12 +24,7 @@ import java.io.IOException;
 
 public class DragonsGame extends Game {
 	SpriteBatch batch;
-	Texture img;
 	public FireBaseInterface _FBIC;
-	NormalPlayer player;
-	GameMap map;
-	GameScreen gameScreen;
-	GameWorld gameWorld;
 
 
 	public AssetManager assets;
@@ -37,12 +32,6 @@ public class DragonsGame extends Game {
 
 	public OrthographicCamera camera;
 	public FirebasePlayer firebasePlayer = new FirebasePlayer();
-	//public TimerView timerView;
-	//public LoadingScreen loadingScreen;
-	//public TestMenuScreen testMenuScreen;
-	//public GameScreen gameScreen;
-	//public GameOverScreen gameOverScreen;
-
 	public DragonsGame(FireBaseInterface FBIC) throws IOException {
 		_FBIC = FBIC;
 
@@ -59,18 +48,11 @@ public class DragonsGame extends Game {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Constants.WorldWidth, Constants.WorldHeight);
 		batch = new SpriteBatch();
-		//timerView = new TimerView(assets, camera);
-
-		_FBIC.SetOnValueChangedListener(firebasePlayer);
 
 		Gdx.app.log("DragonsGame", "created");
 		initFonts();
-		//this.setScreen(loadingScreen);
 		this.setScreen(new LoadingScreen(this));
-		//_FBIC.writeHighscoreToFB(firebasePlayer);
-
-		_FBIC.SetOnValueChangedListener(firebasePlayer);
-		//setScreen(new MenuScreen(this));
+		//_FBIC.SetOnValueChangedListener(firebasePlayer);
 	}
 
 
@@ -78,7 +60,6 @@ public class DragonsGame extends Game {
 	public void dispose() {
 		super.dispose();
 		batch.dispose();
-		//testMenuScreen.dispose();
 	}
 
 	private void initFonts(){
@@ -89,6 +70,5 @@ public class DragonsGame extends Game {
 		params.color = Color.WHITE;
 		font = generator.generateFont(params);
 	}
-
 
 }

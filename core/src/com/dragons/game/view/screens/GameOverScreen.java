@@ -34,7 +34,6 @@ public class GameOverScreen extends ScreenAdapter {
     private TextField nameField;
     private TextButton saveScoreBtn, exitBtn;
 
-
     private int score;
 
 
@@ -136,15 +135,16 @@ public class GameOverScreen extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y) {
 
                 String nameString = nameField.getText();
-                //FirebasePlayer firebasePlayer = new FirebasePlayer();
-                //System.out.println(firebasePlayer.getName());
                 dragonsGame.firebasePlayer.setName(nameString);
-                //dragonsGame.firebasePlayer.setScore(dragonsGame.timerView.getScoreCount());
                 dragonsGame._FBIC.writeHighscoreToFB(dragonsGame.firebasePlayer);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 dragonsGame._FBIC.SetOnValueChangedListener(dragonsGame.firebasePlayer);
                 System.out.println(dragonsGame.firebasePlayer.getScores());
                 dragonsGame.setScreen(new HighScoreScreen(dragonsGame, dragonsGame.firebasePlayer.getScore()));
-
             }
         });
         exitBtn.addListener(new ClickListener() {
