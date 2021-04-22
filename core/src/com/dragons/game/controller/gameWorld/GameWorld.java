@@ -28,7 +28,6 @@ import com.dragons.game.view.componentViews.LifeDisplayView;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -45,11 +44,13 @@ import static com.dragons.game.utilities.Constants.VIEWPORT_WIDTH;
  * */
 
 public class GameWorld {
-    private final ArrayList<GameObject> staticGameObjects = new ArrayList<>();
-    private final ArrayList<GameObject> dynamicGameObjects = new ArrayList<>();
-    private final Collection<IGameObjectController> actionControllers = new LinkedList<>();
+
+    // LinkedList gives better performance than arraylist since objects are constantly getting removed and added
+    private final LinkedList<GameObject> staticGameObjects = new LinkedList<>();
+    private final LinkedList<GameObject> dynamicGameObjects = new LinkedList<>();
+    private final LinkedList<IGameObjectController> actionControllers = new LinkedList<>();
+    private final LinkedList<IGameObjectController> tempControllerContainer = new LinkedList<>();
     private final ArrayList<LifeDisplayView> lifeDisplay = new ArrayList<>();
-    private final Collection<IGameObjectController> tempControllerContainer = new LinkedList<>();
 
     // Factories
     private final PlayerFactory playerFactory = PlayerFactory.getInstance();
@@ -83,8 +84,7 @@ public class GameWorld {
         b2drCam.update();
 
 
-//        playerController1 = new PlayerController(camera, manager, this, true);
-//        playerController2 = new PlayerController(camera, manager, this, false);
+
         inputHandler = new InputHandler(camera, manager, this, dragonsGame);
 
         this.cleanupCounter = 0;
@@ -222,11 +222,11 @@ public class GameWorld {
         tempControllerContainer.clear();
     }
 
-    public ArrayList<GameObject> getStaticGameObjects() {
+    public LinkedList<GameObject> getStaticGameObjects() {
         return staticGameObjects;
     }
 
-    public ArrayList<GameObject> getDynamicGameObjects() {
+    public LinkedList<GameObject> getDynamicGameObjects() {
         return dynamicGameObjects;
     }
 

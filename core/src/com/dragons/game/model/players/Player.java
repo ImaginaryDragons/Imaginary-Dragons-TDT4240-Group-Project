@@ -27,7 +27,7 @@ public abstract class Player extends Model implements IPlayer {
     protected boolean hitProtectionMode = false;
     private Direction orientation = Direction.UP; // The direction the player is looking
 
-    private List<Float> newBombTimeCounters = new ArrayList<>();
+    private LinkedList<Float> newBombTimeCounters = new LinkedList<>();
 
     private static final boolean isStatic = false;
     private static final boolean isSensor = false;
@@ -39,13 +39,6 @@ public abstract class Player extends Model implements IPlayer {
         super(startPos, width, height, isStatic, isSensor);
     }
 
-    @Override
-    public void setPosition(float x, float y){
-        super.setPosition(x, y);
-        for (IBomb bomb : bombInventory){
-            bomb.setPosition(x, y);
-        }
-    }
 
     @Override
     public void update(final float timestep) {
@@ -57,18 +50,18 @@ public abstract class Player extends Model implements IPlayer {
         }
 
         /*
-         * Checks if
-         *
+         * Checks if the player has more space for any bombs in its inventory
+         * If it does then
          */
         if (bombInventory.size() < bombCapacity){
-            List<Float> newCounterList = new ArrayList<>();
+            LinkedList<Float> newCounterList = new LinkedList<>();
             for (Float timeToNewBomb : newBombTimeCounters){
                 float newTime = timeToNewBomb - timestep;
                 if (newTime < 0) {
                     // Bomb is finished exploding => add it back to inventory
                     addBombs(placedBombs.removeLast());
                 }
-                else newCounterList.add(newTime);
+                else newCounterList.addFirst(newTime);
             }
 
             newBombTimeCounters = newCounterList;
