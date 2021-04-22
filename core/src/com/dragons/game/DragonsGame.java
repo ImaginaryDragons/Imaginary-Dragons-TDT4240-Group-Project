@@ -47,7 +47,6 @@ public class DragonsGame extends Game {
 		batch = new SpriteBatch();
 
         _FBIC.SetOnValueChangedListener();
-        Vector2 p1StartPos = new Vector2(1,1); //gjør om til tilPos senere
         _FBIC.writeHighscoreToFB("Mads", 2.9, 22);
 		_FBIC.writeHighscoreToFB("Nora", 2.5, 21);
 		_FBIC.writeHighscoreToFB("Eldar", 6.5, 28);
