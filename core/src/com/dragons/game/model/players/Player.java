@@ -22,13 +22,13 @@ public abstract class Player extends Model implements IPlayer {
     protected float speed;
     protected int bombCapacity;
     protected int extraBombRange;
-    protected Deque<IBomb> bombInventory;
-    protected final Deque<IBomb> placedBombs = new LinkedList<>();
+    protected Queue<IBomb> bombInventory;
+    protected final Queue<IBomb> placedBombs = new LinkedList<>();
     protected float hitProtectionTime;
     protected boolean hitProtectionMode = false;
     private Direction orientation = Direction.UP; // The direction the player is looking
 
-    private Deque<Float> newBombTimeCounters = new LinkedList<>();
+    private Queue<Float> newBombTimeCounters = new LinkedList<>();
 
     private static final boolean isStatic = false;
     private static final boolean isSensor = false;
