@@ -31,7 +31,7 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
 
     @Override
     public void writeHighscoreToFB(String name, double score, int id) {
-        FirebasePlayer firebasePlayer = new com.dragons.game.networking.FirebasePlayer(name, score); //Lage en unik Id der vi kaller funksjonen
+        FirebasePlayer firebasePlayer = new FirebasePlayer(name, score); //Lage en unik Id der vi kaller funksjonen
         playerRef.child(String.valueOf(id)).setValue(firebasePlayer);
 
     }

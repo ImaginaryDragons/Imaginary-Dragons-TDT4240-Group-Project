@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class DragonsGame extends Game {
     SpriteBatch batch;
-    com.dragons.game.networking.FireBaseInterface _FBIC;
+    FireBaseInterface _FBIC;
 
 	public AssetManager assets;
 	public BitmapFont font;
