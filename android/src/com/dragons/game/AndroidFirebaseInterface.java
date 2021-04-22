@@ -31,7 +31,7 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
 
     @Override
     public void writeHighscoreToFB(String name, double score, int id) {
-        com.dragons.game.networking.FirebasePlayer firebasePlayer = new com.dragons.game.networking.FirebasePlayer(name, score); //Lage en unik Id der vi kaller funksjonen
+        FirebasePlayer firebasePlayer = new com.dragons.game.networking.FirebasePlayer(name, score); //Lage en unik Id der vi kaller funksjonen
         playerRef.child(String.valueOf(id)).setValue(firebasePlayer);
 
     }
@@ -46,7 +46,7 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot childSnapshot: snapshot.getChildren()) {
-                        com.dragons.game.networking.FirebasePlayer scoreFromDB = childSnapshot.child("id").getValue(FirebasePlayer.class);
+                        FirebasePlayer scoreFromDB = childSnapshot.child("id").getValue(FirebasePlayer.class);
                         String nameFromDB = childSnapshot.child("name").getValue(String.class);
                         double score1FromDB = childSnapshot.child("score").getValue(Double.class);
                         LOG.d("TAG", nameFromDB);
