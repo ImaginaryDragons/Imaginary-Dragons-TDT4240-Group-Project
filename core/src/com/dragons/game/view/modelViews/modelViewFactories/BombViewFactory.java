@@ -19,6 +19,7 @@ public final class BombViewFactory implements IModelViewFactory {
 
     @Override
     public IModelView createModelView(IModel model, AnnotationAssetManager assetManager){
+        // Add different views if needed here
         return new BombView(model, assetManager);
 
     }

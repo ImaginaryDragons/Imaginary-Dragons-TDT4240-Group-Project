@@ -19,6 +19,7 @@ public final class PlayerViewFactory implements IModelViewFactory{
     }
     @Override
     public IModelView createModelView(IModel model, AnnotationAssetManager assetManager) {
+        // Add different views if needed here
         if (model instanceof NormalPlayer) return new NormalPlayerView(model, assetManager);
 
         else throw new IllegalArgumentException("Wrong PlayerInstance");

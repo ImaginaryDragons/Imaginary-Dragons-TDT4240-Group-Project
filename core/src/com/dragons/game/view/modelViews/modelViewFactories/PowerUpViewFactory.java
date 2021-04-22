@@ -17,9 +17,9 @@ public final class PowerUpViewFactory implements IModelViewFactory {
         return INSTANCE;
     }
 
-
     @Override
     public IModelView createModelView(IModel model, AnnotationAssetManager assetManager) {
+        // Add different views if needed here
         return new PowerUpView(model, assetManager);
 
     }

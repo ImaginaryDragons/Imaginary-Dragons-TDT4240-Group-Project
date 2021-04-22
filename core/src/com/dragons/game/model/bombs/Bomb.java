@@ -126,11 +126,6 @@ public abstract class Bomb extends Model implements IBomb {
     }
 
     @Override
-    public int getBombRange() {
-        return bombRange;
-    }
-
-    @Override
     public IFire getFire() {
         return fire;
     }
