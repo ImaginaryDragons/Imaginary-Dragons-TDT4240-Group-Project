@@ -30,6 +30,7 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import static com.dragons.game.utilities.Constants.PPM;
 import static com.dragons.game.utilities.Constants.VIEWPORT_HEIGHT;
@@ -46,10 +47,10 @@ import static com.dragons.game.utilities.Constants.VIEWPORT_WIDTH;
 public class GameWorld {
 
     // LinkedList gives better performance than arraylist since objects are constantly getting removed and added
-    private final LinkedList<GameObject> staticGameObjects = new LinkedList<>();
-    private final LinkedList<GameObject> dynamicGameObjects = new LinkedList<>();
-    private final LinkedList<IGameObjectController> actionControllers = new LinkedList<>();
-    private final LinkedList<IGameObjectController> tempControllerContainer = new LinkedList<>();
+    private final List<GameObject> staticGameObjects = new LinkedList<>();
+    private final List<GameObject> dynamicGameObjects = new LinkedList<>();
+    private final List<IGameObjectController> actionControllers = new LinkedList<>();
+    private final List<IGameObjectController> tempControllerContainer = new LinkedList<>();
     private final ArrayList<LifeDisplayView> lifeDisplay = new ArrayList<>();
 
     // Factories
@@ -181,21 +182,25 @@ public class GameWorld {
         GameObject dynamicObj;
         while(iterator.hasNext()) {
             dynamicObj = iterator.next();
-            dynamicObj.syncPosition();
-            dynamicObj.update(delta);
             if (dynamicObj.getModel().isDisposed()){
                 dynamicObj.dispose();
                 iterator.remove();
+            }
+            else {
+                dynamicObj.syncPosition();
+                dynamicObj.update(delta);
             }
         }
         iterator = staticGameObjects.iterator();
         GameObject staticObj;
         while(iterator.hasNext()){
             staticObj = iterator.next();
-            staticObj.update(delta);
             if (staticObj.getModel().isDisposed()){
                 staticObj.dispose();
                 iterator.remove();
+            }
+            else{
+                staticObj.update(delta);
             }
         }
     }
@@ -222,11 +227,11 @@ public class GameWorld {
         tempControllerContainer.clear();
     }
 
-    public LinkedList<GameObject> getStaticGameObjects() {
+    public List<GameObject> getStaticGameObjects() {
         return staticGameObjects;
     }
 
-    public LinkedList<GameObject> getDynamicGameObjects() {
+    public List<GameObject> getDynamicGameObjects() {
         return dynamicGameObjects;
     }
 

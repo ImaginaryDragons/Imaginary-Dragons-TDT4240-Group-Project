@@ -5,8 +5,6 @@ import com.dragons.game.model.IModel;
 import com.dragons.game.model.Model;
 import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.players.IPlayer;
-import com.dragons.game.model.players.NormalPlayer;
-
 
 
 public class BombCapacity extends Model implements IPowerUp {
@@ -31,6 +29,6 @@ public class BombCapacity extends Model implements IPowerUp {
             // for debugging
         else throw new IllegalArgumentException("Model is not of type NormalPlayer");
 
-        super.disposeModel();
+        super.dispose();
     }
 }

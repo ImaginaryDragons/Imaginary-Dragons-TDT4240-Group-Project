@@ -9,6 +9,7 @@ import com.dragons.game.model.modelFactories.BombFactory;
 import com.dragons.game.model.players.playerEnums.Direction;
 
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -21,13 +22,13 @@ public abstract class Player extends Model implements IPlayer {
     protected float speed;
     protected int bombCapacity;
     protected int extraBombRange;
-    protected LinkedList<IBomb> bombInventory;
-    protected final LinkedList<IBomb> placedBombs = new LinkedList<>();
+    protected Deque<IBomb> bombInventory;
+    protected final Deque<IBomb> placedBombs = new LinkedList<>();
     protected float hitProtectionTime;
     protected boolean hitProtectionMode = false;
     private Direction orientation = Direction.UP; // The direction the player is looking
 
-    private LinkedList<Float> newBombTimeCounters = new LinkedList<>();
+    private Deque<Float> newBombTimeCounters = new LinkedList<>();
 
     private static final boolean isStatic = false;
     private static final boolean isSensor = false;
@@ -59,9 +60,9 @@ public abstract class Player extends Model implements IPlayer {
                 float newTime = timeToNewBomb - timestep;
                 if (newTime < 0) {
                     // Bomb is finished exploding => add it back to inventory
-                    addBombs(placedBombs.removeLast());
+                    addBombs(placedBombs.remove());
                 }
-                else newCounterList.addFirst(newTime);
+                else newCounterList.add(newTime);
             }
 
             newBombTimeCounters = newCounterList;
@@ -101,7 +102,7 @@ public abstract class Player extends Model implements IPlayer {
     }
 
     private void addBombs(IBomb bomb){
-        if (this.bombInventory.size() < bombCapacity) this.bombInventory.addFirst(bomb);
+        if (this.bombInventory.size() < bombCapacity) this.bombInventory.add(bomb);
 
     }
 
@@ -145,8 +146,8 @@ public abstract class Player extends Model implements IPlayer {
 
     @Override
     public void useBomb() {
-        IBomb bomb = bombInventory.removeLast();
-        placedBombs.addFirst(bomb);
+        IBomb bomb = bombInventory.remove();
+        placedBombs.add(bomb);
         // add one counter for every bomb used;
         newBombTimeCounters.add(bomb.getExplodeTime() + bomb.getFire().getDisplayTime());
     }
