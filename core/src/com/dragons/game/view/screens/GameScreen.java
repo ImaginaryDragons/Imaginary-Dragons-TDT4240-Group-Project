@@ -108,6 +108,10 @@ public class GameScreen extends ScreenAdapter {
         if (timerView.isTimeUp()) {
             dragonsGame.setScreen(new GameOverScreen(dragonsGame, timerView.getScoreCount()));
         }
+
+        if(gameWorld.getDeathDetector().isDead()){
+            dragonsGame.setScreen(new GameOverScreen(dragonsGame, timerView.getScoreCount()));
+        }
     }
 
     @Override

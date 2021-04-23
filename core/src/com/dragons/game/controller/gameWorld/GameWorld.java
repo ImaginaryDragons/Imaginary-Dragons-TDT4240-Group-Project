@@ -67,6 +67,8 @@ public class GameWorld {
     private final InputHandler inputHandler;
 
     private int cleanupCounter;
+    private DeathDetector deathDetector;
+
 
 
     // https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_hello.html#autotoc_md21
@@ -86,6 +88,7 @@ public class GameWorld {
 
 
 
+        deathDetector = new DeathDetector();
         inputHandler = new InputHandler(camera, manager, this, dragonsGame);
 
         this.cleanupCounter = 0;
@@ -108,6 +111,11 @@ public class GameWorld {
             this.cleanupCounter = 0;
         }
         this.cleanupCounter++;
+
+
+    }
+    public DeathDetector getDeathDetector(){
+        return deathDetector;
     }
 
     public void addGameObject(GameObject newObject){
@@ -139,9 +147,10 @@ public class GameWorld {
 
         GameObject player1 = new GameObject(p1, world, assetManager);
         inputHandler.addPlayer(player1, true);
+        deathDetector.addPlayer(player1);
         addGameObject(player1);
 
-        LifeDisplayView healthView1 = new LifeDisplayView((NormalPlayer)p1, assetManager, map, map.tilePosCenter(new Vector2(1,10)));
+        LifeDisplayView healthView1 = new LifeDisplayView((NormalPlayer)p1, assetManager, map, map.tilePosCenter(new Vector2(3,10)));
         lifeDisplay.add(healthView1);
 
         // Initialize player 2
@@ -151,10 +160,13 @@ public class GameWorld {
 
         GameObject player2 = new GameObject(p2, world, assetManager);
         inputHandler.addPlayer(player2, false);
+        deathDetector.addPlayer(player2);
         addGameObject(player2);
 
         LifeDisplayView healthView2 = new LifeDisplayView((NormalPlayer)p2, assetManager, map, map.tilePosCenter(new Vector2(9,10)));
         lifeDisplay.add(healthView2);
+
+
     }
 
     public void placeBomb(Vector2 centerPos, BombType type, int extraRange) {
@@ -205,6 +217,7 @@ public class GameWorld {
         }
     }
 
+
     /**
      * Iterate through the controllers and perform actions
      */
@@ -248,4 +261,7 @@ public class GameWorld {
     public ArrayList<LifeDisplayView> getLifeDisplay() {
         return lifeDisplay;
     }
+
+
+
 }

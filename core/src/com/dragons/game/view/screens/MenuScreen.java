@@ -113,7 +113,7 @@ public class MenuScreen implements Screen {
         startButton.setSize(250, 50);
         startButton.setPosition(dragonsGame.camera.position.x - startButton.getWidth() / 2, dragonsGame.camera.position.y - startButton.getHeight());
 
-        joinButton = new TextButton("GAME OVER", skin, "default");
+        joinButton = new TextButton("High Scores", skin, "default");
         joinButton.setSize(250, 50);
         joinButton.setPosition(dragonsGame.camera.position.x - startButton.getWidth() / 2, dragonsGame.camera.position.y - startButton.getHeight() - 70);
 
@@ -128,7 +128,7 @@ public class MenuScreen implements Screen {
         joinButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                dragonsGame.setScreen(new GameOverScreen(dragonsGame, score));
+                dragonsGame.setScreen(new HighScoreScreen(dragonsGame, score));
             }
         });
 
