@@ -1,41 +1,40 @@
 package com.dragons.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.dragons.game.DragonsGame;
 import com.dragons.game.utilities.Constants;
 
-import java.io.IOException;
-
-public class MenuScreen implements Screen {
-    private final DragonsGame dragonsGame;
-    private ShapeRenderer shapeRenderer;
-
-    private Stage stage;
+public class MenuScreen extends ScreenAdapter {
+    private final ShapeRenderer shapeRenderer;
+    private final Stage stage;
     private Skin skin;
-
-    private TextButton startButton, joinButton;
-
+    private TextButton startButton, highScoresButton;
+    private final BitmapFont font;
     private Image logo;
+    private final OrthographicCamera camera;
+    private final AssetManager assetManager;
 
-    int score;
-
-    public MenuScreen(final DragonsGame dragonsGame){
-        this.dragonsGame = dragonsGame;
-        this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, dragonsGame.camera));
+    public MenuScreen(AssetManager assetManager, OrthographicCamera camera, BitmapFont font){
+        this.assetManager = assetManager;
+        this.camera = camera;
+        this.font = font;
+        this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, camera));
         this.shapeRenderer = new ShapeRenderer();
     }
 
@@ -46,8 +45,8 @@ public class MenuScreen implements Screen {
         stage.clear();
 
         this.skin = new Skin();
-        this.skin.addRegions(dragonsGame.assets.get("uiskin.atlas", TextureAtlas.class));
-        this.skin.add("default-font", dragonsGame.font);
+        this.skin.addRegions(assetManager.get("uiskin.atlas", TextureAtlas.class));
+        this.skin.add("default-font", font);
         this.skin.load(Gdx.files.internal("uiskin.json"));
 
 
@@ -80,20 +79,6 @@ public class MenuScreen implements Screen {
         stage.getViewport().update(width, height, true);
     }
 
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
 
     @Override
     public void dispose() {
@@ -105,37 +90,39 @@ public class MenuScreen implements Screen {
 
 
     private void initMenu(){
-        Texture logoTex = dragonsGame.assets.get("components/logo.png", Texture.class);
+        Texture logoTex = assetManager.get("components/logo.png", Texture.class);
         logo = new Image(logoTex);
-        logo.setPosition(dragonsGame.camera.position.x - logo.getWidth() / 2, dragonsGame.camera.position.y - 70);
+        logo.setPosition(camera.position.x - logo.getWidth() / 2, camera.position.y - 70);
 
         startButton = new TextButton("Play", skin, "default");
         startButton.setSize(250, 50);
-        startButton.setPosition(dragonsGame.camera.position.x - startButton.getWidth() / 2, dragonsGame.camera.position.y - startButton.getHeight());
+        startButton.setPosition(camera.position.x - startButton.getWidth() / 2, camera.position.y - startButton.getHeight());
 
-        joinButton = new TextButton("High Scores", skin, "default");
-        joinButton.setSize(250, 50);
-        joinButton.setPosition(dragonsGame.camera.position.x - startButton.getWidth() / 2, dragonsGame.camera.position.y - startButton.getHeight() - 70);
+        highScoresButton = new TextButton("High Scores", skin, "default");
+        highScoresButton.setSize(250, 50);
+        highScoresButton.setPosition(camera.position.x - startButton.getWidth() / 2, camera.position.y - startButton.getHeight() - 70);
 
 
         startButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                dragonsGame.setScreen(new LevelScreen(dragonsGame));
+                ScreenManager.getInstance().setLevelScreen();
 
             }
         });
-        joinButton.addListener(new ClickListener(){
+        highScoresButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                dragonsGame.setScreen(new HighScoreScreen(dragonsGame, score));
+                ScreenManager.getInstance().setHighScoreScreen();
             }
         });
 
 
         stage.addActor(logo);
         stage.addActor(startButton);
-        stage.addActor(joinButton);
+        stage.addActor(highScoresButton);
 
     }
+
+
 }

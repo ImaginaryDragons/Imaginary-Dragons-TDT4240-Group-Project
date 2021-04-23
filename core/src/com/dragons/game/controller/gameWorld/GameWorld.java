@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.dragons.game.DragonsGame;
 import com.dragons.game.controller.bombController.BombController;
 import com.dragons.game.controller.bombController.FireController;
 import com.dragons.game.controller.IGameObjectController;
@@ -75,7 +74,7 @@ public class GameWorld {
     // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
 
-    public GameWorld(GameMap map, AnnotationAssetManager manager, OrthographicCamera camera, DragonsGame dragonsGame) {
+    public GameWorld(GameMap map, AnnotationAssetManager manager, OrthographicCamera camera) {
         world = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         this.assetManager = manager;
         world.setContactListener(new WorldContactListener());
@@ -89,7 +88,7 @@ public class GameWorld {
 
 
         deathDetector = new DeathDetector();
-        inputHandler = new InputHandler(camera, manager, this, dragonsGame);
+        inputHandler = new InputHandler(camera, manager, this);
 
         this.cleanupCounter = 0;
     }

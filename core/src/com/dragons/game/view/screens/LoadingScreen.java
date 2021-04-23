@@ -1,50 +1,52 @@
 package com.dragons.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
-import com.dragons.game.DragonsGame;
+import com.dragons.game.utilities.Constants;
 
 public class LoadingScreen extends ScreenAdapter {
 
-    private final DragonsGame dragonsGame;
-    private ShapeRenderer shapeRenderer;
-
-
-
+    private final ShapeRenderer shapeRenderer;
     private float progress;
+    private final AssetManager assetManager;
+    private final OrthographicCamera camera;
 
-    public LoadingScreen(final DragonsGame dragonsGame) {
-        this.dragonsGame = dragonsGame;
-        this.shapeRenderer = new ShapeRenderer();
+    public LoadingScreen(AssetManager assetManager, OrthographicCamera camera) {
+        this.assetManager = assetManager;
+        this.camera = camera;
+        shapeRenderer = new ShapeRenderer();
 
     }
 
     private void queueAssets() {
-        dragonsGame.assets.load("components/logo.png", Texture.class);
-        dragonsGame.assets.load("components/over.png", Texture.class);
-        dragonsGame.assets.load("components/highscores.png", Texture.class);
-        dragonsGame.assets.load("uiskin.atlas", TextureAtlas.class);
+        assetManager.load("components/logo.png", Texture.class);
+        assetManager.load("components/over.png", Texture.class);
+        assetManager.load("components/highscores.png", Texture.class);
+        assetManager.load("uiskin.atlas", TextureAtlas.class);
     }
 
     @Override
     public void show() {
         System.out.println("LOADING");
-        shapeRenderer.setProjectionMatrix(dragonsGame.camera.combined);
+        shapeRenderer.setProjectionMatrix(camera.combined);
         this.progress = 0f;
         queueAssets();
     }
 
     private void update(float delta) {
-        progress = MathUtils.lerp(progress, dragonsGame.assets.getProgress(), .1f);
-        if (dragonsGame.assets.update() && progress >= dragonsGame.assets.getProgress() - .001f) {
-            dragonsGame.setScreen(new MenuScreen(dragonsGame));
+        progress = MathUtils.lerp(progress, assetManager.getProgress(), .1f);
+        if (assetManager.update() && progress >= assetManager.getProgress() - .001f) {
+            ScreenManager.getInstance().setMenuScreen();
         }
     }
 
@@ -57,10 +59,10 @@ public class LoadingScreen extends ScreenAdapter {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.GRAY);
-        shapeRenderer.rect(32, dragonsGame.camera.viewportHeight / 2 - 8, dragonsGame.camera.viewportWidth - 64, 16);
+        shapeRenderer.rect(32, camera.viewportHeight / 2 - 8, camera.viewportWidth - 64, 16);
 
         shapeRenderer.setColor(Color.LIME);
-        shapeRenderer.rect(32, dragonsGame.camera.viewportHeight / 2 - 8, progress * (dragonsGame.camera.viewportWidth - 64), 16);
+        shapeRenderer.rect(32, camera.viewportHeight / 2 - 8, progress * (camera.viewportWidth - 64), 16);
         shapeRenderer.end();
     }
 
@@ -70,4 +72,6 @@ public class LoadingScreen extends ScreenAdapter {
     public void dispose() {
         shapeRenderer.dispose();
     }
+
+
 }
