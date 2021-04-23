@@ -34,6 +34,7 @@ public class GameScreen extends ScreenAdapter {
     private final TiledMapRenderer tiledMapRenderer;
 
     private TimerView timerView;
+    private FirebasePlayer firebasePlayer;
 
     // TODO: Integrating the gameWorld onto the firebase server
     /*Right now the gameWorld is statically defined within our gamescreen. However, we need

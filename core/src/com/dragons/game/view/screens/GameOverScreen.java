@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.DragonsGame;
+import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.utilities.Constants;
 
 
@@ -37,6 +38,9 @@ public class GameOverScreen extends ScreenAdapter {
     private Label nameFieldLabel;
     private TextField nameField;
     private TextButton saveScoreBtn, exitBtn;
+  
+    private FireBasePlayer fireBasePlayer = new FireBasePlayer();
+
 
 
     private final int score;
@@ -123,6 +127,7 @@ public class GameOverScreen extends ScreenAdapter {
         nameFieldLabel.setPosition(camera.position.x - nameFieldLabel.getWidth() / 2, camera.position.y - 10);
 
         nameField = new TextField("", skin);
+
         nameField.setSize(250, 30);
         //nameField.setAlignment(Align.center);
         nameField.setPosition(camera.position.x - nameField.getWidth() / 2, camera.position.y - 40);
@@ -139,7 +144,20 @@ public class GameOverScreen extends ScreenAdapter {
         saveScoreBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ScreenManager.getInstance().setHighScoreScreen();
+
+
+                String nameString = nameField.getText();
+                firebasePlayer.setName(nameString);
+                dragonsGame._FBIC.writeHighscoreToFB(dragonsGame.firebasePlayer);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                dragonsGame._FBIC.SetOnValueChangedListener(dragonsGame.firebasePlayer);
+
+                dragonsGame.setScreen(new HighScoreScreen(dragonsGame, dragonsGame.firebasePlayer.getScore()));
+
             }
         });
         exitBtn.addListener(new ClickListener() {
@@ -157,4 +175,5 @@ public class GameOverScreen extends ScreenAdapter {
         stage.addActor(exitBtn);
 
     }
+
 }

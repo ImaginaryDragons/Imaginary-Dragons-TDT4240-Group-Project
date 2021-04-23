@@ -1,17 +1,19 @@
 package com.dragons.game.networking;
 
+import com.badlogic.gdx.Game;
+import com.dragons.game.view.componentViews.TimerView;
+import com.dragons.game.view.screens.GameOverScreen;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class FirebasePlayer {
 
-    public String name;
-    public double score;
+    private String name;
+    private int score;
+    public static Map<String, Integer> scores = new LinkedHashMap<>();
 
     public FirebasePlayer() {
-
-    }
-
-    public FirebasePlayer(String name, double score) {
-        this.name = name;
-        this.score = score;
     }
 
     public String getName() {
@@ -22,12 +24,17 @@ public class FirebasePlayer {
         this.name = name;
     }
 
-    public double getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(double score) {
+    public void setScore(int score) {
         this.score = score;
     }
+
+    public static Map<String, Integer> getScores(){
+        return scores;
+    }
+
 
 }

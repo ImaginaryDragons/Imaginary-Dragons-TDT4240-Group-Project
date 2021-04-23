@@ -20,8 +20,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.utilities.Constants;
+import com.dragons.game.view.componentViews.TimerView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 
 public class HighScoreScreen extends ScreenAdapter {
+
+    private FirebasePlayer firebasePlayer;
+
     private ShapeRenderer shapeRenderer;
     private final AssetManager assetManager;
     private final OrthographicCamera camera;
@@ -32,6 +42,8 @@ public class HighScoreScreen extends ScreenAdapter {
 
     private Image highscoreImg;
     private TextButton exitBtn;
+    private String name;
+
 
 
     public HighScoreScreen(AssetManager assetManager, OrthographicCamera camera, BitmapFont font) {
@@ -39,7 +51,11 @@ public class HighScoreScreen extends ScreenAdapter {
         this.camera = camera;
         this.font = font;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, camera));
+
+    private Map<String, Integer> scores = new LinkedHashMap<>();
+
         this.shapeRenderer = new ShapeRenderer();
+        firebasePlayer = new FirebasePlayer();
 
     }
 
@@ -89,7 +105,7 @@ public class HighScoreScreen extends ScreenAdapter {
     }
 
     private void initScreen() {
-
+        scores = FirebasePlayer.getScores();
 
         Texture gameOverTex = assetManager.get("components/highscores.png", Texture.class);
         highscoreImg = new Image(gameOverTex);
@@ -119,9 +135,14 @@ public class HighScoreScreen extends ScreenAdapter {
         table.add(score).expandX().fillX();
         table.row().expandX().fillX();
 
-        /*for (int i = 0; i < players.size(); i++) {
-            table.add(new Label(players.get(i).getName(), skin)).uniform();
-        }*/
+
+        for (Map.Entry<String, Integer> pair : firebasePlayer.getScores().entrySet()) {
+            table.add(new Label(pair.getKey(), skin)).uniform();
+            table.add(new Label(String.valueOf(pair.getValue()), skin));
+            table.row();
+        }
+
+
 
         tableContainer.setActor(table);
         stage.addActor(highscoreImg);
