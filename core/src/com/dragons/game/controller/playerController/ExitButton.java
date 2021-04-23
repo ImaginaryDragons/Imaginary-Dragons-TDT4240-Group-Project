@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.dragons.game.DragonsGame;
 import com.dragons.game.view.screens.GameOverScreen;
+import com.dragons.game.view.screens.MenuScreen;
 
 public class ExitButton implements InputProcessor {
     private final Rectangle exitButtonBounds;
@@ -40,7 +41,7 @@ public class ExitButton implements InputProcessor {
         cam.unproject(touch);
         if (exitButtonBounds.contains(touch.x, touch.y)){
             Gdx.app.log("Player controller", "EXIT game");
-            dragonsGame.setScreen(new GameOverScreen(dragonsGame, 0f));
+            dragonsGame.setScreen(new MenuScreen(dragonsGame));
         }
         return false;
     }

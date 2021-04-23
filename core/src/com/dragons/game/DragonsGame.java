@@ -45,13 +45,7 @@ public class DragonsGame extends Game {
 		camera.setToOrtho(false, Constants.WorldWidth, Constants.WorldHeight);
 		batch = new SpriteBatch();
 
-        _FBIC.SetOnValueChangedListener();
-        _FBIC.writeHighscoreToFB("Mads", 2.9, 22);
-		_FBIC.writeHighscoreToFB("Nora", 2.5, 21);
-		_FBIC.writeHighscoreToFB("Eldar", 6.5, 28);
-		_FBIC.writeHighscoreToFB("Jakob", 2.7, 1);
 
-		Gdx.app.log("DragonsGame", "created");
 		initFonts();
 		setScreen(new LoadingScreen(this));
 
