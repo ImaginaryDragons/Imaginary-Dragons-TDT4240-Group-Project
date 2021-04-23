@@ -34,12 +34,8 @@ public class PowerUpView extends ModelView {
     }
 
     private Texture[] getTextures(IModel model, AnnotationAssetManager manager){
-        /*
-         * Add the textures for the animation
-         * Only one texture => static image
-         * The textures is the only thing differentiating the BombViews
-         */
-        if (model instanceof BombCapacity) { // Just give the testbomb the same fire textures
+ 
+        if (model instanceof BombCapacity) {
             return new Texture[]{
                     manager.get(BOMB_CAP_POWERUP, Texture.class),
             };
