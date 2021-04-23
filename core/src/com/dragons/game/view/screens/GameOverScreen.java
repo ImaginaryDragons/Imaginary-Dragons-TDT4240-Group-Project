@@ -93,23 +93,11 @@ public class GameOverScreen extends ScreenAdapter {
 
     }
 
-    @Override
-    public void pause() {
 
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
 
     @Override
     public void dispose() {
+        super.dispose();
         stage.dispose();
         shapeRenderer.dispose();
     }
