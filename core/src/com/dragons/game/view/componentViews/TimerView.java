@@ -21,7 +21,6 @@ public class TimerView implements IView {
     public Stage stage;
 
     private Skin skin;
-    private BitmapFont font;
 
     //Mario score/time Tracking Variables
     private Integer worldTimer;
@@ -31,7 +30,7 @@ public class TimerView implements IView {
 
     //Scene2D widgets
     private final Label countdownLabel;
-    private Label timeLabel;
+    //private Label timeLabel;
 
     public TimerView(AssetManager assets, OrthographicCamera camera, BitmapFont font) {
         worldTimer = 600;
@@ -55,10 +54,10 @@ public class TimerView implements IView {
 
         //define our labels using the String, and a Label style consisting of a font and color
         countdownLabel = new Label(String.format("%03d", worldTimer), skin);
-        timeLabel = new Label("TIME", skin);
+        //timeLabel = new Label("TIME", skin);
 
         //add our labels to our table, padding the top, and giving them all equal width with expandX
-        table.add(timeLabel).expandX().padTop(10);
+        //table.add(timeLabel).expandX().padTop(10);
         //add a second row to our table
         table.row();
         table.add(countdownLabel).expandX();
