@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 public class AndroidFirebaseInterface implements FireBaseInterface {
     FirebaseDatabase database;
     DatabaseReference playerRef;
+    DatabaseReference scoreRef;
 
     public AndroidFirebaseInterface() {
         database = FirebaseDatabase.getInstance("https://imaginary-dragons-default-rtdb.europe-west1.firebasedatabase.app/"); //rotnoden, hele databasen
@@ -24,8 +25,8 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
 
     @Override
     public void writeHighscoreToFB(FirebasePlayer firebasePlayer) {
-        String name = firebasePlayer.getName();
-        playerRef.child(name).setValue(firebasePlayer);
+        scoreRef = playerRef.push();
+        scoreRef.setValue(firebasePlayer);
     }
 
     @Override
