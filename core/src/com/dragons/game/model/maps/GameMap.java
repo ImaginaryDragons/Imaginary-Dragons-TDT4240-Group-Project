@@ -82,7 +82,7 @@ public class GameMap {
     }
 
     // Generate block instances in the tile containers given a recipe
-    public void generateBlocks(String recipeFile) throws IOException {
+    public void generateBlocks(String recipeFile){
         Gdx.app.log("GameMap", "Generating blocks from recipe");
         Vector2 tile = new Vector2(0, 0);
 

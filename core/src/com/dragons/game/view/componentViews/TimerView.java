@@ -29,11 +29,9 @@ public class TimerView implements IView {
     private boolean timeUp; // true when the world timer reaches 0
     private float timeCount;
     private int scoreCount;
-    private FirebasePlayer firebasePlayer;
-    private DragonsGame dragonsGame;
 
     //Scene2D widgets
-    private Label countdownLabel;
+    private final Label countdownLabel;
     private Label timeLabel;
 
     public TimerView(AssetManager assets, OrthographicCamera camera) {

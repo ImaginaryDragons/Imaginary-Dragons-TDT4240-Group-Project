@@ -19,10 +19,6 @@ public class DesktopLauncher {
 		config.backgroundFPS = FPS;
 		config.foregroundFPS = FPS;
 
-		try {
-			new LwjglApplication(new DragonsGame(new DesktopFirebaseInterface()), config);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		new LwjglApplication(new DragonsGame(new DesktopFirebaseInterface()), config);
 	}
 }
