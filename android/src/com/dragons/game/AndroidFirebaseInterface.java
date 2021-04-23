@@ -42,7 +42,6 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
     }
     @Override
     public void SetOnValueChangedListener() {
-        //scoreRef = playerRef.child("id");
         Query query = playerRef.orderByChild("score");
         ValueEventListener valueEventListener = new ValueEventListener() {
             private final Log LOG = null;
@@ -66,25 +65,4 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
             };
         query.addListenerForSingleValueEvent(valueEventListener);
     }
-
-    /*
-    @Override
-    private void addPlayerEventListener(DatabaseReference mPlayerReference) {
-        ValueEventListener playerListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", error.toException());
-            }
-        };
-        mPlayerReference.addValueEventListener(playerListener);
-    }
-*/
-
 }
