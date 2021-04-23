@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.dragons.game.networking.FireBaseInterface;
 import com.dragons.game.utilities.Constants;
 
 import java.io.IOException;
@@ -21,9 +22,9 @@ public class ScreenManager {
     private final AssetManager assetManager = new AssetManager();
     private final OrthographicCamera camera = new OrthographicCamera();
     private final BitmapFont font;
+    private FireBaseInterface _FBIC;
 
     private static final ScreenManager INSTANCE = new ScreenManager();
-
     public static ScreenManager getInstance(){
         return INSTANCE;
     }
@@ -34,8 +35,9 @@ public class ScreenManager {
     }
 
     //This is called by Game from inside the "create()" method.
-    public void initialize(Game game)  {
+    public void initialize(Game game, FireBaseInterface _FBIC)  {
         this.game = game;
+        this._FBIC = _FBIC;
         menuScreen = new MenuScreen(assetManager, camera, font);
         levelScreen = new LevelScreen(assetManager, camera, font);
 
@@ -54,11 +56,11 @@ public class ScreenManager {
     }
 
     public void setGameScreen()  {
-        game.setScreen(new GameScreen(assetManager));
+        game.setScreen(new GameScreen(assetManager, font));
     }
 
     public void setGameOverScreen(int score){
-        game.setScreen(new GameOverScreen(score, assetManager, camera, font));
+        game.setScreen(new GameOverScreen(score, assetManager, camera, font, _FBIC));
     }
 
     public void setHighScoreScreen(){

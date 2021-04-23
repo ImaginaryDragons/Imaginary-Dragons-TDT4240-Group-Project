@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.DragonsGame;
+import com.dragons.game.networking.FireBaseInterface;
 import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.utilities.Constants;
 
@@ -39,20 +40,21 @@ public class GameOverScreen extends ScreenAdapter {
     private TextField nameField;
     private TextButton saveScoreBtn, exitBtn;
   
-    private FireBasePlayer fireBasePlayer = new FireBasePlayer();
-
-
+    private final FirebasePlayer fireBasePlayer = new FirebasePlayer();
+    private final FireBaseInterface _FBIC;
 
     private final int score;
 
 
-    public GameOverScreen(int score, AssetManager assetManager, OrthographicCamera camera, BitmapFont font) {
+    public GameOverScreen(int score, AssetManager assetManager, OrthographicCamera camera, BitmapFont font, FireBaseInterface _FBIC) {
         this.score = score;
         this.assets = assetManager;
         this.camera = camera;
         this.font = font;
+        this._FBIC = _FBIC;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, camera));
         this.shapeRenderer = new ShapeRenderer();
+        fireBasePlayer.setScore(score);
 
     }
 
@@ -147,16 +149,18 @@ public class GameOverScreen extends ScreenAdapter {
 
 
                 String nameString = nameField.getText();
-                firebasePlayer.setName(nameString);
-                dragonsGame._FBIC.writeHighscoreToFB(dragonsGame.firebasePlayer);
+                fireBasePlayer.setName(nameString);
+                _FBIC.writeHighscoreToFB(fireBasePlayer);
+
                 try {
-                    Thread.sleep(1000);
+                    // Sleep to give firebase enough time to update
+                    Thread.sleep(400);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                dragonsGame._FBIC.SetOnValueChangedListener(dragonsGame.firebasePlayer);
+                _FBIC.SetOnValueChangedListener(fireBasePlayer);
 
-                dragonsGame.setScreen(new HighScoreScreen(dragonsGame, dragonsGame.firebasePlayer.getScore()));
+                ScreenManager.getInstance().setHighScoreScreen();
 
             }
         });

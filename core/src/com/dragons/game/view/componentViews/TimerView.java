@@ -18,7 +18,6 @@ import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.view.IView;
 
 public class TimerView implements IView {
-    public AssetManager assets;
     public Stage stage;
 
     private Skin skin;
@@ -34,20 +33,13 @@ public class TimerView implements IView {
     private final Label countdownLabel;
     private Label timeLabel;
 
-    public TimerView(AssetManager assets, OrthographicCamera camera) {
+    public TimerView(AssetManager assets, OrthographicCamera camera, BitmapFont font) {
         worldTimer = 600;
         timeCount = 0;
         scoreCount = 1;
 
-        firebasePlayer = new FirebasePlayer();
         stage = new Stage(new StretchViewport(camera.viewportWidth, camera.viewportHeight, camera));
 
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Arcon.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
-
-        params.size = 24;
-        params.color = Color.WHITE;
-        font = generator.generateFont(params);
 
         this.skin = new Skin();
         this.skin.addRegions(assets.get("uiskin.atlas", TextureAtlas.class));
