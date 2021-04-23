@@ -6,11 +6,13 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.model.maps.GameMap;
+import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.utilities.AssetLoader;
 import com.dragons.game.view.GameRenderer;
 import com.dragons.game.view.componentViews.TimerView;
@@ -34,8 +36,6 @@ public class GameScreen extends ScreenAdapter {
     private final TiledMapRenderer tiledMapRenderer;
 
     private TimerView timerView;
-    private FirebasePlayer firebasePlayer;
-
     // TODO: Integrating the gameWorld onto the firebase server
     /*Right now the gameWorld is statically defined within our gamescreen. However, we need
      * some way of ensuring that the main gameworld is on our server and that this version is
@@ -44,7 +44,7 @@ public class GameScreen extends ScreenAdapter {
      * */
 
 
-    public GameScreen(AssetManager assets) {
+    public GameScreen(AssetManager assets, BitmapFont font) {
         Gdx.app.log("GameScreen", "Attached");
 
         camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
@@ -65,7 +65,7 @@ public class GameScreen extends ScreenAdapter {
 
         batch.setProjectionMatrix(camera.combined);
 
-        timerView = new TimerView(assets, camera);
+        timerView = new TimerView(assets, camera, font);
       
         gameMap.generateBlocks( "map.txt");
         gameWorld.generateMapBlocks();

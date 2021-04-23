@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.componentViews.TimerView;
 
@@ -30,7 +31,6 @@ import java.util.Map;
 
 public class HighScoreScreen extends ScreenAdapter {
 
-    private FirebasePlayer firebasePlayer;
 
     private ShapeRenderer shapeRenderer;
     private final AssetManager assetManager;
@@ -42,20 +42,13 @@ public class HighScoreScreen extends ScreenAdapter {
 
     private Image highscoreImg;
     private TextButton exitBtn;
-    private String name;
-
-
 
     public HighScoreScreen(AssetManager assetManager, OrthographicCamera camera, BitmapFont font) {
         this.assetManager = assetManager;
         this.camera = camera;
         this.font = font;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, camera));
-
-    private Map<String, Integer> scores = new LinkedHashMap<>();
-
         this.shapeRenderer = new ShapeRenderer();
-        firebasePlayer = new FirebasePlayer();
 
     }
 
@@ -105,8 +98,6 @@ public class HighScoreScreen extends ScreenAdapter {
     }
 
     private void initScreen() {
-        scores = FirebasePlayer.getScores();
-
         Texture gameOverTex = assetManager.get("components/highscores.png", Texture.class);
         highscoreImg = new Image(gameOverTex);
         highscoreImg.setPosition(camera.position.x - highscoreImg.getWidth() / 2, camera.position.y + 70);
@@ -136,7 +127,7 @@ public class HighScoreScreen extends ScreenAdapter {
         table.row().expandX().fillX();
 
 
-        for (Map.Entry<String, Integer> pair : firebasePlayer.getScores().entrySet()) {
+        for (Map.Entry<String, Integer> pair : FirebasePlayer.getScores().entrySet()) {
             table.add(new Label(pair.getKey(), skin)).uniform();
             table.add(new Label(String.valueOf(pair.getValue()), skin));
             table.row();

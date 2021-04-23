@@ -30,9 +30,6 @@ public class MenuScreen extends ScreenAdapter {
     private final OrthographicCamera camera;
     private final AssetManager assetManager;
 
-    int score;
-    private FirebasePlayer firebasePlayer;
-
     public MenuScreen(AssetManager assetManager, OrthographicCamera camera, BitmapFont font){
         this.assetManager = assetManager;
         this.camera = camera;
