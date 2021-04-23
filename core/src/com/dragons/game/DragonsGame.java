@@ -21,8 +21,6 @@ public class DragonsGame extends Game {
 
 		Gdx.app.log("DragonsGame", "created");
 		ScreenManager.getInstance().setLoadingScreen();
-
-
 	}
 
 

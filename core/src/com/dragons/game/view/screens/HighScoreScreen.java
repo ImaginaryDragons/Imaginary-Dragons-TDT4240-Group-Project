@@ -108,14 +108,14 @@ public class HighScoreScreen extends ScreenAdapter {
 
         Container<Table> tableContainer = new Container<Table>();
 
-        float sw = Constants.WorldWidth;
-        float sh = Constants.WorldHeight;
+        //float sw = Constants.WorldWidth;
+        //float sh = Constants.WorldHeight;
 
-        float cw = sw * 0.7f;
-        float ch = sh * 0.5f;
+        //float cw = sw * 0.7f;
+        //float ch = sh * 0.5f;
 
-        tableContainer.setSize(cw, ch);
-        tableContainer.setPosition((sw-cw), (sh-ch));
+        tableContainer.setSize(250, 150);
+        tableContainer.setPosition(camera.position.x - tableContainer.getWidth() / 2, camera.position.y + 50);
         tableContainer.fillX();
 
         Table table = new Table(skin);
@@ -126,14 +126,11 @@ public class HighScoreScreen extends ScreenAdapter {
         table.add(score).expandX().fillX();
         table.row().expandX().fillX();
 
-
         for (Map.Entry<String, Integer> pair : FirebasePlayer.getScores().entrySet()) {
             table.add(new Label(pair.getKey(), skin)).uniform();
             table.add(new Label(String.valueOf(pair.getValue()), skin));
             table.row();
         }
-
-
 
         tableContainer.setActor(table);
         stage.addActor(highscoreImg);
