@@ -3,7 +3,7 @@ package com.dragons.game.controller.gameWorld;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
-import com.dragons.game.view.modelViews.IModelView;
+import com.dragons.game.view.IView;
 import com.dragons.game.view.modelViews.modelViewFactories.ModelViewFactory;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -16,7 +16,7 @@ public class GameObject {
     // https://gamedev.stackexchange.com/questions/88455/how-can-i-attach-a-libgdx-actor-to-a-box2d-body
 
     private IModel model;
-    private IModelView modelView;
+    private IView modelView;
     private final Body body;
     private final World world;
     public boolean destroyObject;
@@ -31,7 +31,7 @@ public class GameObject {
     }
 
 
-    public IModelView getModelView() {
+    public IView getModelView() {
         return modelView;
     }
 

@@ -92,6 +92,7 @@ public class HighScoreScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
+        super.dispose();
         stage.dispose();
         shapeRenderer.dispose();
 
