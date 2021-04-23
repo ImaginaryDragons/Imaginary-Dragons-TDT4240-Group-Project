@@ -10,6 +10,8 @@ import com.dragons.game.view.componentViews.LifeDisplayView;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class GameRenderer {
 
@@ -25,13 +27,13 @@ public class GameRenderer {
     }
 
     public void render(SpriteBatch batch){
-        ArrayList<GameObject> dynamicGameObjects = gameWorld.getDynamicGameObjects();
+        List<GameObject> dynamicGameObjects = gameWorld.getDynamicGameObjects();
         for (GameObject object : dynamicGameObjects){
             if (object.getModelView() != null){
                 object.getModelView().render(batch);
             }
         }
-        ArrayList<GameObject> staticGameObjects = gameWorld.getStaticGameObjects();
+        List<GameObject> staticGameObjects = gameWorld.getStaticGameObjects();
         for (GameObject object : staticGameObjects){
             if (object.getModelView() != null){
                 object.getModelView().render(batch);

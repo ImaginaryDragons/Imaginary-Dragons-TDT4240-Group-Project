@@ -9,7 +9,6 @@ public abstract class Model implements IModel {
     private boolean disposeModel = false;
     private final boolean isStatic, isSensor;
 
-    // TODO: might remove ModelType but keep it for the moment
     public Model(Vector2 position, float width, float height, boolean isStatic, boolean isSensor) {
         this.position = position;
         this.width = width;
@@ -24,11 +23,17 @@ public abstract class Model implements IModel {
         return position;
     }
 
+    @Override
+    public void setPosition(float x, float y){
+        position.set(x, y);
+    }
+
 
     @Override
     public boolean isDisposed() {
         return disposeModel;
     }
+
 
     public boolean isStatic() {
         return isStatic;
@@ -46,7 +51,7 @@ public abstract class Model implements IModel {
     /**
      * Sets the destroyModel value to true => this tells the world to destroy the model
      */
-    protected void disposeModel(){
+    public void dispose(){
         disposeModel = true;
     }
 

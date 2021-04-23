@@ -2,6 +2,7 @@ package com.dragons.game.model.modelFactories;
 
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.IModel;
+import com.dragons.game.model.powerUps.NewPowerUpTemplate;
 import com.dragons.game.model.powerUps.PowerUpType;
 import com.dragons.game.model.powerUps.BombCapacity;
 import com.dragons.game.model.powerUps.IncreaseRange;
@@ -21,8 +22,8 @@ import java.util.Random;
 public final class PowerUpFactory {
 
     private static final PowerUpFactory INSTANCE = new PowerUpFactory();
-    private PowerUpType[] powerUps=PowerUpType.values();
-    private Random random = new Random();
+    private final PowerUpType[] powerUps=PowerUpType.values();
+    private final Random random = new Random();
 
     public static PowerUpFactory getInstance() {
         return INSTANCE;
@@ -50,6 +51,8 @@ public final class PowerUpFactory {
                 return new IncreaseRange(position, width, height);
             case INCREASESPEED:
                 return new IncreaseSpeed(position, width, height);
+            case NEWPOWERUPTEMPLATE:
+                return new NewPowerUpTemplate(position, width, height);
             default:
                 throw new IllegalArgumentException();
         }
