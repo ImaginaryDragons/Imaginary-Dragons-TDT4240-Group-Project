@@ -19,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.DragonsGame;
-import com.dragons.game.FirebasePlayer;
+import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.componentViews.TimerView;
 
@@ -153,7 +153,6 @@ public class HighScoreScreen implements Screen {
             table.row();
         }
 
-        
 
 
         tableContainer.setActor(table);

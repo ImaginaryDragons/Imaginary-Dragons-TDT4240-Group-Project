@@ -1,4 +1,4 @@
-package com.dragons.game.model.players;
+package com.dragons.game.model.players.playerEnums;
 
 /**
         * Instantiates a player. Has to be tied to a controller to control.

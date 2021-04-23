@@ -27,9 +27,10 @@ public final class FireFactory {
     public IModel createFire(Vector2 position, @NotNull BombType type, float width, float height){
         switch (type){
             case NORMALBOMB:
-                return new NormalFire(position, width, height);
+                return new NormalFire(position, width, height, type);
             default:
-                throw new IllegalArgumentException();
+                // The Fire model is very basic therefore most bombs can use this class
+                return new NormalFire(position, width, height, type);
         }
     }
 }

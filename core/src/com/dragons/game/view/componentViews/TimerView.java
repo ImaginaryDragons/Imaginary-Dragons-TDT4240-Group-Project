@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.DragonsGame;
-import com.dragons.game.FirebasePlayer;
+import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.view.IView;
 
 public class TimerView implements IView {
@@ -37,7 +37,7 @@ public class TimerView implements IView {
     private Label timeLabel;
 
     public TimerView(AssetManager assets, OrthographicCamera camera) {
-        worldTimer = 1;
+        worldTimer = 600;
         timeCount = 0;
         scoreCount = 1;
 

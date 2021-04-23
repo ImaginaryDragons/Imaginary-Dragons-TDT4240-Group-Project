@@ -2,5 +2,5 @@ package com.dragons.game.model.bombs;
 
 
 public enum BombType{
-    NORMALBOMB
+    NORMALBOMB, NEW_TEST_BOMB
 }

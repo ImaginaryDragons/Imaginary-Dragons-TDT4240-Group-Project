@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragons.game.model.IModel;
 import com.dragons.game.utilities.Constants;
+import com.google.errorprone.annotations.RequiredModifiers;
 
 public abstract class ModelView implements IModelView{
     protected static final float FRAME_DURATION = Constants.FRAME_DURATION;
@@ -36,7 +37,6 @@ public abstract class ModelView implements IModelView{
         float y = model.getPosition().y;
         float width = model.getWidth();
         float height = model.getHeight();
-        System.out.println();
 
         batch.draw(current_frame, x - width / 2f, y - width / 2f, width, height);
     }

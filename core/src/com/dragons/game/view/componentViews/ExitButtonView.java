@@ -19,9 +19,9 @@ public class ExitButtonView {
     public ExitButtonView(AnnotationAssetManager manager) {
         exitButton = manager.get(EXIT_BTN, Texture.class);
 
-//        exitButtonPosX = (int) (Constants.VIRTUAL_WIDTH - exitButton.getWidth()*EXIT_BUTTON_SCALING - exitButton.getHeight());
+
         exitButtonPosX = (int) (Constants.VIEWPORT_WIDTH /2 - exitButton.getWidth()*EXIT_BUTTON_SCALING/2);
-        exitButtonPosY = (int) (Constants.VIEWPORT_HEIGHT - exitButton.getHeight()*EXIT_BUTTON_SCALING - EDGE_MARGIN);
+        exitButtonPosY = (int) (EDGE_MARGIN);
         exitButtonWidth = (int) (exitButton.getWidth()*EXIT_BUTTON_SCALING);
         exitButtonHeight = (int) (exitButton.getHeight()*EXIT_BUTTON_SCALING);
 

@@ -1,6 +1,5 @@
 package com.dragons.game.controller.gameWorld;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dragons.game.model.IModel;
@@ -23,7 +22,7 @@ public class GameObject {
     public boolean destroyObject;
 
     public GameObject(IModel model, World world, AnnotationAssetManager assetManager) {
-        Gdx.app.log("GameObject", "Creating game object");
+        //Gdx.app.log("GameObject", "Creating game object");
         this.model = model;
         this.world = world;
         this.modelView = ModelViewFactory.getInstance().createModelView(model, assetManager);
@@ -36,7 +35,7 @@ public class GameObject {
         return modelView;
     }
 
-    public IModel getObject() {
+    public IModel getModel() {
         return model;
     }
 
@@ -50,11 +49,10 @@ public class GameObject {
             // Multiply by PPM since world position is in meters
             float x = body.getPosition().x * PPM;
             float y = body.getPosition().y * PPM;
-            model.getPosition().set(x, y);
+            model.setPosition(x, y);
         }
     }
 
-    // TODO: remove need for position as argument, encapsulate in controller instead
     public void update(float delta){
         model.update(delta);
         if (modelView != null) modelView.update(delta);

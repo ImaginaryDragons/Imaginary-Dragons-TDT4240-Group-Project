@@ -14,6 +14,6 @@ public class DestructibleBlock extends Model implements IBlock {
 
     @Override
     public void handleHitByBomb() {
-        super.disposeModel();
+        super.dispose();
     }
 }

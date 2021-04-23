@@ -8,30 +8,25 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.dragons.game.networking.FireBaseInterface;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.componentViews.TimerView;
 import com.dragons.game.view.screens.LoadingScreen;
-
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
-import com.dragons.game.model.maps.GameMap;
-import com.dragons.game.controller.gameWorld.GameWorld;
-import com.dragons.game.model.players.NormalPlayer;
-
-import com.dragons.game.view.screens.GameScreen;
+import com.dragons.game.networking.FirebasePlayer;
 
 import java.io.IOException;
 
 public class DragonsGame extends Game {
-	SpriteBatch batch;
-	public FireBaseInterface _FBIC;
 
+	private SpriteBatch batch;
+	public FireBaseInterface _FBIC;
 
 	public AssetManager assets;
 	public BitmapFont font;
 
 	public OrthographicCamera camera;
 	public FirebasePlayer firebasePlayer = new FirebasePlayer();
+
 	public DragonsGame(FireBaseInterface FBIC) throws IOException {
 		_FBIC = FBIC;
 
@@ -48,11 +43,14 @@ public class DragonsGame extends Game {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Constants.WorldWidth, Constants.WorldHeight);
 		batch = new SpriteBatch();
-
-		Gdx.app.log("DragonsGame", "created");
+;
 		initFonts();
 		this.setScreen(new LoadingScreen(this));
-		//_FBIC.SetOnValueChangedListener(firebasePlayer);
+
+        //_FBIC.SetOnValueChangedListener(firebasePlayer);
+		initFonts();
+		setScreen(new LoadingScreen(this));
+
 	}
 
 

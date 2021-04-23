@@ -1,4 +1,4 @@
-package com.dragons.game;
+package com.dragons.game.networking;
 
 import com.badlogic.gdx.Game;
 import com.dragons.game.view.componentViews.TimerView;

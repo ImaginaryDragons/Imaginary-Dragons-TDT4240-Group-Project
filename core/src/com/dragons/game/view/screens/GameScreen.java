@@ -11,7 +11,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.DragonsGame;
-import com.dragons.game.FirebasePlayer;
+import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.model.maps.GameMap;
@@ -60,7 +60,7 @@ public class GameScreen extends ScreenAdapter {
         manager = new AnnotationAssetManager();
         loadAssets();
 
-        gameWorld = new GameWorld(gameMap, manager, camera);
+        gameWorld = new GameWorld(gameMap, manager, camera, dragonsGame);
         batch = new SpriteBatch();
 
         camera.position.set(gameMap.getMapWidthInPixels() / 2f, gameMap.getMapHeightInPixels() / 2f, 0);
@@ -72,7 +72,7 @@ public class GameScreen extends ScreenAdapter {
         tiledMapRenderer.setView(camera);
 
         batch.setProjectionMatrix(camera.combined);
-        // TODO: Create functionality for spawning game world
+
         timerView = new TimerView(dragonsGame.assets, camera);
       
         gameMap.generateBlocks( "map.txt");
@@ -80,16 +80,9 @@ public class GameScreen extends ScreenAdapter {
         gameWorld.initializePlayers();
 
 
-
-        // BOMB TEST!!
-        // TODO: get right tile position
-        gameWorld.placeBomb(new Vector2(40,300), BombType.NORMALBOMB, 2);
-
     }
 
-    public GameMap getGameMap() {
-        return gameMap;
-    }
+
 
     @Override
     public void render(float delta) {
@@ -115,6 +108,11 @@ public class GameScreen extends ScreenAdapter {
         timerView.stage.draw();
 
         if (timerView.isTimeUp()) {
+            dragonsGame.setScreen(new GameOverScreen(dragonsGame, timerView.getScoreCount()));
+            dragonsGame.firebasePlayer.setScore(timerView.getScoreCount());
+        }
+
+        if(gameWorld.getDeathDetector().isDead()){
             dragonsGame.setScreen(new GameOverScreen(dragonsGame, timerView.getScoreCount()));
             dragonsGame.firebasePlayer.setScore(timerView.getScoreCount());
         }

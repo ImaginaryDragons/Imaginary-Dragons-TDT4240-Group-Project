@@ -1,8 +1,11 @@
 package com.dragons.game;
 
 import android.util.Log;
-
 import androidx.annotation.NonNull;
+import com.dragons.game.model.players.NormalPlayer;
+import com.dragons.game.networking.FireBaseInterface;
+import com.dragons.game.networking.FirebasePlayer;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +29,7 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
     }
 
     @Override
+
     public void SetOnValueChangedListener(FirebasePlayer firebasePlayer) {
         FirebasePlayer finalFirebasePlayer = firebasePlayer;
         Query query = playerRef.orderByChild("score");
@@ -48,5 +52,4 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
         };
         query.addListenerForSingleValueEvent(valueEventListener);
     }
-    }
-
+}

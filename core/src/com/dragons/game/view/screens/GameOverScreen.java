@@ -17,12 +17,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.DragonsGame;
-import com.dragons.game.FirebasePlayer;
+import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.utilities.Constants;
 
 
 public class GameOverScreen extends ScreenAdapter {
-    private DragonsGame dragonsGame;
+
+    private final DragonsGame dragonsGame;
     private final ShapeRenderer shapeRenderer;
 
     private Stage stage;

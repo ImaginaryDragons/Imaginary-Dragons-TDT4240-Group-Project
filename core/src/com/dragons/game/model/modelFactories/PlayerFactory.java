@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.players.NormalPlayer;
-import com.dragons.game.model.players.PlayerType;
+import com.dragons.game.model.players.playerEnums.PlayerType;
 
 import org.jetbrains.annotations.NotNull;
 

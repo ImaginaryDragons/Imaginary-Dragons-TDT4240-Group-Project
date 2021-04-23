@@ -1,4 +1,4 @@
-package com.dragons.game;
+package com.dragons.game.networking;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,7 +12,5 @@ public interface FireBaseInterface {
     public void writeHighscoreToFB(FirebasePlayer firebasePlayer);
 
     public void SetOnValueChangedListener(FirebasePlayer firebasePlayer);
-
-
 
 }
