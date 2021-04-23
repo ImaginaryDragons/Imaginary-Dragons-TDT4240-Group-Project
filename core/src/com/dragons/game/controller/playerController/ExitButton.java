@@ -40,7 +40,7 @@ public class ExitButton implements InputProcessor {
         cam.unproject(touch);
         if (exitButtonBounds.contains(touch.x, touch.y)){
             Gdx.app.log("Player controller", "EXIT game");
-            dragonsGame.setScreen(new GameOverScreen(dragonsGame, 0f));
+            dragonsGame.setScreen(new GameOverScreen(dragonsGame, 0));
         }
         return false;
     }

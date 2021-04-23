@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.DragonsGame;
+import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.model.maps.GameMap;
@@ -39,6 +40,7 @@ public class GameScreen extends ScreenAdapter {
     private final TiledMapRenderer tiledMapRenderer;
 
     private TimerView timerView;
+    private FirebasePlayer firebasePlayer;
 
     // TODO: Integrating the gameWorld onto the firebase server
     /*Right now the gameWorld is statically defined within our gamescreen. However, we need
@@ -107,10 +109,12 @@ public class GameScreen extends ScreenAdapter {
 
         if (timerView.isTimeUp()) {
             dragonsGame.setScreen(new GameOverScreen(dragonsGame, timerView.getScoreCount()));
+            dragonsGame.firebasePlayer.setScore(timerView.getScoreCount());
         }
 
         if(gameWorld.getDeathDetector().isDead()){
             dragonsGame.setScreen(new GameOverScreen(dragonsGame, timerView.getScoreCount()));
+            dragonsGame.firebasePlayer.setScore(timerView.getScoreCount());
         }
     }
 

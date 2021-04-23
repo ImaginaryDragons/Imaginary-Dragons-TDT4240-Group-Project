@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.DragonsGame;
+import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.utilities.Constants;
 
 import java.io.IOException;
@@ -32,6 +33,7 @@ public class MenuScreen implements Screen {
     private Image logo;
 
     int score;
+    private FirebasePlayer firebasePlayer;
 
     public MenuScreen(final DragonsGame dragonsGame){
         this.dragonsGame = dragonsGame;

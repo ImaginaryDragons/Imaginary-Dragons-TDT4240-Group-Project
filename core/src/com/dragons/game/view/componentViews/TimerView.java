@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.dragons.game.DragonsGame;
+import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.view.IView;
 
 public class TimerView implements IView {
@@ -26,7 +28,9 @@ public class TimerView implements IView {
     private Integer worldTimer;
     private boolean timeUp; // true when the world timer reaches 0
     private float timeCount;
-    private float scoreCount;
+    private int scoreCount;
+    private FirebasePlayer firebasePlayer;
+    private DragonsGame dragonsGame;
 
     //Scene2D widgets
     private Label countdownLabel;
@@ -35,8 +39,9 @@ public class TimerView implements IView {
     public TimerView(AssetManager assets, OrthographicCamera camera) {
         worldTimer = 600;
         timeCount = 0;
-        scoreCount = 0;
+        scoreCount = 1;
 
+        firebasePlayer = new FirebasePlayer();
         stage = new Stage(new StretchViewport(camera.viewportWidth, camera.viewportHeight, camera));
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Arcon.ttf"));
@@ -77,7 +82,7 @@ public class TimerView implements IView {
     public void update(float delta) {
         timeCount += delta;
         if(timeCount >= 1){
-            if (worldTimer > 0) {
+            if (worldTimer > 1) {
                 worldTimer--;
                 scoreCount++;
             } else {
@@ -95,7 +100,7 @@ public class TimerView implements IView {
 
     public boolean isTimeUp() { return timeUp; }
 
-    public float getScoreCount(){
+    public int getScoreCount(){
         return scoreCount;
     }
 }

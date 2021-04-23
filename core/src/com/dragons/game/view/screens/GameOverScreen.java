@@ -17,10 +17,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.DragonsGame;
+import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.utilities.Constants;
 
 
 public class GameOverScreen extends ScreenAdapter {
+
     private final DragonsGame dragonsGame;
     private final ShapeRenderer shapeRenderer;
 
@@ -33,11 +35,10 @@ public class GameOverScreen extends ScreenAdapter {
     private TextField nameField;
     private TextButton saveScoreBtn, exitBtn;
 
+    private int score;
 
-    private float score;
 
-
-    public GameOverScreen(DragonsGame dragonsGame, float score) {
+    public GameOverScreen(DragonsGame dragonsGame, int score) {
         this.dragonsGame = dragonsGame;
         this.score = score;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, dragonsGame.camera));
@@ -116,6 +117,7 @@ public class GameOverScreen extends ScreenAdapter {
         nameFieldLabel.setPosition(dragonsGame.camera.position.x - nameFieldLabel.getWidth() / 2, dragonsGame.camera.position.y - 10);
 
         nameField = new TextField("", skin);
+
         nameField.setSize(250, 30);
         //nameField.setAlignment(Align.center);
         nameField.setPosition(dragonsGame.camera.position.x - nameField.getWidth() / 2, dragonsGame.camera.position.y - 40);
@@ -132,7 +134,18 @@ public class GameOverScreen extends ScreenAdapter {
         saveScoreBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                dragonsGame.setScreen(new HighScoreScreen(dragonsGame, score));
+
+                String nameString = nameField.getText();
+                dragonsGame.firebasePlayer.setName(nameString);
+                dragonsGame._FBIC.writeHighscoreToFB(dragonsGame.firebasePlayer);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                dragonsGame._FBIC.SetOnValueChangedListener(dragonsGame.firebasePlayer);
+                System.out.println(dragonsGame.firebasePlayer.getScores());
+                dragonsGame.setScreen(new HighScoreScreen(dragonsGame, dragonsGame.firebasePlayer.getScore()));
             }
         });
         exitBtn.addListener(new ClickListener() {
@@ -150,4 +163,5 @@ public class GameOverScreen extends ScreenAdapter {
         stage.addActor(exitBtn);
 
     }
+
 }

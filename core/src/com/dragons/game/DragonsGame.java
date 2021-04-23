@@ -10,33 +10,32 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragons.game.networking.FireBaseInterface;
 import com.dragons.game.utilities.Constants;
+import com.dragons.game.view.componentViews.TimerView;
 import com.dragons.game.view.screens.LoadingScreen;
+import com.dragons.game.networking.FirebasePlayer;
 
 import java.io.IOException;
 
 public class DragonsGame extends Game {
-    SpriteBatch batch;
-    FireBaseInterface _FBIC;
+
+	private SpriteBatch batch;
+	public FireBaseInterface _FBIC;
 
 	public AssetManager assets;
 	public BitmapFont font;
 
 	public OrthographicCamera camera;
+	public FirebasePlayer firebasePlayer = new FirebasePlayer();
 
-	//public LoadingScreen loadingScreen;
-	//public TestMenuScreen testMenuScreen;
-	//public GameScreen gameScreen;
-	//public GameOverScreen gameOverScreen;
+	public DragonsGame(FireBaseInterface FBIC) throws IOException {
+		_FBIC = FBIC;
 
-    public DragonsGame(FireBaseInterface FBIC) throws IOException {
-        _FBIC = FBIC;
-
-    }
+	}
 
 	// TODO: Find out how to structure screen management for dynamically changing between them
 	/*How do we treat e.g. being in a lobby, creating a game, setting the screen for the game,
-	* leaving, then joining a new lobby and initializing a new game again?
-	* */
+	 * leaving, then joining a new lobby and initializing a new game again?
+	 * */
 
 	@Override
 	public void create () {
@@ -44,26 +43,21 @@ public class DragonsGame extends Game {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Constants.WorldWidth, Constants.WorldHeight);
 		batch = new SpriteBatch();
+;
+		initFonts();
+		this.setScreen(new LoadingScreen(this));
 
-        _FBIC.SetOnValueChangedListener();
-        _FBIC.writeHighscoreToFB("Mads", 2.9, 22);
-		_FBIC.writeHighscoreToFB("Nora", 2.5, 21);
-		_FBIC.writeHighscoreToFB("Eldar", 6.5, 28);
-		_FBIC.writeHighscoreToFB("Jakob", 2.7, 1);
-
-		Gdx.app.log("DragonsGame", "created");
+        //_FBIC.SetOnValueChangedListener(firebasePlayer);
 		initFonts();
 		setScreen(new LoadingScreen(this));
 
-        _FBIC.SetOnValueChangedListener();
 	}
 
 
-    @Override
+	@Override
 	public void dispose() {
 		super.dispose();
 		batch.dispose();
-		//testMenuScreen.dispose();
 	}
 
 	private void initFonts(){
@@ -74,8 +68,5 @@ public class DragonsGame extends Game {
 		params.color = Color.WHITE;
 		font = generator.generateFont(params);
 	}
-
-
-
 
 }

@@ -19,10 +19,18 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.DragonsGame;
+import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.utilities.Constants;
+import com.dragons.game.view.componentViews.TimerView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class HighScoreScreen implements Screen {
     private final DragonsGame dragonsGame;
+    private FirebasePlayer firebasePlayer;
     private ShapeRenderer shapeRenderer;
 
     private Stage stage;
@@ -33,15 +41,18 @@ public class HighScoreScreen implements Screen {
     private Label scoreLabel;
     private Label nameLabel;
     private TextButton exitBtn;
+    private String name;
 
-    private float score;
+    private int score;
 
+    private Map<String, Integer> scores = new LinkedHashMap<>();
 
-    public HighScoreScreen(DragonsGame dragonsGame, float score) {
+    public HighScoreScreen(DragonsGame dragonsGame, int score) {
         this.dragonsGame = dragonsGame;
         this.score = score;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, dragonsGame.camera));
         this.shapeRenderer = new ShapeRenderer();
+        firebasePlayer = new FirebasePlayer();
 
     }
 
@@ -105,7 +116,7 @@ public class HighScoreScreen implements Screen {
     }
 
     private void initScreen() {
-
+        scores = FirebasePlayer.getScores();
 
         Texture gameOverTex = dragonsGame.assets.get("components/highscores.png", Texture.class);
         highscoreImg = new Image(gameOverTex);
@@ -135,9 +146,14 @@ public class HighScoreScreen implements Screen {
         table.add(score).expandX().fillX();
         table.row().expandX().fillX();
 
-        /*for (int i = 0; i < players.size(); i++) {
-            table.add(new Label(players.get(i).getName(), skin)).uniform();
-        }*/
+
+        for (Map.Entry<String, Integer> pair : firebasePlayer.getScores().entrySet()) {
+            table.add(new Label(pair.getKey(), skin)).uniform();
+            table.add(new Label(String.valueOf(pair.getValue()), skin));
+            table.row();
+        }
+
+
 
         tableContainer.setActor(table);
         stage.addActor(highscoreImg);
