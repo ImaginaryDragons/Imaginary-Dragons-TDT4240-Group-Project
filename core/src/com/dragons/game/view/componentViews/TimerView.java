@@ -26,10 +26,10 @@ public class TimerView implements IView {
     private Integer worldTimer;
     private boolean timeUp; // true when the world timer reaches 0
     private float timeCount;
-    private float scoreCount;
+    private int scoreCount;
 
     //Scene2D widgets
-    private Label countdownLabel;
+    private final Label countdownLabel;
     private Label timeLabel;
 
     public TimerView(AssetManager assets, OrthographicCamera camera) {
@@ -95,7 +95,7 @@ public class TimerView implements IView {
 
     public boolean isTimeUp() { return timeUp; }
 
-    public float getScoreCount(){
+    public int getScoreCount(){
         return scoreCount;
     }
 }
