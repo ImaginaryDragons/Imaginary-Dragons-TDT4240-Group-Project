@@ -14,10 +14,6 @@ public class AndroidLauncher extends AndroidApplication {
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 
 
-		try {
-			initialize(new DragonsGame(new AndroidFirebaseInterface()), config);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		initialize(new DragonsGame(new AndroidFirebaseInterface()), config);
 	}
 }
