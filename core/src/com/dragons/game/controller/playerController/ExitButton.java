@@ -5,18 +5,15 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.dragons.game.DragonsGame;
-import com.dragons.game.view.screens.GameOverScreen;
+import com.dragons.game.view.screens.ScreenManager;
 
 public class ExitButton implements InputProcessor {
     private final Rectangle exitButtonBounds;
     private final OrthographicCamera cam;
-    private DragonsGame dragonsGame;
 
-    public ExitButton(OrthographicCamera cam, Rectangle exitButtonBounds, DragonsGame dragonsGame) {
+    public ExitButton(OrthographicCamera cam, Rectangle exitButtonBounds) {
         this.cam = cam;
         this.exitButtonBounds = exitButtonBounds;
-        this.dragonsGame = dragonsGame;
     }
 
     @Override
@@ -40,7 +37,8 @@ public class ExitButton implements InputProcessor {
         cam.unproject(touch);
         if (exitButtonBounds.contains(touch.x, touch.y)){
             Gdx.app.log("Player controller", "EXIT game");
-            dragonsGame.setScreen(new GameOverScreen(dragonsGame, 0f));
+
+            ScreenManager.getInstance().setMenuScreen();
         }
         return false;
     }

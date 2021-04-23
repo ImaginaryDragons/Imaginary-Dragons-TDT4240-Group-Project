@@ -1,9 +1,12 @@
 package com.dragons.game.view.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -14,33 +17,37 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.dragons.game.DragonsGame;
+import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.utilities.Constants;
+import com.dragons.game.view.componentViews.TimerView;
 
-public class HighScoreScreen implements Screen {
-    private final DragonsGame dragonsGame;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+
+public class HighScoreScreen extends ScreenAdapter {
+
+
     private ShapeRenderer shapeRenderer;
+    private final AssetManager assetManager;
+    private final OrthographicCamera camera;
+    private final BitmapFont font;
 
     private Stage stage;
     private Skin skin;
 
     private Image highscoreImg;
-    private Label posLabel;
-    private Label scoreLabel;
-    private Label nameLabel;
     private TextButton exitBtn;
 
-    private float score;
-
-
-    public HighScoreScreen(DragonsGame dragonsGame, float score) {
-        this.dragonsGame = dragonsGame;
-        this.score = score;
-        this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, dragonsGame.camera));
+    public HighScoreScreen(AssetManager assetManager, OrthographicCamera camera, BitmapFont font) {
+        this.assetManager = assetManager;
+        this.camera = camera;
+        this.font = font;
+        this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, camera));
         this.shapeRenderer = new ShapeRenderer();
 
     }
@@ -53,8 +60,8 @@ public class HighScoreScreen implements Screen {
         stage.clear();
 
         this.skin = new Skin();
-        this.skin.addRegions(dragonsGame.assets.get("uiskin.atlas", TextureAtlas.class));
-        this.skin.add("default-font", dragonsGame.font);
+        this.skin.addRegions(assetManager.get("uiskin.atlas", TextureAtlas.class));
+        this.skin.add("default-font", font);
         this.skin.load(Gdx.files.internal("uiskin.json"));
 
         initScreen();
@@ -82,20 +89,6 @@ public class HighScoreScreen implements Screen {
 
     }
 
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
 
     @Override
     public void dispose() {
@@ -105,15 +98,13 @@ public class HighScoreScreen implements Screen {
     }
 
     private void initScreen() {
-
-
-        Texture gameOverTex = dragonsGame.assets.get("components/highscores.png", Texture.class);
+        Texture gameOverTex = assetManager.get("components/highscores.png", Texture.class);
         highscoreImg = new Image(gameOverTex);
-        highscoreImg.setPosition(dragonsGame.camera.position.x - highscoreImg.getWidth() / 2, dragonsGame.camera.position.y + 70);
+        highscoreImg.setPosition(camera.position.x - highscoreImg.getWidth() / 2, camera.position.y + 70);
 
         exitBtn = new TextButton("Exit", skin, "default");
         exitBtn.setSize(150, 40);
-        exitBtn.setPosition(dragonsGame.camera.position.x - exitBtn.getWidth() / 2, dragonsGame.camera.position.y - exitBtn.getHeight() - 130);
+        exitBtn.setPosition(camera.position.x - exitBtn.getWidth() / 2, camera.position.y - exitBtn.getHeight() - 130);
 
         Container<Table> tableContainer = new Container<Table>();
 
@@ -135,9 +126,14 @@ public class HighScoreScreen implements Screen {
         table.add(score).expandX().fillX();
         table.row().expandX().fillX();
 
-        /*for (int i = 0; i < players.size(); i++) {
-            table.add(new Label(players.get(i).getName(), skin)).uniform();
-        }*/
+
+        for (Map.Entry<String, Integer> pair : FirebasePlayer.getScores().entrySet()) {
+            table.add(new Label(pair.getKey(), skin)).uniform();
+            table.add(new Label(String.valueOf(pair.getValue()), skin));
+            table.row();
+        }
+
+
 
         tableContainer.setActor(table);
         stage.addActor(highscoreImg);
@@ -147,7 +143,7 @@ public class HighScoreScreen implements Screen {
         exitBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                dragonsGame.setScreen(new MenuScreen(dragonsGame));
+                ScreenManager.getInstance().setMenuScreen();
             }
         });
 

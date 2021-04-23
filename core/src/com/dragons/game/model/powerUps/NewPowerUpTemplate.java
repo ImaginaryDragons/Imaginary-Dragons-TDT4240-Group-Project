@@ -6,8 +6,7 @@ import com.dragons.game.model.Model;
 import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.players.IPlayer;
 
-
-public class BombCapacity extends Model implements IPowerUp {
+public class NewPowerUpTemplate extends Model implements IPowerUp {
 
     private static final boolean isStatic = true;
     private static final boolean isSensor = true;
@@ -16,9 +15,9 @@ public class BombCapacity extends Model implements IPowerUp {
     private static final int increaseAmount = 1;
 
     // The type of bomb this PowerUp should add to player inventory;
-    private static final BombType bombType = BombType.NORMALBOMB;
+    private static final BombType bombType = BombType.NEW_TEST_BOMB;
 
-    public BombCapacity(Vector2 position, float width, float height) {
+    public NewPowerUpTemplate(Vector2 position, float width, float height) {
         super(position, width, height, isStatic, isSensor);
     }
 
@@ -27,7 +26,7 @@ public class BombCapacity extends Model implements IPowerUp {
     public void handlePickedUp(IModel model) {
         if (model instanceof IPlayer) ((IPlayer) model).increaseBombCapacity(increaseAmount, bombType);
             // for debugging
-        else throw new IllegalArgumentException("Model is not of type NormalPlayer");
+        else throw new IllegalArgumentException("Model is not a player");
 
         super.dispose();
     }

@@ -10,12 +10,11 @@ import java.util.ArrayList;
 public interface IBomb extends IModel {
 
     boolean isExploded();
-    ArrayList<Vector2> getFireTiles(GameMap gameMap);
     void hitByFire();
     BombType getType();
     float getExplodeTime();
-    int getBombRange();
     IFire getFire();
     void increaseRange(int amount);
+    int getBombRange();
 
 }

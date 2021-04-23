@@ -20,9 +20,7 @@ public class FireController implements IGameObjectController {
     @Override
     public void controllerAction(GameWorld gameWorld) {
         if (fire.isExpired()){
-            fire = null;
-            gameWorld.getStaticGameObjects().remove(fireObject);
-            fireObject.dispose();
+            fireObject.getModel().dispose();
             removeController = true;
         }
     }

@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.dragons.game.DragonsGame;
 import com.dragons.game.controller.bombController.BombController;
 import com.dragons.game.controller.bombController.FireController;
 import com.dragons.game.controller.IGameObjectController;
@@ -28,9 +27,9 @@ import com.dragons.game.view.componentViews.LifeDisplayView;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import static com.dragons.game.utilities.Constants.PPM;
 import static com.dragons.game.utilities.Constants.VIEWPORT_HEIGHT;
@@ -45,11 +44,13 @@ import static com.dragons.game.utilities.Constants.VIEWPORT_WIDTH;
  * */
 
 public class GameWorld {
-    private final ArrayList<GameObject> staticGameObjects = new ArrayList<>();
-    private final ArrayList<GameObject> dynamicGameObjects = new ArrayList<>();
-    private final Collection<IGameObjectController> actionControllers = new LinkedList<>();
+
+    // LinkedList gives better performance than arraylist since objects are constantly getting removed and added
+    private final List<GameObject> staticGameObjects = new LinkedList<>();
+    private final List<GameObject> dynamicGameObjects = new LinkedList<>();
+    private final List<IGameObjectController> actionControllers = new LinkedList<>();
+    private final List<IGameObjectController> tempControllerContainer = new LinkedList<>();
     private final ArrayList<LifeDisplayView> lifeDisplay = new ArrayList<>();
-    private final Collection<IGameObjectController> tempControllerContainer = new LinkedList<>();
 
     // Factories
     private final PlayerFactory playerFactory = PlayerFactory.getInstance();
@@ -65,13 +66,15 @@ public class GameWorld {
     private final InputHandler inputHandler;
 
     private int cleanupCounter;
+    private DeathDetector deathDetector;
+
 
 
     // https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_hello.html#autotoc_md21
     // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
 
-    public GameWorld(com.dragons.game.model.maps.GameMap map, AnnotationAssetManager manager, OrthographicCamera camera, DragonsGame dragonsGame) {
+    public GameWorld(GameMap map, AnnotationAssetManager manager, OrthographicCamera camera) {
         world = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         this.assetManager = manager;
         world.setContactListener(new WorldContactListener());
@@ -83,9 +86,9 @@ public class GameWorld {
         b2drCam.update();
 
 
-//        playerController1 = new PlayerController(camera, manager, this, true);
-//        playerController2 = new PlayerController(camera, manager, this, false);
-        inputHandler = new InputHandler(camera, manager, this, dragonsGame);
+
+        deathDetector = new DeathDetector();
+        inputHandler = new InputHandler(camera, manager, this);
 
         this.cleanupCounter = 0;
     }
@@ -107,6 +110,11 @@ public class GameWorld {
             this.cleanupCounter = 0;
         }
         this.cleanupCounter++;
+
+
+    }
+    public DeathDetector getDeathDetector(){
+        return deathDetector;
     }
 
     public void addGameObject(GameObject newObject){
@@ -138,9 +146,10 @@ public class GameWorld {
 
         GameObject player1 = new GameObject(p1, world, assetManager);
         inputHandler.addPlayer(player1, true);
+        deathDetector.addPlayer(player1);
         addGameObject(player1);
 
-        LifeDisplayView healthView1 = new LifeDisplayView((NormalPlayer)p1, assetManager, map, map.tilePosCenter(new Vector2(1,10)));
+        LifeDisplayView healthView1 = new LifeDisplayView((NormalPlayer)p1, assetManager, map, map.tilePosCenter(new Vector2(3,10)));
         lifeDisplay.add(healthView1);
 
         // Initialize player 2
@@ -150,10 +159,13 @@ public class GameWorld {
 
         GameObject player2 = new GameObject(p2, world, assetManager);
         inputHandler.addPlayer(player2, false);
+        deathDetector.addPlayer(player2);
         addGameObject(player2);
 
         LifeDisplayView healthView2 = new LifeDisplayView((NormalPlayer)p2, assetManager, map, map.tilePosCenter(new Vector2(9,10)));
         lifeDisplay.add(healthView2);
+
+
     }
 
     public void placeBomb(Vector2 centerPos, BombType type, int extraRange) {
@@ -181,24 +193,29 @@ public class GameWorld {
         GameObject dynamicObj;
         while(iterator.hasNext()) {
             dynamicObj = iterator.next();
-            dynamicObj.syncPosition();
-            dynamicObj.update(delta);
             if (dynamicObj.getModel().isDisposed()){
                 dynamicObj.dispose();
                 iterator.remove();
+            }
+            else {
+                dynamicObj.syncPosition();
+                dynamicObj.update(delta);
             }
         }
         iterator = staticGameObjects.iterator();
         GameObject staticObj;
         while(iterator.hasNext()){
             staticObj = iterator.next();
-            staticObj.update(delta);
             if (staticObj.getModel().isDisposed()){
                 staticObj.dispose();
                 iterator.remove();
             }
+            else{
+                staticObj.update(delta);
+            }
         }
     }
+
 
     /**
      * Iterate through the controllers and perform actions
@@ -222,11 +239,11 @@ public class GameWorld {
         tempControllerContainer.clear();
     }
 
-    public ArrayList<GameObject> getStaticGameObjects() {
+    public List<GameObject> getStaticGameObjects() {
         return staticGameObjects;
     }
 
-    public ArrayList<GameObject> getDynamicGameObjects() {
+    public List<GameObject> getDynamicGameObjects() {
         return dynamicGameObjects;
     }
 
@@ -243,4 +260,7 @@ public class GameWorld {
     public ArrayList<LifeDisplayView> getLifeDisplay() {
         return lifeDisplay;
     }
+
+
+
 }

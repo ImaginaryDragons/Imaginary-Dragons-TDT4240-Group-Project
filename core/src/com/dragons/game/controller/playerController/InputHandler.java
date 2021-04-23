@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dragons.game.DragonsGame;
 import com.dragons.game.controller.gameWorld.GameObject;
 import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.view.componentViews.ExitButtonView;
@@ -19,13 +18,13 @@ public class InputHandler {
 
     private InputMultiplexer multiplexer;
 
-    public InputHandler(OrthographicCamera camera, AnnotationAssetManager manager, GameWorld gameWorld, DragonsGame dragonsGame) {
+    public InputHandler(OrthographicCamera camera, AnnotationAssetManager manager, GameWorld gameWorld) {
         playerController1 = new PlayerController(camera, manager, gameWorld, true);
         playerController2 = new PlayerController(camera, manager, gameWorld, false);
 
         exitButtonView = new ExitButtonView(manager);
 //        exitButton = new ExitButton(camera, exitButtonView.getBounds());  // TODO: Find way to get bounds of button without passing exitButtonView
-        exitButton = new ExitButton(camera, exitButtonView.getBounds(), dragonsGame);
+        exitButton = new ExitButton(camera, exitButtonView.getBounds());
 
         multiplexer = new InputMultiplexer(
                 playerController1.getJoystick(),

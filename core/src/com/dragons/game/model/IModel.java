@@ -17,4 +17,5 @@ public interface IModel {
      * checks if the model should be destroyed
      */
     boolean isDisposed();
+    void dispose();
 }
