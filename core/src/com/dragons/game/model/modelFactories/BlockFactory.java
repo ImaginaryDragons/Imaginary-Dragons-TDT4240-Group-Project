@@ -19,7 +19,7 @@ public final class BlockFactory{
     }
 
     /**
-     * Returns a block object
+     * Returns IView block object
      * @param type Block enum, Vector 2 position, width and height of block.
      * @return Block if the type is correct
      * @throws IllegalArgumentException if type doesn't exist

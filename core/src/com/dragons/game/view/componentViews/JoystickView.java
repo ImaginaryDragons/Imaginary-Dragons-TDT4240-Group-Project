@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.dragons.game.controller.playerController.Joystick;
 import com.dragons.game.view.IView;
+import com.dragons.game.view.modelViews.IModelView;
 
 import static com.dragons.game.utilities.Constants.JOYSTICK_PERIMETER_RADIUS;
 
@@ -39,10 +40,6 @@ public class JoystickView implements IView {
         joystickBG = new Texture(pixmapJoystickBG);
     }
 
-    @Override
-    public void update(float delta) {
-
-    }
 
     @Override
     public void render(SpriteBatch sb) {

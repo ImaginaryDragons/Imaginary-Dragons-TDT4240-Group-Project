@@ -7,6 +7,7 @@ import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.model.IModel;
 import com.dragons.game.model.blocks.DestructibleBlock;
 import com.dragons.game.model.blocks.WallBlock;
+import com.dragons.game.model.bombs.Bomb;
 import com.dragons.game.model.bombs.IBomb;
 import com.dragons.game.model.maps.GameMap;
 
@@ -16,12 +17,12 @@ import java.util.Iterator;
 public class BombController implements IGameObjectController {
 
     private final GameObject bombObject;
-    private IBomb bomb;
+    private Bomb bomb;
     public boolean removeController;
 
     public BombController(GameObject bombObject) {
         this.bombObject = bombObject;
-        this.bomb = (IBomb) bombObject.getModel();
+        this.bomb = (Bomb) bombObject.getModel();
         this.removeController = false;
     }
 
@@ -53,7 +54,7 @@ public class BombController implements IGameObjectController {
         return fireTiles;
     }
 
-    // Returns the tiles we want fire to in a given direction
+    // Returns the tiles we want fire to in IView given direction
     private ArrayList<Vector2> addFireInDirection(String direction, GameMap gameMap) {
         Vector2 checkTile = gameMap.pos2tile(bomb.getPosition());
         ArrayList<Vector2> fireTiles = new ArrayList<Vector2>();

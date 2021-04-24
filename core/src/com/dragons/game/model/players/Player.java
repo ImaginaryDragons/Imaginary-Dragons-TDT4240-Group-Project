@@ -8,10 +8,7 @@ import com.dragons.game.model.bombs.IBomb;
 import com.dragons.game.model.modelFactories.BombFactory;
 import com.dragons.game.model.players.playerEnums.Direction;
 
-import java.util.ArrayList;
-import java.util.Deque;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 public abstract class Player extends Model implements IPlayer {
@@ -149,7 +146,7 @@ public abstract class Player extends Model implements IPlayer {
         IBomb bomb = bombInventory.remove();
         placedBombs.add(bomb);
         // add one counter for every bomb used;
-        newBombTimeCounters.add(bomb.getExplodeTime() + bomb.getFire().getDisplayTime());
+        newBombTimeCounters.add(bomb.getDetonationTime() + bomb.getFire().getDisplayTime());
     }
 
     @Override

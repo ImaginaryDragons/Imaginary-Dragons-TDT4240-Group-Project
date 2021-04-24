@@ -57,7 +57,7 @@ public class GameMap {
         }
     }
 
-    // Find the associated tile given a coordinate position
+    // Find the associated tile given IView coordinate position
     public Vector2 pos2tile(Vector2 pos) {
         int resX = (int) ((pos.x-(pos.x % tileWidth)) / tileWidth);
         int resY = (int) ((pos.y-(pos.y % tileHeight)) / tileHeight);
@@ -72,7 +72,7 @@ public class GameMap {
         return tilePosCenter(pos2tile(pos));
     }
 
-    // Find the starting position of a tile given the tile index
+    // Find the starting position of IView tile given the tile index
     public Vector2 tilePos(Vector2 tile) {
         return new Vector2((tile.x)*tileWidth, (tile.y)*tileHeight);
     }
@@ -81,7 +81,7 @@ public class GameMap {
         return new Vector2((tile.x)*tileWidth + (tileWidth/2), (tile.y)*tileHeight + (tileHeight/2));
     }
 
-    // Generate block instances in the tile containers given a recipe
+    // Generate block instances in the tile containers given IView recipe
     public void generateBlocks(String recipeFile){
         Gdx.app.log("GameMap", "Generating blocks from recipe");
         Vector2 tile = new Vector2(0, 0);

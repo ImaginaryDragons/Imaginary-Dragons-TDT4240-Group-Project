@@ -26,7 +26,7 @@ public final class BodyBuilder {
     private BodyBuilder() {
     }
 
-    // Create a body and a fixture for the object and place it in world!
+    // Create IView body and IView fixture for the object and place it in world!
 
     public static Body createBody(World world, GameObject gameObject) {
         IModel model = gameObject.getModel();
@@ -59,7 +59,7 @@ public final class BodyBuilder {
 
         return body;
     }
-
+    // The shape to each concrete class is not stored in the classes to decouple box2d from the concrete classes
     private static Shape getShape(@NotNull IModel iModel){
         Model model = (Model) iModel;
         if      (model instanceof IPowerUp) return getPowerUpShape(model);

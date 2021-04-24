@@ -5,12 +5,13 @@ import com.dragons.game.model.IModel;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.IView;
 
-public abstract class ModelView implements IView {
+
+public abstract class ModelView implements IModelView{
     protected static final float FRAME_DURATION = Constants.FRAME_DURATION;
     private static float state_time = 0;
     private final IModel model;
 
-
+    // Helper method
     protected abstract void draw(SpriteBatch batch, float x, float y, float width, float height, float state_time);
 
     public ModelView(IModel model) {
@@ -23,7 +24,7 @@ public abstract class ModelView implements IView {
         state_time += delta;
     }
 
-
+    // Template Method
     @Override
     public void render(SpriteBatch batch) {
         float x = model.getPosition().x;

@@ -6,7 +6,7 @@ import com.dragons.game.model.bombs.IBomb;
 import com.dragons.game.model.bombs.fires.IFire;
 import com.dragons.game.model.players.IPlayer;
 import com.dragons.game.model.powerUps.IPowerUp;
-import com.dragons.game.view.IView;
+import com.dragons.game.view.modelViews.IModelView;
 
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -30,7 +30,7 @@ public class ModelViewFactory {
         return INSTANCE;
     }
 
-    public IView createModelView(IModel model, AnnotationAssetManager assetManager){
+    public IModelView createModelView(IModel model, AnnotationAssetManager assetManager){
         // Add different viewFactories if needed here
         if      (model instanceof IBlock)   return blockViewFactory.createModelView(model, assetManager);
         else if (model instanceof IPowerUp) return powerUpViewFactory.createModelView(model, assetManager);

@@ -55,30 +55,30 @@ public class Joystick implements InputProcessor {
     public boolean keyDown(int keycode) {  // For testing purposes on multiplayer. Not able to test multiplayer with touch
         if (!isPlayerOne) {
             if (keycode == Input.Keys.UP) {
-                gameObject.getBody().setLinearVelocity(0f, player.getSpeed());
+                gameObject.setLinearVelocity(0f, player.getSpeed());
                 player.setOrientation(UP);
             } else if (keycode == Input.Keys.RIGHT) {
-                gameObject.getBody().setLinearVelocity(player.getSpeed(), 0f);
+                gameObject.setLinearVelocity(player.getSpeed(), 0f);
                 player.setOrientation(RIGHT);
             } else if (keycode == Input.Keys.LEFT) {
-                gameObject.getBody().setLinearVelocity(-player.getSpeed(), 0f);
+                gameObject.setLinearVelocity(-player.getSpeed(), 0f);
                 player.setOrientation(LEFT);
             } else if (keycode == Input.Keys.DOWN) {
-                gameObject.getBody().setLinearVelocity(0f, -player.getSpeed());
+                gameObject.setLinearVelocity(0f, -player.getSpeed());
                 player.setOrientation(DOWN);
             }
         } else {
             if (keycode == Input.Keys.W) {
-                gameObject.getBody().setLinearVelocity(0f, player.getSpeed());
+                gameObject.setLinearVelocity(0f, player.getSpeed());
                 player.setOrientation(UP);
             } else if (keycode == Input.Keys.D) {
-                gameObject.getBody().setLinearVelocity(player.getSpeed(), 0f);
+                gameObject.setLinearVelocity(player.getSpeed(), 0f);
                 player.setOrientation(RIGHT);
             } else if (keycode == Input.Keys.A) {
-                gameObject.getBody().setLinearVelocity(-player.getSpeed(), 0f);
+                gameObject.setLinearVelocity(-player.getSpeed(), 0f);
                 player.setOrientation(LEFT);
             } else if (keycode == Input.Keys.S) {
-                gameObject.getBody().setLinearVelocity(0f, -player.getSpeed());
+                gameObject.setLinearVelocity(0f, -player.getSpeed());
                 player.setOrientation(DOWN);
             }
         }
@@ -95,9 +95,9 @@ public class Joystick implements InputProcessor {
     @Override
     public boolean keyUp(int keycode) {
         if (player.getID() == 1 && asdwTouch(keycode)) {
-            gameObject.getBody().setLinearVelocity(0f, 0f);
+            gameObject.setLinearVelocity(0f, 0f);
         } else if (player.getID() == 2 && arrowTouch(keycode)) {
-            gameObject.getBody().setLinearVelocity(0f, 0f);
+            gameObject.setLinearVelocity(0f, 0f);
         }
         return false;
     }
@@ -122,16 +122,16 @@ public class Joystick implements InputProcessor {
             float relativeY = touch.y - JOYSTICK_ORIGIN_Y;
 
             if (relativeX < relativeY && -relativeX < relativeY) {  // UP
-                gameObject.getBody().setLinearVelocity(0f, player.getSpeed());
+                gameObject.setLinearVelocity(0f, player.getSpeed());
                 player.setOrientation(UP);
             } else if (relativeX > relativeY && -relativeX < relativeY) {  // RIGHT
-                gameObject.getBody().setLinearVelocity(player.getSpeed(), 0f);
+                gameObject.setLinearVelocity(player.getSpeed(), 0f);
                 player.setOrientation(RIGHT);
             } else if (relativeX < relativeY && -relativeX > relativeY) {  // LEFT
-                gameObject.getBody().setLinearVelocity(-player.getSpeed(), 0f);
+                gameObject.setLinearVelocity(-player.getSpeed(), 0f);
                 player.setOrientation(LEFT);
             } else {                                            // DOWN
-                gameObject.getBody().setLinearVelocity(0f, -player.getSpeed());
+                gameObject.setLinearVelocity(0f, -player.getSpeed());
                 player.setOrientation(DOWN);
             }
         }
@@ -144,7 +144,7 @@ public class Joystick implements InputProcessor {
         isTouching = false;
         joystick.x = joystickOrigin.x;
         joystick.y = joystickOrigin.y;
-        gameObject.getBody().setLinearVelocity(0f, 0f);
+        gameObject.setLinearVelocity(0f, 0f);
         return false;
     }
 
@@ -171,16 +171,16 @@ public class Joystick implements InputProcessor {
         float relativeY = touch.y - joystickOrigin.y;
 
         if (relativeX < relativeY && -relativeX < relativeY) {  // UP
-            gameObject.getBody().setLinearVelocity(0f, player.getSpeed());
+            gameObject.setLinearVelocity(0f, player.getSpeed());
             player.setOrientation(UP);
         } else if (relativeX > relativeY && -relativeX < relativeY) {  // RIGHT
-            gameObject.getBody().setLinearVelocity(player.getSpeed(), 0f);
+            gameObject.setLinearVelocity(player.getSpeed(), 0f);
             player.setOrientation(RIGHT);
         } else if (relativeX < relativeY && -relativeX > relativeY) {  // LEFT
-            gameObject.getBody().setLinearVelocity(-player.getSpeed(), 0f);
+            gameObject.setLinearVelocity(-player.getSpeed(), 0f);
             player.setOrientation(LEFT);
         } else {                                                    // DOWN
-            gameObject.getBody().setLinearVelocity(0f, -player.getSpeed());
+            gameObject.setLinearVelocity(0f, -player.getSpeed());
             player.setOrientation(DOWN);
         }
         return false;
