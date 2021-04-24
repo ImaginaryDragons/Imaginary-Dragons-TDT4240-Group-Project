@@ -20,14 +20,13 @@ public class FirebasePlayer {
         this.name = name;
     }
 
-    public int getScore() {
-        return score;
-    }
-
     public void setScore(int score) {
         this.score = score;
     }
 
+    public int getScore() {
+        return score;
+    }
 
     public static Map<String, Map<String, Integer>> getScores(){
         return scores;

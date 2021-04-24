@@ -15,7 +15,7 @@ import java.util.Random;
 
 
 /**
- * To extend the factory with a new powerup, create the new powerup class, add its corresponding
+ * To extend the factory with IView new powerup, create the new powerup class, add its corresponding
  * Enum to PowerUpType and put it in the case statement below
  */
 
@@ -33,13 +33,16 @@ public final class PowerUpFactory {
     }
 
     /**
-     * Returns a powerup object
-     * @param type PowerUp enum
+     * Returns a PowerUp object of IModel type
+     * @param position Position where the model should be created
+     * @param type Type of PowerUp that should be created
+     * @param width Width of the object
+     * @param height Height of the object
      * @return PowerUp if the type is correct
      * @throws IllegalArgumentException if type doesn't exist
+     *
      */
-
-    @NotNull
+    // The factory method
     public IModel createPowerUp(Vector2 position, @NotNull PowerUpType type, float width, float height) {
         if (type == PowerUpType.RANDOM){
             type = powerUps[random.nextInt(powerUps.length-1)];
@@ -51,10 +54,10 @@ public final class PowerUpFactory {
                 return new IncreaseRange(position, width, height);
             case INCREASESPEED:
                 return new IncreaseSpeed(position, width, height);
-            case NEWPOWERUPTEMPLATE:
-                return new NewPowerUpTemplate(position, width, height);
+            /*case NEWPOWERUPTEMPLATE:
+                return new NewPowerUpTemplate(position, width, height);*/
             default:
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("The model enum has not been put in its factory");
         }
     }
 }

@@ -80,6 +80,7 @@ public class LevelScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
+        super.dispose();
         stage.dispose();
         shapeRenderer.dispose();
 
@@ -113,7 +114,7 @@ public class LevelScreen extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
-                ScreenManager.getInstance().setGameScreen();
+                ScreenManager.getInstance().setGameScreen(Constants.level1MapName, Constants.level1MapTxtFile);
             }
         });
 

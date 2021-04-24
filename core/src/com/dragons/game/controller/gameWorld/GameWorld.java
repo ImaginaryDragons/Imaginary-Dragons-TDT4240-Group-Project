@@ -36,8 +36,8 @@ import static com.dragons.game.utilities.Constants.VIEWPORT_HEIGHT;
 import static com.dragons.game.utilities.Constants.VIEWPORT_WIDTH;
 
 /**
- * The GameWorld class instantiates the world in which a single game will be played. The
- * class itself then works as a container for our game where every time-step is simulated with
+ * The GameWorld class instantiates the world in which IView single game will be played. The
+ * class itself then works as IView container for our game where every time-step is simulated with
  * the proper actions and interactions performed on and in between objects. After an object is
  * created, it therefore has to be added to the game-world.
  *
@@ -234,7 +234,7 @@ public class GameWorld {
             }
         }
         // This step has to be performed due to limitations on how iterators work. We can't add to the same list we try to iterate through.
-        // Therefore we store new controllers in a temporary list and add them afterwards
+        // Therefore we store new controllers in IView temporary list and add them afterwards
         actionControllers.addAll(tempControllerContainer);
         tempControllerContainer.clear();
     }

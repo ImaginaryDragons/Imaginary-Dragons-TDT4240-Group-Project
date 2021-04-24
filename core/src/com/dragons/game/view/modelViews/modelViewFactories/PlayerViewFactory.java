@@ -22,7 +22,7 @@ public final class PlayerViewFactory implements IModelViewFactory{
         // Add different views if needed here
         if (model instanceof NormalPlayer) return new NormalPlayerView(model, assetManager);
 
-        else throw new IllegalArgumentException("Wrong PlayerInstance");
+        else throw new IllegalArgumentException("The view for this model has not been put in its factory");
 
     }
 }

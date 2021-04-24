@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.IView;
+import com.dragons.game.view.modelViews.IModelView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -14,13 +15,11 @@ import static com.dragons.game.utilities.Constants.BOMB_BUTTON_SCALING;
 import static com.dragons.game.utilities.Constants.EDGE_MARGIN;
 
 public class DropBombButtonView implements IView {
-    private final AnnotationAssetManager manager;
     private final Texture dropBombTexture;
     private final Rectangle dropBombBounds;
     int dropBombPosX, dropBombPosY, dropBombHeight, dropBombWidth;
 
     public DropBombButtonView(AnnotationAssetManager manager, boolean left) {
-        this.manager = manager;
         dropBombTexture = manager.get(BOMB_BTN, Texture.class);
 
         if (left) {
@@ -38,10 +37,6 @@ public class DropBombButtonView implements IView {
         dropBombBounds = new Rectangle(dropBombPosX, dropBombPosY, dropBombWidth, dropBombHeight);
     }
 
-    @Override
-    public void update(float delta) {
-
-    }
 
     @Override
     public void render(SpriteBatch sb) {

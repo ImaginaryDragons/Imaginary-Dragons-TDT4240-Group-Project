@@ -55,7 +55,6 @@ public class GameOverScreen extends ScreenAdapter {
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, camera));
         this.shapeRenderer = new ShapeRenderer();
         fireBasePlayer.setScore(score);
-
     }
 
 
@@ -93,23 +92,11 @@ public class GameOverScreen extends ScreenAdapter {
 
     }
 
-    @Override
-    public void pause() {
 
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
 
     @Override
     public void dispose() {
+        super.dispose();
         stage.dispose();
         shapeRenderer.dispose();
     }
@@ -146,26 +133,19 @@ public class GameOverScreen extends ScreenAdapter {
         saveScoreBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
-
                 String nameString = nameField.getText();
                 fireBasePlayer.setName(nameString);
+                System.out.println(fireBasePlayer.getName());
+                System.out.println(fireBasePlayer.getScore());
                 _FBIC.writeHighscoreToFB(fireBasePlayer);
-
+/*
                 try {
                     // Sleep to give firebase enough time to update
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
-
-                System.out.println(fireBasePlayer.getScores());
-                try {
-                    ScreenManager.getInstance().setHighScoreScreen();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+                }*/
+                ScreenManager.getInstance().setHighScoreScreen();
             }
         });
         exitBtn.addListener(new ClickListener() {

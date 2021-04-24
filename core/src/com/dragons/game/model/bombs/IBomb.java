@@ -7,12 +7,12 @@ import com.dragons.game.model.maps.GameMap;
 
 import java.util.ArrayList;
 
-public interface IBomb extends IModel {
+public interface IBomb {
 
     boolean isExploded();
     void hitByFire();
     BombType getType();
-    float getExplodeTime();
+    float getDetonationTime();
     IFire getFire();
     void increaseRange(int amount);
     int getBombRange();

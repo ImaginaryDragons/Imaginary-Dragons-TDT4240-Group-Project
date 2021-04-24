@@ -26,7 +26,7 @@ public final class BodyBuilder {
     private BodyBuilder() {
     }
 
-    // Create a body and a fixture for the object and place it in world!
+    // Create IView body and IView fixture for the object and place it in world!
 
     public static Body createBody(World world, GameObject gameObject) {
         IModel model = gameObject.getModel();
@@ -59,7 +59,7 @@ public final class BodyBuilder {
 
         return body;
     }
-
+    // The shape to each concrete class is not stored in the classes to decouple box2d from the concrete classes
     private static Shape getShape(@NotNull IModel iModel){
         Model model = (Model) iModel;
         if      (model instanceof IPowerUp) return getPowerUpShape(model);
@@ -70,44 +70,55 @@ public final class BodyBuilder {
         else throw new IllegalArgumentException("Wrong IModel type as argument");
     }
 
-    private static Shape getPowerUpShape(Model model){
+    private static Shape getPowerUpShape(IModel model){
+        /* Template to add a new shape:
+         * if (model instanceof someNewPowerUp){
+         *      final SomeShape someNewPowerShape = new SomeShape();
+                    shape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
+                    * or
+                    shape.setRadius(model.getHeight() / 2 / PPM)
+                    return newPowerUpShape;
+         * }
+           else*/if (model instanceof IPowerUp){
+                    final PolygonShape shape = new PolygonShape();
+                    shape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
+                    return shape;
+                  }
+
+        else throw new IllegalArgumentException("Instance of model hasnt been given a shape yet");
+
+    }
+
+    private static Shape getBlockShape(IModel model){
         final PolygonShape shape = new PolygonShape();
         shape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
         return shape;
     }
-
-    private static Shape getBlockShape(Model model){
-        final PolygonShape shape = new PolygonShape();
-        shape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
-        return shape;
-    }
-
-    // TODO: Generalise the shapes such that NormalPlayer = IPlayer and NormalBomb = IBomb? This might increase modifiability
-    private static Shape getPlayerShape(Model model){
+    private static Shape getPlayerShape(IModel model){
         if (model instanceof IPlayer){
             final CircleShape normalPlayerShape = new CircleShape();
             normalPlayerShape.setRadius(model.getHeight() / 2 / PPM);
             return normalPlayerShape;
         }
-        else throw new IllegalArgumentException("Wrong Player instance");
+        else throw new IllegalArgumentException("Instance of model hasnt been given a shape yet");
     }
 
-    private static Shape getBombShape(Model model){
+    private static Shape getBombShape(IModel model){
         if (model instanceof IBomb){
             final CircleShape normalBomb = new CircleShape();
             normalBomb.setRadius(model.getHeight() / 2 / PPM);
             return normalBomb;
         }
-        else throw new IllegalArgumentException("Wrong Bomb instance");
+        else throw new IllegalArgumentException("Instance of model hasnt been given a shape yet");
     }
 
-    private static Shape getFireShape(Model model){
+    private static Shape getFireShape(IModel model){
         if (model instanceof IFire){
             final PolygonShape normalFireShape = new PolygonShape();
             normalFireShape.setAsBox(model.getWidth() / 2 / PPM, model.getHeight() / 2 / PPM);
             return normalFireShape;
         }
-        else throw new IllegalArgumentException("Wrong Fire instance");
+        else throw new IllegalArgumentException("Instance of model hasnt been given a shape yet");
     }
 
 }

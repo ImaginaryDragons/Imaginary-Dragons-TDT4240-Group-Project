@@ -34,9 +34,13 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
     }
 
     @Override
-
     public void SetOnValueChangedListener(FirebasePlayer firebasePlayer) {
         FirebasePlayer finalFirebasePlayer = firebasePlayer;
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Query query = playerRef.orderByChild("score");
         ValueEventListener valueEventListener = new ValueEventListener() {
           @Override

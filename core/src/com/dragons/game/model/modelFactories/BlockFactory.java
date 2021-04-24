@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class BlockFactory{
 
+    // Singleton pattern
     private static final BlockFactory INSTANCE = new BlockFactory();
 
     public static BlockFactory getInstance() {
@@ -19,12 +20,16 @@ public final class BlockFactory{
     }
 
     /**
-     * Returns a block object
-     * @param type Block enum, Vector 2 position, width and height of block.
+     * Returns a  Block object of IModel type
+     * @param position  Position where the model should be created
+     * @param type Type of Block that should be created
+     * @param width Width of the object
+     * @param height Height of the object
      * @return Block if the type is correct
      * @throws IllegalArgumentException if type doesn't exist
      *
      */
+    // The factory method
     public IModel createBlock(Vector2 position, @NotNull BlockType type, float width, float height){
         switch (type){
             case DESTRUCTIBLEBlOCK:
@@ -32,7 +37,7 @@ public final class BlockFactory{
             case WALLBLOCK:
                 return new WallBlock(position, width, height);
             default:
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("The model enum has not been put in its factory");
         }
     }
 

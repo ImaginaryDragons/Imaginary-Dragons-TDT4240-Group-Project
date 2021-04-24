@@ -5,6 +5,13 @@ public class Constants {
     public static final int WorldWidth = 800;
     public static final int WorldHeight = 480;
 
+    /*      MAPS        */
+    // LEVEL 1
+    public static final String level1MapName = "TileMapMobile.tmx";
+    public static final String level1MapTxtFile = "map.txt";
+
+    // LEVEL 2
+
     public static final float PPM = 7f;
     public static final int FPS = 60;
     public static final float VIEWPORT_WIDTH = 480f;
@@ -20,16 +27,11 @@ public class Constants {
 
     public static final int InitPlayerHealth = 3; // Number of lives
     public static final float PlayerSpeed = 100 /  PPM; // RANDOM NUMBER FOR NOW
-    public static final int PlayerSpeedBoostInc = 5;
-    public static final float PlayerHeight = 10; // Has to be precalculated from a tile ratio!!
-    public static final float PlayerWidth = 10; // Has to be precalculated from a tile ratio!!
     public static final int InitBombCap = 1;
 
     public static final int InitBombRange = 1; //Number of tiles range?? Would be nice and intuitive to use
-    public static final float BombRangeBoostInc = 1.5f; // Number of tiles increased range
-    public static final float DefaultBombExplodeTime = 3f; // Seconds before bomb is done exploding
+    public static final float DefaultDetonationTime = 3f; // Seconds before bomb is done exploding
     public static final float FireDisplayTime = 1f; // Seconds fire displays after bomb explodes
-    public static final float BombReloadTime = DefaultBombExplodeTime + FireDisplayTime;
 
     public static final int JOYSTICK_PERIMETER_RADIUS = 50;
     public static final float JOYSTICK_ORIGIN_X = JOYSTICK_PERIMETER_RADIUS;
