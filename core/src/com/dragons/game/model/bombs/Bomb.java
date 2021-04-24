@@ -52,13 +52,14 @@ public abstract class Bomb extends Model implements IBomb {
     }
 
 
-    public float getDetonationTime(){
-        return detonationTime;
+    @Override
+    public float getFireDisplayTime() {
+        return fire.getDisplayTime();
     }
 
     @Override
-    public IFire getFire() {
-        return fire;
+    public float getDetonationTime(){
+        return detonationTime;
     }
 
     protected void setDetonationTime(float detonationTime) {

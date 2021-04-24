@@ -8,7 +8,6 @@ import com.dragons.game.model.IModel;
 import com.dragons.game.model.blocks.DestructibleBlock;
 import com.dragons.game.model.blocks.WallBlock;
 import com.dragons.game.model.bombs.Bomb;
-import com.dragons.game.model.bombs.IBomb;
 import com.dragons.game.model.maps.GameMap;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import java.util.Iterator;
 public class BombController implements IGameObjectController {
 
     private final GameObject bombObject;
-    private Bomb bomb;
+    private final Bomb bomb;
     public boolean removeController;
 
     public BombController(GameObject bombObject) {

@@ -18,7 +18,6 @@ import com.dragons.game.model.modelFactories.BombFactory;
 import com.dragons.game.model.modelFactories.FireFactory;
 import com.dragons.game.model.modelFactories.PlayerFactory;
 import com.dragons.game.controller.playerController.InputHandler;
-import com.dragons.game.model.players.NormalPlayer;
 import com.dragons.game.model.players.playerEnums.PlayerType;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.componentViews.LifeDisplayView;
@@ -36,8 +35,8 @@ import static com.dragons.game.utilities.Constants.VIEWPORT_HEIGHT;
 import static com.dragons.game.utilities.Constants.VIEWPORT_WIDTH;
 
 /**
- * The GameWorld class instantiates the world in which IView single game will be played. The
- * class itself then works as IView container for our game where every time-step is simulated with
+ * The GameWorld class instantiates the world in which a single game will be played. The
+ * class itself then works as a container for our game where every time-step is simulated with
  * the proper actions and interactions performed on and in between objects. After an object is
  * created, it therefore has to be added to the game-world.
  *
@@ -45,7 +44,6 @@ import static com.dragons.game.utilities.Constants.VIEWPORT_WIDTH;
 
 public class GameWorld {
 
-    // LinkedList gives better performance than arraylist since objects are constantly getting removed and added
     private final List<GameObject> staticGameObjects = new LinkedList<>();
     private final List<GameObject> dynamicGameObjects = new LinkedList<>();
     private final List<IGameObjectController> actionControllers = new LinkedList<>();
@@ -66,7 +64,7 @@ public class GameWorld {
     private final InputHandler inputHandler;
 
     private int cleanupCounter;
-    private DeathDetector deathDetector;
+    private final DeathDetector deathDetector;
 
 
 
@@ -75,17 +73,16 @@ public class GameWorld {
     // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
 
     public GameWorld(GameMap map, AnnotationAssetManager manager, OrthographicCamera camera) {
-        world = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
         this.assetManager = manager;
-        world.setContactListener(new WorldContactListener());
         this.map = map;
+
+        world = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
+        world.setContactListener(new WorldContactListener());
 
         b2dr = new Box2DDebugRenderer();
         b2drCam = new OrthographicCamera(VIEWPORT_WIDTH / PPM, VIEWPORT_HEIGHT / PPM);
         b2drCam.position.set(map.getMapWidthInPixels() / 2f / PPM, map.getMapHeightInPixels() / 2f / PPM, 0);
         b2drCam.update();
-
-
 
         deathDetector = new DeathDetector();
         inputHandler = new InputHandler(camera, manager, this);
@@ -93,15 +90,13 @@ public class GameWorld {
         this.cleanupCounter = 0;
     }
 
-    // Update GameWorld with one time-step
+    // Update GameWorld with a time-step
     public void update(float delta) {
-        // In step, VelocityIteration and PositionIteration values are just 'recommended'
-        // Explanation gameWorld step: http://www.iforce2d.net/b2dtut/worlds
         world.step(delta, 6, 2);
         updateGameObjects(delta);
         updateActionControllers();
 
-        // Uncomment this for debugging
+        // Uncomment this for debugrenderer
         //b2dr.render(world, b2drCam.combined);
 
         // Cleanup unused objects in some iterations using garbage collector
@@ -112,9 +107,6 @@ public class GameWorld {
         this.cleanupCounter++;
 
 
-    }
-    public DeathDetector getDeathDetector(){
-        return deathDetector;
     }
 
     public void addGameObject(GameObject newObject){
@@ -137,6 +129,10 @@ public class GameWorld {
         }
     }
 
+    /**
+     * Initialize two players and adds them to to the list of gameobjects, the input handler, and
+     * Connects the players to their own lifeDisplay
+     */
     public void initializePlayers() {
 
         // Initialize player 1
@@ -145,11 +141,11 @@ public class GameWorld {
                 map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
 
         GameObject player1 = new GameObject(p1, world, assetManager);
+        addGameObject(player1);
         inputHandler.addPlayer(player1, true);
         deathDetector.addPlayer(player1);
-        addGameObject(player1);
 
-        LifeDisplayView healthView1 = new LifeDisplayView((NormalPlayer)p1, assetManager, map, map.tilePosCenter(new Vector2(3,10)));
+        LifeDisplayView healthView1 = new LifeDisplayView(p1, assetManager, map, map.tilePosCenter(new Vector2(3,10)));
         lifeDisplay.add(healthView1);
 
         // Initialize player 2
@@ -158,11 +154,11 @@ public class GameWorld {
                 map.getTileWidth() * Constants.PlayerScaleFactor, map.getTileHeight() * Constants.PlayerScaleFactor);
 
         GameObject player2 = new GameObject(p2, world, assetManager);
+        addGameObject(player2);
         inputHandler.addPlayer(player2, false);
         deathDetector.addPlayer(player2);
-        addGameObject(player2);
 
-        LifeDisplayView healthView2 = new LifeDisplayView((NormalPlayer)p2, assetManager, map, map.tilePosCenter(new Vector2(9,10)));
+        LifeDisplayView healthView2 = new LifeDisplayView(p2, assetManager, map, map.tilePosCenter(new Vector2(9,10)));
         lifeDisplay.add(healthView2);
 
 
@@ -251,7 +247,9 @@ public class GameWorld {
         return map;
     }
 
-
+    public DeathDetector getDeathDetector(){
+        return deathDetector;
+    }
 
     public InputHandler getInputHandler() {
         return inputHandler;

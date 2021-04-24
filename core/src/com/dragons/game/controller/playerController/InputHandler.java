@@ -23,7 +23,7 @@ public class InputHandler {
         playerController2 = new PlayerController(camera, manager, gameWorld, false);
 
         exitButtonView = new ExitButtonView(manager);
-//        exitButton = new ExitButton(camera, exitButtonView.getBounds());  // TODO: Find way to get bounds of button without passing exitButtonView
+        // TODO: Find way to get bounds of button without passing exitButtonView
         exitButton = new ExitButton(camera, exitButtonView.getBounds());
 
         multiplexer = new InputMultiplexer(

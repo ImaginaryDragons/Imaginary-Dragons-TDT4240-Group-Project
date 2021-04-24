@@ -7,6 +7,12 @@ import com.dragons.game.model.bombs.fires.NormalFire;
 
 import org.jetbrains.annotations.NotNull;
 
+
+/**
+ * To extend the factory with a new fire, create the new fire class, add the correct BombType
+ * To the Fire class, and put it in the case statement below
+ */
+
 public final class FireFactory {
     private static final FireFactory INSTANCE = new FireFactory();
 

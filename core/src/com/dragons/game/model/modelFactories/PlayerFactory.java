@@ -8,6 +8,12 @@ import com.dragons.game.model.players.playerEnums.PlayerType;
 
 import org.jetbrains.annotations.NotNull;
 
+
+/**
+ * To extend the factory with a new player, create the new player class, add its corresponding
+ * Enum to PlayerType and put it in the case statement below
+ */
+
 public final class PlayerFactory {
     private static final PlayerFactory INSTANCE = new PlayerFactory();
 
@@ -34,6 +40,8 @@ public final class PlayerFactory {
         switch (type){
             case NORMALPLAYER:
                 return new NormalPlayer(ID, position, color, width, height);
+            /*case NEWPLAYER:
+            *    return new NewPlayer(ID, position, color, width, height)*/
             default:
                 throw new IllegalArgumentException("The model enum has not been put in its factory");
         }

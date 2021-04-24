@@ -14,24 +14,20 @@ import java.util.Queue;
 public abstract class Player extends Model implements IPlayer {
 
     protected int ID;
-    protected Color color;
     protected int lives;
-    protected float speed;
     protected int bombCapacity;
     protected int extraBombRange;
-    protected Queue<IBomb> bombInventory;
-    protected final Queue<IBomb> placedBombs = new LinkedList<>();
+    protected float speed;
     protected float hitProtectionTime;
+    protected Color color;
     protected boolean hitProtectionMode = false;
+    protected Queue<IBomb> bombInventory = new LinkedList<>();
+    protected Queue<IBomb> placedBombs = new LinkedList<>();
+    private Queue<Float> newBombTimeCounters = new LinkedList<>(); // A queue of the explodingtime remaining for all the placed bombs
     private Direction orientation = Direction.UP; // The direction the player is looking
-
-    private Queue<Float> newBombTimeCounters = new LinkedList<>();
 
     private static final boolean isStatic = false;
     private static final boolean isSensor = false;
-
-
-
 
     public Player(Vector2 startPos, float width, float height) {
         super(startPos, width, height, isStatic, isSensor);
@@ -49,7 +45,8 @@ public abstract class Player extends Model implements IPlayer {
 
         /*
          * Checks if the player has more space for any bombs in its inventory
-         * If it does then
+         * If it does then the method checks if there are any bombs of which their fire is finished to display
+         * Removes those bombs from the placed bombs queue and put it back to the inventory
          */
         if (bombInventory.size() < bombCapacity){
             LinkedList<Float> newCounterList = new LinkedList<>();
@@ -59,6 +56,7 @@ public abstract class Player extends Model implements IPlayer {
                     // Bomb is finished exploding => add it back to inventory
                     addBombs(placedBombs.remove());
                 }
+                // Not finished exploding => add new time to the queue
                 else newCounterList.add(newTime);
             }
 
@@ -68,10 +66,7 @@ public abstract class Player extends Model implements IPlayer {
         }
     }
 
-    @Override
-    public void increaseSpeed(float amount){
-        speed += amount;
-    }
+
 
     @Override
     public void increaseBombRange(int amount){
@@ -84,6 +79,11 @@ public abstract class Player extends Model implements IPlayer {
             bomb.increaseRange(amount);
         }
 
+    }
+
+    @Override
+    public void increaseSpeed(float amount){
+        speed += amount;
     }
 
     @Override
@@ -102,6 +102,15 @@ public abstract class Player extends Model implements IPlayer {
         if (this.bombInventory.size() < bombCapacity) this.bombInventory.add(bomb);
 
     }
+
+    @Override
+    public void useBomb() {
+        IBomb bomb = bombInventory.remove();
+        placedBombs.add(bomb);
+        // add one counter for every bomb used;
+        newBombTimeCounters.add(bomb.getDetonationTime() + bomb.getFireDisplayTime());
+    }
+
 
     @Override
     public int getExtraBombRange(){
@@ -139,14 +148,6 @@ public abstract class Player extends Model implements IPlayer {
     @Override
     public IBomb getBomb() {
         return bombInventory.peek();
-    }
-
-    @Override
-    public void useBomb() {
-        IBomb bomb = bombInventory.remove();
-        placedBombs.add(bomb);
-        // add one counter for every bomb used;
-        newBombTimeCounters.add(bomb.getDetonationTime() + bomb.getFire().getDisplayTime());
     }
 
     @Override

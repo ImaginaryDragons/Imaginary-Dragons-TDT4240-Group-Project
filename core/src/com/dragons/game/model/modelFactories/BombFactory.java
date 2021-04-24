@@ -8,6 +8,10 @@ import com.dragons.game.model.bombs.BombType;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * To extend the factory with a new bomb, create the new bomb class, add its corresponding
+ * Enum to BombType and put it in the case statement below
+ */
 public final class BombFactory {
 
     // Singleton pattern

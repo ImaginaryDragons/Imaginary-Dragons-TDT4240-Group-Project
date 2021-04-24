@@ -26,10 +26,9 @@ public class GameObject {
         this.model = model;
         this.world = world;
         this.modelView = ModelViewFactory.getInstance().createModelView(model, assetManager);
-        this.body = BodyBuilder.createBody(world, this);
+        this.body = BodyBuilder.getInstance().createBody(world, this);
         this.destroyObject = false;
     }
-
 
 
     public void syncPosition() {
@@ -47,14 +46,14 @@ public class GameObject {
         if (modelView != null) modelView.update(delta);
     }
 
-    public void setLinearVelocity(float x, float y){
-        body.setLinearVelocity(x, y);
-    }
-
     public void dispose() {
         world.destroyBody(body);
         this.model = null;
         this.modelView = null;
+    }
+
+    public void setLinearVelocity(float x, float y){
+        body.setLinearVelocity(x, y);
     }
 
     public IModelView getModelView() {

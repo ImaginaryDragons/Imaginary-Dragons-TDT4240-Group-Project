@@ -3,8 +3,10 @@ package com.dragons.game.view.componentViews;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.dragons.game.model.IModel;
 import com.dragons.game.model.maps.GameMap;
 import com.dragons.game.model.players.IPlayer;
+import com.dragons.game.model.players.Player;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.IView;
 import com.dragons.game.view.modelViews.IModelView;
@@ -17,18 +19,18 @@ import static com.dragons.game.utilities.AssetLoader.FULL_HEALTH;
 
 public class LifeDisplayView implements IView {
 
-    private IPlayer player;
-    private Texture lifeDisplay;
-    private Texture emptyLife;
-    private GameMap map;
-    private Vector2 position;
-    private int initialPlayerLives;
+    private final Player player;
+    private final Texture lifeDisplay;
+    private final Texture emptyLife;
+    private final GameMap map;
+    private final Vector2 position;
+    private final int initialPlayerLives;
 
 
 
-    public LifeDisplayView(IPlayer player, AnnotationAssetManager manager, GameMap map, Vector2 position) {
-        this.player = player;
-        initialPlayerLives = player.getLives();
+    public LifeDisplayView(IModel player, AnnotationAssetManager manager, GameMap map, Vector2 position) {
+        this.player = (Player) player;
+        initialPlayerLives = this.player.getLives();
         lifeDisplay = manager.get(FULL_HEALTH, Texture.class);
         emptyLife = manager.get(EMPTY_HEALTH, Texture.class);
         this.map = map;

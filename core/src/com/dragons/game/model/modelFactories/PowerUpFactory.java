@@ -15,7 +15,7 @@ import java.util.Random;
 
 
 /**
- * To extend the factory with IView new powerup, create the new powerup class, add its corresponding
+ * To extend the factory with a new powerup, create the new powerup class, add its corresponding
  * Enum to PowerUpType and put it in the case statement below
  */
 
