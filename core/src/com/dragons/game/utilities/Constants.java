@@ -7,16 +7,16 @@ public class Constants {
 
     /*      MAPS        */
     // LEVEL 1
-    public static final String level1MapName = "TileMapMobile.tmx";
-    public static final String level1MapTxtFile = "map.txt";
+    public static final String level1MapName = "TileMapLvl1.tmx";
+    public static final String level1MapTxtFile = "mapLvl1.txt";
 
     // LEVEL 2
-    public static final String level2MapName = "TileMapMobile.tmx";
-    public static final String level2MapTxtFile = "map.txt";
+    public static final String level2MapName = "TileMapLvl2.tmx";
+    public static final String level2MapTxtFile = "mapLvl2.txt";
 
     // LEVEL 3
-    public static final String level3MapName = "TileMapMobile.tmx";
-    public static final String level3MapTxtFile = "map.txt";
+    public static final String level3MapName = "TileMapLvl3.tmx";
+    public static final String level3MapTxtFile = "mapLvl3.txt";
 
     public static final float PPM = 7f;
     public static final int FPS = 60;
