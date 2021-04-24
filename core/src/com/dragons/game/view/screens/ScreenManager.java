@@ -65,8 +65,10 @@ public class ScreenManager {
         game.setScreen(new GameOverScreen(score, assetManager, camera, font, _FBIC));
     }
 
-    public void setHighScoreScreen(){
+    public void setHighScoreScreen() throws InterruptedException {
         _FBIC.SetOnValueChangedListener(firebasePlayer);
+        Thread.sleep(500);
+        System.out.println(firebasePlayer.getScores());
         game.setScreen(new HighScoreScreen(assetManager, camera, font));
     }
 

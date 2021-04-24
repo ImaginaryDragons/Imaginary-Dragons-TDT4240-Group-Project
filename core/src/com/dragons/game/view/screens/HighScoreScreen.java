@@ -126,12 +126,16 @@ public class HighScoreScreen extends ScreenAdapter {
         table.add(score).expandX().fillX();
         table.row().expandX().fillX();
 
-        for (Map.Entry<String, Integer> pair : FirebasePlayer.getScores().entrySet()) {
-            table.add(new Label(pair.getKey(), skin)).uniform();
-            table.add(new Label(String.valueOf(pair.getValue()), skin));
-            table.row();
+        //denne kjøres bare en gang og nye ting vil ikke oppdatere seg inn i listen når vi går tilbake til den
+        //første gang man går inn er den alltid tom
+        for (Map.Entry<String, Map<String, Integer>> pair : FirebasePlayer.getScores().entrySet()) {
+            Map<String, Integer> gg = pair.getValue();
+            for (Map.Entry<String, Integer> pair2 : gg.entrySet()) {
+                table.add(new Label((pair2.getKey()), skin)).uniform();
+                table.add(new Label(String.valueOf(pair2.getValue()), skin));
+                table.row();
+            }
         }
-
         tableContainer.setActor(table);
         stage.addActor(highscoreImg);
         stage.addActor(tableContainer);

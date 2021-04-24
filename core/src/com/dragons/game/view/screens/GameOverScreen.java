@@ -154,13 +154,17 @@ public class GameOverScreen extends ScreenAdapter {
 
                 try {
                     // Sleep to give firebase enough time to update
-                    Thread.sleep(400);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                _FBIC.SetOnValueChangedListener(fireBasePlayer);
 
-                ScreenManager.getInstance().setHighScoreScreen();
+                System.out.println(fireBasePlayer.getScores());
+                try {
+                    ScreenManager.getInstance().setHighScoreScreen();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
             }
         });
