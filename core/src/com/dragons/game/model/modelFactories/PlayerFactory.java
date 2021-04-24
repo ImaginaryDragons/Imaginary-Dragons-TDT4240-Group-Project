@@ -19,18 +19,23 @@ public final class PlayerFactory {
     }
 
     /**
-     * Returns IView NormalPlayer object
-     * @param type NormalPlayer enum, Vector 2 position, width and height of NormalPlayer.
-     * @return NormalPlayer if the type is correct
+     * Returns a  Player object of IModel type
+     * @param position  Position where the model should be created
+     * @param type Type of Player that should be created
+     * @param color Color of the player
+     * @param width Width of the object
+     * @param height Height of the object
+     * @return Player if the type is correct
      * @throws IllegalArgumentException if type doesn't exist
      *
      */
+    // The factory method
     public IModel createPlayer(int ID, Vector2 position, @NotNull PlayerType type, Color color, float width, float height){
         switch (type){
             case NORMALPLAYER:
                 return new NormalPlayer(ID, position, color, width, height);
             default:
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("The model enum has not been put in its factory");
         }
     }
 }
