@@ -70,6 +70,7 @@ public class LoadingScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
+        super.dispose();
         shapeRenderer.dispose();
     }
 

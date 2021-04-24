@@ -11,7 +11,7 @@ public interface IModel {
     float getHeight();
     boolean isStatic();
     boolean isSensor();
-    public void update(float timestep);
+    void update(float timestep);
 
     /**
      * checks if the model should be destroyed

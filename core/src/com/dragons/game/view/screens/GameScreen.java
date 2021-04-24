@@ -12,7 +12,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.model.maps.GameMap;
-import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.utilities.AssetLoader;
 import com.dragons.game.view.GameRenderer;
 import com.dragons.game.view.componentViews.TimerView;
@@ -108,40 +107,6 @@ public class GameScreen extends ScreenAdapter {
         }
     }
 
-    @Override
-    public void resize(int width, int height) {
-        Gdx.app.log("GameScreen", "resizing");
-        super.resize(width, height);
-    }
-
-    @Override
-    public void show() {
-        Gdx.app.log("GameScreen", "show called");
-        super.show();
-    }
-
-    @Override
-    public void hide() {
-        Gdx.app.log("GameScreen", "hide called");
-        super.hide();
-    }
-
-    @Override
-    public void pause() {
-        Gdx.app.log("GameScreen", "pause called");
-        super.pause();
-    }
-
-    @Override
-    public void resume() {
-        Gdx.app.log("GameScreen", "resume called");
-        super.resume();
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
-    }
 
     private void loadAssets() {
         Gdx.app.log("Asset loader", "Loading assets");
