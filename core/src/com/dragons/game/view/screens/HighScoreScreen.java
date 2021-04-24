@@ -53,7 +53,6 @@ public class HighScoreScreen extends ScreenAdapter {
     }
 
 
-
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -108,14 +107,8 @@ public class HighScoreScreen extends ScreenAdapter {
 
         Container<Table> tableContainer = new Container<Table>();
 
-        //float sw = Constants.WorldWidth;
-        //float sh = Constants.WorldHeight;
-
-        //float cw = sw * 0.7f;
-        //float ch = sh * 0.5f;
-
-        tableContainer.setSize(250, 150);
-        tableContainer.setPosition(camera.position.x - tableContainer.getWidth() / 2, camera.position.y + 50);
+        tableContainer.setSize(150, 200);
+        tableContainer.setPosition(camera.position.x - tableContainer.getWidth() / 2, camera.position.y - 50);
         tableContainer.fillX();
 
         Table table = new Table(skin);
@@ -127,9 +120,11 @@ public class HighScoreScreen extends ScreenAdapter {
         table.row().expandX().fillX();
 
         for (Map.Entry<String, Integer> pair : FirebasePlayer.getScores().entrySet()) {
-            table.add(new Label(pair.getKey(), skin)).uniform();
-            table.add(new Label(String.valueOf(pair.getValue()), skin));
-            table.row();
+            if (table.getRows() < 7) {
+                table.add(new Label(pair.getKey(), skin)).uniform();
+                table.add(new Label(String.valueOf(pair.getValue()), skin));
+                table.row().expandX().fillX();
+            }
         }
 
         tableContainer.setActor(table);
