@@ -27,7 +27,7 @@ public class BombCapacity extends Model implements IPowerUp {
     public void handlePickedUp(IModel model) {
         if (model instanceof IPlayer) ((IPlayer) model).increaseBombCapacity(increaseAmount, bombType);
             // for debugging
-        else throw new IllegalArgumentException("Model is not of type NormalPlayer");
+        else throw new IllegalArgumentException("Model is not of type IPlayer");
 
         super.dispose();
     }

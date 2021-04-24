@@ -6,9 +6,10 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.dragons.game.controller.ContactController;
 
+
 public class WorldContactListener implements ContactListener {
 
-    private ContactController contactController;
+    private final ContactController contactController;
 
     public WorldContactListener() {
         contactController = new ContactController();

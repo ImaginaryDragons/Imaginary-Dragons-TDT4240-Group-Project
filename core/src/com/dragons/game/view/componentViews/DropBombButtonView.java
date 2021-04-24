@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.IView;
-import com.dragons.game.view.modelViews.IModelView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 

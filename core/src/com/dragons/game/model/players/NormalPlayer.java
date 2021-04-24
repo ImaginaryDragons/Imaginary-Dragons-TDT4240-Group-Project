@@ -11,18 +11,14 @@ import java.util.LinkedList;
 
 
 /**
- * Instantiates IView player. Has to be tied to IView controller to control.
- * int ID, Vector2 startPos, Color color
- *
+ * Instantiates player. Has to be tied to playerController to control.
  */
 
 
 
 public class NormalPlayer extends Player {
 
-
     private static final BombType startingBomb = BombType.NORMALBOMB;
-
 
     public NormalPlayer(final int ID, final Vector2 startPos, final Color color, float width, float height) {
         super(startPos, width, height);
@@ -31,9 +27,7 @@ public class NormalPlayer extends Player {
         lives = Constants.InitPlayerHealth;
         speed = Constants.PlayerSpeed;
         bombCapacity = Constants.InitBombCap;
-
         hitProtectionTime = Constants.FireDisplayTime + 1f; // TODO: magic number
-        bombInventory = new LinkedList<>();
         for (int i = 0; i < bombCapacity; i++) {
             bombInventory.add(super.createBomb(startPos, startingBomb, width, height, extraBombRange));
         }
@@ -47,10 +41,5 @@ public class NormalPlayer extends Player {
             hitProtectionMode = true;
         }
     }
-
-
-
-
-
 
 }
