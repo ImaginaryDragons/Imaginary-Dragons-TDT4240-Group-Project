@@ -59,7 +59,7 @@ public final class BodyBuilder {
 
         return body;
     }
-
+    // The shape to each concrete class is not stored in the classes to decouple box2d from the concrete classes
     private static Shape getShape(@NotNull IModel iModel){
         Model model = (Model) iModel;
         if      (model instanceof IPowerUp) return getPowerUpShape(model);

@@ -31,17 +31,6 @@ public class GameObject {
     }
 
 
-    public IView getModelView() {
-        return modelView;
-    }
-
-    public IModel getModel() {
-        return model;
-    }
-
-    public Body getBody() {
-        return body;
-    }
 
     public void syncPosition() {
         if (body != null) {
@@ -58,9 +47,22 @@ public class GameObject {
         if (modelView != null) modelView.update(delta);
     }
 
+    public void setLinearVelocity(float x, float y){
+        body.setLinearVelocity(x, y);
+    }
+
     public void dispose() {
         world.destroyBody(body);
         this.model = null;
         this.modelView = null;
     }
+
+    public IView getModelView() {
+        return modelView;
+    }
+
+    public IModel getModel() {
+        return model;
+    }
+
 }

@@ -1,21 +1,14 @@
 package com.dragons.game.model.bombs;
 
 import com.badlogic.gdx.math.Vector2;
-import com.dragons.game.model.IModel;
 import com.dragons.game.model.Model;
-import com.dragons.game.model.blocks.DestructibleBlock;
-import com.dragons.game.model.blocks.WallBlock;
 import com.dragons.game.model.bombs.fires.IFire;
-import com.dragons.game.model.maps.GameMap;
 import com.dragons.game.model.modelFactories.FireFactory;
 import com.dragons.game.utilities.Constants;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 public abstract class Bomb extends Model implements IBomb {
 
-    private float explodeTime;
+    private float detonationTime;
     private int bombRange;
     protected boolean bombExploded = false;
     private final BombType type;
@@ -25,14 +18,14 @@ public abstract class Bomb extends Model implements IBomb {
         super(pos, width, height, isStatic, isSensor);
         this.bombRange = bombRange;
         this.type = type;
-        this.explodeTime = Constants.DefaultBombExplodeTime;
+        this.detonationTime = Constants.DefaultDetonationTime;
         fire = (IFire) FireFactory.getInstance().createFire(pos, type, width, height);
     }
 
     @Override
     public void update(float timestep){
-        explodeTime -= timestep;
-        if (explodeTime < 0) {
+        detonationTime -= timestep;
+        if (detonationTime < 0) {
             bombExploded = true;
         }
     }
@@ -59,8 +52,8 @@ public abstract class Bomb extends Model implements IBomb {
     }
 
 
-    public float getExplodeTime(){
-        return explodeTime;
+    public float getDetonationTime(){
+        return detonationTime;
     }
 
     @Override
@@ -68,7 +61,7 @@ public abstract class Bomb extends Model implements IBomb {
         return fire;
     }
 
-    protected void setExplodeTime(float explodeTime) {
-        this.explodeTime = explodeTime;
+    protected void setDetonationTime(float detonationTime) {
+        this.detonationTime = detonationTime;
     }
 }
