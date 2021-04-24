@@ -118,6 +118,22 @@ public class LevelScreen extends ScreenAdapter {
             }
         });
 
+        lvl2.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+                ScreenManager.getInstance().setGameScreen(Constants.level2MapName, Constants.level2MapTxtFile);
+            }
+        });
+
+        lvl3.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+                ScreenManager.getInstance().setGameScreen(Constants.level3MapName, Constants.level3MapTxtFile);
+            }
+        });
+
         backBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {

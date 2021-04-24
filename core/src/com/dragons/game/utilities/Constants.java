@@ -11,6 +11,12 @@ public class Constants {
     public static final String level1MapTxtFile = "map.txt";
 
     // LEVEL 2
+    public static final String level2MapName = "TileMapMobile.tmx";
+    public static final String level2MapTxtFile = "map.txt";
+
+    // LEVEL 3
+    public static final String level3MapName = "TileMapMobile.tmx";
+    public static final String level3MapTxtFile = "map.txt";
 
     public static final float PPM = 7f;
     public static final int FPS = 60;
