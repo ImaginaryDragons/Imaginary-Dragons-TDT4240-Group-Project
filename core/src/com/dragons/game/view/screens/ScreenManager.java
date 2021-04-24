@@ -12,8 +12,6 @@ import com.dragons.game.networking.FireBaseInterface;
 import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.utilities.Constants;
 
-import java.io.IOException;
-
 
 public class ScreenManager {
 

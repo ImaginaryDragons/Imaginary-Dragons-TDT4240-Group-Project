@@ -17,7 +17,7 @@ public class Constants {
     public static final float VIEWPORT_WIDTH = 480f;
     public static final float VIEWPORT_HEIGHT = 350f;
 
-    public static final float FRAME_DURATION = 0.2f;
+    public static final float FRAME_DURATION = 7f;
 
     public static final float PlayerScaleFactor = 0.99f;
     public static final float FireScaleFactor = 0.99f;

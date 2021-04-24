@@ -9,8 +9,6 @@ import com.dragons.game.model.players.IPlayer;
 import com.dragons.game.model.players.Player;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.IView;
-import com.dragons.game.view.modelViews.IModelView;
-
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -19,7 +17,7 @@ import static com.dragons.game.utilities.AssetLoader.FULL_HEALTH;
 
 public class LifeDisplayView implements IView {
 
-    private final Player player;
+    private final IPlayer player;
     private final Texture lifeDisplay;
     private final Texture emptyLife;
     private final GameMap map;
@@ -29,7 +27,7 @@ public class LifeDisplayView implements IView {
 
 
     public LifeDisplayView(IModel player, AnnotationAssetManager manager, GameMap map, Vector2 position) {
-        this.player = (Player) player;
+        this.player = (IPlayer) player;
         initialPlayerLives = this.player.getLives();
         lifeDisplay = manager.get(FULL_HEALTH, Texture.class);
         emptyLife = manager.get(EMPTY_HEALTH, Texture.class);

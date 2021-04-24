@@ -25,8 +25,6 @@ public class DropBombButtonView implements IView {
             dropBombPosX = (int) (EDGE_MARGIN);
         } else {
             dropBombPosX = (int) (Constants.VIEWPORT_WIDTH - dropBombTexture.getWidth()*BOMB_BUTTON_SCALING - EDGE_MARGIN);
-//            dropBombPosX = (int) (dropBombTexture.getWidth()/4 + dropBombTexture.getWidth()*BOMB_BUTTON_SCALING);
-
         }
         dropBombPosY = (int) (Constants.VIEWPORT_HEIGHT - dropBombTexture.getHeight()*BOMB_BUTTON_SCALING - EDGE_MARGIN);
 

@@ -50,7 +50,7 @@ public class GameScreen extends ScreenAdapter {
         camera.position.set(gameMap.getMapWidthInPixels() / 2f, gameMap.getMapHeightInPixels() / 2f, 0);
         camera.update();
 
-        gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
+        gameRenderer = new GameRenderer(gameWorld); // Initialize world renderer
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
         tiledMapRenderer.setView(camera);
@@ -71,7 +71,6 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
 
-        //Gdx.app.log("GameScreen", "Rendering");
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 

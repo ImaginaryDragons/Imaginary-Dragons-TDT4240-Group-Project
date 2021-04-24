@@ -34,7 +34,7 @@ public class NormalPlayerView extends ModelView {
         super(model);
         player = (IPlayer) model;
         Texture[] textures = getTextures(player.getColor(), manager);
-        animation = new Animation<>(5f, textures);
+        animation = new Animation<>(FRAME_DURATION, textures);
         animation.setPlayMode(Animation.PlayMode.LOOP);
 
     }

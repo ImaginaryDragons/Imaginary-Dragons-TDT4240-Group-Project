@@ -119,7 +119,6 @@ public class GameOverScreen extends ScreenAdapter {
         nameField = new TextField("", skin);
 
         nameField.setSize(250, 30);
-        //nameField.setAlignment(Align.center);
         nameField.setPosition(camera.position.x - nameField.getWidth() / 2, camera.position.y - 40);
 
         saveScoreBtn = new TextButton("Save Score", skin, "default");
@@ -142,7 +141,7 @@ public class GameOverScreen extends ScreenAdapter {
 
                 try {
                     // Sleep to give firebase enough time to update
-                    Thread.sleep(400);
+                    Thread.sleep(700);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
