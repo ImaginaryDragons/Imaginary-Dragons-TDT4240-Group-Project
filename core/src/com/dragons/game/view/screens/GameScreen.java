@@ -43,11 +43,11 @@ public class GameScreen extends ScreenAdapter {
      * */
 
 
-    public GameScreen(AssetManager assets, BitmapFont font) {
+    public GameScreen(AssetManager assets, BitmapFont font, String mapName, String mapTxtFile) {
         Gdx.app.log("GameScreen", "Attached");
 
         camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-        gameMap = new GameMap("TileMapMobile.tmx");
+        gameMap = new GameMap(mapName);
         manager = new AnnotationAssetManager();
         loadAssets();
 
@@ -66,7 +66,7 @@ public class GameScreen extends ScreenAdapter {
 
         timerView = new TimerView(assets, camera, font);
       
-        gameMap.generateBlocks( "map.txt");
+        gameMap.generateBlocks(mapTxtFile);
         gameWorld.generateMapBlocks();
         gameWorld.initializePlayers();
 

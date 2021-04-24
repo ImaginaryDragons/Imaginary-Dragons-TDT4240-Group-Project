@@ -57,8 +57,8 @@ public class ScreenManager {
         game.setScreen(levelScreen);
     }
 
-    public void setGameScreen()  {
-        game.setScreen(new GameScreen(assetManager, font));
+    public void setGameScreen(String mapName, String mapTxtFile)  {
+        game.setScreen(new GameScreen(assetManager, font, mapName, mapTxtFile));
     }
 
     public void setGameOverScreen(int score){

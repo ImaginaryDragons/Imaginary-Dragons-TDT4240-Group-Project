@@ -5,6 +5,13 @@ public class Constants {
     public static final int WorldWidth = 800;
     public static final int WorldHeight = 480;
 
+    /*      MAPS        */
+    // LEVEL 1
+    public static final String level1MapName = "TileMapMobile.tmx";
+    public static final String level1MapTxtFile = "map.txt";
+
+    // LEVEL 2
+
     public static final float PPM = 7f;
     public static final int FPS = 60;
     public static final float VIEWPORT_WIDTH = 480f;
