@@ -19,7 +19,7 @@ public final class PlayerFactory {
     }
 
     /**
-     * Returns a NormalPlayer object
+     * Returns IView NormalPlayer object
      * @param type NormalPlayer enum, Vector 2 position, width and height of NormalPlayer.
      * @return NormalPlayer if the type is correct
      * @throws IllegalArgumentException if type doesn't exist

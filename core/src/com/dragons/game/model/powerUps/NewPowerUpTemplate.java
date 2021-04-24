@@ -26,7 +26,7 @@ public class NewPowerUpTemplate extends Model implements IPowerUp {
     public void handlePickedUp(IModel model) {
         if (model instanceof IPlayer) ((IPlayer) model).increaseBombCapacity(increaseAmount, bombType);
             // for debugging
-        else throw new IllegalArgumentException("Model is not a player");
+        else throw new IllegalArgumentException("Model is not IView player");
 
         super.dispose();
     }

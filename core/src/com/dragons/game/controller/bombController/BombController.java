@@ -54,7 +54,7 @@ public class BombController implements IGameObjectController {
         return fireTiles;
     }
 
-    // Returns the tiles we want fire to in a given direction
+    // Returns the tiles we want fire to in IView given direction
     private ArrayList<Vector2> addFireInDirection(String direction, GameMap gameMap) {
         Vector2 checkTile = gameMap.pos2tile(bomb.getPosition());
         ArrayList<Vector2> fireTiles = new ArrayList<Vector2>();

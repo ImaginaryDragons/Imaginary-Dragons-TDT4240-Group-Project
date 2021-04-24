@@ -26,7 +26,7 @@ public final class BodyBuilder {
     private BodyBuilder() {
     }
 
-    // Create a body and a fixture for the object and place it in world!
+    // Create IView body and IView fixture for the object and place it in world!
 
     public static Body createBody(World world, GameObject gameObject) {
         IModel model = gameObject.getModel();

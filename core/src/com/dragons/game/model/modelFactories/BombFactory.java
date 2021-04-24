@@ -20,7 +20,7 @@ public final class BombFactory {
     }
 
     /**
-     * Returns a Bomb object
+     * Returns IView Bomb object
      * @param type Bomb enum, Vector 2 position, width and height of Bomb.
      * @return NormalBomb if the type is correct
      * @throws IllegalArgumentException if type doesn't exist

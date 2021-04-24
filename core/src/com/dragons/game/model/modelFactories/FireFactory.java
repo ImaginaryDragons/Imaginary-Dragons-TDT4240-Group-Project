@@ -18,7 +18,7 @@ public final class FireFactory {
     }
 
     /**
-     * Returns a NormalFire object
+     * Returns IView NormalFire object
      * @param type NormalFire enum, Vector 2 position, width and height of NormalFire.
      * @return NormalFire object if the type is correct
      * @throws IllegalArgumentException if type doesn't exist

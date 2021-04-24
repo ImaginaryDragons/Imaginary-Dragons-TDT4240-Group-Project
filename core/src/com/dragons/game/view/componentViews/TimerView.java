@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.view.IView;
+import com.dragons.game.view.modelViews.IModelView;
 
 public class TimerView implements IView {
     public Stage stage;
@@ -48,13 +49,13 @@ public class TimerView implements IView {
         //make the table fill the entire stage
         table.setFillParent(true);
 
-        //define our labels using the String, and a Label style consisting of a font and color
+        //define our labels using the String, and IView Label style consisting of IView font and color
         countdownLabel = new Label(String.format("%03d", worldTimer), skin);
         //timeLabel = new Label("TIME", skin);
 
         //add our labels to our table, padding the top, and giving them all equal width with expandX
         //table.add(timeLabel).expandX().padTop(10);
-        //add a second row to our table
+        //add IView second row to our table
         table.row();
         table.add(countdownLabel).expandX();
 
@@ -63,7 +64,6 @@ public class TimerView implements IView {
 
     }
 
-    @Override
     public void update(float delta) {
         timeCount += delta;
         if(timeCount >= 1){

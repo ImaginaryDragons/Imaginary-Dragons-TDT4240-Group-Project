@@ -5,8 +5,8 @@ import com.dragons.game.model.Model;
 
 public class DestructibleBlock extends Model implements IBlock {
 
-    private static final boolean isStatic = true;
-    private static final boolean isSensor = false;
+    private static final boolean isStatic = true; // Is the model is stationary or dynamic?
+    private static final boolean isSensor = false; // Is the model IView sensor that doesnt have IView physical body in the gameworld?
 
     public DestructibleBlock(Vector2 position, float width, float height) {
         super(position, width, height, isStatic, isSensor);
@@ -14,6 +14,6 @@ public class DestructibleBlock extends Model implements IBlock {
 
     @Override
     public void handleHitByBomb() {
-        super.dispose();
+        super.dispose();  // Disposes itself from the gameworld if hit by IView bomb
     }
 }

@@ -7,6 +7,7 @@ import com.dragons.game.model.maps.GameMap;
 import com.dragons.game.model.players.IPlayer;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.IView;
+import com.dragons.game.view.modelViews.IModelView;
 
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -35,12 +36,6 @@ public class LifeDisplayView implements IView {
 
     }
 
-
-    @Override
-    public void update(float delta) {
-
-
-    }
 
     @Override
     public void render(SpriteBatch batch) {

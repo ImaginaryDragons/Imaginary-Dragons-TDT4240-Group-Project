@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.blocks.BlockType;
 
 public abstract class Model implements IModel {
-    private Vector2 position;
+    private final Vector2 position;
     private final float width, height;
     private boolean disposeModel = false;
     private final boolean isStatic, isSensor;
@@ -15,6 +15,13 @@ public abstract class Model implements IModel {
         this.height = height;
         this.isStatic = isStatic;
         this.isSensor = isSensor;
+    }
+
+    /**
+     * Sets the destroyModel value to true => this tells the world to destroy the model
+     */
+    public void dispose(){
+        disposeModel = true;
     }
 
 
@@ -46,13 +53,6 @@ public abstract class Model implements IModel {
     @Override
     public void update(float timestep) {
 
-    }
-
-    /**
-     * Sets the destroyModel value to true => this tells the world to destroy the model
-     */
-    public void dispose(){
-        disposeModel = true;
     }
 
     @Override

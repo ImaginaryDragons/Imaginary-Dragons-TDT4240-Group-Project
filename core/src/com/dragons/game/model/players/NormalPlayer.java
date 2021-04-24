@@ -11,7 +11,7 @@ import java.util.LinkedList;
 
 
 /**
- * Instantiates a player. Has to be tied to a controller to control.
+ * Instantiates IView player. Has to be tied to IView controller to control.
  * int ID, Vector2 startPos, Color color
  *
  */
