@@ -31,7 +31,7 @@ public class NormalFireView extends ModelView {
                 manager.get(EXPLOSION5, Texture.class)
         };
 
-        animation = new Animation<>(FRAME_DURATION, textures);
+        animation = new Animation<>(FRAME_DURATION/2f, textures);
         animation.setPlayMode(Animation.PlayMode.LOOP);
 
 
