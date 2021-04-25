@@ -9,12 +9,23 @@ import com.dragons.game.view.componentViews.JoystickView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
+/**
+ * Contains joystick and bombButton for controlling the player. Each component of the
+ * PlayerController is separated into controller and view.
+ */
 public class PlayerController {
     private final Joystick joystick;
     private final JoystickView joystickView;
     private final DropBombButton dropBombButton;
     private final DropBombButtonView dropBombButtonView;
 
+    /**
+     * Instatiates joystick with view and dropBombButton with view. Passes on parameters
+     * @param camera to unproject screen input
+     * @param manager to get textures for rendering
+     * @param gameWorld for placing bombs with dropBombButton
+     * @param isPlayerOne used to know which player to control
+     */
     public PlayerController(OrthographicCamera camera, AnnotationAssetManager manager, GameWorld gameWorld, boolean isPlayerOne) {
         joystick = new Joystick(camera, isPlayerOne);
         joystickView = new JoystickView(joystick);
@@ -23,6 +34,10 @@ public class PlayerController {
         dropBombButton = new DropBombButton(camera, dropBombButtonView.getBounds(), gameWorld);
     }
 
+    /**
+     * Adds player to a controller
+     * @param player The player the controller should control
+     */
     public void addPlayer(GameObject player) {
         joystick.addPlayer(player);
         dropBombButton.addPlayer(player);

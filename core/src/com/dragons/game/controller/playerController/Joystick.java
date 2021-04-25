@@ -44,7 +44,6 @@ public class Joystick implements InputProcessor {
             perimeter = new Circle(VIEWPORT_WIDTH - JOYSTICK_PERIMETER_RADIUS, JOYSTICK_ORIGIN_Y, JOYSTICK_PERIMETER_RADIUS);
         }
         joystick = new Circle(joystickOrigin.x, joystickOrigin.y, JOYSTICK_RADIUS);
-
     }
 
     public void addPlayer(GameObject gameObject){
@@ -53,7 +52,7 @@ public class Joystick implements InputProcessor {
     }
 
     @Override
-    public boolean keyDown(int keycode) {  // For testing purposes on multiplayer. Not able to test multiplayer with touch
+    public boolean keyDown(int keycode) {  // For testing purposes on multiplayer. Not able to test multiplayer with touch on
         if (!isPlayerOne) {
             if (keycode == Input.Keys.UP) {
                 gameObject.setLinearVelocity(0f, player.getSpeed());
