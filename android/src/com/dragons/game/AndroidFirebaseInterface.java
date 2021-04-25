@@ -13,6 +13,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class AndroidFirebaseInterface implements FireBaseInterface {
     FirebaseDatabase database;
     DatabaseReference playerRef;
@@ -23,6 +27,7 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
         playerRef = database.getReference("Score"); //får tak i referansen Players, peker på alle players
     }
 
+
     @Override
     public void writeHighscoreToFB(FirebasePlayer firebasePlayer) {
         scoreRef = playerRef.push();
@@ -30,9 +35,13 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
     }
 
     @Override
-
     public void SetOnValueChangedListener(FirebasePlayer firebasePlayer) {
         FirebasePlayer finalFirebasePlayer = firebasePlayer;
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Query query = playerRef.orderByChild("score");
         ValueEventListener valueEventListener = new ValueEventListener() {
           @Override
@@ -41,9 +50,10 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
                   for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                       String nameFromDB = childSnapshot.child("name").getValue(String.class);
                       int scoreFromDB = childSnapshot.child("score").getValue(Integer.class);
-                      finalFirebasePlayer.scores.put(nameFromDB, scoreFromDB);
+                      Map<String, Integer> scoresDB = new LinkedHashMap<>();
+                      scoresDB.put(nameFromDB, scoreFromDB);
+                      finalFirebasePlayer.scores.put(childSnapshot.getKey(), scoresDB);
                   }
-
               }
           }
             @Override

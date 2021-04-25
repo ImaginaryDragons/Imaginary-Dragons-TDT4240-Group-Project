@@ -107,7 +107,8 @@ public class MenuScreen extends ScreenAdapter {
         highScoresButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ScreenManager.getInstance().setHighScoreScreen();
+                    ScreenManager.getInstance().setHighScoreScreen();
+
             }
         });
 

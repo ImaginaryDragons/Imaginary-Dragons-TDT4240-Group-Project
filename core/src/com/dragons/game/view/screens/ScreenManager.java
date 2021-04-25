@@ -38,6 +38,7 @@ public class ScreenManager {
     public void initialize(Game game, FireBaseInterface _FBIC)  {
         this.game = game;
         this._FBIC = _FBIC;
+        _FBIC.SetOnValueChangedListener(firebasePlayer);
         menuScreen = new MenuScreen(assetManager, camera, font);
         levelScreen = new LevelScreen(assetManager, camera, font);
 
@@ -48,6 +49,7 @@ public class ScreenManager {
     }
 
     public void setMenuScreen() {
+        _FBIC.SetOnValueChangedListener(firebasePlayer);
         game.setScreen(menuScreen);
     }
 
@@ -63,8 +65,9 @@ public class ScreenManager {
         game.setScreen(new GameOverScreen(score, assetManager, camera, font, _FBIC));
     }
 
-    public void setHighScoreScreen(){
+    public void setHighScoreScreen() {
         _FBIC.SetOnValueChangedListener(firebasePlayer);
+        System.out.println(firebasePlayer.getScores());
         game.setScreen(new HighScoreScreen(assetManager, camera, font));
     }
 
