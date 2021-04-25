@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.dragons.game.controller.gameWorld.GameObject;
 import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.model.bombs.IBomb;
-import com.dragons.game.model.players.IPlayer;
 import com.dragons.game.model.players.Player;
 
 public class DropBombButton implements InputProcessor {

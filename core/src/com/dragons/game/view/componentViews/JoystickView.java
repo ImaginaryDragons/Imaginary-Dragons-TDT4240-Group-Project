@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.dragons.game.controller.playerController.Joystick;
 import com.dragons.game.view.IView;
-import com.dragons.game.view.modelViews.IModelView;
 
 import static com.dragons.game.utilities.Constants.JOYSTICK_PERIMETER_RADIUS;
 
