@@ -27,6 +27,7 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
         playerRef = database.getReference("Score"); //får tak i referansen Players, peker på alle players
     }
 
+
     @Override
     public void writeHighscoreToFB(FirebasePlayer firebasePlayer) {
         scoreRef = playerRef.push();
