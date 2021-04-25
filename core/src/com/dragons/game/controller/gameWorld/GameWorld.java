@@ -67,18 +67,15 @@ public class GameWorld {
     private final DeathDetector deathDetector;
 
 
-
-    // https://box2d.org/documentation/md__d_1__git_hub_box2d_docs_hello.html#autotoc_md21
-    // Info contact listener: https://www.iforce2d.net/b2dtut/collision-callbacks
-    // Info player in box2d: https://www.gamedev.net/forums/topic/616398-controllable-player-character-with-box2d/
-
     public GameWorld(GameMap map, AnnotationAssetManager manager, OrthographicCamera camera) {
         this.assetManager = manager;
         this.map = map;
 
-        world = new World(new Vector2(0,0), true); // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
+        // Initialize Box2D World. Set Gravity 0 and 'not simulate inactive objects' true
+        world = new World(new Vector2(0,0), true);
         world.setContactListener(new WorldContactListener());
 
+        // Initializes the debugrenderer => used for rendering the world bodies in the view for debugging
         b2dr = new Box2DDebugRenderer();
         b2drCam = new OrthographicCamera(VIEWPORT_WIDTH / PPM, VIEWPORT_HEIGHT / PPM);
         b2drCam.position.set(map.getMapWidthInPixels() / 2f / PPM, map.getMapHeightInPixels() / 2f / PPM, 0);
@@ -189,7 +186,7 @@ public class GameWorld {
         GameObject dynamicObj;
         while(iterator.hasNext()) {
             dynamicObj = iterator.next();
-            if (dynamicObj.getModel().isDisposed()){
+            if (dynamicObj.isDisposable()){
                 dynamicObj.dispose();
                 iterator.remove();
             }
@@ -202,7 +199,7 @@ public class GameWorld {
         GameObject staticObj;
         while(iterator.hasNext()){
             staticObj = iterator.next();
-            if (staticObj.getModel().isDisposed()){
+            if (staticObj.isDisposable()){
                 staticObj.dispose();
                 iterator.remove();
             }

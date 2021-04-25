@@ -4,10 +4,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.bombs.BombType;
 
+import com.dragons.game.model.players.hitByBombStrategies.LoseOneLifeAndGetProtection;
 import com.dragons.game.utilities.Constants;
-
-import java.util.LinkedList;
-
 
 
 /**
@@ -32,14 +30,10 @@ public class NormalPlayer extends Player {
             bombInventory.add(super.createBomb(startPos, startingBomb, width, height, extraBombRange));
         }
 
+        // Add the strategy for what happens when this player is hit by bomb
+        hitByBombStrategy = new LoseOneLifeAndGetProtection();
+
     }
 
-    @Override
-    public void handleHitByBomb() {
-        if (!hitProtectionMode){
-            lives -= 1;
-            hitProtectionMode = true;
-        }
-    }
 
 }
