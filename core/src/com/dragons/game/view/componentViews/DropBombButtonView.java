@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.IView;
-import com.dragons.game.view.modelViews.IModelView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -17,7 +16,7 @@ import static com.dragons.game.utilities.Constants.EDGE_MARGIN;
 public class DropBombButtonView implements IView {
     private final Texture dropBombTexture;
     private final Rectangle dropBombBounds;
-    int dropBombPosX, dropBombPosY, dropBombHeight, dropBombWidth;
+    private final int dropBombPosX, dropBombPosY, dropBombHeight, dropBombWidth;
 
     public DropBombButtonView(AnnotationAssetManager manager, boolean left) {
         dropBombTexture = manager.get(BOMB_BTN, Texture.class);
@@ -26,8 +25,6 @@ public class DropBombButtonView implements IView {
             dropBombPosX = (int) (EDGE_MARGIN);
         } else {
             dropBombPosX = (int) (Constants.VIEWPORT_WIDTH - dropBombTexture.getWidth()*BOMB_BUTTON_SCALING - EDGE_MARGIN);
-//            dropBombPosX = (int) (dropBombTexture.getWidth()/4 + dropBombTexture.getWidth()*BOMB_BUTTON_SCALING);
-
         }
         dropBombPosY = (int) (Constants.VIEWPORT_HEIGHT - dropBombTexture.getHeight()*BOMB_BUTTON_SCALING - EDGE_MARGIN);
 

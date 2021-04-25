@@ -18,7 +18,6 @@ import com.google.common.collect.Table;
 import com.dragons.game.model.blocks.BlockType;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 

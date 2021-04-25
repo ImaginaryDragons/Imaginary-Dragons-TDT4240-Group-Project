@@ -6,7 +6,10 @@ import com.dragons.game.model.blocks.*;
 
 import org.jetbrains.annotations.NotNull;
 
-
+/**
+ * To extend the factory with a new block, create the new block class, add its corresponding
+ * Enum to BlockType and put it in the case statement below
+ */
 public final class BlockFactory{
 
     // Singleton pattern

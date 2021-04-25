@@ -7,19 +7,25 @@ public class Constants {
 
     /*      MAPS        */
     // LEVEL 1
-    public static final String level1MapName = "TileMapMobile.tmx";
-    public static final String level1MapTxtFile = "map.txt";
+    public static final String level1MapName = "TileMapLvl1.tmx";
+    public static final String level1MapTxtFile = "mapLvl1.txt";
 
     // LEVEL 2
+    public static final String level2MapName = "TileMapLvl2.tmx";
+    public static final String level2MapTxtFile = "mapLvl2.txt";
+
+    // LEVEL 3
+    public static final String level3MapName = "TileMapLvl3.tmx";
+    public static final String level3MapTxtFile = "mapLvl3.txt";
 
     public static final float PPM = 7f;
     public static final int FPS = 60;
     public static final float VIEWPORT_WIDTH = 480f;
     public static final float VIEWPORT_HEIGHT = 350f;
 
-    public static final float FRAME_DURATION = 0.2f;
+    public static final float FRAME_DURATION = 7f;
 
-    public static final float PlayerScaleFactor = 0.9f;
+    public static final float PlayerScaleFactor = 0.99f;
     public static final float FireScaleFactor = 0.99f;
     public static final float BombScaleFactor = 0.8f;
     public static final float PowerUpScaleFactor = 0.85f;

@@ -7,9 +7,9 @@ import com.dragons.game.model.bombs.fires.IFire;
 
 public class FireController implements IGameObjectController {
 
-    private GameObject fireObject;
+    private final GameObject fireObject;
     public boolean removeController;
-    private IFire fire;
+    private final IFire fire;
 
     public FireController(GameObject fireObject) {
         this.fireObject = fireObject;

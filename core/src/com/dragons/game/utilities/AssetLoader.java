@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
-public class AssetLoader<BACKGROUND, STARTGAME_BTN, JOINGAME_BTN> {
+public class AssetLoader {
     private static final AssetLoader ourInstance = new AssetLoader();
 
 

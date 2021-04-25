@@ -28,26 +28,19 @@ public class GameScreen extends ScreenAdapter {
     private final GameWorld gameWorld;
     private final GameRenderer gameRenderer;
     private final AnnotationAssetManager manager;
-    private OrthographicCamera camera;
 
-    private final GameMap gameMap;
     private final SpriteBatch batch;
     private final TiledMapRenderer tiledMapRenderer;
 
-    private TimerView timerView;
-    // TODO: Integrating the gameWorld onto the firebase server
-    /*Right now the gameWorld is statically defined within our gamescreen. However, we need
-     * some way of ensuring that the main gameworld is on our server and that this version is
-     * primarily loaded from the server and then continuously updated. How this should be done is
-     * not clear!
-     * */
+    private final TimerView timerView;
+
 
 
     public GameScreen(AssetManager assets, BitmapFont font, String mapName, String mapTxtFile) {
         Gdx.app.log("GameScreen", "Attached");
 
-        camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-        gameMap = new GameMap(mapName);
+        OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+        GameMap gameMap = new GameMap(mapName);
         manager = new AnnotationAssetManager();
         loadAssets();
 
@@ -57,7 +50,7 @@ public class GameScreen extends ScreenAdapter {
         camera.position.set(gameMap.getMapWidthInPixels() / 2f, gameMap.getMapHeightInPixels() / 2f, 0);
         camera.update();
 
-        gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
+        gameRenderer = new GameRenderer(gameWorld); // Initialize world renderer
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
         tiledMapRenderer.setView(camera);
@@ -78,7 +71,6 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
 
-        //Gdx.app.log("GameScreen", "Rendering");
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 

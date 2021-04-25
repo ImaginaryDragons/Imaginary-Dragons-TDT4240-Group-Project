@@ -2,10 +2,7 @@ package com.dragons.game.model.bombs.fires;
 
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.Model;
-import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.utilities.Constants;
-
-
 
 public class NormalFire extends Model implements IFire {
 

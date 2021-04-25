@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.dragons.game.controller.playerController.Joystick;
 import com.dragons.game.view.IView;
-import com.dragons.game.view.modelViews.IModelView;
 
 import static com.dragons.game.utilities.Constants.JOYSTICK_PERIMETER_RADIUS;
 
@@ -26,6 +25,7 @@ public class JoystickView implements IView {
         pos = joystick.getCircle();
         perimeter = joystick.getPerimeter();
 
+        // Create texture for joystick
         Pixmap pixmapJoystick = new Pixmap((int) (2 * pos.radius + 1), (int) (2 * pos.radius + 1), Pixmap.Format.RGBA8888);
         pixmapJoystick.setBlending(Pixmap.Blending.None);
         pixmapJoystick.setColor(Color.BLACK);

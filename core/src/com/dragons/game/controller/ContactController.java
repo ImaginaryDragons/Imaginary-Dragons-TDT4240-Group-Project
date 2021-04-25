@@ -13,11 +13,11 @@ public class ContactController {
     public void handleContact(IModel objA, IModel objB){
 
         // Identify what kind of objects are in contact
-        boolean oneIsBlock =    objA instanceof IBlock   || objB instanceof IBlock;
+        boolean oneIsBlock   =  objA instanceof IBlock   || objB instanceof IBlock;
         boolean oneIsPowerUp =  objA instanceof IPowerUp || objB instanceof IPowerUp;
-        boolean oneIsPlayer =   objA instanceof IPlayer  || objB instanceof IPlayer;
-        boolean oneIsBomb =     objA instanceof IBomb    || objB instanceof IBomb;
-        boolean oneIsFire =     objA instanceof IFire    || objB instanceof IFire;
+        boolean oneIsPlayer  =  objA instanceof IPlayer  || objB instanceof IPlayer;
+        boolean oneIsBomb    =  objA instanceof IBomb    || objB instanceof IBomb;
+        boolean oneIsFire    =  objA instanceof IFire    || objB instanceof IFire;
 
 
         // Call the objects action based on interaction type
@@ -32,7 +32,6 @@ public class ContactController {
 
         if (oneIsBomb && oneIsPlayer){
             //System.out.println("Collision Player and Bomb");
-
         }
 
         if (oneIsPlayer && oneIsFire){

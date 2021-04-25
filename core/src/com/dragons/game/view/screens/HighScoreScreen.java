@@ -32,7 +32,6 @@ import java.util.Map;
 public class HighScoreScreen extends ScreenAdapter {
 
 
-    private ShapeRenderer shapeRenderer;
     private final AssetManager assetManager;
     private final OrthographicCamera camera;
     private final BitmapFont font;
@@ -48,7 +47,6 @@ public class HighScoreScreen extends ScreenAdapter {
         this.camera = camera;
         this.font = font;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, camera));
-        this.shapeRenderer = new ShapeRenderer();
     }
 
 
@@ -91,7 +89,6 @@ public class HighScoreScreen extends ScreenAdapter {
     public void dispose() {
         super.dispose();
         stage.dispose();
-        shapeRenderer.dispose();
 
     }
 

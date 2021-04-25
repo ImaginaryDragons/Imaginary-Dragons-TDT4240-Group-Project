@@ -34,7 +34,7 @@ public class NormalPlayerView extends ModelView {
         super(model);
         player = (IPlayer) model;
         Texture[] textures = getTextures(player.getColor(), manager);
-        animation = new Animation<>(5f, textures);
+        animation = new Animation<>(FRAME_DURATION, textures);
         animation.setPlayMode(Animation.PlayMode.LOOP);
 
     }
@@ -42,6 +42,10 @@ public class NormalPlayerView extends ModelView {
     @Override
     protected void draw(SpriteBatch batch, float x, float y, float width, float height, float state_time) {
         final Texture current_frame = animation.getKeyFrame(state_time, true);
+
+        float scaledWidth = width * 1.1f;
+        float scaledHeight = height * 1.1f;
+
 
         final int rotation;
         switch (player.getOrientation()){
@@ -61,8 +65,8 @@ public class NormalPlayerView extends ModelView {
                 throw new IllegalArgumentException("Wrong direction in PlayerView");
         }
 
-        batch.draw(current_frame, x - width / 2f, y - height / 2f, width / 2f,
-                height / 2f, width, height, 1, 1, rotation, 1,
+        batch.draw(current_frame, x - scaledWidth / 2f, y - scaledHeight / 2f, scaledWidth / 2f,
+                scaledHeight / 2f, scaledWidth, scaledHeight, 1, 1, rotation, 1,
                 1, current_frame.getWidth(), current_frame.getHeight(), false, false);
     }
 

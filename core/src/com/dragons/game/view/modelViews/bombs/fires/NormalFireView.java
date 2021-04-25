@@ -5,12 +5,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragons.game.model.IModel;
-import com.dragons.game.model.bombs.fires.NormalFire;
 import com.dragons.game.view.modelViews.ModelView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
-import static com.dragons.game.utilities.AssetLoader.BOMB_CAP_POWERUP;
 import static com.dragons.game.utilities.AssetLoader.EXPLOSION1;
 import static com.dragons.game.utilities.AssetLoader.EXPLOSION2;
 import static com.dragons.game.utilities.AssetLoader.EXPLOSION3;
@@ -31,7 +29,7 @@ public class NormalFireView extends ModelView {
                 manager.get(EXPLOSION5, Texture.class)
         };
 
-        animation = new Animation<>(FRAME_DURATION, textures);
+        animation = new Animation<>(FRAME_DURATION/2f, textures);
         animation.setPlayMode(Animation.PlayMode.LOOP);
 
 

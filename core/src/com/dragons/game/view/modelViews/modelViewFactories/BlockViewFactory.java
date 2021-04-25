@@ -8,6 +8,10 @@ import com.dragons.game.view.modelViews.blocks.DestructibleBlockView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
+/**
+ * To extend the factory with a new block, create the new View class
+ * And put it in the case statement below
+ */
 public final class BlockViewFactory implements IModelViewFactory {
 
     private static final IModelViewFactory INSTANCE = new BlockViewFactory();
