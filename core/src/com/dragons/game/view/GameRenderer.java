@@ -22,16 +22,12 @@ public class GameRenderer {
         // Renders the dynamic objects in the GameWorld
         List<GameObject> dynamicGameObjects = gameWorld.getDynamicGameObjects();
         for (GameObject object : dynamicGameObjects){
-            if (object.getModelView() != null){
-                object.getModelView().render(batch);
-            }
+            object.render(batch);
         }
         // Renders the static objects in the GameWorld
         List<GameObject> staticGameObjects = gameWorld.getStaticGameObjects();
         for (GameObject object : staticGameObjects){
-            if (object.getModelView() != null){
-                object.getModelView().render(batch);
-            }
+            object.render(batch);
         }
 
         // Renders the input handler which includes buttons and joysticks
