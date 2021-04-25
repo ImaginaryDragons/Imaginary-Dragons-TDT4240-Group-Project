@@ -3,6 +3,7 @@ package com.dragons.game.model.bombs;
 import com.badlogic.gdx.math.Vector2;
 import com.dragons.game.model.Model;
 import com.dragons.game.model.bombs.fires.IFire;
+import com.dragons.game.model.bombs.hitByFireStrategies.IHitByFireStrategy;
 import com.dragons.game.model.modelFactories.FireFactory;
 import com.dragons.game.utilities.Constants;
 
@@ -10,9 +11,11 @@ public abstract class Bomb extends Model implements IBomb {
 
     private float detonationTime;
     private int bombRange;
-    protected boolean bombExploded = false;
+    private boolean bombExploded = false;
     private final BombType type;
-    protected IFire fire;
+    private final IFire fire;
+    protected IHitByFireStrategy hitByFireStrategy;
+
 
     public Bomb(Vector2 pos, float width, float height, int bombRange, final BombType type, boolean isStatic, boolean isSensor){
         super(pos, width, height, isStatic, isSensor);
@@ -31,6 +34,11 @@ public abstract class Bomb extends Model implements IBomb {
     }
 
     @Override
+    public void hitByFire(){
+        hitByFireStrategy.handleHitByFire(this);
+    }
+
+    @Override
     public int getBombRange() {
         return bombRange;
     }
@@ -46,6 +54,10 @@ public abstract class Bomb extends Model implements IBomb {
         return bombExploded;
     }
 
+    public void detonateBomb(){
+        bombExploded = true;
+    }
+
     @Override
     public void increaseRange(int amount){
         bombRange += amount;
@@ -55,6 +67,10 @@ public abstract class Bomb extends Model implements IBomb {
     @Override
     public float getFireDisplayTime() {
         return fire.getDisplayTime();
+    }
+
+    protected void setFireDisplayTime(float time){
+        fire.setDisplayTime(time);
     }
 
     @Override

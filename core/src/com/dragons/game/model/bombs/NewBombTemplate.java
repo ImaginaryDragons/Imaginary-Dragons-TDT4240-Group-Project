@@ -1,6 +1,7 @@
 package com.dragons.game.model.bombs;
 
 import com.badlogic.gdx.math.Vector2;
+import com.dragons.game.model.bombs.hitByFireStrategies.DoNothing;
 
 public class NewBombTemplate extends Bomb{
 
@@ -12,12 +13,9 @@ public class NewBombTemplate extends Bomb{
 
     public NewBombTemplate(Vector2 pos, float width, float height, int extraRange, BombType type) {
         super(pos, width, height, startingRange + extraRange, type, isStatic, isSensor);
-        super.setDetonationTime(detonationTime);    // Overrides the default value of the detonationTime
-        fire.setDisplayTime(fireDisplayTime);       // Overrides the default value of the fireDisplayTime
+        setDetonationTime(detonationTime);    // Overrides the default value of the detonationTime
+        setFireDisplayTime(fireDisplayTime);       // Overrides the default value of the fireDisplayTime
+        hitByFireStrategy = new DoNothing();
     }
 
-    @Override
-    public void hitByFire() {
-        bombExploded = false;   // This bomb does not explode when in contact with fire
-    }
 }

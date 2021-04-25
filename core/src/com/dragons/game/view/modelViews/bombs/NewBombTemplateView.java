@@ -20,7 +20,7 @@ public class NewBombTemplateView extends ModelView {
     public NewBombTemplateView(IModel model, AnnotationAssetManager manager) {
         super(model);
         Texture[] textures = new Texture[]{
-                manager.get(TESTBOMB, Texture.class)
+                manager.get(TESTBOMB, Texture.class) // Add the textures here
         };
 
         animation = new Animation<>(FRAME_DURATION, textures);

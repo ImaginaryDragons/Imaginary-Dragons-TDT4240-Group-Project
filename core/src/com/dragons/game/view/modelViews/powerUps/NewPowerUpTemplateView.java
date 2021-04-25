@@ -17,7 +17,7 @@ public class NewPowerUpTemplateView extends ModelView {
     public NewPowerUpTemplateView(IModel model, AnnotationAssetManager manager) {
         super(model);
         Texture[] textures = new Texture[]{
-                manager.get(NEW_POWERUP_TEMPLATE, Texture.class),
+                manager.get(NEW_POWERUP_TEMPLATE, Texture.class), // Add the textures here
         };
 
         animation = new Animation<>(FRAME_DURATION, textures);

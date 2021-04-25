@@ -11,7 +11,7 @@ import com.dragons.game.view.componentViews.ExitButtonView;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 /**
- * Responsible for handling input from screen.
+ * Responsible for handling input from screen. Contains player controllers and the exit button
  */
 public class InputHandler {
     private final PlayerController playerController1;
