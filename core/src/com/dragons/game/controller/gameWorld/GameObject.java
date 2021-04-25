@@ -12,7 +12,7 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
 import static com.dragons.game.utilities.Constants.PPM;
 
 /**
- * This class is the Mediator which is used as a container for the models, views, and Box2D objects.
+ * This class is used as a container and mediator for the models, views, and Box2D objects to decrease dependancies.
  * The class is used in combination with the GameWorld class to encapsulate the physics engine to the
  * GameWorld package and decouple the models and the views.
  */
