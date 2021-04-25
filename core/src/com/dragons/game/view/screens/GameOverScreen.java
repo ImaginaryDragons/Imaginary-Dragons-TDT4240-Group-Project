@@ -40,7 +40,7 @@ public class GameOverScreen extends ScreenAdapter {
     private TextField nameField;
     private TextButton saveScoreBtn, exitBtn;
   
-    private final FirebasePlayer fireBasePlayer = new FirebasePlayer();
+    private final FirebasePlayer fireBasePlayer = new FirebasePlayer(); // used to write the name and score to the highscoreList
     private final FireBaseInterface _FBIC;
 
     private final int score;
@@ -54,8 +54,8 @@ public class GameOverScreen extends ScreenAdapter {
         this._FBIC = _FBIC;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, camera));
         this.shapeRenderer = new ShapeRenderer();
-        fireBasePlayer.setScore(score);
 
+        fireBasePlayer.setScore(score); //
     }
 
 
@@ -93,30 +93,18 @@ public class GameOverScreen extends ScreenAdapter {
 
     }
 
-    @Override
-    public void pause() {
 
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
 
     @Override
     public void dispose() {
+        super.dispose();
         stage.dispose();
         shapeRenderer.dispose();
     }
 
     private void initScreen() {
-        Texture gameOverTex = assets.get("components/over.png", Texture.class);
-        gameOver = new Image(gameOverTex);
+        Texture gameOverText = assets.get("components/over.png", Texture.class);
+        gameOver = new Image(gameOverText);
         gameOver.setSize(250, 70);
         gameOver.setPosition(camera.position.x - gameOver.getWidth() / 2, camera.position.y + 70);
 
@@ -129,9 +117,7 @@ public class GameOverScreen extends ScreenAdapter {
         nameFieldLabel.setPosition(camera.position.x - nameFieldLabel.getWidth() / 2, camera.position.y - 10);
 
         nameField = new TextField("", skin);
-
         nameField.setSize(250, 30);
-        //nameField.setAlignment(Align.center);
         nameField.setPosition(camera.position.x - nameField.getWidth() / 2, camera.position.y - 40);
 
         saveScoreBtn = new TextButton("Save Score", skin, "default");
@@ -142,26 +128,21 @@ public class GameOverScreen extends ScreenAdapter {
         exitBtn.setSize(150, 40);
         exitBtn.setPosition(camera.position.x - exitBtn.getWidth() / 2, camera.position.y - exitBtn.getHeight() - 130);
 
-
+        // Adds a clickListener to this button
         saveScoreBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
-
                 String nameString = nameField.getText();
                 fireBasePlayer.setName(nameString);
-                _FBIC.writeHighscoreToFB(fireBasePlayer);
+                _FBIC.writeHighscoreToFB(fireBasePlayer); // Name and score is set => send to firebase
 
                 try {
                     // Sleep to give firebase enough time to update
-                    Thread.sleep(400);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                _FBIC.SetOnValueChangedListener(fireBasePlayer);
-
                 ScreenManager.getInstance().setHighScoreScreen();
-
             }
         });
         exitBtn.addListener(new ClickListener() {

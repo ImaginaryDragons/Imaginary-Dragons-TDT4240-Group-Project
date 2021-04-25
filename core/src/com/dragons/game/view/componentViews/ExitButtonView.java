@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.dragons.game.utilities.Constants;
+import com.dragons.game.view.IView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -11,7 +12,7 @@ import static com.dragons.game.utilities.AssetLoader.EXIT_BTN;
 import static com.dragons.game.utilities.Constants.EDGE_MARGIN;
 import static com.dragons.game.utilities.Constants.EXIT_BUTTON_SCALING;
 
-public class ExitButtonView {
+public class ExitButtonView implements IView {
     private final Texture exitButton;
     private final Rectangle exitButtonBounds;
     private final int exitButtonPosX, exitButtonPosY, exitButtonHeight, exitButtonWidth;
@@ -27,7 +28,7 @@ public class ExitButtonView {
 
         exitButtonBounds = new Rectangle(exitButtonPosX, exitButtonPosY, exitButtonWidth, exitButtonHeight);
     }
-
+    @Override
     public void render(SpriteBatch sb) {
         sb.draw(exitButton, exitButtonPosX, exitButtonPosY, exitButtonWidth, exitButtonHeight);
     }

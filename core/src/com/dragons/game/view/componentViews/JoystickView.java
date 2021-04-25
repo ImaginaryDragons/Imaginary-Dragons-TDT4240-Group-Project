@@ -25,6 +25,7 @@ public class JoystickView implements IView {
         pos = joystick.getCircle();
         perimeter = joystick.getPerimeter();
 
+        // Create texture for joystick
         Pixmap pixmapJoystick = new Pixmap((int) (2 * pos.radius + 1), (int) (2 * pos.radius + 1), Pixmap.Format.RGBA8888);
         pixmapJoystick.setBlending(Pixmap.Blending.None);
         pixmapJoystick.setColor(Color.BLACK);
@@ -39,10 +40,6 @@ public class JoystickView implements IView {
         joystickBG = new Texture(pixmapJoystickBG);
     }
 
-    @Override
-    public void update(float delta) {
-
-    }
 
     @Override
     public void render(SpriteBatch sb) {

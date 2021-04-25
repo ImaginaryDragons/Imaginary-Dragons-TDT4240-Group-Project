@@ -14,21 +14,17 @@ import static com.dragons.game.utilities.Constants.BOMB_BUTTON_SCALING;
 import static com.dragons.game.utilities.Constants.EDGE_MARGIN;
 
 public class DropBombButtonView implements IView {
-    private final AnnotationAssetManager manager;
     private final Texture dropBombTexture;
     private final Rectangle dropBombBounds;
-    int dropBombPosX, dropBombPosY, dropBombHeight, dropBombWidth;
+    private final int dropBombPosX, dropBombPosY, dropBombHeight, dropBombWidth;
 
     public DropBombButtonView(AnnotationAssetManager manager, boolean left) {
-        this.manager = manager;
         dropBombTexture = manager.get(BOMB_BTN, Texture.class);
 
         if (left) {
             dropBombPosX = (int) (EDGE_MARGIN);
         } else {
             dropBombPosX = (int) (Constants.VIEWPORT_WIDTH - dropBombTexture.getWidth()*BOMB_BUTTON_SCALING - EDGE_MARGIN);
-//            dropBombPosX = (int) (dropBombTexture.getWidth()/4 + dropBombTexture.getWidth()*BOMB_BUTTON_SCALING);
-
         }
         dropBombPosY = (int) (Constants.VIEWPORT_HEIGHT - dropBombTexture.getHeight()*BOMB_BUTTON_SCALING - EDGE_MARGIN);
 
@@ -38,10 +34,6 @@ public class DropBombButtonView implements IView {
         dropBombBounds = new Rectangle(dropBombPosX, dropBombPosY, dropBombWidth, dropBombHeight);
     }
 
-    @Override
-    public void update(float delta) {
-
-    }
 
     @Override
     public void render(SpriteBatch sb) {

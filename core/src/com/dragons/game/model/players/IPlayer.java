@@ -6,7 +6,7 @@ import com.dragons.game.model.bombs.BombType;
 import com.dragons.game.model.bombs.IBomb;
 import com.dragons.game.model.players.playerEnums.Direction;
 
-public interface IPlayer extends IModel {
+public interface IPlayer {
     int getID();
     int getLives();
     int getBombsAvailable();

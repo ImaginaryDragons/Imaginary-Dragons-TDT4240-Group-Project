@@ -12,7 +12,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.model.maps.GameMap;
-import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.utilities.AssetLoader;
 import com.dragons.game.view.GameRenderer;
 import com.dragons.game.view.componentViews.TimerView;
@@ -29,26 +28,19 @@ public class GameScreen extends ScreenAdapter {
     private final GameWorld gameWorld;
     private final GameRenderer gameRenderer;
     private final AnnotationAssetManager manager;
-    private OrthographicCamera camera;
 
-    private final GameMap gameMap;
     private final SpriteBatch batch;
     private final TiledMapRenderer tiledMapRenderer;
 
-    private TimerView timerView;
-    // TODO: Integrating the gameWorld onto the firebase server
-    /*Right now the gameWorld is statically defined within our gamescreen. However, we need
-     * some way of ensuring that the main gameworld is on our server and that this version is
-     * primarily loaded from the server and then continuously updated. How this should be done is
-     * not clear!
-     * */
+    private final TimerView timerView;
 
 
-    public GameScreen(AssetManager assets, BitmapFont font) {
+
+    public GameScreen(AssetManager assets, BitmapFont font, String mapName, String mapTxtFile) {
         Gdx.app.log("GameScreen", "Attached");
 
-        camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-        gameMap = new GameMap("TileMapMobile.tmx");
+        OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+        GameMap gameMap = new GameMap(mapName);
         manager = new AnnotationAssetManager();
         loadAssets();
 
@@ -58,7 +50,7 @@ public class GameScreen extends ScreenAdapter {
         camera.position.set(gameMap.getMapWidthInPixels() / 2f, gameMap.getMapHeightInPixels() / 2f, 0);
         camera.update();
 
-        gameRenderer = new GameRenderer(gameWorld, manager); // Initialize world renderer
+        gameRenderer = new GameRenderer(gameWorld); // Initialize world renderer
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(gameMap.getTiledMap());
         tiledMapRenderer.setView(camera);
@@ -67,7 +59,7 @@ public class GameScreen extends ScreenAdapter {
 
         timerView = new TimerView(assets, camera, font);
       
-        gameMap.generateBlocks( "map.txt");
+        gameMap.generateBlocks(mapTxtFile);
         gameWorld.generateMapBlocks();
         gameWorld.initializePlayers();
 
@@ -79,7 +71,6 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
 
-        //Gdx.app.log("GameScreen", "Rendering");
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -108,40 +99,6 @@ public class GameScreen extends ScreenAdapter {
         }
     }
 
-    @Override
-    public void resize(int width, int height) {
-        Gdx.app.log("GameScreen", "resizing");
-        super.resize(width, height);
-    }
-
-    @Override
-    public void show() {
-        Gdx.app.log("GameScreen", "show called");
-        super.show();
-    }
-
-    @Override
-    public void hide() {
-        Gdx.app.log("GameScreen", "hide called");
-        super.hide();
-    }
-
-    @Override
-    public void pause() {
-        Gdx.app.log("GameScreen", "pause called");
-        super.pause();
-    }
-
-    @Override
-    public void resume() {
-        Gdx.app.log("GameScreen", "resume called");
-        super.resume();
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
-    }
 
     private void loadAssets() {
         Gdx.app.log("Asset loader", "Loading assets");

@@ -18,7 +18,6 @@ import com.google.common.collect.Table;
 import com.dragons.game.model.blocks.BlockType;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -57,31 +56,19 @@ public class GameMap {
         }
     }
 
-    // Find the associated tile given a coordinate position
+    // Find the associated tile given IView coordinate position
     public Vector2 pos2tile(Vector2 pos) {
         int resX = (int) ((pos.x-(pos.x % tileWidth)) / tileWidth);
         int resY = (int) ((pos.y-(pos.y % tileHeight)) / tileHeight);
         return new Vector2(resX, resY);
     }
 
-    public Vector2 pos2tilePos(Vector2 pos) {
-        return tilePos(pos2tile(pos));
-    }
-
-    public Vector2 pos2tilePosCenter(Vector2 pos) {
-        return tilePosCenter(pos2tile(pos));
-    }
-
-    // Find the starting position of a tile given the tile index
-    public Vector2 tilePos(Vector2 tile) {
-        return new Vector2((tile.x)*tileWidth, (tile.y)*tileHeight);
-    }
 
     public Vector2 tilePosCenter(Vector2 tile) {
-        return new Vector2((tile.x)*tileWidth + (tileWidth/2), (tile.y)*tileHeight + (tileHeight/2));
+        return new Vector2((tile.x)*tileWidth + (tileWidth / 2f), (tile.y)*tileHeight + (tileHeight / 2f));
     }
 
-    // Generate block instances in the tile containers given a recipe
+    // Generate block instances in the tile containers given IView recipe
     public void generateBlocks(String recipeFile){
         Gdx.app.log("GameMap", "Generating blocks from recipe");
         Vector2 tile = new Vector2(0, 0);
@@ -127,10 +114,6 @@ public class GameMap {
 
     public ArrayList<IModel> getTileContent(int xKey, int yKey) {
         return tileContainers.get(xKey,yKey);
-    }
-
-    public void setTileContent(int xKey, int yKey, ArrayList<IModel> list) {
-        tileContainers.put(xKey, yKey, list);
     }
 
     public int getTileWidth() {

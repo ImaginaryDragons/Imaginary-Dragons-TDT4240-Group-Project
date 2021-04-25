@@ -19,7 +19,6 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.utilities.Constants;
 
 public class LevelScreen extends ScreenAdapter {
-    private ShapeRenderer shapeRenderer;
     private Stage stage;
     private Skin skin;
     private TextButton lvl1, lvl2, lvl3, backBtn;
@@ -33,7 +32,6 @@ public class LevelScreen extends ScreenAdapter {
         this.camera = camera;
         this.font = font;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, camera));
-        this.shapeRenderer = new ShapeRenderer();
     }
 
 
@@ -62,12 +60,7 @@ public class LevelScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         update(delta);
-
         stage.draw();
-
-        /*dragonsGame.batch.begin();
-        dragonsGame.font.draw(dragonsGame.batch, "Screen: Main Menu", 20, 20);
-        dragonsGame.batch.end();*/
 
 
     }
@@ -80,8 +73,8 @@ public class LevelScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
+        super.dispose();
         stage.dispose();
-        shapeRenderer.dispose();
 
     }
 
@@ -113,7 +106,23 @@ public class LevelScreen extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
-                ScreenManager.getInstance().setGameScreen();
+                ScreenManager.getInstance().setGameScreen(Constants.level1MapName, Constants.level1MapTxtFile);
+            }
+        });
+
+        lvl2.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+                ScreenManager.getInstance().setGameScreen(Constants.level2MapName, Constants.level2MapTxtFile);
+            }
+        });
+
+        lvl3.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+                ScreenManager.getInstance().setGameScreen(Constants.level3MapName, Constants.level3MapTxtFile);
             }
         });
 

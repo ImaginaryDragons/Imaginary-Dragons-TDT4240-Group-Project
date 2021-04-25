@@ -9,12 +9,12 @@ import com.badlogic.gdx.math.Vector3;
 import com.dragons.game.controller.gameWorld.GameObject;
 import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.model.bombs.IBomb;
-import com.dragons.game.model.players.IPlayer;
+import com.dragons.game.model.players.Player;
 
 public class DropBombButton implements InputProcessor {
 
     private final OrthographicCamera cam;
-    private IPlayer player;
+    private Player player;
     private final Rectangle dropBombBounds;
     private final GameWorld gameWorld;
 
@@ -25,7 +25,7 @@ public class DropBombButton implements InputProcessor {
     }
 
     public void addPlayer(GameObject gameObject) {
-        player = (IPlayer) gameObject.getModel();
+        player = (Player) gameObject.getModel();
     }
 
     @Override
@@ -60,12 +60,11 @@ public class DropBombButton implements InputProcessor {
         Vector3 touch = new Vector3(screenX, screenY, 0);
         cam.unproject(touch);
 
-        if (dropBombBounds.contains(touch.x, touch.y) && player.getBombsAvailable() > 0) {  // Does bombsAvailable increase
+        if (dropBombBounds.contains(touch.x, touch.y) && player.getBombsAvailable() > 0) {
             IBomb bomb = player.getBomb();
-            Vector2 newBombPos = new Vector2(bomb.getPosition());
+            Vector2 newBombPos = new Vector2(player.getPosition());
             gameWorld.placeBomb(newBombPos, bomb.getType(), player.getExtraBombRange());
             player.useBomb();
-            //Gdx.app.log("Game button", "DROP BOMB");
         }
         return false;
     }

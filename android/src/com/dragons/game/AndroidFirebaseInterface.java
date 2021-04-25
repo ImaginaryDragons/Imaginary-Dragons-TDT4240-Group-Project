@@ -13,26 +13,31 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class AndroidFirebaseInterface implements FireBaseInterface {
     FirebaseDatabase database;
     DatabaseReference playerRef;
+    DatabaseReference scoreRef;
 
     public AndroidFirebaseInterface() {
         database = FirebaseDatabase.getInstance("https://imaginary-dragons-default-rtdb.europe-west1.firebasedatabase.app/"); //rotnoden, hele databasen
         playerRef = database.getReference("Score"); //får tak i referansen Players, peker på alle players
     }
 
+
     @Override
     public void writeHighscoreToFB(FirebasePlayer firebasePlayer) {
-        String name = firebasePlayer.getName();
-        playerRef.child(name).setValue(firebasePlayer);
+        scoreRef = playerRef.push();
+        scoreRef.setValue(firebasePlayer);
     }
 
     @Override
-
     public void SetOnValueChangedListener(FirebasePlayer firebasePlayer) {
         FirebasePlayer finalFirebasePlayer = firebasePlayer;
-        Query query = playerRef.orderByChild("score");
+        Query query = playerRef.orderByChild("score").limitToFirst(6);
         ValueEventListener valueEventListener = new ValueEventListener() {
           @Override
           public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -40,9 +45,10 @@ public class AndroidFirebaseInterface implements FireBaseInterface {
                   for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                       String nameFromDB = childSnapshot.child("name").getValue(String.class);
                       int scoreFromDB = childSnapshot.child("score").getValue(Integer.class);
-                      finalFirebasePlayer.scores.put(nameFromDB, scoreFromDB);
+                      Map<String, Integer> scoresDB = new LinkedHashMap<>();
+                      scoresDB.put(nameFromDB, scoreFromDB);
+                      finalFirebasePlayer.scores.put(childSnapshot.getKey(), scoresDB);
                   }
-
               }
           }
             @Override

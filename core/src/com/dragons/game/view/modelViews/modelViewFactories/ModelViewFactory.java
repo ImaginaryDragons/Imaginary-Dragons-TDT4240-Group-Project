@@ -11,7 +11,10 @@ import com.dragons.game.view.modelViews.IModelView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
-
+/**
+ * To extend the factory with a new model, create a new factory class
+ * And put it in the case statement below
+ */
 public class ModelViewFactory {
 
     private static final IModelViewFactory blockViewFactory = BlockViewFactory.getInstance();

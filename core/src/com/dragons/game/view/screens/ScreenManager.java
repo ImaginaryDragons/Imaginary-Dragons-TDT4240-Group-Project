@@ -9,9 +9,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragons.game.networking.FireBaseInterface;
+import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.utilities.Constants;
-
-import java.io.IOException;
 
 
 public class ScreenManager {
@@ -23,6 +22,7 @@ public class ScreenManager {
     private final OrthographicCamera camera = new OrthographicCamera();
     private final BitmapFont font;
     private FireBaseInterface _FBIC;
+    private FirebasePlayer firebasePlayer = new FirebasePlayer();
 
     private static final ScreenManager INSTANCE = new ScreenManager();
     public static ScreenManager getInstance(){
@@ -38,6 +38,7 @@ public class ScreenManager {
     public void initialize(Game game, FireBaseInterface _FBIC)  {
         this.game = game;
         this._FBIC = _FBIC;
+        //_FBIC.SetOnValueChangedListener(firebasePlayer);
         menuScreen = new MenuScreen(assetManager, camera, font);
         levelScreen = new LevelScreen(assetManager, camera, font);
 
@@ -48,6 +49,7 @@ public class ScreenManager {
     }
 
     public void setMenuScreen() {
+        //_FBIC.SetOnValueChangedListener(firebasePlayer);
         game.setScreen(menuScreen);
     }
 
@@ -55,15 +57,21 @@ public class ScreenManager {
         game.setScreen(levelScreen);
     }
 
-    public void setGameScreen()  {
-        game.setScreen(new GameScreen(assetManager, font));
+    public void setGameScreen(String mapName, String mapTxtFile)  {
+        game.setScreen(new GameScreen(assetManager, font, mapName, mapTxtFile));
     }
 
     public void setGameOverScreen(int score){
         game.setScreen(new GameOverScreen(score, assetManager, camera, font, _FBIC));
     }
 
-    public void setHighScoreScreen(){
+    public void setHighScoreScreen() {
+        _FBIC.SetOnValueChangedListener(firebasePlayer);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         game.setScreen(new HighScoreScreen(assetManager, camera, font));
     }
 

@@ -7,6 +7,10 @@ import com.dragons.game.view.modelViews.players.NormalPlayerView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
+/**
+ * To extend the factory with a new player, create the new View class
+ * And put it in the case statement below
+ */
 public final class PlayerViewFactory implements IModelViewFactory{
 
     private static final IModelViewFactory INSTANCE = new PlayerViewFactory();
@@ -22,7 +26,7 @@ public final class PlayerViewFactory implements IModelViewFactory{
         // Add different views if needed here
         if (model instanceof NormalPlayer) return new NormalPlayerView(model, assetManager);
 
-        else throw new IllegalArgumentException("Wrong PlayerInstance");
+        else throw new IllegalArgumentException("The view for this model has not been put in its factory");
 
     }
 }

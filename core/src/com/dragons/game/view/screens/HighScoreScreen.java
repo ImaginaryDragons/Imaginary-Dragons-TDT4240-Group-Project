@@ -32,7 +32,6 @@ import java.util.Map;
 public class HighScoreScreen extends ScreenAdapter {
 
 
-    private ShapeRenderer shapeRenderer;
     private final AssetManager assetManager;
     private final OrthographicCamera camera;
     private final BitmapFont font;
@@ -48,10 +47,7 @@ public class HighScoreScreen extends ScreenAdapter {
         this.camera = camera;
         this.font = font;
         this.stage = new Stage(new StretchViewport(Constants.WorldWidth, Constants.WorldHeight, camera));
-        this.shapeRenderer = new ShapeRenderer();
-
     }
-
 
 
     @Override
@@ -70,7 +66,6 @@ public class HighScoreScreen extends ScreenAdapter {
 
     private void update(float delta) {
         stage.act(delta);
-
     }
 
     @Override
@@ -92,8 +87,8 @@ public class HighScoreScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
+        super.dispose();
         stage.dispose();
-        shapeRenderer.dispose();
 
     }
 
@@ -108,14 +103,8 @@ public class HighScoreScreen extends ScreenAdapter {
 
         Container<Table> tableContainer = new Container<Table>();
 
-        float sw = Constants.WorldWidth;
-        float sh = Constants.WorldHeight;
-
-        float cw = sw * 0.7f;
-        float ch = sh * 0.5f;
-
-        tableContainer.setSize(cw, ch);
-        tableContainer.setPosition((sw-cw), (sh-ch));
+        tableContainer.setSize(150, 200);
+        tableContainer.setPosition(camera.position.x - tableContainer.getWidth() / 2, camera.position.y - 50);
         tableContainer.fillX();
 
         Table table = new Table(skin);
@@ -126,15 +115,17 @@ public class HighScoreScreen extends ScreenAdapter {
         table.add(score).expandX().fillX();
         table.row().expandX().fillX();
 
-
-        for (Map.Entry<String, Integer> pair : FirebasePlayer.getScores().entrySet()) {
-            table.add(new Label(pair.getKey(), skin)).uniform();
-            table.add(new Label(String.valueOf(pair.getValue()), skin));
-            table.row();
-        }
-
-
-
+        //denne kjøres bare en gang og nye ting vil ikke oppdatere seg inn i listen når vi går tilbake til den
+        //første gang man går inn er den alltid tom
+        for (Map.Entry<String, Map<String, Integer>> scoresFromDB : FirebasePlayer.getScores().entrySet()) {
+            Map<String, Integer> scores = scoresFromDB.getValue();
+            for (Map.Entry<String, Integer> pair2 : scores.entrySet()) {
+                    table.add(new Label((pair2.getKey()), skin)).uniform();
+                    table.add(new Label(String.valueOf(pair2.getValue()), skin));
+                    table.row().expandX().fillX();
+                }
+            }
+        FirebasePlayer.scores.clear();
         tableContainer.setActor(table);
         stage.addActor(highscoreImg);
         stage.addActor(tableContainer);
