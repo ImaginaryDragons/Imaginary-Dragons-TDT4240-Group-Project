@@ -17,4 +17,7 @@ git clone <https://github.com/ImaginaryDragons/ImaginaryDragonsGame.git>
 In the Menu screen, you can choose between two buttons, "Play" and "High Scores". Pressing "Play" will send you to a screen where you can choose between different levels. Pressing one of these will start the game.  
 In both ends of the phone, there is a joystick and a button that says "bomb". The joysticks are used to steer the player, while the bomb button is used to release the fire bombs. The three hearts displays the number of lifes you have left. When a powerup appears, you will automatically get a boost in the given power when you move over the power up field.
 
+![](https://media.giphy.com/media/iPsyTmxWzVZ0CSRV4g/giphy.gif)
+
+
 
