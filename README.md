@@ -14,7 +14,7 @@ git clone <https://github.com/ImaginaryDragons/ImaginaryDragonsGame.git>
 3. Run the project with an Android emulator or an Android device connected to your computer
 
 ### Running in DesktopLauncher
-In order for the desktop application to run you might have to edit the desktop run configurations, due to the assets being stored in the android assets folder. This can be done by opening the project in Android Studio and selecting "Edit Configurations..." from the Run menu. Add a new Application runtime configuration. Within this configuration, set the working directory the the assets folder, which can be found in the Android folder. Furthermore, the "use classpath of module" option should be set to desktop. The "Main class" option should be set to "DesktopLauncher", which should appear in the provided list when clicking the button next to the option.
+In order for the desktop application to run you might have to edit the configurations. This can be done by opening the project in Android Studio and selecting "Edit Configurations..." from the Run menu. Add a new Application runtime configuration. Within this configuration, set the working directory the assets folder, which can be found in the Android folder. Furthermore, the "use classpath of module" option should be set to desktop. The "Main class" option should be set to "DesktopLauncher".
 
 From this point on you can run the application with the newly created run configuration by selecting it within Android studio and then clicking the "Run" button.
 
