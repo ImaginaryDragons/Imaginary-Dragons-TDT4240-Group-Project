@@ -138,7 +138,7 @@ public class GameOverScreen extends ScreenAdapter {
 
                 try {
                     // Sleep to give firebase enough time to update
-                    Thread.sleep(700);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

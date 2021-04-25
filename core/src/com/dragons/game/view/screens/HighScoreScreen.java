@@ -120,13 +120,12 @@ public class HighScoreScreen extends ScreenAdapter {
         for (Map.Entry<String, Map<String, Integer>> scoresFromDB : FirebasePlayer.getScores().entrySet()) {
             Map<String, Integer> scores = scoresFromDB.getValue();
             for (Map.Entry<String, Integer> pair2 : scores.entrySet()) {
-                if (table.getRows() < 7) {
                     table.add(new Label((pair2.getKey()), skin)).uniform();
                     table.add(new Label(String.valueOf(pair2.getValue()), skin));
                     table.row().expandX().fillX();
                 }
             }
-        }
+        FirebasePlayer.scores.clear();
         tableContainer.setActor(table);
         stage.addActor(highscoreImg);
         stage.addActor(tableContainer);
