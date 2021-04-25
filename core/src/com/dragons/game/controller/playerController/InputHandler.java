@@ -11,22 +11,18 @@ import com.dragons.game.view.componentViews.ExitButtonView;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 public class InputHandler {
-    private PlayerController playerController1;
-    private PlayerController playerController2;
-    private ExitButton exitButton;
-    private ExitButtonView exitButtonView;
-
-    private InputMultiplexer multiplexer;
+    private final PlayerController playerController1;
+    private final PlayerController playerController2;
+    private final ExitButtonView exitButtonView;
 
     public InputHandler(OrthographicCamera camera, AnnotationAssetManager manager, GameWorld gameWorld) {
         playerController1 = new PlayerController(camera, manager, gameWorld, true);
         playerController2 = new PlayerController(camera, manager, gameWorld, false);
 
         exitButtonView = new ExitButtonView(manager);
-        // TODO: Find way to get bounds of button without passing exitButtonView
-        exitButton = new ExitButton(camera, exitButtonView.getBounds());
+        ExitButton exitButton = new ExitButton(camera, exitButtonView.getBounds());
 
-        multiplexer = new InputMultiplexer(
+        InputMultiplexer multiplexer = new InputMultiplexer(
                 playerController1.getJoystick(),
                 playerController2.getJoystick(),
                 playerController1.getDropBombButton(),

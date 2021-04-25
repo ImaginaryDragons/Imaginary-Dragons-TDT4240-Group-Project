@@ -17,10 +17,10 @@ public class PlayerController {
 
     public PlayerController(OrthographicCamera camera, AnnotationAssetManager manager, GameWorld gameWorld, boolean isPlayerOne) {
         joystick = new Joystick(camera, isPlayerOne);
-        joystickView = new JoystickView(joystick);  // TODO: Should probably decouple joystick from view, but unsure how
+        joystickView = new JoystickView(joystick);
 
         dropBombButtonView = new DropBombButtonView(manager, isPlayerOne);
-        dropBombButton = new DropBombButton(camera, dropBombButtonView.getBounds(), gameWorld);  // TODO: Find way to get bounds of button without passing dropBombButtonView
+        dropBombButton = new DropBombButton(camera, dropBombButtonView.getBounds(), gameWorld);
     }
 
     public void addPlayer(GameObject player) {

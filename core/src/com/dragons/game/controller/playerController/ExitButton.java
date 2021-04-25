@@ -36,8 +36,6 @@ public class ExitButton implements InputProcessor {
         Vector3 touch = new Vector3(screenX, screenY, 0);
         cam.unproject(touch);
         if (exitButtonBounds.contains(touch.x, touch.y)){
-            Gdx.app.log("Player controller", "EXIT game");
-
             ScreenManager.getInstance().setMenuScreen();
         }
         return false;

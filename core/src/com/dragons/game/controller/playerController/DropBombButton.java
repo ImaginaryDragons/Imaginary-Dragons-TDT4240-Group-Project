@@ -61,12 +61,11 @@ public class DropBombButton implements InputProcessor {
         Vector3 touch = new Vector3(screenX, screenY, 0);
         cam.unproject(touch);
 
-        if (dropBombBounds.contains(touch.x, touch.y) && player.getBombsAvailable() > 0) {  // Does bombsAvailable increase
+        if (dropBombBounds.contains(touch.x, touch.y) && player.getBombsAvailable() > 0) {
             IBomb bomb = player.getBomb();
             Vector2 newBombPos = new Vector2(player.getPosition());
             gameWorld.placeBomb(newBombPos, bomb.getType(), player.getExtraBombRange());
             player.useBomb();
-            //Gdx.app.log("Game button", "DROP BOMB");
         }
         return false;
     }
