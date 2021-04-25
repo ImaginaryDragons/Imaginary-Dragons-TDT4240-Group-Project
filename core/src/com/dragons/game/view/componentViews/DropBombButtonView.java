@@ -16,7 +16,7 @@ import static com.dragons.game.utilities.Constants.EDGE_MARGIN;
 public class DropBombButtonView implements IView {
     private final Texture dropBombTexture;
     private final Rectangle dropBombBounds;
-    int dropBombPosX, dropBombPosY, dropBombHeight, dropBombWidth;
+    private final int dropBombPosX, dropBombPosY, dropBombHeight, dropBombWidth;
 
     public DropBombButtonView(AnnotationAssetManager manager, boolean left) {
         dropBombTexture = manager.get(BOMB_BTN, Texture.class);

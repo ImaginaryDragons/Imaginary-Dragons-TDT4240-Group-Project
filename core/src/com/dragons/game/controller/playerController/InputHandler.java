@@ -10,17 +10,25 @@ import com.dragons.game.view.componentViews.ExitButtonView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
+/**
+ * Responsible for handling input from screen. Contains player controllers and the exit button
+ */
 public class InputHandler {
     private final PlayerController playerController1;
     private final PlayerController playerController2;
     private final ExitButtonView exitButtonView;
 
+    /**
+     * Instantiates player controllers and sets the multiplexer as InputProcessor
+     * @param camera to unproject input
+     * @param manager for getting textures to the render methods
+     * @param gameWorld for placing bombs
+     */
     public InputHandler(OrthographicCamera camera, AnnotationAssetManager manager, GameWorld gameWorld) {
         playerController1 = new PlayerController(camera, manager, gameWorld, true);
         playerController2 = new PlayerController(camera, manager, gameWorld, false);
 
         exitButtonView = new ExitButtonView(manager);
-        // TODO: Find way to get bounds of button without passing exitButtonView
         ExitButton exitButton = new ExitButton(camera, exitButtonView.getBounds());
 
         InputMultiplexer multiplexer = new InputMultiplexer(
