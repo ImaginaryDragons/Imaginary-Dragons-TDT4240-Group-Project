@@ -14,7 +14,7 @@ public abstract class Bomb extends Model implements IBomb {
     private boolean bombExploded = false;
     private final BombType type;
     private final IFire fire;
-    protected IHitByFireStrategy hitByFireStrategy;
+    protected IHitByFireStrategy hitByFireStrategy; // Strategy pattern
 
 
     public Bomb(Vector2 pos, float width, float height, int bombRange, final BombType type, boolean isStatic, boolean isSensor){
