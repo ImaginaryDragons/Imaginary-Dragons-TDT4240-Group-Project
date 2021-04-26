@@ -1,4 +1,4 @@
-package com.dragons.game.view.componentViews;
+package com.dragons.game.view.UIViews;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.IView;
-import com.dragons.game.view.modelViews.IModelView;
 
 public class TimerView implements IView {
     public Stage stage;

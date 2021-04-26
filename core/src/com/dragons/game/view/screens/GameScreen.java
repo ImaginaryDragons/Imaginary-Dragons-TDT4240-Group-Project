@@ -14,7 +14,7 @@ import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.model.maps.GameMap;
 import com.dragons.game.utilities.AssetLoader;
 import com.dragons.game.view.GameRenderer;
-import com.dragons.game.view.componentViews.TimerView;
+import com.dragons.game.view.UIViews.TimerView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 

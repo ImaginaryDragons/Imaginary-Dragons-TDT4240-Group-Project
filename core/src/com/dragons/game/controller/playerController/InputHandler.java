@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragons.game.controller.gameWorld.GameObject;
 import com.dragons.game.controller.gameWorld.GameWorld;
-import com.dragons.game.view.componentViews.ExitButtonView;
+import com.dragons.game.view.UIViews.ExitButtonView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
