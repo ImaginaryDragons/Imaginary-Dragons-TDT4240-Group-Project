@@ -22,7 +22,7 @@ From this point on you can run the application with the newly created run config
 ## How to play
 In the Menu screen, you can choose between two buttons, "Play" and "High Scores". Pressing "Play" will send you to a screen where you can choose between different levels. Pressing one of these will start the game.  
 
-### On Andoroid Device
+### On Android Device
 In both ends of the phone, there is a joystick and a button that says "bomb". The joysticks are used to steer the player, while the bomb button is used to release the fire bombs. The three hearts displays the number of lifes you have left. When a powerup appears, you will automatically get a boost in the given power when you move over the power up field.
 
 ### On computer/desktop
