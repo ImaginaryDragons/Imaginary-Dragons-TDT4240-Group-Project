@@ -82,10 +82,11 @@ public class HighScoreScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        super.dispose();
         stage.dispose();
+        skin.dispose();
 
     }
+
 
     private void initScreen() {
         Texture gameOverTex = assetManager.get("components/highscores.png", Texture.class);

@@ -26,11 +26,11 @@ import com.dragons.game.utilities.Constants;
 
 
 public class GameOverScreen extends ScreenAdapter {
-    private final ShapeRenderer shapeRenderer;
     private final AssetManager assets;
     private final OrthographicCamera camera;
     private final BitmapFont font;
 
+    private final ShapeRenderer shapeRenderer;
     private final Stage stage;
     private Skin skin;
 
@@ -97,10 +97,12 @@ public class GameOverScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        super.dispose();
         stage.dispose();
         shapeRenderer.dispose();
+        skin.dispose();
     }
+
+
 
     private void initScreen() {
         Texture gameOverText = assets.get("components/over.png", Texture.class);

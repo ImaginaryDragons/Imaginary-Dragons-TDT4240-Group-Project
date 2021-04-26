@@ -20,16 +20,12 @@ public class GameObject {
 
     private IModel model;
     private IModelView modelView;
-    private final Body body;
-    private final World world;
-    public boolean destroyObject;
+    private Body body;
 
     public GameObject(IModel model, World world, AnnotationAssetManager assetManager) {
         this.model = model;
-        this.world = world;
         this.modelView = ModelViewFactory.getInstance().createModelView(model, assetManager);
         this.body = BodyBuilder.getInstance().createBody(world, this);
-        this.destroyObject = false;
     }
 
 
@@ -52,15 +48,20 @@ public class GameObject {
     }
 
     public void dispose() {
-        world.destroyBody(body);
         this.model = null;
         this.modelView = null;
+        this.body = null;
+
     }
+
 
     public void setLinearVelocity(float x, float y){
         body.setLinearVelocity(x, y);
     }
 
+    public Body getBody() {
+        return body;
+    }
 
     public IModel getModel() {
         return model;
