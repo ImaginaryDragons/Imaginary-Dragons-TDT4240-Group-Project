@@ -30,7 +30,7 @@ public class TimerView implements IView {
     //private Label timeLabel;
 
     public TimerView(AssetManager assets, OrthographicCamera camera, BitmapFont font) {
-        worldTimer = 600;
+        worldTimer = 180;
         timeCount = 0;
         scoreCount = 1;
 

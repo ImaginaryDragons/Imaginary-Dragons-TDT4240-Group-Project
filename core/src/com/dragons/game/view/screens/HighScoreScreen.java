@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
@@ -21,11 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.networking.FirebasePlayer;
 import com.dragons.game.utilities.Constants;
-import com.dragons.game.view.componentViews.TimerView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -115,8 +110,6 @@ public class HighScoreScreen extends ScreenAdapter {
         table.add(score).expandX().fillX();
         table.row().expandX().fillX();
 
-        //denne kjøres bare en gang og nye ting vil ikke oppdatere seg inn i listen når vi går tilbake til den
-        //første gang man går inn er den alltid tom
         for (Map.Entry<String, Map<String, Integer>> scoresFromDB : FirebasePlayer.getScores().entrySet()) {
             Map<String, Integer> scores = scoresFromDB.getValue();
             for (Map.Entry<String, Integer> pair2 : scores.entrySet()) {
