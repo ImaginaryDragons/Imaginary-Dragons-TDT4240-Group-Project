@@ -27,7 +27,6 @@ public class Joystick implements InputProcessor {
     private GameObject gameObject;
     private IPlayer player;
     private final boolean isPlayerOne;
-    private boolean isTouching;
     private int lastTouch;
 
     OrthographicCamera cam;
@@ -112,15 +111,10 @@ public class Joystick implements InputProcessor {
         Vector3 touch = new Vector3(screenX, screenY, 0);
         cam.unproject(touch);
 
-//        if ((isPlayerOne && touch.x > VIEWPORT_WIDTH /2) || (!isPlayerOne && touch.x < VIEWPORT_WIDTH /2)) {
-//            return false;
-//        }
-
         if (perimeter.contains(new Vector2(touch.x, touch.y))) {
             joystick.x = touch.x;
             joystick.y = touch.y;
             lastTouch = pointer;
-            isTouching = true;
 
             float relativeX = touch.x - joystickOrigin.x;
             float relativeY = touch.y - joystickOrigin.y;
@@ -144,7 +138,6 @@ public class Joystick implements InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        isTouching = false;
         if (lastTouch == pointer) {
             joystick.x = joystickOrigin.x;
             joystick.y = joystickOrigin.y;
@@ -155,7 +148,7 @@ public class Joystick implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        if (isTouching && lastTouch == pointer) {
+        if (lastTouch == pointer) {
             Vector3 touch = new Vector3(screenX, screenY, 0);
             cam.unproject(touch);
 
