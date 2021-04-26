@@ -37,7 +37,7 @@ public class GameScreen extends ScreenAdapter {
 
 
     public GameScreen(AssetManager assets, BitmapFont font, String mapName, String mapTxtFile) {
-        Gdx.app.log("GameScreen", "Attached");
+        //Gdx.app.log("GameScreen", "Attached");
 
         OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         GameMap gameMap = new GameMap(mapName);
@@ -74,6 +74,7 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
         //Render map
         tiledMapRenderer.render();
 
@@ -106,5 +107,13 @@ public class GameScreen extends ScreenAdapter {
         manager.finishLoading();
         Gdx.app.log("Asset loader", "Loading assets finished");
     }
+
+    @Override
+    public void dispose(){
+        batch.dispose();
+        gameWorld.dispose();
+    }
+
+
 
 }

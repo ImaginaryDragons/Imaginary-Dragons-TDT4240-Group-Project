@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.dragons.game.utilities.Constants;
 import com.dragons.game.view.IView;
 import com.dragons.game.view.modelViews.IModelView;
 
@@ -19,7 +20,7 @@ public class TimerView implements IView {
 
     private Skin skin;
 
-    //Mario score/time Tracking Variables
+    // score/time Tracking Variables
     private Integer worldTimer;
     private boolean timeUp; // true when the world timer reaches 0
     private float timeCount;
@@ -30,7 +31,7 @@ public class TimerView implements IView {
     //private Label timeLabel;
 
     public TimerView(AssetManager assets, OrthographicCamera camera, BitmapFont font) {
-        worldTimer = 600;
+        worldTimer = Constants.TIMER;
         timeCount = 0;
         scoreCount = 1;
 

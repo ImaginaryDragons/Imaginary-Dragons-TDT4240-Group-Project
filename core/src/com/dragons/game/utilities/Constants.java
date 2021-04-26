@@ -5,6 +5,8 @@ public class Constants {
     public static final int WorldWidth = 800;
     public static final int WorldHeight = 480;
 
+    public static final int TIMER = 300;
+
     /*      MAPS        */
     // LEVEL 1
     public static final String level1MapName = "TileMapLvl1.tmx";
@@ -18,12 +20,15 @@ public class Constants {
     public static final String level3MapName = "TileMapLvl3.tmx";
     public static final String level3MapTxtFile = "mapLvl3.txt";
 
+
+
+
     public static final float PPM = 7f;
     public static final int FPS = 60;
     public static final float VIEWPORT_WIDTH = 480f;
     public static final float VIEWPORT_HEIGHT = 350f;
 
-    public static final float FRAME_DURATION = 7f;
+    public static final float FRAME_DURATION = 4f;
 
     public static final float PlayerScaleFactor = 0.99f;
     public static final float FireScaleFactor = 0.99f;
