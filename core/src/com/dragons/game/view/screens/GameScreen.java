@@ -88,10 +88,6 @@ public class GameScreen extends ScreenAdapter {
         timerView.update(delta);
 
         //Gdx.app.log("GameScreen FPS", (1/delta) + "");
-        int fps = Gdx.graphics.getFramesPerSecond();
-        if (fps < 50 || fps > 70) {
-            System.out.println(true);
-        }
 
         timerView.stage.draw();
 
