@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dragons.game.utilities.Constants;
 
 public class LevelScreen extends ScreenAdapter {
-    private Stage stage;
+    private final Stage stage;
     private Skin skin;
     private TextButton lvl1, lvl2, lvl3, backBtn;
     private Image logo;
@@ -75,8 +75,11 @@ public class LevelScreen extends ScreenAdapter {
     public void dispose() {
         super.dispose();
         stage.dispose();
+        skin.dispose();
+
 
     }
+
 
 
     private void initMenu(){

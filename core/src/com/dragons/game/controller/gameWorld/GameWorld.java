@@ -187,6 +187,7 @@ public class GameWorld {
         while(iterator.hasNext()) {
             dynamicObj = iterator.next();
             if (dynamicObj.isDisposable()){
+                world.destroyBody(dynamicObj.getBody());
                 dynamicObj.dispose();
                 iterator.remove();
             }
@@ -200,6 +201,7 @@ public class GameWorld {
         while(iterator.hasNext()){
             staticObj = iterator.next();
             if (staticObj.isDisposable()){
+                world.destroyBody(staticObj.getBody());
                 staticObj.dispose();
                 iterator.remove();
             }
@@ -230,6 +232,11 @@ public class GameWorld {
         // Therefore we store new controllers in IView temporary list and add them afterwards
         actionControllers.addAll(tempControllerContainer);
         tempControllerContainer.clear();
+    }
+
+    public void dispose(){
+        world.dispose();
+        b2dr.dispose();
     }
 
     public List<GameObject> getStaticGameObjects() {

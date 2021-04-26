@@ -30,4 +30,6 @@ public class BombCapacityView extends ModelView {
         final Texture current_frame = animation.getKeyFrame(state_time, true);
         batch.draw(current_frame, x - width / 2f, y - width / 2f, width, height);
     }
+
+
 }

@@ -2,7 +2,6 @@ package com.dragons.game.view.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,13 +15,11 @@ import com.dragons.game.utilities.Constants;
 public class ScreenManager {
 
     private Game game;
-    private Screen menuScreen;
-    private Screen levelScreen;
     private final AssetManager assetManager = new AssetManager();
     private final OrthographicCamera camera = new OrthographicCamera();
     private final BitmapFont font;
     private FireBaseInterface _FBIC;
-    private FirebasePlayer firebasePlayer = new FirebasePlayer();
+    private final FirebasePlayer firebasePlayer = new FirebasePlayer();
 
     private static final ScreenManager INSTANCE = new ScreenManager();
     public static ScreenManager getInstance(){
@@ -39,8 +36,6 @@ public class ScreenManager {
         this.game = game;
         this._FBIC = _FBIC;
         //_FBIC.SetOnValueChangedListener(firebasePlayer);
-        menuScreen = new MenuScreen(assetManager, camera, font);
-        levelScreen = new LevelScreen(assetManager, camera, font);
 
     }
 
@@ -50,11 +45,11 @@ public class ScreenManager {
 
     public void setMenuScreen() {
         //_FBIC.SetOnValueChangedListener(firebasePlayer);
-        game.setScreen(menuScreen);
+        game.setScreen(new MenuScreen(assetManager, camera, font));
     }
 
     public void setLevelScreen(){
-        game.setScreen(levelScreen);
+        game.setScreen(new LevelScreen(assetManager, camera, font));
     }
 
     public void setGameScreen(String mapName, String mapTxtFile)  {

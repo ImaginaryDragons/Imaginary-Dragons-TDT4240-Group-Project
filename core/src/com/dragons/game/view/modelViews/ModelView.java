@@ -3,7 +3,6 @@ package com.dragons.game.view.modelViews;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragons.game.model.IModel;
 import com.dragons.game.utilities.Constants;
-import com.dragons.game.view.IView;
 
 
 public abstract class ModelView implements IModelView{
