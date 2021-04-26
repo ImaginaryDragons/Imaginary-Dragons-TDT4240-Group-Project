@@ -65,6 +65,7 @@ public final class BodyBuilder {
         // Sets the gameobject which contains this body as userdata for the contactlistener
         body.createFixture(fixtureDef).setUserData(gameObject);
         shape.dispose();
+
         return body;
     }
     // The shape to each concrete class is not stored their class to decouple Box2dD from the concrete classes

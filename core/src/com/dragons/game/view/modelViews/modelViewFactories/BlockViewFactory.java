@@ -26,7 +26,7 @@ public final class BlockViewFactory implements IModelViewFactory {
     @Override
     public IModelView createModelView(IModel model, AnnotationAssetManager assetManager){
         // Add different views if needed here
-        if      (model instanceof WallBlock) return null; // Wallblock doesnt have IView view!
+        if      (model instanceof WallBlock) return null; // Wallblock doesnt have a view!
         else if (model instanceof IBlock)    return new DestructibleBlockView(model, assetManager);
 
         else throw new IllegalArgumentException("The view for this Model has not been put in its factory");
