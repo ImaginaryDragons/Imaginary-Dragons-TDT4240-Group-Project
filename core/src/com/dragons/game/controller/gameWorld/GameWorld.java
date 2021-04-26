@@ -20,7 +20,7 @@ import com.dragons.game.model.modelFactories.PlayerFactory;
 import com.dragons.game.controller.playerController.InputHandler;
 import com.dragons.game.model.players.playerEnums.PlayerType;
 import com.dragons.game.utilities.Constants;
-import com.dragons.game.view.componentViews.LifeDisplayView;
+import com.dragons.game.view.UIViews.LifeDisplayView;
 
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;

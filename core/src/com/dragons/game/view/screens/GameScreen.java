@@ -14,7 +14,7 @@ import com.dragons.game.controller.gameWorld.GameWorld;
 import com.dragons.game.model.maps.GameMap;
 import com.dragons.game.utilities.AssetLoader;
 import com.dragons.game.view.GameRenderer;
-import com.dragons.game.view.componentViews.TimerView;
+import com.dragons.game.view.UIViews.TimerView;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -88,10 +88,6 @@ public class GameScreen extends ScreenAdapter {
         timerView.update(delta);
 
         //Gdx.app.log("GameScreen FPS", (1/delta) + "");
-        int fps = Gdx.graphics.getFramesPerSecond();
-        if (fps < 50 || fps > 70) {
-            System.out.println(true);
-        }
 
         timerView.stage.draw();
 

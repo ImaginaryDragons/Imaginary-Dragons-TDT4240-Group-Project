@@ -3,7 +3,7 @@ package com.dragons.game.view;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragons.game.controller.gameWorld.GameObject;
 import com.dragons.game.controller.gameWorld.GameWorld;
-import com.dragons.game.view.componentViews.LifeDisplayView;
+import com.dragons.game.view.UIViews.LifeDisplayView;
 
 import java.util.List;
 

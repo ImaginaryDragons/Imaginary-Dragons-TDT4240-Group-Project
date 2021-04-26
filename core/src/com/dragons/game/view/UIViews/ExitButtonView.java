@@ -1,4 +1,4 @@
-package com.dragons.game.view.componentViews;
+package com.dragons.game.view.UIViews;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
