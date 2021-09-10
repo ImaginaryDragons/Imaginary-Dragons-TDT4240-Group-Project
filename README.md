@@ -1,5 +1,5 @@
 # ImaginaryDragonsGame
-This game was made as a part of the course "TDT4240 - Softwar archtiecture" at the Norwegian University of Science and Technology. In this project, the main task is to make a functioning multiplayer game or fun app for Android or iPhone, based on your own game concept.
+This game was made as a part of the course "TDT4240 - Softwar architecture" at the Norwegian University of Science and Technology. In this project, the main task is to make a functioning multiplayer game or fun app for Android or iPhone, based on your own game concept.
 
 
 ## About the game
